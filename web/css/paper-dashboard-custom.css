@@ -1,0 +1,62 @@
+div.sidebar-wrapper div.logo a.simple-text img{
+    height: 1.5em;
+    margin-right: 10px;
+}
+body.login {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+body.login .form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+body.login .form-signin .form-signin-heading,
+body.login .form-signin .checkbox {
+  margin-bottom: 10px;
+}
+body.login .form-signin .checkbox {
+  font-weight: normal;
+}
+body.login .form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+
+  text-align: center;
+}
+body.login .form-signin .form-control:focus {
+  z-index: 2;
+}
+body.login .form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+body.login .form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+body.login form.form-signin h2.form-signin-heading
+{text-align: center;}
+#gallery .col-md-4, #gallery .col-md-8{
+transition: all ease 1s;
+}
+#gallery .card img {
+    max-height: 12em;
+    margin: 0 auto;
+}
+#gallery .active{
+    width: 66.66666667% !important;
+}
+#gallery .active .card img {
+    max-height: 12em;
+    margin: 0 0 0 10px;
+}

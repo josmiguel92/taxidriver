@@ -1,0 +1,155 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6 col-sm-12">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="icon-big icon-warning text-center">
+                                <i class="ti-server"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="numbers">
+                                <p>Galeria</p>
+                                105GB
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <hr />
+                        <div class="stats">
+                            <i class="ti-reload"></i> Actualizado ahora
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="icon-big icon-danger text-center">
+                                <i class="ti-image"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="numbers">
+                                <p>Im&aacute;genes</p>
+                                23
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <hr />
+                        <div class="stats">
+                            <i class="ti-upload"></i> <a href="#"> Subir una nueva im&aacute;gen</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="icon-big icon-info text-center">
+                                <i class="ti-video-clapper"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="numbers">
+                                <p>Videos</p>
+                                +45
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <hr />
+                        <div class="stats">
+                            <i class="ti-plus"></i> <a href="#">Agregar enlace de Video</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Im&aacute;genes recientes</h4>
+                    <p class="category">24 Hours performance</p>
+                </div>
+                <div class="content" id="gallery">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img src="{{ asset('uploads/0.jpg') }}" class="img-responsive">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img src="{{ asset('uploads/7.jpg') }}" class="img-responsive">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img src="{{ asset('uploads/2.jpg') }}" class="img-responsive">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img src="{{ asset('uploads/3.jpg') }}" class="img-responsive">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img src="{{ asset('uploads/4.jpg') }}" class="img-responsive">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img src="{{ asset('uploads/8.jpg') }}" class="img-responsive">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <img src="{{ asset('uploads/9.jpg') }}" class="img-responsive">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <div class="chart-legend">
+                            <i class="ti-info-alt"></i> Open
+                            <i class="ti-info-alt text-danger"></i> Click
+                            <i class="ti-info-alt text-warning"></i> Click Second Time
+                        </div>
+                        <hr>
+                        <div class="stats">
+                            <i class="ti-reload"></i> Updated 3 minutes ago
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block javascripts %}
+        {{ parent() }}
+    <script>
+        $('document').ready(function(){
+           $('#gallery .col-md-4').click(function(e){
+               e.preventDefault();
+               if ($('#gallery .active').length > 0)
+                    $('#gallery .active')[0].classList.remove('active');
+               this.classList.add('active');
+           });
+        });
+    </script>
+        {% endblock %}
+{% endblock %}

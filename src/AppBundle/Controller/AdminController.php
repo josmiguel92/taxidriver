@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse as RedirectResponse;
 
+
 /**
  * Cartel controller.
  *
@@ -18,7 +19,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse as RedirectResponse;
  */
 class AdminController extends Controller
 {
-    
+
     /**
      * @Route("/{_locale}", defaults={"_locale": "es"}, requirements={
      * "_locale": "en|es|fr"
@@ -26,7 +27,15 @@ class AdminController extends Controller
      */
     public function indexAction(Request $request, $_locale)
     {
-        return $this->render('AppBundle:Dash:default.html.twig', []);
+        return $this->render('AppBundle:Dash:default.html.twig', ['pagename'=>'dash']);
     }
-    
+
+    /**
+     * @Route("/galery", name="dash_gallery")
+     */
+    public function galeryAction(Request $request)
+    {
+        return $this->render('AppBundle:Dash:gallery.html.twig', ['pagename'=>'gallery']);
+    }
+
 }
