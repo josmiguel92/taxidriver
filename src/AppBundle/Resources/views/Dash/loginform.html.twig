@@ -24,7 +24,7 @@
         <h2 class="form-signin-heading">Iniciar secci&oacute;n</h2>
         <input type="text" class="form-control" placeholder="Username" autofocus value="{{ last_username }}" name="_username">
         <input type="password" class="form-control" placeholder="Password" name="_password">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         <button class="btn btn-lg btn-primary btn-block" type="submit">Acceder</button>
     </form>
 
