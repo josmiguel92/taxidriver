@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse as RedirectResponse;
+use Symfony\Component\Validator\Tests\Fixtures\Entity;
 
 
 /**
@@ -32,10 +33,26 @@ class AdminController extends Controller
 
     /**
      * @Route("/galery", name="dash_gallery")
+     * @Method({"GET", "POST"})
      */
     public function galeryAction(Request $request)
     {
-        return $this->render('AppBundle:Dash:gallery.html.twig', ['pagename'=>'gallery']);
+        $image = new \AppBundle\Entity\Image();
+        $form = $this->createForm('AppBundle\Form\ImageType', $image);
+        $form->handleRequest($request);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($image);
+            $em->flush();
+
+            return $this->render('AppBundle:Dash:gallery.html.twig', ['pagename' => 'gallery', 'image_form' => $form->createView()]);
+
+        }
+
+        return $this->render('AppBundle:Dash:gallery.html.twig', ['pagename' => 'gallery', 'image_form' => $form->createView()]);
+
     }
 
 }

@@ -28,6 +28,9 @@ security:
                 default_target_path: /dash
                 failure_path: homepage
               #  csrf_provider: security.csrf.token_manager
+            logout:
+                path: logout
+                target: /
             provider: db_provider
             # activate different ways to authenticate
 

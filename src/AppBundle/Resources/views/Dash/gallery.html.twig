@@ -1,6 +1,33 @@
 {% extends 'AppBundle:Dash:base.html.twig' %}
 {% block content %}
-    <div class="row">
+    <!-- Modal UploadImage -->
+    <div class="modal fade" id="newImgModal" tabindex="-1" role="dialog" aria-labelledby="newImgModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="newImgModalLabel">Subir imagen a la Galer&iacute;a</h4>
+                </div>
+                {{ form_start(image_form) }}
+                <div class="modal-body">
+
+                    {{ form_widget(image_form) }}
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" value="Añadir" class="btn btn-primary"/>
+                </div>
+                {{ form_end(image_form) }}
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+
+    <div class="row  animated bounceInUp">
         <div class="col-lg-6 col-sm-12">
             <div class="card">
                 <div class="content">
@@ -45,7 +72,7 @@
                     <div class="footer">
                         <hr />
                         <div class="stats">
-                            <i class="ti-upload"></i> <a href="#"> Subir una nueva im&aacute;gen</a>
+                            <i class="ti-upload"></i> <a href="#" data-toggle="modal" data-target="#newImgModal" data-backdrop="false"> Subir una nueva im&aacute;gen</a>
                         </div>
                     </div>
                 </div>
@@ -79,7 +106,7 @@
     </div>
     <div class="row">
 
-        <div class="col-md-12">
+        <div class="col-md-12  animated bounceInUp">
             <div class="card">
                 <div class="header">
                     <h4 class="title">Im&aacute;genes recientes</h4>
@@ -87,41 +114,27 @@
                 </div>
                 <div class="content" id="gallery">
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="card">
-                                <img src="{{ asset('uploads/0.jpg') }}" class="img-responsive">
-                            </div>
+                        <div class="col-md-8 ">
+                            <img src="{{ asset('uploads/0.jpg') }}" class="img-responsive img-rounded">
                         </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <img src="{{ asset('uploads/7.jpg') }}" class="img-responsive">
-                            </div>
+
+                        <div class="col-md-4" id="gallery-details">
+                            <h5>Detalles de la imagen</h5>
+                            {{ form_start(image_form) }}
+                            {{ form_widget(image_form) }}
+                            {{ form_end(image_form) }}
+                            <p>Hola mundo</p>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <img src="{{ asset('uploads/2.jpg') }}" class="img-responsive">
+
+                    </div>
+                    <div class="row">
+                        {% for i in range(0,12) %}
+                            <div class="col-md-2 col-xs-6">
+                                <div class="card">
+                                    <img src="{{ asset('uploads/'~loop.index~'.jpg') }}" class="img-responsive">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <img src="{{ asset('uploads/3.jpg') }}" class="img-responsive">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <img src="{{ asset('uploads/4.jpg') }}" class="img-responsive">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <img src="{{ asset('uploads/8.jpg') }}" class="img-responsive">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <img src="{{ asset('uploads/9.jpg') }}" class="img-responsive">
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                     <div class="footer">
                         <div class="chart-legend">
@@ -139,17 +152,20 @@
         </div>
     </div>
 
-    {% block javascripts %}
-        {{ parent() }}
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
     <script>
-        $('document').ready(function(){
-           $('#gallery .col-md-4').click(function(e){
-               e.preventDefault();
-               if ($('#gallery .active').length > 0)
-                    $('#gallery .active')[0].classList.remove('active');
-               this.classList.add('active');
-           });
-        });
+        /*     $('document').ready(function(){
+         $('#gallery .col-md-4').click(function(e){
+         e.preventDefault();
+         if ($('#gallery .active').length > 0)
+         $('#gallery .active')[0].classList.remove('active');
+         this.classList.add('active');
+         });
+         });
+
+         */
     </script>
-        {% endblock %}
 {% endblock %}

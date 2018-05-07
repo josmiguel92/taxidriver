@@ -31,6 +31,7 @@
     <!--  Fonts and icons     -->
     <link href="{{ asset("/css/muli-font.css") }}" rel='stylesheet' type='text/css'>
     <link href="{{ asset("/css/themify-icons.css") }}" rel="stylesheet">
+    <link href="{{ asset("/css/font-awesome.css") }}" rel="stylesheet">
     {% endblock stylesheets %}
 </head>
 <body>
@@ -58,40 +59,47 @@
                         <p>Resumen</p>
                     </a>
                 </li>
-                <li>
-                    <a href="user.html">
-                        <i class="ti-user"></i>
-                        <p>User Profile</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="table.html">
-                        <i class="ti-view-list-alt"></i>
-                        <p>Table List</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="typography.html">
-                        <i class="ti-text"></i>
-                        <p>Typography</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="icons.html">
-                        <i class="ti-pencil-alt2"></i>
-                        <p>Rese&ntilde;as</p>
-                    </a>
-                </li>
+
                 <li {% if pagename == 'routes' %} class="active" {% endif %}>
                     <a href="#l">
                         <i class="ti-map"></i>
                         <p>Rutas</p>
                     </a>
                 </li>
+                <li {% if pagename == 'tours' %} class="active" {% endif %}>
+                    <a href="#l">
+                        <i class="ti-map-alt"></i>
+                        <p>Tours</p>
+                    </a>
+                </li>
+                <li {% if pagename == 'transfer' %} class="active" {% endif %}>
+                    <a href="#l">
+                        <i class="ti-car"></i>
+                        <p>Transfers</p>
+                    </a>
+                </li>
+                <li {% if pagename == 'book' %} class="active" {% endif %}>
+                    <a href="#l">
+                        <i class="ti-calendar"></i>
+                        <p>Reservaciones</p>
+                    </a>
+                </li>
                 <li {% if pagename == 'gallery' %} class="active" {% endif %}>
                     <a href="{{ path('dash_gallery') }}">
                         <i class="ti-gallery"></i>
                         <p>Galer&iacute;a</p>
+                    </a>
+                </li>
+                <li {% if pagename == 'paygateway' %} class="active" {% endif %}>
+                    <a href="{{ path('dash_gallery') }}">
+                        <i class="ti-credit-card"></i>
+                        <p>Pasarela de Pagos</p>
+                    </a>
+                </li>
+                <li {% if pagename == 'config' %} class="active" {% endif %}>
+                    <a href="#l">
+                        <i class="ti-settings"></i>
+                        <p>Configuraci&oacute;n</p>
                     </a>
                 </li>
 				<li class="active-pro">
@@ -109,7 +117,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle">
-                        <span class="sr-only">Toggle navigation</span>
+                        <span class="sr-only">Mostrar navegaci&oacute;n</span>
                         <span class="icon-bar bar1"></span>
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
@@ -118,16 +126,10 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="ti-panel"></i>
-								<p>Estad&iacute;sticas</p>
-                            </a>
-                        </li>
                         <li class="dropdown">
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="ti-bell"></i>
-                                    <p class="notification">5</p>
+                                    <p class="notification">4</p>
 									<p>Notificaciones</p>
 									<b class="caret"></b>
                               </a>
@@ -135,14 +137,13 @@
                                 <li><a href="#">Notification 1</a></li>
                                 <li><a href="#">Notification 2</a></li>
                                 <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
                                 <li><a href="#">Another notification</a></li>
                               </ul>
                         </li>
-						<li>
-                            <a href="#">
-								<i class="ti-settings"></i>
-								<p>Configuraci&oacute;n</p>
+                        <li>
+                            <a href="{{ path("logout") }}">
+                                <i class="ti-power-off"></i>
+                                <p>Salir</p>
                             </a>
                         </li>
                     </ul>
@@ -155,7 +156,7 @@
         <div class="content">
             <div class="container-fluid">
                 {% block content %}
-hola
+
                 {% endblock content %}
             </div>
         </div>
