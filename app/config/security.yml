@@ -31,6 +31,8 @@ security:
             logout:
                 path: logout
                 target: /
+            logout_on_user_change: true
+
             provider: db_provider
             # activate different ways to authenticate
 
