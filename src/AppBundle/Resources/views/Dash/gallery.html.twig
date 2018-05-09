@@ -9,10 +9,10 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="newImgModalLabel">Subir imagen a la Galer&iacute;a</h4>
                 </div>
-                {{ form_start(image_form) }}
+                {{ form_start(new_image_form) }}
                 <div class="modal-body">
 
-                    {{ form_widget(image_form) }}
+                    {{ form_widget(new_image_form) }}
 
 
 
@@ -21,39 +21,15 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <input type="submit" value="Añadir" class="btn btn-primary"/>
                 </div>
-                {{ form_end(image_form) }}
+                {{ form_end(new_image_form) }}
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
 
     <div class="row  animated bounceInUp">
-        <div class="col-lg-6 col-sm-12">
-            <div class="card">
-                <div class="content">
-                    <div class="row">
-                        <div class="col-xs-5">
-                            <div class="icon-big icon-warning text-center">
-                                <i class="ti-server"></i>
-                            </div>
-                        </div>
-                        <div class="col-xs-7">
-                            <div class="numbers">
-                                <p>Galeria</p>
-                                105GB
-                            </div>
-                        </div>
-                    </div>
-                    <div class="footer">
-                        <hr />
-                        <div class="stats">
-                            <i class="ti-reload"></i> Actualizado ahora
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
+
+        <div class="col-lg-6 col-sm-6">
             <div class="card">
                 <div class="content">
                     <div class="row">
@@ -65,7 +41,7 @@
                         <div class="col-xs-7">
                             <div class="numbers">
                                 <p>Im&aacute;genes</p>
-                                23
+                                {{ image_list|length }}
                             </div>
                         </div>
                     </div>
@@ -78,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-sm-6">
+        <div class="col-lg-6 col-sm-6 disabled">
             <div class="card">
                 <div class="content">
                     <div class="row">
@@ -110,41 +86,40 @@
             <div class="card">
                 <div class="header">
                     <h4 class="title">Im&aacute;genes recientes</h4>
-                    <p class="category">24 Hours performance</p>
                 </div>
                 <div class="content" id="gallery">
-                    <div class="row">
-                        <div class="col-md-8 ">
-                            <img src="{{ asset('uploads/0.jpg') }}" class="img-responsive img-rounded">
+                    <div class="row view">
+                        <div class="col-md-8">
+                            <img src="{{ asset('img/faces/face-0.jpg') }}" class="img-responsive img-rounded" id="img-preview">
                         </div>
 
                         <div class="col-md-4" id="gallery-details">
-                            <h5>Detalles de la imagen</h5>
-                            {{ form_start(image_form) }}
-                            {{ form_widget(image_form) }}
-                            {{ form_end(image_form) }}
-                            <p>Hola mundo</p>
+                            <div class="well">Haga click en una imagen para ver sus detalles, editarla o eliminarla.</div>
                         </div>
 
                     </div>
                     <div class="row">
-                        {% for i in range(0,12) %}
+                        {% for image in image_list %}
                             <div class="col-md-2 col-xs-6">
                                 <div class="card">
-                                    <img src="{{ asset('uploads/'~loop.index~'.jpg') }}" class="img-responsive">
+                                    <img src="{{ asset(image.WebPath) }}" data-dbid="{{ image.id }}" class="img-responsive">
+                                    <div class="footer">
+                                        <hr>
+                                        <div class="stats">
+                                            <i class="ti-info-alt"></i> <a href="#">{{ image.title }}</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        {% else %}
+                            <div class="well">A&uacute;n no hay imagenes para mostrar aqu&iacute;</div>
                         {% endfor %}
                     </div>
                     <div class="footer">
-                        <div class="chart-legend">
-                            <i class="ti-info-alt"></i> Open
-                            <i class="ti-info-alt text-danger"></i> Click
-                            <i class="ti-info-alt text-warning"></i> Click Second Time
-                        </div>
+
                         <hr>
                         <div class="stats">
-                            <i class="ti-reload"></i> Updated 3 minutes ago
+                            <i class="ti-reload"></i> Actualizado hace {{ random(3) }} minutos
                         </div>
                     </div>
                 </div>
@@ -157,15 +132,26 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        /*     $('document').ready(function(){
-         $('#gallery .col-md-4').click(function(e){
-         e.preventDefault();
-         if ($('#gallery .active').length > 0)
-         $('#gallery .active')[0].classList.remove('active');
-         this.classList.add('active');
-         });
+         $('document').ready(function(){
+                 $('div#gallery div.row div.card').click(function(e){
+                     e.preventDefault();
+                     if ($('#gallery .active').length > 0)
+                        $('#gallery .active')[0].classList.remove('active');
+                     this.classList.add('active');
+                     img_path = $('div#gallery .active img')[0].src;
+                     img_id = $('div#gallery .active img')[0].dataset['dbid']
+                     edit_path = "{{ path('dash_gallery_image_edit', {'id':'dbidplaceholder'}) }}"
+
+                     current_edit_path = edit_path.replace('dbidplaceholder',img_id)
+
+                     $('#img-preview')[0].src = img_path;
+
+                     $('#gallery-details').load(current_edit_path)
+
+                 });
+
          });
 
-         */
+
     </script>
 {% endblock %}

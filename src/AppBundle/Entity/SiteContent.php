@@ -7,10 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Config
  *
- * @ORM\Table(name="config")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ConfigRepository")
+ * @ORM\Table(name="sitecontent")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SiteContentRepository")
  */
-class Config
+class SiteContent
 {
     /**
      * @var int
@@ -71,8 +71,7 @@ class Config
     private $aboutinfographtext;
 
     /**
-     * //TODO: OneToMany -> InfographItem
-     *
+     * ids eparados por comas
      * @ORM\Column(name="aboutinfographitems", type="string", length=255)
      */
     private $aboutinfographitems;
@@ -134,8 +133,7 @@ class Config
     private $servicesmakeroutetext;
 
     /**
-     * TODO: OneToMany -> InfographItem
-     *
+     * ids separados por comas
      * @ORM\Column(name="servicesotherinfographitems", type="string", length=255)
      */
     private $servicesotherinfographitems;

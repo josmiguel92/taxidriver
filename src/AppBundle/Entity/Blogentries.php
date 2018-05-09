@@ -28,11 +28,9 @@ class Blogentries
      */
     private $title;
 
-    //TODO: OneToOne -> Image
     /**
-     * @var string
-     *
-     * @ORM\Column(name="picture", type="string", length=255)
+     * @ORM\OneToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     private $picture;
 

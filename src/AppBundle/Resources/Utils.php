@@ -1,5 +1,5 @@
 <?php
-namespace AppBundle\Resources
+namespace AppBundle\Resources;
 
 /**
 * 
@@ -7,8 +7,11 @@ namespace AppBundle\Resources
 class Utils
 {
     
-    function __construct(argument)
+    function __construct()
     {
         # code...
+
     }
+
+
 }
