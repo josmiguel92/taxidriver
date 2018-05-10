@@ -68,3 +68,6 @@ div#gallery div.row div.active .card{
 #gallery-details #deletebtn{
     right: 2em;
 }
+.form-control{
+    border: 1px solid #CCC5B9;
+}

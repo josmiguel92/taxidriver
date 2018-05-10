@@ -1,0 +1,181 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+{% block pagetitle %}Contenido de la P&aacute;gina de Inicio{% endblock pagetitle %}
+{% block content %}
+
+{{ form_start(content_form) }}
+
+<div class="row">
+    <div class="col-lg-4 col-md-5">
+        <div class="card card-user">
+            <div class="image">
+                <img src="{{ asset('img/background.jpg') }}" alt="..."/>
+            </div>
+            <div class="content">
+                <div class="author">
+                    <img class="avatar border-white" src="{{ asset('img/faces/face-1.jpg') }}" alt="..."/>
+                    <h4 class="title">Chet Faker<br />
+                        <a href="#"><small>{{ content_form.vars.value.contactemail }}</small></a>
+                    </h4>
+                </div>
+                <p class="description text-center">
+                    "I like the way you work it <br>
+                    No diggity <br>
+                    I wanna bag it up"
+                </p>
+            </div>
+            <hr>
+            <div class="text-center">
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-1">
+                        <h5>12<br /><small>Files</small></h5>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>2GB<br /><small>Used</small></h5>
+                    </div>
+                    <div class="col-md-3">
+                        <h5>24,6$<br /><small>Spent</small></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Team Members</h4>
+            </div>
+            <div class="content">
+                <ul class="list-unstyled team-members">
+                    <li>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="avatar">
+                                    <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                DJ Khaled
+                                <br />
+                                <span class="text-muted"><small>Offline</small></span>
+                            </div>
+
+                            <div class="col-xs-3 text-right">
+                                <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="avatar">
+                                    <img src="assets/img/faces/face-1.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                Creative Tim
+                                <br />
+                                <span class="text-success"><small>Available</small></span>
+                            </div>
+
+                            <div class="col-xs-3 text-right">
+                                <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="avatar">
+                                    <img src="assets/img/faces/face-3.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                Flume
+                                <br />
+                                <span class="text-danger"><small>Busy</small></span>
+                            </div>
+
+                            <div class="col-xs-3 text-right">
+                                <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 col-md-7">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Sobre Nosotros</h4>
+            </div>
+            <div class="content">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            {{ form_row(content_form.abouttitle) }}
+
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(content_form.abouttext) }}
+
+
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(content_form.abouttextfooter) }}
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-info btn-fill btn-wd">Guardar cambios</button>
+                    </div>
+                    <div class="clearfix"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8  animated bounceInUp">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Im&aacute;genes recientes</h4>
+                </div>
+                <div class="content" id="gallery">
+                    <div class="row view">
+                        <div class="col-md-8">
+
+
+                            {{ form_widget(content_form) }}
+                            <input type="submit" value="guardar">
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="row">
+                    </div>
+                    <div class="footer">
+
+                        <hr>
+                        <div class="stats">
+                            <i class="ti-reload"></i> Actualizado hace {{ random(3) }} minutos
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(content_form) }}
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+         $('document').ready(function(){
+
+
+         });
+
+
+    </script>
+{% endblock %}

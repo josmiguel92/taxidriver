@@ -180,4 +180,36 @@ class AdminController extends Controller
             ;
     }
 
+    /**
+     * Displays a form to edit the content of homepage.
+     *
+     * @Route("/sitecontent", name="dash_sitecontent_edit")
+     * @Method({"GET", "POST"})
+     */
+    public function sitecontentAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+        $content = $em->getRepository('AppBundle:SiteContent')->find(1);
+        $content ? $sitecontent = $content :  $sitecontent = new \AppBundle\Entity\SiteContent();
+
+        $editForm = $this->createForm('AppBundle\Form\SiteContentType', $sitecontent);
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $em->persist($sitecontent);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'Los cambios en los contenidos fueron guardados! >> info >> ti-save'
+            );
+        }
+        return $this->render('AppBundle:Dash:sitecontent.html.twig',
+            ['pagename'=>'sitecontent',
+            'content_form' => $editForm->createView(),
+            ]);
+
+    }
 }
