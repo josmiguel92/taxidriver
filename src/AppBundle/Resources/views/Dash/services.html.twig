@@ -1,0 +1,149 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+{% block pagetitle %}Servicios de Taxi{% endblock pagetitle %}
+{% block content %}
+
+
+
+<div class="row">
+    <div class="col-lg-4 col-md-6">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Lugares disponibles</h4>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="btn-list">
+                            {% for place in places %}
+                                <li> {{ place.name }}</a> <a class="btn btn-danger btn-sm" href="{{ path('dash_services_place_delete', {'id':place.id}) }}" title="Eliminar"><i class="ti-trash"></i> </a> </li>
+                            {% else %}
+                                No hay lugares a&uacute;n
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+
+
+                </div>
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Rutas disponibles</h4>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="btn-list">
+                            {% for service in services %}
+                                <li> {{ service }}</a> <a href="#" class="btn btn-sm btn-info editbtn" title="Editar" data-routeid="{{ service.id }}"><i class="ti-pencil"></i> </a> {# <a class="btn btn-danger btn-sm" href="{{ path('dash_services_route_delete', {'id':service.id}) }}" title="Eliminar"><i class="ti-trash"></i> </a> #} </li>
+                            {% else %}
+                                No hay rutas a&uacute;n
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+
+
+                </div>
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div class="col-lg-4 col-md-6">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Agregar un lugar</h4>
+            </div>
+            <div class="content">
+
+                {{ form_start(placeForm) }}
+                <div class="row">
+                    <div class="col-md-12">
+
+                        {{ form_widget(placeForm) }}
+
+                    </div>
+
+
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info btn-fill btn-wd">Guardar</button>
+                </div>
+
+                {{ form_end(placeForm) }}
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+        <div class="card" id="routeForm">
+            <div class="header">
+                <h4 class="title">Agregar una ruta de servicio</h4>
+            </div>
+            <div class="content">
+
+                {{ form_start(serviceForm) }}
+                <div class="row">
+                    <div class="col-md-12">
+
+                        {{ form_widget(serviceForm) }}
+
+                    </div>
+
+
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info btn-fill btn-wd">Guardar</button>
+                </div>
+
+                {{ form_end(serviceForm) }}
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('document').ready(function(){
+            $('div.card  .btn.editbtn').click(function(e){
+                e.preventDefault();
+                edit_path = "{{ path('dash_services_route_edit', {'id':'routeidplaceholder'}) }}"
+
+                route_id = this.dataset['routeid']
+                current_edit_path = edit_path.replace('routeidplaceholder',route_id)
+
+                $('#routeForm').load(current_edit_path)
+
+            });
+
+        });
+
+
+    </script>
+{% endblock %}

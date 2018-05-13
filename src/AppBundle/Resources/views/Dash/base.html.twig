@@ -47,7 +47,7 @@
     	<div class="sidebar-wrapper">
             <div class="logo">
 
-                <a href="http://www.creative-tim.com" class="simple-text">
+                <a href="{{ path('dash') }}" class="simple-text">
                     <img src="{{ asset("img/new_logo.png") }}">TaxiDriver Cuba
                 </a>
             </div>
@@ -59,20 +59,14 @@
                         <p>Resumen</p>
                     </a>
                 </li>
-                <li {% if pagename == 'tours' %} class="active" {% endif %}>
-                    <a href="#l">
-                        <i class="ti-map-alt"></i>
-                        <p>Tours</p>
-                    </a>
-                </li>
-                <li {% if pagename == 'transfer' %} class="active" {% endif %}>
-                    <a href="#l">
+                <li {% if pagename == 'services' %} class="active" {% endif %}>
+                    <a href="{{ path('dash_services_edit') }}">
                         <i class="ti-car"></i>
-                        <p>Transfers</p>
+                        <p>Servicios</p>
                     </a>
                 </li>
-                <li {% if pagename == 'book' %} class="active" {% endif %}>
-                    <a href="#l">
+                <li {% if pagename == 'booking' %} class="active" {% endif %}>
+                    <a href="{{ path('dash_booking') }}">
                         <i class="ti-calendar"></i>
                         <p>Reservaciones</p>
                     </a>
@@ -84,7 +78,7 @@
                     </a>
                 </li>
                 <li {% if pagename == 'paygateway' %} class="active" {% endif %}>
-                    <a href="{{ path('dash_gallery') }}">
+                    <a href="{{ path('dash_paygateway') }}">
                         <i class="ti-credit-card"></i>
                         <p>Pasarela de Pagos</p>
                     </a>
@@ -95,18 +89,20 @@
                         <p>Contenido de Home</p>
                     </a>
                 </li>
+                <li {% if pagename == 'socialnet' %} class="active" {% endif %}>
+                    <a href="{{ path('dash_socialnet_edit') }}">
+                        <i class="ti-themify-favicon-alt"></i>
+                        <p>Redes Sociales</p>
+                    </a>
+                </li>
                 <li {% if pagename == 'config' %} class="active" {% endif %}>
                     <a href="#l">
                         <i class="ti-settings"></i>
                         <p>Configuraci&oacute;n</p>
                     </a>
                 </li>
-				<li class="active-pro">
-                    <a href="#">
-                        <i class="ti-email"></i>
-                        <p>Ponte en cont&aacute;cto</p>
-                    </a>
-                </li>
+
+
             </ul>
     	</div>
     </div>

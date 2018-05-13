@@ -1,0 +1,138 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+{% block pagetitle %}Redes Sociales{% endblock pagetitle %}
+{% block content %}
+
+
+
+<div class="row">
+    <div class="col-lg-4 col-md-6">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Perfiles en Redes Sociales</h4>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="btn-list">
+                            {% for net in socialnetworks %}
+                                <li><i class="{{ net.icon }}"></i> <a href="{{ net.profilelink }}" target="_blank">{{ net.name }}</a> <a class="btn btn-danger btn-sm" href="{{ path('dash_socialnet_profile_delete', {'id':net.id}) }}" title="Eliminar"><i class="ti-trash"></i> </a> </li>
+                            {% else %}
+                                No hay perfiles a&uacute;n
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+
+
+                </div>
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Agregar link a una Red Social</h4>
+            </div>
+            <div class="content">
+
+                {{ form_start(socialForm) }}
+                <div class="row">
+                    <div class="col-md-12">
+
+                        {{ form_widget(socialForm) }}
+
+                    </div>
+
+
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-info btn-fill btn-wd">Guardar</button>
+                </div>
+
+                {{ form_end(socialForm) }}
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Hashtags</h4>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="btn-list">
+                            {% for tag in hashtags %}
+                                <li>#{{ tag.name }} <a href="{{ path('dash_socialnet_hashtag_delete', {'id': tag.id }) }}" class="btn btn-danger btn-sm"><i class="ti-trash"></i></a>  </li>
+                            {% else %}
+                                No hay hashtags a&uacute;n
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+
+
+                </div>
+
+                <div class="clearfix"></div>
+
+            </div>
+
+            <div class="header">
+                <h4 class="title">Agregar Hashtag</h4>
+            </div>
+
+            <div class="content">
+
+                    {{ form_start(tagsForm) }}
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            {{ form_widget(tagsForm) }}
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-info btn-fill btn-wd">A&ntilde;adir</button>
+                    </div>
+
+                    {{ form_end(tagsForm) }}
+                    <div class="clearfix"></div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+         $('document').ready(function(){
+
+
+         });
+
+
+    </script>
+{% endblock %}

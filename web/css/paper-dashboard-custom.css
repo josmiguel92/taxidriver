@@ -71,3 +71,12 @@ div#gallery div.row div.active .card{
 .form-control{
     border: 1px solid #CCC5B9;
 }
+ul.btn-list{ padding-left: 5px;}
+ul.btn-list li{
+    list-style: none;
+    padding: 10px 0;
+    border-bottom: 1px solid lightgray;
+}
+ul.btn-list li > a.btn {
+    float: right;
+}

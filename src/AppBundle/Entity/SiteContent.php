@@ -38,9 +38,23 @@ class SiteContent
     /**
      * @var string
      *
+     * @ORM\Column(name="abouttitleen", type="string", length=255)
+     */
+    private $abouttitleen;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="abouttext", type="string", length=700)
      */
     private $abouttext;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="abouttexten", type="string", length=700)
+     */
+    private $abouttexten;
 
     /**
      * @var string
@@ -52,9 +66,23 @@ class SiteContent
     /**
      * @var string
      *
+     * @ORM\Column(name="abouttextfooteren", type="string", length=700, nullable=true)
+     */
+    private $abouttextfooteren;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="aboutteamtext", type="string", length=700)
      */
     private $aboutteamtext;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="aboutteamtexten", type="string", length=700)
+     */
+    private $aboutteamtexten;
 
     /**
      * @var string
@@ -66,9 +94,23 @@ class SiteContent
     /**
      * @var string
      *
+     * @ORM\Column(name="aboutinfographtitleen", type="string", length=255)
+     */
+    private $aboutinfographtitleen;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="aboutinfographtext", type="string", length=700, nullable=true)
      */
     private $aboutinfographtext;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="aboutinfographtexten", type="string", length=700, nullable=true)
+     */
+    private $aboutinfographtexten;
 
     /**
      * ids eparados por comas
@@ -86,9 +128,23 @@ class SiteContent
     /**
      * @var string
      *
+     * @ORM\Column(name="servicestitleen", type="string", length=255)
+     */
+    private $servicestitleen;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="servicestext", type="string", length=700)
      */
     private $servicestext;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="servicestexten", type="string", length=700)
+     */
+    private $servicestexten;
 
     /**
      * @var string
@@ -100,9 +156,23 @@ class SiteContent
     /**
      * @var string
      *
+     * @ORM\Column(name="servicestaxititleen", type="string", length=255)
+     */
+    private $servicestaxititleen;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="servicestaxitext", type="string", length=700)
      */
     private $servicestaxitext;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="servicestaxitexten", type="string", length=700)
+     */
+    private $servicestaxitexten;
 
     /**
      * @var string
@@ -114,9 +184,24 @@ class SiteContent
     /**
      * @var string
      *
+     * @ORM\Column(name="servicestaxitourstitleen", type="string", length=255)
+     */
+    private $servicestaxitourstitleen;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="servicestaxitourstext", type="string", length=700)
      */
     private $servicestaxitourstext;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="servicestaxitourstexten", type="string", length=700)
+     */
+    private $servicestaxitourstexten;
+
 
     /**
      * @var string
@@ -131,6 +216,13 @@ class SiteContent
      * @ORM\Column(name="servicesmakeroutetext", type="string", length=700)
      */
     private $servicesmakeroutetext;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="servicesmakeroutetexten", type="string", length=700)
+     */
+    private $servicesmakeroutetexten;
 
     /**
      * ids separados por comas
@@ -161,6 +253,266 @@ class SiteContent
     public function getId()
     {
         return $this->id;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getAbouttitleLocale($locale)
+    {
+        if(strtolower($locale)=="es")
+            return $this->abouttitle;
+        else
+        return $this->abouttitleen;
+    }
+    /**
+     * @return string
+     */
+    public function getAbouttitleen()
+    {
+        return $this->abouttitleen;
+    }
+
+    /**
+     * @param string $abouttitleen
+     */
+    public function setAbouttitleen($abouttitleen)
+    {
+        $this->abouttitleen = $abouttitleen;
+    }
+
+
+
+
+    /**
+     * @return string
+     */
+    public function getAbouttextfooterLocale($locale)
+    {
+        if(strtolower($locale)=="es")
+            return $this->abouttextfooter;
+        else
+            return $this->abouttextfooteren;
+    }
+    /**
+     * @return string
+     */
+    public function getAbouttextfooteren()
+    {
+        return $this->abouttextfooteren;
+    }
+
+    /**
+     * @param string $abouttextfooteren
+     */
+    public function setAbouttextfooteren($abouttextfooteren)
+    {
+        $this->abouttextfooteren = $abouttextfooteren;
+    }
+
+
+
+    /**
+     * @return string
+     */
+    public function getAboutinfographtextLocale($locale)
+    {
+        if(strtolower($locale)=="es")
+            return $this->aboutinfographtext;
+        else
+            return $this->aboutinfographtexten;
+    }
+
+
+
+    /**
+     * @return string
+     */
+    public function getServicestitleLocale($locale)
+    {
+        if(strtolower($locale)=="es")
+            return $this->servicestitle;
+        else
+            return $this->servicestitleen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServicestitleen()
+    {
+        return $this->servicestitleen;
+    }
+
+    /**
+     * @param string $servicestitleen
+     */
+    public function setServicestitleen($servicestitleen)
+    {
+        $this->servicestitleen = $servicestitleen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServicestextLocale($locale)
+    {
+        if(strtolower($locale)=="es")
+            return $this->servicestext;
+        else
+            return $this->servicestexten;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getServicestexten()
+    {
+        return $this->servicestexten;
+    }
+
+    /**
+     * @param string $servicestexten
+     */
+    public function setServicestexten($servicestexten)
+    {
+        $this->servicestexten = $servicestexten;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServicestaxititleLocale($locale)
+    {
+        if(strtolower($locale)=="es")
+            return $this->servicestaxititle;
+        else
+            return $this->servicestaxititleen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServicestaxititleen()
+    {
+        return $this->servicestaxititleen;
+    }
+
+    /**
+     * @param string $servicestaxititleen
+     */
+    public function setServicestaxititleen($servicestaxititleen)
+    {
+        $this->servicestaxititleen = $servicestaxititleen;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getServicestaxitextLocale($locale)
+    {
+        if(strtolower($locale)=="es")
+            return $this->servicestaxitext;
+        else
+            return $this->servicestaxitexten;
+    }
+    /**
+     * @return string
+     */
+    public function getServicestaxitexten()
+    {
+        return $this->servicestaxitexten;
+    }
+
+    /**
+     * @param string $servicestaxitexten
+     */
+    public function setServicestaxitexten($servicestaxitexten)
+    {
+        $this->servicestaxitexten = $servicestaxitexten;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServicestaxitourstitleLocale($locale)
+    {
+        if(strtolower($locale)=="es")
+            return $this->servicestaxitourstitle;
+        else
+            return $this->servicestaxitourstitleen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServicestaxitourstitleen()
+    {
+        return $this->servicestaxitourstitleen;
+    }
+
+    /**
+     * @param string $servicestaxitourstitleen
+     */
+    public function setServicestaxitourstitleen($servicestaxitourstitleen)
+    {
+        $this->servicestaxitourstitleen = $servicestaxitourstitleen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServicestaxitourstextLocale($locale)
+    {
+        if(strtolower($locale)=="es")
+            return $this->servicestaxitourstext;
+        else
+            return $this->servicestaxitourstexten;
+    }
+    /**
+     * @return string
+     */
+    public function getServicestaxitourstexten()
+    {
+        return $this->servicestaxitourstexten;
+    }
+
+    /**
+     * @param string $servicestaxitourstexten
+     */
+    public function setServicestaxitourstexten($servicestaxitourstexten)
+    {
+        $this->servicestaxitourstexten = $servicestaxitourstexten;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServicesmakeroutetextLocale($locale)
+    {
+        if(strtolower($locale)=="es")
+            return $this->servicesmakeroutetext;
+        else
+            return $this->servicesmakeroutetexten;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServicesmakeroutetexten()
+    {
+        return $this->servicesmakeroutetexten;
+    }
+
+    /**
+     * @param string $servicesmakeroutetexten
+     */
+    public function setServicesmakeroutetexten($servicesmakeroutetexten)
+    {
+        $this->servicesmakeroutetexten = $servicesmakeroutetexten;
     }
 
     /**
@@ -236,6 +588,33 @@ class SiteContent
     }
 
     /**
+     * @return string
+     */
+    public function getAbouttextLocale($locale)
+    {
+        if(strtolower($locale)=="es")
+            return $this->abouttext;
+        else
+            return $this->abouttexten;
+    }
+    /**
+     * @return string
+     */
+    public function getAbouttexten()
+    {
+        return $this->abouttexten;
+    }
+
+    /**
+     * @param string $abouttexten
+     */
+    public function setAbouttexten($abouttexten)
+    {
+        $this->abouttexten = $abouttexten;
+    }
+
+
+    /**
      * Set abouttextfooter
      *
      * @param string $abouttextfooter
@@ -284,6 +663,34 @@ class SiteContent
     }
 
     /**
+     * @return string
+     */
+    public function getAboutteamtextLocale($locale)
+    {
+        if(strtolower($locale)=="es")
+            return $this->aboutteamtext;
+        else
+            return $this->aboutteamtexten;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAboutteamtexten()
+    {
+        return $this->aboutteamtexten;
+    }
+
+    /**
+     * @param string $aboutteamtexten
+     */
+    public function setAboutteamtexten($aboutteamtexten)
+    {
+        $this->aboutteamtexten = $aboutteamtexten;
+    }
+
+
+    /**
      * Set aboutinfographtitle
      *
      * @param string $aboutinfographtitle
@@ -320,6 +727,33 @@ class SiteContent
 
         return $this;
     }
+    /**
+     * @return string
+     */
+    public function getAboutinfographtitleLocale($locale)
+    {
+        if(strtolower($locale)=="es")
+            return $this->aboutinfographtitle;
+        else
+            return $this->aboutinfographtitleen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAboutinfographtitleen()
+    {
+        return $this->aboutinfographtitleen;
+    }
+
+    /**
+     * @param string $aboutinfographtitleen
+     */
+    public function setAboutinfographtitleen($aboutinfographtitleen)
+    {
+        $this->aboutinfographtitleen = $aboutinfographtitleen;
+    }
+
 
     /**
      * Get aboutinfographtext
@@ -343,6 +777,22 @@ class SiteContent
         $this->aboutinfographitems = $aboutinfographitems;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAboutinfographtexten()
+    {
+        return $this->aboutinfographtexten;
+    }
+
+    /**
+     * @param string $aboutinfographtexten
+     */
+    public function setAboutinfographtexten($aboutinfographtexten)
+    {
+        $this->aboutinfographtexten = $aboutinfographtexten;
     }
 
     /**
@@ -617,6 +1067,12 @@ class SiteContent
     public function getContactemail()
     {
         return $this->contactemail;
+
     }
+
+    public function getSerialized(){
+        return serialize($this);
+    }
+
 }
 

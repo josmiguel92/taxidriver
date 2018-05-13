@@ -1,0 +1,38 @@
+<div class="header">
+    <h4 class="title">Editar una ruta de servicio</h4>
+</div>
+<div class="content">
+{{ form_start(route_form) }}
+    <div class="row">
+        <div class="col-md-12">
+
+        {{ form_widget(route_form) }}
+        </div>
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-info btn-fill btn-wd btn-save">Guardar</button>
+    </div>
+
+    {{ form_end(route_form) }}
+{% if route_delete_form is not empty %}
+{{ form_start(route_delete_form) }}
+
+{{ form_widget(route_delete_form) }}
+<input type="submit" value="Eliminar" class="btn btn-danger unpressed" id="deletebtn"/>
+{{ form_end(route_delete_form) }}
+{% endif %}
+    <div class="clearfix"></div>
+</div>
+<script> //previene eliminar imagenes sin confirmarlo
+    $("#deletebtn.unpressed").click(function(e){
+        console.log('click');
+        if(this.classList.contains('unpressed'))
+        {
+            e.preventDefault();
+            this.classList.remove('unpressed');
+            this.value = "¿En serio, eliminar?"
+        }
+
+    });
+</script>

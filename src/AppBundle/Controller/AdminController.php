@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
+use AppBundle\Entity\Services;
 use AppBundle\Utils\Utils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse as RedirectResponse;
 use Symfony\Component\Validator\Tests\Fixtures\Entity;
 use AppBundle\Entity\Image;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 
 /**
@@ -135,7 +137,7 @@ class AdminController extends Controller
      * @Route("/gallery/{id}/edit", name="dash_gallery_image_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Image $imagen, $id)
+    public function editimageAction(Request $request, Image $imagen, $id)
     {
         $deleteForm = $this->createImageDeleteForm($imagen);
         $editForm = $this->createForm('AppBundle\Form\ImageType', $imagen,
@@ -180,6 +182,8 @@ class AdminController extends Controller
             ;
     }
 
+
+
     /**
      * Displays a form to edit the content of homepage.
      *
@@ -211,5 +215,282 @@ class AdminController extends Controller
             'content_form' => $editForm->createView(),
             ]);
 
+    }
+
+    /**
+     * Displays a form to edit the content of social networks.
+     *
+     * @Route("/socialnet", name="dash_socialnet_edit")
+     * @Method({"GET", "POST"})
+     */
+    public function socialnetAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+        $socialnetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
+        $social = new \AppBundle\Entity\Socialnetwork();
+
+        $socialForm = $this->createForm('AppBundle\Form\SocialnetworkType', $social);
+
+        $socialForm->handleRequest($request);
+        $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
+        $hashtag = new \AppBundle\Entity\Hashtag();
+
+        $tagsForm = $this->createForm('AppBundle\Form\HashtagType', $hashtag);
+        $tagsForm->handleRequest($request);
+
+        try{
+            if ($socialForm->isSubmitted() && $socialForm->isValid()) {
+
+                $em->persist($social);
+                $em->flush();
+                $this->addFlash(
+                    'notice',
+                    'Los cambios en los contenidos fueron guardados! >> info >> ti-save'
+                );
+            }
+
+
+            if ($tagsForm->isSubmitted() && $tagsForm->isValid()) {
+
+                $em->persist($hashtag);
+                $em->flush();
+
+                $this->addFlash(
+                    'notice',
+                    'Los cambios en los contenidos fueron guardados! >> info >> ti-save'
+                );
+            }
+        }
+        catch(UniqueConstraintViolationException $e){
+            $this->addFlash(
+                'notice',
+                'Ya existe un campo con esos datos! >> danger >> ti-face-sad'
+            );
+        }
+
+        return $this->render('AppBundle:Dash:socialnetwork.html.twig',
+            ['pagename'=>'socialnet',
+                'socialForm' => $socialForm->createView(),
+                'socialnetworks'=> $socialnetworks,
+                'hashtags'=>$hashtags,
+                'tagsForm'=>$tagsForm->createView()
+            ]);
+
+    }
+
+    /**
+     * Deletes a HashTag entity.
+     *
+     * @Route("/hashtag/{id}/delete", name="dash_socialnet_hashtag_delete")
+     * @Method("GET")
+     */
+    public function deletehashtagAction(Request $request, \AppBundle\Entity\Hashtag $item)
+    {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($item);
+            $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'El Hashtag fue eliminado! >> success >> ti-trash'
+        );
+        return $this->redirectToRoute('dash_socialnet_edit');
+    }
+
+    /**
+     * Deletes a HashTag entity.
+     *
+     * @Route("/socialnetwork/{id}/delete", name="dash_socialnet_profile_delete")
+     * @Method("GET")
+     */
+    public function deletesocialnetAction(Request $request, \AppBundle\Entity\Socialnetwork $item)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($item);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'El perfil de Red Social fue eliminado! >> success >> ti-trash'
+        );
+        return $this->redirectToRoute('dash_socialnet_edit');
+    }
+
+    /**
+     * Deletes a Place entity.
+     *
+     * @Route("/services/place/{id}/delete", name="dash_services_place_delete")
+     * @Method("GET")
+     */
+    public function deleteplaceAction(Request $request, \AppBundle\Entity\Place $item)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($item);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'El lugar fue eliminado! >> success >> ti-trash'
+        );
+        return $this->redirectToRoute('dash_services_edit');
+    }
+
+    /**
+     * Displays a form to edit the content of service route.
+     *
+     * @Route("/services", name="dash_services_edit")
+     * @Method({"GET", "POST"})
+     */
+    public function servicesAction(Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+        $places = $em->getRepository('AppBundle:Place')->findAll();
+        $place = new \AppBundle\Entity\Place();
+
+        $placeForm = $this->createForm('AppBundle\Form\PlaceType', $place);
+        $placeForm->handleRequest($request);
+
+        $services = $em->getRepository('AppBundle:Services')->findAll();
+        $service = new \AppBundle\Entity\Services();
+
+        $serviceForm = $this->createForm('AppBundle\Form\ServicesType', $service);
+        $serviceForm->handleRequest($request);
+
+        try{
+            if ($placeForm->isSubmitted() && $placeForm->isValid()) {
+                $em->persist($place);
+                $em->flush();
+                $this->addFlash(
+                    'notice',
+                    'El lugar fue añadido correctamente! >> info >> ti-save'
+                );
+            }
+
+
+            if ($serviceForm->isSubmitted() && $serviceForm->isValid()) {
+
+                $em->persist($service);
+                $em->flush();
+
+                $this->addFlash(
+                    'notice',
+                    'Los cambios en los servicios fueron guardados! >> info >> ti-save'
+                );
+            }
+        }
+        catch(UniqueConstraintViolationException $e){
+            $this->addFlash(
+                'notice',
+                'Ya existe un campo con esos datos! >> danger >> ti-face-sad'
+            );
+        }
+
+        return $this->render('AppBundle:Dash:services.html.twig',
+            ['pagename'=>'services',
+                'serviceForm' => $serviceForm->createView(),
+                'services'=> $services,
+                'places'=>$places,
+                'placeForm'=>$placeForm->createView()
+            ]);
+
+    }
+
+    /**
+     * Deletes a Place entity.
+     *
+     * @Route("/services/route/{id}/delete", name="dash_services_route_delete")
+     * @Method({"GET", "DELETE"})
+     */
+    public function deleteServiceAction(Request $request, \AppBundle\Entity\Services $item)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($item);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'La ruta fue eliminada! >> success >> ti-trash'
+        );
+        return $this->redirectToRoute('dash_services_edit');
+    }
+
+    /**
+     * Displays a form to edit an existing Route entity.
+     *
+     * @Route("/services/route/{id}/edit", name="dash_services_route_edit")
+     * @Method({"GET", "POST"})
+     */
+    public function editServiceRouteAction(Request $request, Services $services, $id)
+    {
+        $deleteForm = $this->createServiceRouteDeleteForm($services);
+        $editForm = $this->createForm('AppBundle\Form\ServicesType', $services,
+            ['action' => $this->generateUrl('dash_services_route_edit', array('id' => $id))]);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($services);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'Los cambios en la ruta fueron salvados! >> info >> ti-save'
+            );
+
+            return $this->redirectToRoute('dash_services_edit');
+        }
+
+
+        return $this->render('AppBundle:Dash:serviceRouteEditForm.html.twig', array(
+            'route_form' => $editForm->createView(),
+            'route_delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+
+    /**
+     * Creates a form to delete a Image entity.
+     *
+     * @param Image $image The Services entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createServiceRouteDeleteForm(\AppBundle\Entity\Services $service)
+    {
+        return $this->createFormBuilder()
+            ->setAttributes(['name'=>'delete_image_form'])
+            ->setAction($this->generateUrl('dash_services_route_delete', array('id' => $service->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+            ;
+    }
+
+
+    /**
+     * @Route("/booking", name="dash_booking")
+     * @Method("GET")
+     */
+    public function bookingAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $booking = $em->getRepository("AppBundle:Booking")->findAll();
+
+        return $this->render('AppBundle:Dash:booking.html.twig', [
+            'pagename' => 'booking',
+            'booking' => $booking]);
+    }
+
+    /**
+     * @Route("/paygateway", name="dash_paygateway")
+     * @Method({"GET", "POST"})
+     */
+    public function paygatewayAction(){
+        return $this->render('AppBundle:Dash:paygateway.html.twig', [
+            'pagename' => 'paygateway',
+        ]);
     }
 }
