@@ -77,7 +77,7 @@ class Place
     }
 
     /**
-    * @ORM\OneToMany(targetEntity="Services", mappedBy="places")
+    * @ORM\OneToMany(targetEntity="Services", mappedBy="place")
      */
     private $services;
 

@@ -1,0 +1,41 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+
+{% block content %}
+    <h1>Usuario: {{ user.username }} </h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre de usuario</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Nombre completo</th>
+                <td>{{ user.fullname }}</td>
+            </tr>
+
+            <tr>
+                <th>Roles</th>
+                <td>{{ user.roles }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('dash_security_user_index') }}" class="btn btn-primary">Regresar a la lista</a>
+
+            <a href="{{ path('dash_security_user_edit', { 'id': user.id }) }}"  class="btn btn-info">Editar</a>
+
+
+            {{ form_start(delete_form) }}
+    <input type="submit" value="Eliminar" class="btn-danger btn" style="float: right;">
+            {{ form_end(delete_form) }}
+
+{% endblock %}
