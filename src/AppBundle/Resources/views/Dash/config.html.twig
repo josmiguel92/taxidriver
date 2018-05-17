@@ -1,0 +1,41 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+{% block pagetitle %}Configuraci&oacute;n{% endblock pagetitle %}
+{% block content %}
+    <div class="col-md-4">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Usuarios administrativos</h4>
+              </div>
+            <div class="content">
+            <div class="footer">
+                    <div class="chart-legend">
+                        <a href="{{ path("dash_security_user_index") }}" class="btn btn-primary"><i class="ti-list text-warning"></i> Listado</a>
+
+                        <a href="{{ path("dash_security_user_new") }}" class="btn btn-fill btn-info"><i class="ti-plus text-warning"></i> Agregar nuevo</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Tareas programadas</h4>
+            </div>
+            <div class="content">
+                <div>
+                    <p class="">Recibir notificaciones al correo electr&oacute;nico cuando ocurran reservaciones.</p>
+                </div>
+                <div class="footer">
+                    <div class="chart-legend">
+                        <a href="#" class="btn btn-primary"><i class="ti-help text-warning"></i> M&aacute;s info</a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

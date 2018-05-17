@@ -493,4 +493,14 @@ class AdminController extends Controller
             'pagename' => 'paygateway',
         ]);
     }
+
+    /**
+     * @Route("/config", name="dash_config")
+     * @Method("GET")
+     */
+    public function configAction(Request $request){
+        return $this->render('AppBundle:Dash:config.html.twig', [
+            'pagename'=>'config',
+        ]);
+    }
 }
