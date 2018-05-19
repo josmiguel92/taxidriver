@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
+use AppBundle\Entity\InfographItem;
 use AppBundle\Entity\Services;
 use AppBundle\Utils\Utils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -104,7 +105,7 @@ class AdminController extends Controller
      * @Route("/gallery/image/new", name="dash_gallery_image_new")
      * @Method("POST")
      */
-    public function newAction(Request $request)
+    public function newImageAction(Request $request)
     {
         $imagen = new Image();
         $form = $this->createForm('AppBundle\Form\ImageType', $imagen);
@@ -196,7 +197,13 @@ class AdminController extends Controller
         $content = $em->getRepository('AppBundle:SiteContent')->find(1);
         $content ? $sitecontent = $content :  $sitecontent = new \AppBundle\Entity\SiteContent();
 
+        $infographs = $em->getRepository("AppBundle:InfographItem")->findAll();
+
         $editForm = $this->createForm('AppBundle\Form\SiteContentType', $sitecontent);
+
+        $new_infograph_form = $this->createForm('AppBundle\Form\InfographItemType', new InfographItem(),
+            ['action' => $this->generateUrl('dash_infographitem_new')]);
+
 
         $editForm->handleRequest($request);
 
@@ -213,6 +220,8 @@ class AdminController extends Controller
         return $this->render('AppBundle:Dash:sitecontent.html.twig',
             ['pagename'=>'sitecontent',
             'content_form' => $editForm->createView(),
+            'infographs' => $infographs,
+            'new_infograph_form' => $new_infograph_form->createView(),
             ]);
 
     }
@@ -503,4 +512,91 @@ class AdminController extends Controller
             'pagename'=>'config',
         ]);
     }
+
+    /**
+     * Creates a new InfographItem entity.
+     *
+     * @Route("/infograph/new", name="dash_infographitem_new")
+     * @Method("POST")
+     */
+    public function newInfographItemAction(Request $request)
+    {
+        $item = new InfographItem();
+        $form = $this->createForm('AppBundle\Form\InfographItemType', $item);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($item);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'La Infografía fue agregada correctamente! >> success >> ti-upload'
+            );
+        }
+        else
+            $this->addFlash(
+                'notice',
+                'Ocurrio un error con los datos. >> danger >> ti-face-sad'
+            );
+
+
+        return $this->redirectToRoute('dash_sitecontent_edit');
+
+    }
+
+    /**
+     * Displays a form to edit an existing InfographItem entity.
+     *
+     * @Route("/infograph/{id}/edit", name="dash_infographitem_edit")
+     * @Method({"GET", "POST"})
+     */
+    public function editinfographitemAction(Request $request, infographitem $item, $id)
+    {
+        $deleteForm = $this->createImageDeleteForm($item);
+        $editForm = $this->createForm('AppBundle\Form\InfographItemType', $item,
+            ['action' => $this->generateUrl('dash_infographitem_edit', array('id' => $id))]);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($item);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'Los cambios en la infografia fueron salvados! >> info >> ti-save'
+            );
+
+            return $this->redirectToRoute('dash_sitecontent_edit');
+        }
+
+
+        return $this->render('AppBundle:Dash:contentEditInfographitemForm.html.twig', array(
+            'infographitem_form' => $editForm->createView(),
+            'infographitem_delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+
+    /**
+     * Creates a form to delete a InfographItem entity.
+     *
+     * @param InfographItem $item The InfographItem entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createInfographDeleteForm(\AppBundle\Entity\InfographItem $item)
+    {
+        return $this->createFormBuilder()
+            ->setAttributes(['name'=>'delete_infographitem_form'])
+            ->setAction($this->generateUrl('dash_infographitem_delete', array('id' => $item->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+            ;
+    }
+
+
+
 }

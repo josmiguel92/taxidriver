@@ -22,10 +22,9 @@ class InfographItem
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Image")
-     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     * @ORM\Column(name="icon", type="string", length=255)
      */
-    private $picture;
+    private $icon;
 
     /**
      * @var string
@@ -44,31 +43,6 @@ class InfographItem
     {
         return $this->id;
     }
-
-    /**
-     * Set picture
-     *
-     * @param string $picture
-     *
-     * @return InfographItem
-     */
-    public function setPicture($picture)
-    {
-        $this->picture = $picture;
-
-        return $this;
-    }
-
-    /**
-     * Get picture
-     *
-     * @return string
-     */
-    public function getPicture()
-    {
-        return $this->picture;
-    }
-
     /**
      * Set subtitle
      *
@@ -92,5 +66,25 @@ class InfographItem
     {
         return $this->subtitle;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
+
+    /**
+     * @param mixed $icon
+     */
+    public function setIcon($icon)
+    {
+        $this->icon = $icon;
+    }
+
+
+
+
 }
 

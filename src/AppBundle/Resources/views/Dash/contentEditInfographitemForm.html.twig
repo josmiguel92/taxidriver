@@ -1,0 +1,25 @@
+<h5>Detalles de la Infografia</h5>
+{{ form_start(image_form) }}
+{{ form_widget(image_form) }}
+<input type="submit" value="Guardar" class="btn btn-primary"/>
+{{ form_end(image_form) }}
+{% if image_delete_form is not empty %}
+{{ form_start(image_delete_form) }}
+
+{{ form_widget(image_delete_form) }}
+<input type="submit" value="Eliminar" class="btn btn-danger unpressed" id="deletebtn"/>
+{{ form_end(image_delete_form) }}
+{% endif %}
+<script> //previene eliminar imagenes sin confirmarlo
+    $("#deletebtn.unpressed").click(function(e){
+        console.log('click');
+        if(this.classList.contains('unpressed'))
+        {
+            e.preventDefault();
+            this.classList.remove('unpressed');
+            this.value = "¿En serio, eliminar?"
+        }
+
+    });
+</script>
+
