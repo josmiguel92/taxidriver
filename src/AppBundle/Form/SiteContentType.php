@@ -49,7 +49,9 @@ class SiteContentType extends AbstractType
             ->add('servicesotherinfographitems', null, ["label"=>"Elementos de la Infografía de servicios"])
             ->add('contacttelephone', null, ["label"=> "Teléfono de Contacto."])
             ->add('contactemail', null, ["label"=> "Email de Contacto."]);
-    }/**
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
