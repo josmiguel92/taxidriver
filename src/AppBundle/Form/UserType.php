@@ -15,7 +15,7 @@ class UserType extends AbstractType
     {
         $builder->add('username', null, ['label'=>'Nombre de usuario'])->
         add('email')->add('fullname', null, ['label'=>'Nombre completo'])
-            ->add('password')->add('roles');
+            ->add('password');
     }/**
      * {@inheritdoc}
      */
