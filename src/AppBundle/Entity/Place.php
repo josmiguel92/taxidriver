@@ -96,6 +96,29 @@ class Place
     private $distance;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="latlong", type="string", nullable=true)
+     */
+    private $latlong;
+
+    /**
+     * @return int
+     */
+    public function getLatlong()
+    {
+        return $this->latlong;
+    }
+
+    /**
+     * @param int $latlong
+     */
+    public function setLatlong($latlong)
+    {
+        $this->latlong = $latlong;
+    }
+
+    /**
      * Get id
      *
      * @return int

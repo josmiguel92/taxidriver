@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class PlaceType extends AbstractType
 {
@@ -13,10 +14,10 @@ class PlaceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')
+        $builder->add('name', null, ["label"=>"Nombre que se mostrará"])
             ->add('distance', null, ["label"=>"Distancia, en km."])
             ->add('image', null, ['label'=>"Imágen"])
-            ->add('services');
+            ->add('services')->add('latlong',HiddenType::class);
     }/**
      * {@inheritdoc}
      */

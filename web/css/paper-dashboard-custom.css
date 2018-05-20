@@ -80,3 +80,6 @@ ul.btn-list li{
 ul.btn-list li > a.btn {
     float: right;
 }
+.placepicker-map {
+    min-height: 250px;
+}
