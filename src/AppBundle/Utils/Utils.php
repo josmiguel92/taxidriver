@@ -104,4 +104,20 @@ class Utils
             }
             return $message;
         }
+
+    /**
+     * @param  $flash
+     * recibe un string FlashBagNotification, con el formato siguiente:
+     * "message >> level >> icon"
+     * los dos ultimos parametros son opcionales
+     * @return array[message, level, icon]
+     */
+    public static function formatFlashBagNotification($flash)
+    {
+        $data = explode(" >> ", $flash);
+        if(count($data)<3)
+            return [$flash, 'warning', 'ti-hand-point-right'];
+        return $data;
+
+    }
     }

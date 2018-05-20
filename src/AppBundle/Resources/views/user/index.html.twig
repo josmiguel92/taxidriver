@@ -1,0 +1,41 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+
+{% block content %}
+    <h1>Lista de Usuarios</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre de usuario</th>
+                <th>Email</th>
+                <th>Nombre completo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td><a href="{{ path('dash_security_user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.fullname }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('dash_security_user_show', { 'id': user.id }) }}"><i class="ti-eye"></i> Mostrar</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('dash_security_user_edit', { 'id': user.id }) }}"><i class="ti-pencil"></i> Editar</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+            <a href="{{ path('dash_security_user_new') }}" class="btn btn-primary"><i class="ti-user"></i> Crear nuevo usuario</a>
+
+{% endblock %}
