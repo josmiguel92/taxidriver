@@ -14,6 +14,47 @@
 <body>
 
 	{% block content %}
+
+        {% block navbar %}
+            <div class="rd-navbar-wrap">
+                <nav data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-static" data-md-stick-up-offset="50px" data-lg-stick-up-offset="1px" class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fullwidth" data-lg-layout="rd-navbar-static">
+                    <div class="rd-navbar-inner">
+                        <!-- RD Navbar Panel-->
+                        <div class="rd-navbar-panel">
+                            <!-- RD Navbar Toggle-->
+                            <button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
+                            <!-- RD Navbar Brand-->
+                            <div class="rd-navbar-brand veil reveal-md-block"><a href="index.html" class="brand-name"><img style='margin-top: -10px;' width='164' height='29' src='images/logo-light-183x34.png' alt=''/></a></div>
+                            <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block"><a href="index.html" class="brand-name"><img style='margin-top: -7px;' width='128' height='24' src='images/logo-lg-dark-182x34.png' alt=''/></a></div>
+                            <!-- RD Navbar Toggle-->
+                            <button data-rd-navbar-toggle=".rd-navbar-collapse-wrap" class="rd-navbar-collapse"><span></span></button>
+                        </div>
+                        <div class="rd-navbar-right-side">
+                            <div class="rd-navbar-nav-wrap reveal-md-inline-block">
+                                <ul class="rd-navbar-nav">
+                                    <!-- RD Navbar Nav-->
+                                    <li><a href="index.html">home</a></li>
+                                    <li><a href="about.html">About</a></li>
+                                    <li><a href="rates.html">Rates</a></li>
+                                    <li><a href="reservations.html">Reservations</a></li>
+                                    <li><a href="fleet.html">Fleet</a></li>
+                                    <li class="active"><a href="blog-classic-left-sidebar.html">News</a></li>
+                                </ul>
+                            </div>
+                            <div class="rd-navbar-collapse-wrap reveal-md-inline-block">
+                                <ul class="list-inline list-inline-0 list-primary">
+                                    <li class="text-center"><a href="#" class="icon icon-xxs fa fa-facebook text-white"></a></li>
+                                    <li class="text-center"><a href="#" class="icon icon-xxs fa fa-google-plus text-white"></a></li>
+                                    <li class="text-center"><a href="#" class="icon icon-xxs fa fa-linkedin text-white"></a></li>
+                                    <li class="text-center"><a href="#" class="icon icon-xxs fa fa-twitter text-white"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        {% endblock %}
+
 	    A sobreeescribir este contenido
 	{% endblock %}
 
