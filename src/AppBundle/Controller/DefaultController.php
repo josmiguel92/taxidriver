@@ -21,7 +21,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request, $_locale)
     {
-        return $this->render('AppBundle::default.html.twig', []);
+        return $this->render('AppBundle:Front:index.html.twig', []);
     }
 
 }
