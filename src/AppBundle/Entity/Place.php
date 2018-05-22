@@ -103,6 +103,29 @@ class Place
     private $latlong;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="googlename", type="string", nullable=true)
+     */
+    private $googlename;
+
+    /**
+     * @return int
+     */
+    public function getGooglename()
+    {
+        return $this->googlename;
+    }
+
+    /**
+     * @param int $googlename
+     */
+    public function setGooglename($googlename)
+    {
+        $this->googlename = $googlename;
+    }
+
+    /**
      * @return int
      */
     public function getLatlong()

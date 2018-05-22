@@ -29,10 +29,88 @@ class Booking
     private $airport;
 
     /**
-     * @ORM\OneToOne(targetEntity="Services")
-     * @ORM\JoinColumn(name="service_id", referencedColumnName="id")
+     * @var integer
+     * @ORM\Column(name="service", type="integer")
      */
     private $service;
+
+    /**
+     * @return array
+     */
+    public function getOwnroute()
+    {
+        return $this->ownroute;
+    }
+
+    /**
+     * @param array $ownroute
+     */
+    public function setOwnroute($ownroute)
+    {
+        $this->ownroute = $ownroute;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTour()
+    {
+        return $this->tour;
+    }
+
+    /**
+     * @param string $tour
+     */
+    public function setTour($tour)
+    {
+        $this->tour = $tour;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * @param string $telephone
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param string $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    }
+
+    /**
+     * @var array
+     * @ORM\Column(name="ownroute", type="simple_array", nullable=true)
+     */
+    private $ownroute;
+
+    /**
+     * @var string
+     * @ORM\Column(name="tourservice", type="string", length=255)
+     */
+    private $tour;
+
+
 
     /**
      * @var string
@@ -48,6 +126,12 @@ class Booking
      */
     private $email;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telephone", type="string", length=255)
+     */
+    private $telephone;
     /**
      * @var string
      *
@@ -70,9 +154,9 @@ class Booking
     private $pickuptime;
 
     /**
-     * @var bool
+     * @var int
      *
-     * @ORM\Column(name="burden", type="boolean")
+     * @ORM\Column(name="burden", type="smallint")
      */
     private $burden;
 
@@ -82,6 +166,14 @@ class Booking
      * @ORM\Column(name="numpeople", type="smallint")
      */
     private $numpeople;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comment", type="text")
+     */
+    private $comment;
 
 
     /**

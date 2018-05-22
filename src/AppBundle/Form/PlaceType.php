@@ -17,7 +17,8 @@ class PlaceType extends AbstractType
         $builder->add('name', null, ["label"=>"Nombre que se mostrará"])
             ->add('distance', null, ["label"=>"Distancia, en km."])
             ->add('image', null, ['label'=>"Imágen"])
-            ->add('services')->add('latlong',HiddenType::class);
+            ->add('services')->add('latlong',HiddenType::class)
+            ->add('googlename',HiddenType::class);
     }/**
      * {@inheritdoc}
      */

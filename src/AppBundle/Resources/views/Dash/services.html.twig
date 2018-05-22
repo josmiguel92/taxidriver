@@ -5,7 +5,7 @@
 
 
 <div class="row">
-    <div class="col-lg-4 col-md-6">
+    <div class="col-lg-6 col-md-6">
         <div class="card">
             <div class="header">
                 <h4 class="title">Lugares disponibles</h4>
@@ -29,7 +29,9 @@
 
             </div>
         </div>
-        <div class="card">
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="card">
             <div class="header">
                 <h4 class="title">Rutas disponibles</h4>
             </div>
@@ -53,19 +55,20 @@
             </div>
         </div>
 
+        </div>
     </div>
 
 
-
-    <div class="col-lg-8 col-md-10">
+<div class="row">
+    <div class="col-lg-6 col-md-6">
         <div class="card">
             <div class="header">
-                <h4 class="title">Agregar un lugar</h4>
+                <h4 class="title"  data-toggle="collapse" data-target="#addPlace">Agregar un lugar<i class="ti-angle-down" style="float:right;"></i></h4>
             </div>
             <div class="content">
 
                 {{ form_start(placeForm) }}
-                <div class="row">
+                <div class="row"  id="addPlace">
                     <div class="col-md-12">
                         <div class="form-group">
                             <input class="placepicker form-control" data-map-container-id="collapsePlaceMap"/>
@@ -94,15 +97,15 @@
         </div>
     </div>
 
-    <div class="col-lg-4 col-md-6">
+    <div class="col-lg-6 col-md-6">
         <div class="card" id="routeForm">
             <div class="header">
-                <h4 class="title">Agregar una ruta de servicio</h4>
+                <h4 class="title" data-toggle="collapse" data-target="#addRoute">Agregar una ruta de servicio<i class="ti-angle-down" style="float:right;"></i></h4>
             </div>
             <div class="content">
 
                 {{ form_start(serviceForm) }}
-                <div class="row">
+                <div class="row" id="addRoute">
                     <div class="col-md-12">
 
                         {{ form_widget(serviceForm) }}
@@ -151,28 +154,20 @@
                 $('#routeForm').load(current_edit_path)
 
             });
+            if(typeof google === 'undefined' || google === null)
             $(".placepicker").placepicker({
                 mapIconClass: "ti-map-alt",
                 placeChanged: function(place) {
-                   // console.log("place changed: ", place.formatted_address, this.getLocation());
-                   // console.log(place);
                     $("#appbundle_place_name")[0].value = place.name;
                     $("#appbundle_place_latlong")[0].value = this.getLocation().latitude + '; '+this.getLocation().longitude;
-                    console.log($("#appbundle_place_latlong")[0].value)
+                    $("#appbundle_place_googlename")[0].value = place.formatted_address;
                 },
                 mapOptions: {
                     zoom: 15,
-                    center: {lat: 23.143056, lng: -82.38055600000001},
-             //       componentRestrictions: {country: 'cu'},
-            //        LatLngBoundsLiteral: {east: -82.35049049999998,north: 20.2186961,
-            //            south: 19.6716037, west: -84.94968360000001}
+                    center: {lat: 23.143056, lng: -82.38055600000001}
                 }
             }).data('placepicker');
-
-        /*    var $map = $('#collapsePlaceMap');
-
-            var placepicker = $(this)
-            */
+        console.log("final")
 
         });
 
