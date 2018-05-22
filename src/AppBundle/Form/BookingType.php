@@ -13,7 +13,9 @@ class BookingType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('airport')->add('service')->add('ownroute')->add('tour')->add('fullname')->add('email')->add('telephone')->add('flynumber')->add('details')->add('pickuptime')->add('burden')->add('numpeople')->add('comment');
+        $builder->add('airport')->add('service')->add('ownroute')->add('tour')->add('fullname')->add('email')
+            ->add('telephone')->add('flynumber')->add('details')
+            ->add('pickuptime')->add('burden')->add('numpeople')->add('comment');
     }/**
      * {@inheritdoc}
      */
