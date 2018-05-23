@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -259,9 +260,9 @@ class SiteContent
     /**
      * @return string
      */
-    public function getAbouttitleLocale($locale)
+    public function getAbouttitleLocale()
     {
-        if(strtolower($locale)=="es")
+        if(Utils::getRequestLocaleLang()=="es")
             return $this->abouttitle;
         else
         return $this->abouttitleen;
@@ -288,9 +289,9 @@ class SiteContent
     /**
      * @return string
      */
-    public function getAbouttextfooterLocale($locale)
+    public function getAbouttextfooterLocale()
     {
-        if(strtolower($locale)=="es")
+        if(Utils::getRequestLocaleLang()=="es")
             return $this->abouttextfooter;
         else
             return $this->abouttextfooteren;
@@ -316,9 +317,9 @@ class SiteContent
     /**
      * @return string
      */
-    public function getAboutinfographtextLocale($locale)
+    public function getAboutinfographtextLocale()
     {
-        if(strtolower($locale)=="es")
+        if(Utils::getRequestLocaleLang()=="es")
             return $this->aboutinfographtext;
         else
             return $this->aboutinfographtexten;
@@ -329,9 +330,9 @@ class SiteContent
     /**
      * @return string
      */
-    public function getServicestitleLocale($locale)
+    public function getServicestitleLocale()
     {
-        if(strtolower($locale)=="es")
+        if(Utils::getRequestLocaleLang()=="es")
             return $this->servicestitle;
         else
             return $this->servicestitleen;
@@ -356,9 +357,9 @@ class SiteContent
     /**
      * @return string
      */
-    public function getServicestextLocale($locale)
+    public function getServicestextLocale()
     {
-        if(strtolower($locale)=="es")
+        if(Utils::getRequestLocaleLang()=="es")
             return $this->servicestext;
         else
             return $this->servicestexten;
@@ -384,9 +385,9 @@ class SiteContent
     /**
      * @return string
      */
-    public function getServicestaxititleLocale($locale)
+    public function getServicestaxititleLocale()
     {
-        if(strtolower($locale)=="es")
+        if(Utils::getRequestLocaleLang()=="es")
             return $this->servicestaxititle;
         else
             return $this->servicestaxititleen;
@@ -412,9 +413,9 @@ class SiteContent
     /**
      * @return string
      */
-    public function getServicestaxitextLocale($locale)
+    public function getServicestaxitextLocale()
     {
-        if(strtolower($locale)=="es")
+        if(Utils::getRequestLocaleLang()=="es")
             return $this->servicestaxitext;
         else
             return $this->servicestaxitexten;
@@ -438,9 +439,9 @@ class SiteContent
     /**
      * @return string
      */
-    public function getServicestaxitourstitleLocale($locale)
+    public function getServicestaxitourstitleLocale()
     {
-        if(strtolower($locale)=="es")
+        if(Utils::getRequestLocaleLang()=="es")
             return $this->servicestaxitourstitle;
         else
             return $this->servicestaxitourstitleen;
@@ -465,9 +466,9 @@ class SiteContent
     /**
      * @return string
      */
-    public function getServicestaxitourstextLocale($locale)
+    public function getServicestaxitourstextLocale()
     {
-        if(strtolower($locale)=="es")
+        if(Utils::getRequestLocaleLang()=="es")
             return $this->servicestaxitourstext;
         else
             return $this->servicestaxitourstexten;
@@ -491,9 +492,9 @@ class SiteContent
     /**
      * @return string
      */
-    public function getServicesmakeroutetextLocale($locale)
+    public function getServicesmakeroutetextLocale()
     {
-        if(strtolower($locale)=="es")
+        if(Utils::getRequestLocaleLang()=="es")
             return $this->servicesmakeroutetext;
         else
             return $this->servicesmakeroutetexten;
@@ -590,9 +591,9 @@ class SiteContent
     /**
      * @return string
      */
-    public function getAbouttextLocale($locale)
+    public function getAbouttextLocale()
     {
-        if(strtolower($locale)=="es")
+        if(Utils::getRequestLocaleLang()=="es")
             return $this->abouttext;
         else
             return $this->abouttexten;
@@ -665,9 +666,9 @@ class SiteContent
     /**
      * @return string
      */
-    public function getAboutteamtextLocale($locale)
+    public function getAboutteamtextLocale()
     {
-        if(strtolower($locale)=="es")
+        if(Utils::getRequestLocaleLang()=="es")
             return $this->aboutteamtext;
         else
             return $this->aboutteamtexten;
@@ -730,9 +731,9 @@ class SiteContent
     /**
      * @return string
      */
-    public function getAboutinfographtitleLocale($locale)
+    public function getAboutinfographtitleLocale()
     {
-        if(strtolower($locale)=="es")
+        if(Utils::getRequestLocaleLang()=="es")
             return $this->aboutinfographtitle;
         else
             return $this->aboutinfographtitleen;

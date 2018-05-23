@@ -120,4 +120,17 @@ class Utils
         return $data;
 
     }
+
+    public static function setRequestLocaleLang($_locale = "en"){
+       // setcookie("applocale",$_locale);
+        $_REQUEST['applocale'] = $_locale;
     }
+
+    public  static function getRequestLocaleLang()
+    {
+        if(isset( $_REQUEST['applocale']))
+            return  $_REQUEST['applocale'];
+        else
+            return "en";
+    }
+}

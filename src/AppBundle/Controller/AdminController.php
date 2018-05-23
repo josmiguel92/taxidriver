@@ -217,6 +217,7 @@ class AdminController extends Controller
                 'Los cambios en los contenidos fueron guardados! >> info >> ti-save'
             );
         }
+
         return $this->render('AppBundle:Dash:sitecontent.html.twig',
             ['pagename'=>'sitecontent',
             'content_form' => $editForm->createView(),
