@@ -34,4 +34,22 @@ class DefaultController extends Controller
         else throw new Exception("No hay configuracion disponible");
     }
 
+        /**
+         * @Route("/blog")
+         * @Route("/{_locale}/blog", defaults={"_locale": "en"}, requirements={
+         * "_locale": "en|es|fr"
+         * }, name="homepage")
+         */
+        public function blogAction(Request $request, $_locale="en")
+        {
+            Utils::setRequestLocaleLang($_locale);
+            $em = $this->getDoctrine()->getManager();
+            $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
+            $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
+
+            return $this->render('AppBundle:Front:blog.html.twig',
+            ['hashtags'=>$hashtags,
+            'socialNetworks'=>$socialNetworks,]);
+        }
+
 }
