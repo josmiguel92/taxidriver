@@ -18,7 +18,7 @@ use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
 
 /**
- * Cartel controller.
+ * Admin controller.
  *
  * @Route("/dash")
  */
@@ -42,7 +42,7 @@ class AdminController extends Controller
     public function galleryAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $images = $em->getRepository("AppBundle:Image")->findAll();
+        $images = $em->getRepository("AppBundle:Image")->findBy([],["id"=>'desc']);
 
         if ($images and count($images) > 0)
         {

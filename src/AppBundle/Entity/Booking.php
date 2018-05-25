@@ -177,6 +177,30 @@ class Booking
 
 
     /**
+     * @var boolean
+     * @ORM\Column(name="accepted", type="boolean")
+     */
+    private $accepted;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="confirmed", type="boolean")
+     */
+    private $confirmed;
+
+    /**
+     * @var string
+     * @ORM\Column(name="token", type="string", length=255)
+     */
+    private $token;
+
+
+    function __construct()
+    {
+        $this->token = uniqid("bk".date("Ymd"));
+    }
+
+    /**
      * Get id
      *
      * @return int
@@ -401,5 +425,55 @@ class Booking
     {
         return $this->numpeople;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isAccepted()
+    {
+        return $this->accepted;
+    }
+
+    /**
+     * @param boolean $accepted
+     */
+    public function setAccepted($accepted)
+    {
+        $this->accepted = $accepted;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isConfirmed()
+    {
+        return $this->confirmed;
+    }
+
+    /**
+     * @param boolean $confirmed
+     */
+    public function setConfirmed($confirmed)
+    {
+        $this->confirmed = $confirmed;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param string $token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+
+
 }
 

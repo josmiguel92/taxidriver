@@ -5,7 +5,9 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 class BookingType extends AbstractType
 {
     /**
@@ -13,9 +15,16 @@ class BookingType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('airport')->add('service')->add('ownroute')->add('tour')->add('fullname')->add('email')
-            ->add('telephone')->add('flynumber')->add('details')
-            ->add('pickuptime')->add('burden')->add('numpeople')->add('comment');
+        $builder->add('airport')
+            ->add('service')->add('ownroute')->add('tour')->add('fullname')
+            ->add('email', EmailType::class)
+            ->add('telephone')
+            ->add('flynumber')
+            ->add('details')
+            ->add('pickuptime')
+            ->add('burden',IntegerType::class)
+            ->add('numpeople',IntegerType::class)
+            ->add('comment');
     }/**
      * {@inheritdoc}
      */
