@@ -1,0 +1,115 @@
+.btn-primary,
+.btn-calypso{
+    color: #fff;
+    background-color: #18acfb;
+    border-color: #18acfb;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus,
+.btn-calypso:hover,
+.btn-calypso:active,
+.btn-calypso:focus{
+    color: #fff;
+    background-color: #50b4ea;
+    border-color: #50b4ea;
+}
+
+
+.btn-primary:focus,
+.btn-primary.focus,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.active,
+.open > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #50b4ea;
+    border-color: #50b4ea;
+}
+
+.rd-navbar-fullwidth.rd-navbar-panel .rd-navbar-nav > li.active > a{
+    color: #fff;
+    background: transparent;
+    border: 2px #18acfb solid;
+    transition: none;
+}
+
+.rd-navbar-fullwidth.rd-navbar-panel .rd-navbar-nav > li:hover > a,
+.rd-navbar-fullwidth.rd-navbar-panel .rd-navbar-nav > li.focus > a,
+.rd-navbar-fullwidth.rd-navbar-panel .rd-navbar-nav > li:focus > a {
+    background: #18acfb;
+}
+
+
+.ui-to-top, .ui-to-top:hover {
+    color: #FFF;
+    background: #18acfb;
+    text-decoration: none;
+}
+
+.color-sky{
+    color: #18acfb;
+}
+
+.color-sky:hover{
+    color: #50b4ea;
+}
+
+.list-marked li::before {
+    background: #18acfb;
+}
+
+.list-marked li::before:hover {
+    background: #50b4ea;
+}
+
+.btn-book{
+    background-color: #18acfb !important;
+    border: 2px #18acfb solid;
+}
+
+
+.gallery-top .swiper-slide::before{
+    width: 100%;
+    height:100% !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: linear-gradient(
+            rgba(0,0,0,0.0) 0%,
+            rgba(0,0,0,0.65) 50%,
+            rgba(0,0,0,0.0) 75%);
+    z-index: -1;
+}
+
+.swiper-slide > .shell{
+    margin-top: 15vh;
+}
+
+.swiper-slide{
+    position: relative;
+}
+
+.box-member-img-wrap::before {
+    background: rgba(76, 75, 72, 0.23);
+}
+
+.list-social > li{
+    margin: 0 10px;
+}
+
+.list-social > li > a > i:hover,
+.list-social > li > a > i:focus,
+.list-social > li > a > i:active
+{
+    color: #50b4ea;
+}
+
+.form-control:focus {
+    border-color: #50b4ea;
+}
+
+.two-columns{
+    column-count: 2;
+}

@@ -25,8 +25,12 @@ class DefaultController extends Controller
         Utils::setRequestLocaleLang($_locale);
         $em = $this->getDoctrine()->getManager();
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
+        $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
+        $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
         if(count($content)>0)
-            return $this->render('AppBundle::default.html.twig', ['content'=>$content[0]]);
+            return $this->render('AppBundle:Front:index.html.twig', ['content'=>$content[0],
+            'socialNetworks'=>$socialNetworks,
+            'hashtags'=>$hashtags]);
         else throw new Exception("No hay configuracion disponible");
     }
 
