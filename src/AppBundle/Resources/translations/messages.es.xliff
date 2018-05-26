@@ -6,10 +6,22 @@
                 <source>start</source>
                 <target>Inicio</target>
             </trans-unit>
-          <trans-unit id="email.confirm">
-            <source>Confirm reservation!</source>
-            <target>Confirmar reservación!</target>
-        </trans-unit>
+
+            <trans-unit id="email.confirm">
+                <source>about us</source>
+                <target>nosotros</target>
+            </trans-unit>
+
+            <trans-unit id="email.confirm">
+                <source>contact</source>
+                <target>contactos</target>
+            </trans-unit>
+
+            <trans-unit id="email.confirm">
+                <source>Confirm reservation!</source>
+                <target>Confirmar reservación!</target>
+            </trans-unit>
+
 
         </body>
     </file>

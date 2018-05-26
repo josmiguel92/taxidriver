@@ -1,0 +1,257 @@
+{% set logo = asset("images/logo-light-183x34.png") %}
+{% set logo_dark = asset("images/logo-lg-dark-182x34.png") %}
+{% set divider = asset("images/divider-01-135x4.png") %}
+
+<!DOCTYPE html>
+<html lang="en" class="wide wow-animation smoothscroll  scrollTo desktop landscape mag-js rd-navbar-fullwidth-linked">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>{% block title %}{% endblock %} | Taxi Drivers Cuba</title>
+
+	<link rel="stylesheet" type="text/css" href="{{ asset("css/css.css") }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset("css/style.css") }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset("css/custom.css") }}">
+</head>
+
+<body>
+    <!-- Page-->
+    <div class="page text-center">
+
+        {% block header %}
+            <header class="page-header slider-menu-position">
+
+                <!-- RD Navbar-->
+
+                <div class="rd-navbar-wrap">
+
+                    <nav data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-static" data-md-stick-up-offset="50px" data-lg-stick-up-offset="1px" class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fullwidth" data-lg-layout="rd-navbar-static">
+                        <div class="rd-navbar-inner">
+                            <!-- RD Navbar Panel-->
+                            <div class="rd-navbar-panel">
+
+                                <!-- RD Navbar Toggle-->
+                                <button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle">
+                                    <span></span>
+                                </button>
+
+                                <!-- RD Navbar Brand-->
+                                <div class="rd-navbar-brand veil reveal-md-block">
+                                    <a href="{{ path("home") }}" class="brand-name">
+                                        <img style='margin-top: -10px;' width='164' height='29' src='{{ logo }}' alt=''/>
+                                    </a>
+                                </div>
+
+                                <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block">
+                                    <a href="" class="brand-name">
+                                        <img style='margin-top: -7px;' width='128' height='24' src='{{ logo }}' alt=''/>
+                                    </a>
+                                </div>
+
+                                <!-- RD Navbar Toggle-->
+                                <button data-rd-navbar-toggle=".rd-navbar-collapse-wrap" class="rd-navbar-collapse">
+                                    <span></span>
+                                </button>
+                            </div>
+                            <div class="rd-navbar-right-side">
+
+                                <!--- Links --->
+                                <div class="rd-navbar-nav-wrap reveal-md-inline-block">
+                                    <ul class="rd-navbar-nav">
+                                        <!-- RD Navbar Nav-->
+                                        <li><a href="{{ path("home") }}">home</a></li>
+                                        <li><a href="{{ path("home") }}#services">services</a></li>
+                                        <li><a href="{{ path("home") }}#about">about us</a></li>
+                                        <li><a href="{{ path("home") }}#contact">contacts</a></li>
+                                        <li><a href="{{ path("blog") }}">blog</a></li>
+                                    </ul>
+                                </div>
+
+                                <!-- Social Network --->
+                                <div class="rd-navbar-collapse-wrap reveal-md-inline-block">
+                                    <ul class="list-inline list-inline-0 list-social">
+                                        {% for socialNetwork in socialNetworks %}
+                                            <li class="text-center">
+                                                <a href="{{ socialNetwork.getProfilelink }}" class="text-white">
+                                                    <i class="{{ socialNetwork.getIcon }}"></i>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+
+                <!-- Modern Breadcrumbs-->
+                <section class="section-height-800 breadcrumb-modern rd-parallax context-dark">
+                    <div data-speed="0.6" data-type="media" data-url="{{ asset("images/backgrounds/background-02-1920x900.jpg") }}" class="rd-parallax-layer"></div>
+                    <div data-speed="0" data-type="html" class="rd-parallax-layer">
+                        <div class="shell section-top-34 section-bottom-34 section-md-top-175 section-md-bottom-75 section-lg-top-158 section-lg-bottom-125 section-md-tablet-75">
+                            <div class="veil reveal-md-block">
+                                <div class="text-extra-big font-accent text-bold text-spacing-inverse-50">Blog</div>
+                            </div>
+                            <div class="offset-top-5">
+                                <ul class="list-inline list-inline-dashed h5 text-uppercase">
+                                    <li class="text-spacing-75"><a href="index.html">home</a></li>
+                                    <li class="text-spacing-75"><a href="#">News</a></li>
+                                    <li class="text-spacing-75">Classic Blog
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </header>
+        {% endblock %}
+
+        {% block content %}
+            A sobreeescribir este contenido
+        {% endblock %}
+
+
+        <!-- Page Footer-->
+        <footer class="page-footer bg-gray-base section-75 section-md-top-103 section-md-bottom-55 text-md-left">
+        <div class="shell">
+
+            <div class="range range-xs-center range-lg-justify">
+
+                <div class="cell-sm-5 cell-md-4">
+                    <div class="inset-lg-right-80">
+                        <div>
+                            <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">{% trans %} about {% endtrans %}</p>
+                        </div>
+                        <div class="offset-top-25">
+                            <p class="text-gray-light text-spacing-0 text-left">
+                                {{ content.getAbouttextfooterLocale() }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cell-sm-5 cell-md-4 offset-top-44 offset-sm-top-0">
+                    <div class="inset-lg-right-40">
+                        <div>
+                            <div>
+                                <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">{% trans %}contacts{% endtrans %}</p>
+                            </div>
+                            <!-- Contact Info-->
+                            <address class="contact-info text-left offset-top-25">
+                                <div>
+                                    <p class="text-gray-light text-spacing-0">4578 Marmora St, San Francisco D04 89GR.</p>
+                                </div>
+                                <dl>
+                                    <dt class="text-gray-light text-regular reveal-inline-block">{% trans %}Phone:{% endtrans %}</dt>
+                                    <dd class="text-gray-light reveal-inline-block p">
+                                        <a href="tel://{{ content.getContacttelephone }}" class="text-gray-light">{{ content.getContacttelephone() }}</a>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt class="text-gray-light text-regular reveal-inline-block">{% trans %}E-mail:{% endtrans %} </dt>
+                                    <dd class="text-gray-light p reveal-inline-block">
+                                        <a href="mailto:{{ content.getContactemail() }}" class="color-sky">{{ content.getContactemail() }}</a>
+                                    </dd>
+                                </dl>
+                            </address>
+                        </div>
+                        <div class="offset-top-50">
+                            <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">We are Social</p>
+                            <div class="offset-top-25">
+
+                                <ul class="list-inline list-inline-0 list-social">
+                                    {% for socialNetwork in socialNetworks %}
+                                    <li class="text-center">
+                                        <a href="{{ socialNetwork.getProfilelink }}" class="text-gray-light">
+                                            <i class="{{ socialNetwork.getIcon }} fa-2x"></i>
+                                        </a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+
+                            </div>
+                            <div class="row offset-top-25">
+                                <div class="two-columns">
+                                    {% for hashtag in hashtags %}
+                                        <p><a href="#" class="color-sky"><i class="fa fa-hashtag"></i> {{ hashtag.name }}</a></p>
+                                    {% else %}
+                                        no hay
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="cell-sm-4 cell-md-4 offset-top-44 offset-md-top-0">
+                    <div>
+                        <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">Taxi-Tours</p>
+                    </div>
+                    <div class="reveal-inline-block offset-top-15 offset-md-top-30">
+                        <div class="col-md-6">
+                            <ul class="list-marked text-bold p text-left">
+                                <li><a href="fleet.html" class="color-sky">Cayo Coco</a></li>
+                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Cayo Jutia</a></li>
+                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Cayo Santa Maria</a></li>
+                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Cayo Levisa</a></li>
+                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Cayo Santa Maria</a></li>
+                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Cayo Levisa</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-marked text-bold p text-left">
+                                <li><a href="fleet.html" class="color-sky">Trinidad</a></li>
+                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Viñales</a></li>
+                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Soroa</a></li>
+                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Cienfuegos</a></li>
+                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Cayo Santa Maria</a></li>
+                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Cayo Levisa</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-12">
+                            <ul class="offset-top-25">
+                                <li class="text-center">
+                                    <a href="#" class="color-sky">Make your own Tour!</a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="offset-top-60">
+                <div class="hr bg-gray-darker"></div>
+            </div>
+            <div class="offset-top-50">
+
+                <p class="text-extra-small text-gray-light">Taxi Drivers Cuba &#169; <span id="copyright-year"></span> <a href="privacy.html" class="text-gray-light">Privacy Policy
+                    </a></p>
+
+                <p class="text-extra-small text-gray-light">Make with <i class="fa fa-heart"></i> and <i class="fa fa-code"></i> by <a href="#">Habana.Tech</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    </div>
+
+
+    {% block javascript %}
+        <!-- Java script-->
+        <script src="{{ asset("js/core.min.js") }}"></script>
+        <script src="{{ asset("js/script.js") }}"></script>
+        <script src="{{ asset("js/custom.js") }}"></script>
+        <!--  Google Maps Plugin    -->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzw5JDg3BVa29LV4rMojmPEOgDOOR6udc&libraries=places"></script>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,651 @@
+{% extends 'AppBundle:Front:base.html.twig' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+
+{% block header %}
+
+    <!-- Page Header-->
+    <header class="page-header">
+
+        <!-- RD Navbar-->
+        <div class="rd-navbar-wrap">
+            <nav data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-static" data-md-stick-up-offset="120px" data-lg-stick-up-offset="120px" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fullwidth" data-lg-layout="rd-navbar-fullwidth" class="rd-navbar rd-navbar-panel">
+                <div class="rd-navbar-inner">
+                    <!-- RD Navbar Panel-->
+                    <div class="rd-navbar-panel">
+                        <!-- RD Navbar Toggle-->
+                        <button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
+                        <!-- RD Navbar Brand-->
+                        <div class="rd-navbar-brand veil reveal-md-block veil-tablet-md">
+                            <a href="index.html" class="brand-name"><img width="auto" src="{{ logo_dark }}" alt="Taxi Drivers Cuba">
+                            </a>
+                        </div>
+                        <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block">
+                            <a href="index.html" class="brand-name">
+                                <img style="margin-top: -7px;" width="182" height="34" src="{{ logo_dark }}" alt="">
+                            </a>
+                        </div>
+                        <!-- RD Navbar Toggle-->
+                        <button data-rd-navbar-toggle=".rd-navbar-collapse-wrap" class="rd-navbar-collapse"><span></span></button>
+                    </div>
+                    <div class="rd-navbar-right-side">
+                        <div class="pull-md-left veil reveal-lg-inline-block">
+                            <ul class="rd-navbar-nav">
+                                <li><a class="btn-book" href="index.html">Book Now</a></li>
+                            </ul>
+                        </div>
+
+                        <!--- Links --->
+                        <div class="rd-navbar-nav-wrap reveal-md-inline-block">
+                            <ul class="rd-navbar-nav">
+                                <!-- RD Navbar Nav-->
+                                <li><a href="{{ path("home") }}">home</a></li>
+                                <li><a href="{{ path("home") }}#services">services</a></li>
+                                <li><a href="{{ path("home") }}#about">about us</a></li>
+                                <li><a href="{{ path("home") }}#contact">contacts</a></li>
+                                <li><a href="{{ path("blog") }}">blog</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="pull-md-right">
+
+                            <!-- Social Network --->
+                            <div class="rd-navbar-collapse-wrap reveal-md-inline-block">
+                                <ul class="list-inline list-inline-0 list-social">
+                                    {% for socialNetwork in socialNetworks %}
+                                        <li class="text-center">
+                                            <a href="{{ socialNetwork.getProfilelink }}" class="text-white">
+                                                <i class="{{ socialNetwork.getIcon }}"></i>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Swiper Gallery-->
+        <div  id="home" class="swiper-container gallery-top">
+
+            <div class="swiper-wrapper">
+
+                <div style="background-image:url({{ asset("images/sliders/Varadero.jpg") }})" class="swiper-slide">
+                    <div class="shell">
+                        <div class="range range-xs-center">
+                            <div class="cell-sm-10">
+                                <div class="text-extra-big font-accent text-bold text-spacing-inverse-50 text-white">A day in Varadero beach</div>
+                                <h5 class="offset-top-10 text-white text-spacing-0 text-transform-none">
+                                    We are always there at your service. Fast and reliable way to find
+                                    quality taxi service anywhere you need it.
+                                </h5>
+                                <div style="max-width:510px;" class="btn-both-lines offset-top-30 center-block"><a href="#" style="min-width:240px;" class="btn btn-primary">learn more</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Add Arrows-->
+            <div class="swiper-button-next swiper-button-white color-sky"></div>
+            <div class="swiper-button-prev swiper-button-white color-sky"></div>
+        </div>
+
+        <div class="swiper-container gallery-thumbs">
+            <div class="swiper-wrapper">
+                <div style="background-image:url({{ asset("images/sliders/Varadero.jpg") }})" class="swiper-slide"></div>
+            </div>
+        </div>
+
+    </header>
+
+{% endblock %}
+
+{% block content %}
+
+    <!-- Page Content-->
+    <main class="page-content">
+
+        <!-- Routes-->
+        <section  id="services" style="padding-top: 1%;" >
+            <div class="shell offset-top-100">
+
+                <div class="offset-top-100">
+                    <h1 class="text-spacing-inverse-50">
+                        {{ content.getServicestitle() }}
+                    </h1>
+
+                    <div class="offset-top-35"><svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/></svg></div>
+                    <div class="offset-top-25">
+                        <i class="fa fa-cab fa-3x color-sky"></i>
+                        <h5 class="text-spacing-75">Taxi {% trans %}services{% endtrans %}</h5>
+                    </div>
+
+                    <div class="range range-xs-center offset-top-44 offset-md-top-53 text-sm-left">
+
+                        {% for service in services %}
+                            {% if not service.istour %}
+                                <div class="cell-sm-10 cell-md-7 cell-lg-6 offset-top-60">
+                                    <div style="max-width: 100%;" class="reveal-inline-block">
+                                        <!-- Unit-->
+                                        <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
+                                            <div class="unit-left"><img src="images/places/cayo-levisa-general.jpg" width="270" height="263" alt="" class="img-responsive center-block">
+                                            </div>
+                                            <div class="unit-body">
+                                                <div>
+                                                    <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">Havana & Cayo Levisa</a></h5>
+
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> Distance: </b> 144km <p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> Time: </b> 4h </p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> Price: </b> since 120 USD <br/></p>
+
+                                                    <div class="offset-top-40">
+                                                        <a href="#" class="btn btn-calypso">Book Now</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="offset-top-35">
+                        <svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/></svg></div>
+
+                    <div class="offset-top-25">
+                        <i class="fa fa-tree fa-3x color-sky"></i>
+                        <h5 class="text-spacing-75">Tours {% trans %}service{% endtrans %}</h5>
+                    </div>
+
+                    <div class="range range-xs-center offset-top-44 offset-md-top-53 text-sm-left">
+
+                        {% for service in services %}
+                            {% if service.istour %}
+                                <div class="cell-sm-10 cell-md-7 cell-lg-6 offset-top-60">
+                                    <div style="max-width: 100%;" class="reveal-inline-block">
+                                        <!-- Unit-->
+                                        <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
+                                            <div class="unit-left">
+                                                <img src="{{ asset(service.place.image.getWebPath) }}" width="270" height="263" alt="{{ service.place.image.getDatailsLocale }}" class="img-responsive center-block">
+                                            </div>
+                                            <div class="unit-body">
+                                                <div>
+                                                    <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">Havana & Cayo Levisa</a></h5>
+
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> Distance: </b> {{ service.place.getDistance }} km <p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> Time: </b> {{ service.getTime|date('h:i') }} </p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> Price: </b> since {{ service.getPrice }} USD <br/></p>
+
+                                                    <div class="offset-top-40">
+                                                        <a href="#" class="btn btn-calypso">Book Now</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map-->
+        <section class="section-md-top-40">
+            <div id="map"></div>
+        </section>
+
+        <!-- Make your own Tour-->
+        <section class="context-dark offset-top-0" style="margin-top: -8px;">
+            <!-- RD Parallax-->
+            <div data-on="false" data-md-on="true" class="rd-parallax">
+                <div data-speed="0.25" data-type="media" data-url="{{ asset("images/banners/make-your-own-tour.jpg") }}" class="rd-parallax-layer"></div>
+                <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+                    <div class="shell section-75 section-md-top-103 section-md-bottom-110">
+                        <div class="range range-xs-center">
+                            <div class="cell-sm-10">
+                                <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
+                                    <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block"></div>
+                                <div class="veil reveal-sm-inline-block">
+                                    <span class="icon icon-lg thin-ico thin-icon-car text-white"></span>
+                                </div>
+                                <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
+                                    <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block"></div>
+                                <div class="offset-top-15 offset-md-top-30">
+                                    <h1 class="text-spacing-0 text-uppercase">Create your own Tour</h1>
+                                    <div class="offset-top-20 offset-md-top-44">
+                                        <p class="h5 text-spacing-inverse-25 text-transform-none">
+                                            You can always explore, Cuba in your own way.
+                                        </p>
+                                    </div>
+                                    <div class="offset-top-30 offset-md-top-60"><a href="#" style="min-width:240px;" class="btn btn-calypso">Make your own Tour!</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other Services-->
+        <section class="section-75 section-md-top-103 section-md-bottom-40">
+            <div class="shell">
+                <h1 class="text-spacing-inverse-25">Other services </h1>
+
+                <div class="range range-xs-center list-index-lg offset-md-top-15">
+
+                    <div class="cell-sm-10 cell-md-4">
+                        <div class="inset-lg-left-30 inset-lg-right-10">
+                            <div class="h2 text-spacing-inverse-50 color-sky"> <i class="fa fa-plane fa-2x"></i> </div>
+                            <div class="offset-top-10">
+                                <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">Airport services</p>
+                            </div>
+                            <div class="offset-top-20">
+                                <p class="text-spacing-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid asperiores deleniti dolores excepturi exercitationem nobis quo sed? Commodi distinctio</p>
+                            </div>
+                            <div class="offset-top-10">
+                                <h5 class="text-spacing-20 text-silver-chalice">...</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cell-sm-10 cell-md-4 offset-top-64 offset-md-top-0">
+                        <div class="inset-lg-left-30 inset-lg-right-10">
+                            <div class="h2 text-spacing-inverse-50 color-sky"> <i class="fa fa-archive fa-2x"></i> </div>
+                            <div class="offset-top-10">
+                                <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">Delivery</p>
+                            </div>
+                            <div class="offset-top-20">
+                                <p class="text-spacing-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid asperiores deleniti dolores excepturi exercitationem nobis quo sed? Commodi distinctio</p>
+                            </div>
+                            <div class="offset-top-10">
+                                <h5 class="text-spacing-20 text-silver-chalice">...</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cell-sm-10 cell-md-4 offset-top-64 offset-md-top-0">
+                        <div class="h2 text-spacing-inverse-50 color-sky"> <i class="fa fa-paw fa-2x"></i> </div>
+                        <div class="offset-top-10">
+                            <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">pet's transportation</p>
+                        </div>
+                        <div class="offset-top-20">
+                            <p class="text-spacing-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid asperiores deleniti dolores excepturi exercitationem nobis quo sed? Commodi distinctio</p>
+                        </div>
+                        <div class="offset-top-10">
+                            <h5 class="text-spacing-20 text-silver-chalice">...</h5>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us-->
+        <section id="about" style="padding-top: 1%;" class="context-dark">
+            <!-- RD Parallax-->
+            <div data-on="false" data-md-on="true" class="rd-parallax offset-top-100">
+                <div data-speed="0.15" data-type="media" data-url="images/banners/about-us.jpg" class="rd-parallax-layer"></div>
+                <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+                    <div class="shell section-75 section-md-top-103 section-md-bottom-110">
+                        <div class="range range-xs-center">
+                            <div class="cell-sm-10">
+                                <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom"><img src="images/divider-01-135x4.png" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block"></div>
+                                <div class="veil reveal-sm-inline-block"><span class="icon icon-lg thin-ico thin-icon-car text-white"></span></div>
+                                <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom"><img src="images/divider-01-135x4.png" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block"></div>
+                                <div class="offset-top-15 offset-md-top-30">
+                                    <h1 class="text-spacing-0 text-uppercase">About us</h1>
+                                    <div class="offset-top-20 offset-md-top-44">
+                                        <br/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us-->
+        <section class="section-75 section-md-top-40 section-md-bottom-20">
+            <div class="shell">
+
+                <!-- Who we are-->
+                <div class="offset-top-10">
+                    <h3 class="text-spacing-75 text-left">Who we are?</h3>
+                </div>
+
+                <div class="range range-xs-center offset-top-30 text-left">
+                    <div class="cell-sm-12 cell-md-10">
+                        <p class="text-spacing-0">
+                            {{ content.getAbouttext() }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Members-->
+                <div class="offset-top-64 offset-md-top-95">
+                    <h3 class="text-spacing-75 text-left">Our Team</h3>
+                </div>
+
+                <div class="range range-xs-center offset-top-30 text-left">
+                    <div class="cell-sm-12 cell-md-10">
+                        <p class="text-spacing-0">
+                            {{ content.getAboutteamtext() }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="range range-condensed">
+
+                    <div class="cell-xs-6 cell-md-4 col-md-offset-2">
+                        <!-- Box Member-->
+                        <div class="box-member">
+                            <div class="box-member-img-wrap"><img src="images/users/lester.jpg" width="480" height="492" alt="" class="img-responsive center-block"></div>
+                            <div class="box-member-caption">
+                                <div>
+                                    <h5 class="text-spacing-inverse-25 text-white text-capitalize">Lester </h5>
+                                </div>
+                                <div class="offset-top-4">
+                                    <p class="font-accent text-bold text-white text-spacing-inverse-25">(driver)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cell-xs-6 cell-md-4">
+                        <!-- Box Member-->
+                        <div class="box-member">
+                            <div class="box-member-img-wrap"><img src="images/users/ernesto.jpg" width="480" height="492" alt="" class="img-responsive center-block">
+                            </div>
+                            <div class="box-member-caption">
+                                <div>
+                                    <h5 class="text-spacing-inverse-25 text-white text-capitalize">Ernesto</h5>
+                                </div>
+                                <div class="offset-top-4">
+                                    <p class="font-accent text-bold text-white text-spacing-inverse-25">(driver)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!--Taxi Drivers Numbers-->
+        <section class="section-75 section-md-top-40 section-md-bottom-40">
+            <div class="shell">
+
+                <h2 class="text-spacing-inverse-25">
+                    {{ content.getAboutinfographtitle }}
+                </h2>
+
+                <div class="range range-xs-center offset-top-20">
+                    <div class="cell-sm-10 cell-lg-8">
+                        <p class="text-spacing-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus dicta illum iusto nisi odio quibusdam quod quos voluptatum! Accusantium at, ipsa iste nostrum temporibus ullam ut. Alias et modi natus?
+                            <br>Call us at <a href="callto:#" class="text-gray-base">{{ content.contacttelephone }}</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="offset-top-15"><svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/></svg></div>
+
+                <div class="range range-xs-center list-index-lg offset-md-top-15">
+                    <div class="cell-sm-10 cell-md-4">
+                        <div class="inset-lg-left-30 inset-lg-right-10">
+                            <div class="h2 text-spacing-inverse-50 color-sky"> <i class="fa fa-smile-o fa-2x"></i> </div>
+
+                            <div class="offset-top-10">
+                                <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">+100 happy customers</p>
+                            </div>
+
+                            <div class="offset-top-20">
+                                <p class="text-spacing-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid asperiores deleniti dolores excepturi exercitationem nobis quo sed? Commodi distinctio</p>
+                            </div>
+
+                            <div class="offset-top-10">
+                                <h5 class="text-spacing-20 text-silver-chalice">...</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cell-sm-10 cell-md-4 offset-top-64 offset-md-top-0">
+                        <div class="inset-lg-left-30 inset-lg-right-10">
+                            <div class="h2 text-spacing-inverse-50 color-sky"> <i class="fa fa-tree fa-2x"></i> </div>
+
+                            <div class="offset-top-10">
+                                <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">+200 place to visit</p>
+                            </div>
+
+                            <div class="offset-top-20">
+                                <p class="text-spacing-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid asperiores deleniti dolores excepturi exercitationem nobis quo sed? Commodi distinctio</p>
+                            </div>
+
+                            <div class="offset-top-10">
+                                <h5 class="text-spacing-20 text-silver-chalice">...</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cell-sm-10 cell-md-4 offset-top-64 offset-md-top-0">
+                        <div class="inset-lg-left-30 inset-lg-right-10">
+                            <div class="h2 text-spacing-inverse-50 color-sky"> <i class="fa fa-cab fa-2x"></i> </div>
+
+                            <div class="offset-top-10">
+                                <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">+5000 miles without accidents</p>
+                            </div>
+
+                            <div class="offset-top-20">
+                                <p class="text-spacing-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid asperiores deleniti dolores excepturi exercitationem nobis quo sed? Commodi distinctio</p>
+                            </div>
+
+                            <div class="offset-top-10">
+                                <h5 class="text-spacing-20 text-silver-chalice">...</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Testimonials-->
+        <section class="section-75 section-md-top-40 section-md-bottom-20">
+            <div class="shell">
+                <h2>Testimonials</h2>
+                <div class="range range-xs-center offset-top-20">
+                    <div class="cell-sm-10 cell-md-12">
+                        <div data-items="1" data-md-items="3" data-xs-stage-padding="5" data-loop="true" data-margin="30" data-mouse-drag="false" data-nav="true" data-dots="true" class="owl-carousel owl-nav-absolute owl-nav-primary owl-nav-top">
+                            <div class="owl-item">
+                                <!-- Blockquote-->
+                                <blockquote class="quote"><img src="images/users/user-john-wilson-169x169(2).jpg" width="169" height="169" alt="" class="img-circle img-responsive center-block">
+                                    <div class="offset-top-15 offset-md-top-30">
+                                        <p >
+                                            Just wanted to say how satisfied we were with the driver Mahesh, he was friendly and drove very well. The car was excellent and we will recommend your service. Many thanks. Kind regards.
+                                        </p>
+                                    </div>
+                                    <div class="offset-top-10 offset-md-top-25">
+                                        <p>
+                                            <cite class="font-accent text-bold text-spacing-inverse-25 text-primary"><a href="single-member.html" class="text-mine-shaft">John Wilson</a><span class="reveal-block">(client)</span></cite>
+                                        </p>
+                                    </div>
+                                    <div class="offset-top-10">
+                                        <h5 class="text-spacing-20 text-silver-chalice">...</h5>
+                                    </div>
+                                </blockquote>
+                            </div>
+                            <div class="owl-item">
+                                <!-- Blockquote-->
+                                <blockquote class="quote"><img src="images/users/user-ann-richardson-169x169.jpg" width="169" height="169" alt="" class="img-circle img-responsive center-block">
+                                    <div class="offset-top-15 offset-md-top-30">
+                                        <p>
+                                            For over ten years, City-Taxi has played a vital role in providing our agency with the necessary transportation to help visitors in crisis. We are extremely grateful for their support.
+                                        </p>
+                                    </div>
+                                    <div class="offset-top-10 offset-md-top-25">
+                                        <p>
+                                            <cite class="font-accent text-bold text-spacing-inverse-25 text-primary"><a href="single-member.html" class="text-mine-shaft">April Smith</a><span class="reveal-block">(client)</span></cite>
+                                        </p>
+                                    </div>
+                                    <div class="offset-top-10">
+                                        <h5 class="text-spacing-20 text-silver-chalice">...</h5>
+                                    </div>
+                                </blockquote>
+                            </div>
+                            <div class="owl-item">
+                                <!-- Blockquote-->
+                                <blockquote class="quote"><img src="images/users/user-richard-cox-169x169.jpg" width="169" height="169" alt="" class="img-circle img-responsive center-block">
+                                    <div class="offset-top-15 offset-md-top-30">
+                                        <p>
+                                            One of your drivers who got me from Broadway to the Museum of National History couldn’t have been more awesome! He was kind, polite and a great conversationalist!
+                                        </p>
+                                    </div>
+                                    <div class="offset-top-10 offset-md-top-25">
+                                        <p>
+                                            <cite class="font-accent text-bold text-spacing-inverse-25 text-primary"><a href="single-member.html" class="text-mine-shaft">Mike Hudson</a><span class="reveal-block">(client)</span></cite>
+                                        </p>
+                                    </div>
+                                    <div class="offset-top-10">
+                                        <h5 class="text-spacing-20 text-silver-chalice">...</h5>
+                                    </div>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="max-width:560px;" class="btn-both-lines btn-both-lines-gray-lighter offset-top-30 center-block"><a href="testimonials.html" style="min-width:260px;" class="btn btn-calypso">more testimonials from <i class="fa fa-tripadvisor"></i> TripAdvisor</a></div>
+            </div>
+        </section>
+
+        <!--Contact-->
+        <section id="contacts" style="padding-top: 1%;"  class="section-md-bottom-40">
+            <div class="shell offset-top-100">
+                <h1>Get in touch</h1>
+
+                <div class="range range-xs-center offset-top-50">
+
+                    <div class="cell-sm-6 cell-lg-4">
+                        <!-- RD Mailform-->
+                        <form data-form-output="form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php" class="rd-mailform text-left">
+                            <div class="form-group">
+                                <label for="contact-name" class="form-label">Name</label>
+                                <input id="contact-name" type="text" name="name" data-constraints="@Required" class="form-control">
+                            </div>
+                            <div class="form-group offse-top-5">
+                                <label for="contact-last-name" class="form-label">Last name</label>
+                                <input id="contact-last-name" type="text" name="last-name" data-constraints="@Required" class="form-control">
+                            </div>
+                            <div class="form-group offse-top-5">
+                                <label for="contact-message" class="form-label">Message</label>
+                                <textarea id="contact-message" name="message" data-constraints="@Required" style="height: 140px;" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group offse-top-5">
+                                <label for="contact-email" class="form-label">Email</label>
+                                <input id="contact-email" type="email" name="email" data-constraints="@Email @Required" class="form-control">
+                            </div>
+                            <div class="text-center text-sm-right offse-top-5">
+                                <button type="submit" style="min-width: 210px;" class="btn btn-primary">send a message</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="cell-sm-6 cell-lg-4 offset-top-64 offset-sm-top-0 text-left">
+                        <!-- Contact Info-->
+                        <address class="contact-info">
+                            <dl>
+                                <dt class="font-accent text-bold text-uppercase text-mine-shaft">address</dt>
+                                <dd class="offset-top-4">O street, Havana, Cuba</dd>
+                            </dl>
+                            <dl class="offset-top-25">
+                                <dt class="font-accent text-bold text-uppercase text-mine-shaft">OPENING HOURS</dt>
+                                <dd>8.00-18.00 Mon-Sat</dd>
+                            </dl>
+                            <dl class="offset-top-30">
+                                <dt class="font-accent text-bold text-uppercase text-mine-shaft">phone</dt>
+                                <dd><a href="tel://+53 55864523" class="text-silver-chalice">+53 55864523</a>
+                                </dd>
+                            </dl>
+                            <dl class="offset-top-30">
+                                <dt class="font-accent text-bold text-uppercase text-mine-shaft">email</dt>
+                                <dd class="offset-top-5"><a href="mailto:#" class="font-accent text-bold text-primary">info@demolink.org</a></dd>
+                            </dl>
+                        </address>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script>
+
+        var google;
+        function init() {
+            // Basic options for a simple Google Map
+            // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+            // var myLatlng = new google.maps.LatLng(40.71751, -73.990922);
+
+            {% for service in services %}
+                {% set name = "mypos_"~loop.index %}
+
+                var {{ name }} = new google.maps.LatLng(service.place.getLatlong);
+            {% endfor %}
+
+            var mycenter = new google.maps.LatLng(22.5267186, -81.12788139999998);
+
+            // 39.399872
+            // -8.224454
+            //23.1395344,-82.3565055 -> Monserrate y Empedrado
+
+            var mapOptions = {
+                // How zoomed in you want the map to start at (always required)
+                zoom: 8,
+
+                // The latitude and longitude to center the map (always required)
+                center: mycenter,
+
+                // How you would like to style the map.
+                scrollwheel: false,
+                styles: [{"featureType":"administrative.land_parcel","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape.man_made","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"simplified"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"hue":"#f49935"}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"hue":"#fad959"}]},{"featureType":"road.arterial","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"visibility":"simplified"}]},{"featureType":"road.local","elementType":"labels","stylers":[{"visibility":"simplified"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"hue":"#a1cdfc"},{"saturation":30},{"lightness":49}]}]
+            };
+
+            // Get the HTML DOM element that will contain your map
+            // We are using a div with id="map" seen below in the <body>
+            var mapElement = document.getElementById('map');
+
+            // Create the Google Map using out element and options defined above
+            var map = new google.maps.Map(mapElement, mapOptions);
+
+            {% for service in services %}
+                {% set name = "mypos_"~loop.index %}
+
+                new google.maps.Marker({
+                    position: name,
+                    map: map
+                    //icon: 'images/loc.png'
+                });
+
+            {% endfor %}
+
+        }
+        google.maps.event.addDomListener(window, 'load', init);
+    </script>
+{% endblock %}
