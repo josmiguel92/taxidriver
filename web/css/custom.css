@@ -136,3 +136,8 @@ button.test{
 button.test:hover{
     width: 100px;
 }
+
+
+#map{
+    height: 75vh;
+}

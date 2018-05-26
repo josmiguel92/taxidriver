@@ -10,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse as RedirectResponse;
-use Symfony\Component\Validator\Exception\InvalidOptionsException;
 
 class DefaultController extends Controller
 {
@@ -18,7 +17,7 @@ class DefaultController extends Controller
     /**
      * @Route("/{_locale}", defaults={"_locale": "en"}, requirements={
      * "_locale": "en|es|fr"
-     * }, name="homepage")
+     * }, name="home")
      */
     public function indexAction(Request $request, $_locale)
     {
@@ -27,10 +26,13 @@ class DefaultController extends Controller
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
         $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
         $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
+        $services = $em->getRepository('AppBundle:Services')->findAll();
         if(count($content)>0)
-            return $this->render('AppBundle:Front:index.html.twig', ['content'=>$content[0],
+            return $this->render('AppBundle:Front:index.html.twig',
+            ['content'=>$content[0],
             'socialNetworks'=>$socialNetworks,
-            'hashtags'=>$hashtags]);
+            'hashtags'=>$hashtags,
+            'services'=>$services]);
         else throw new Exception("No hay configuracion disponible");
         return $this->render('AppBundle:Front:index.html.twig', []);
     }
@@ -39,7 +41,7 @@ class DefaultController extends Controller
          * @Route("/blog")
          * @Route("/{_locale}/blog", defaults={"_locale": "en"}, requirements={
          * "_locale": "en|es|fr"
-         * }, name="homepage")
+         * }, name="blog")
          */
         public function blogAction(Request $request, $_locale="en")
         {
