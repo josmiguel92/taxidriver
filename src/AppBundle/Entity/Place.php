@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Utils\Utils;
 
 /**
  * Place
@@ -27,6 +28,13 @@ class Place
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name_en", type="string", length=255)
+     */
+    private $nameEn;
 
     /**
      * @return mixed
@@ -95,6 +103,7 @@ class Place
      */
     private $distance;
 
+    //TODO: latlong and googlename no deben ser nullables en prod.env
     /**
      * @var int
      *
@@ -168,6 +177,34 @@ class Place
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getNameLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->name;
+        return $this->nameEn;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNameEn()
+    {
+        return $this->nameEn;
+    }
+
+    /**
+     * @param string $nameEn
+     */
+    public function setNameEn($nameEn)
+    {
+        $this->nameEn = $nameEn;
     }
 
     /**

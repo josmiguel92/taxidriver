@@ -1,0 +1,44 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+
+{% set pagename = 'blog' %}
+
+{% block content %}
+    <h2>Entradas del Blog</h2>
+
+    {% for blogentrie in blogentries %}
+    <div class="col-md-12 card">
+        <div class="content">
+            <h2><a href="{{ path('dash_blog_show', { 'id': blogentrie.id }) }}">{{ blogentrie.title }}</a></h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{ asset(blogentrie.picture.getWebPath) }}" class="img-thumbnail">
+                </div>
+                <div class="col-md-8">
+                    <p>{{ blogentrie.teaser }}</p>
+                </div>
+            </div>
+            
+            <div class="footer">
+
+
+                <hr>
+                <div class="chart-legend">
+                    <i class="ti-eye text-info"></i> <a href="{{ path('dash_blog_show', { 'id': blogentrie.id }) }}">Ver</a>
+                    <i class="ti-pencil-alt text-success"></i> <a href="{{ path('dash_blog_edit', { 'id': blogentrie.id }) }}">Editar</a>
+                    <i class="ti-info-alt text-warning"></i> Unsubscribe
+                </div>
+                <div class="stats" style="float: right">
+                    <i class="ti-timer"></i> Campaign sent 2 days ago
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+    <ul>
+        <li>
+            <a href="{{ path('dash_blog_new') }}">Create a new blogentrie</a>
+        </li>
+    </ul>
+{% endblock %}

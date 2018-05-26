@@ -216,6 +216,7 @@ class AdminController extends Controller
                 'notice',
                 'Los cambios en los contenidos fueron guardados! >> info >> ti-save'
             );
+            return $this->redirectToRoute('dash_sitecontent_edit');
         }
 
         return $this->render('AppBundle:Dash:sitecontent.html.twig',
@@ -357,13 +358,10 @@ class AdminController extends Controller
     public function servicesAction(Request $request){
 
         $em = $this->getDoctrine()->getManager();
-        $places = $em->getRepository('AppBundle:Place')->findAll();
         $place = new \AppBundle\Entity\Place();
-
         $placeForm = $this->createForm('AppBundle\Form\PlaceType', $place);
         $placeForm->handleRequest($request);
 
-        $services = $em->getRepository('AppBundle:Services')->findAll();
         $service = new \AppBundle\Entity\Services();
 
         $serviceForm = $this->createForm('AppBundle\Form\ServicesType', $service);
@@ -391,12 +389,17 @@ class AdminController extends Controller
                 );
             }
         }
+
         catch(UniqueConstraintViolationException $e){
             $this->addFlash(
                 'notice',
                 'Ya existe un campo con esos datos! >> danger >> ti-face-sad'
             );
         }
+
+
+        $services = $em->getRepository('AppBundle:Services')->findAll();
+        $places = $em->getRepository('AppBundle:Place')->findAll();
 
         return $this->render('AppBundle:Dash:services.html.twig',
             ['pagename'=>'services',
@@ -596,6 +599,27 @@ class AdminController extends Controller
             ->setMethod('DELETE')
             ->getForm()
             ;
+    }
+
+
+    /**
+     * Deletes a InfographItem entity.
+     *
+     * @Route("/infograph/{id}/delete", name="dash_infographitem_delete")
+     * @Method({"GET", "DELETE"})
+     */
+    public function deleteInfographItemAction(Request $request, \AppBundle\Entity\InfographItem $item)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($item);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'El elemento fue eliminada! >> success >> ti-trash'
+        );
+        return $this->redirectToRoute('dash_sitecontent_edit');
     }
 
 

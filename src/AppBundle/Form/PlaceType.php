@@ -15,9 +15,11 @@ class PlaceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', null, ["label"=>"Nombre que se mostrará"])
+            ->add('nameEn', null, ["label"=>"Nombre que se mostrará, en ingles"])
             ->add('distance', null, ["label"=>"Distancia, en km."])
-            ->add('image', null, ['label'=>"Imágen"])
-            ->add('services')->add('latlong',HiddenType::class)
+            ->add('image', null, ['label'=>"Imágen representativa"])
+            //->add('services')
+            ->add('latlong',HiddenType::class)
             ->add('googlename',HiddenType::class);
     }/**
      * {@inheritdoc}

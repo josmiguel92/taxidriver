@@ -22,6 +22,7 @@ class SiteContentType extends AbstractType
 
             ->add('abouttext', TextareaType::class, ["label"=>"Texto sobre nosotros"])
             ->add('abouttexten', TextareaType::class, ["label"=>"Texto sobre nosotros, en ingles"])
+            ->add('aboutusimage',null, ["label"=> "Banner para sección About."])
             ->add('abouttextfooter', TextareaType::class, ["label"=>"Texto sobre nosotros, se mostrará en Footer"])
             ->add('abouttextfooteren', TextareaType::class, ["label"=>"Texto sobre nosotros, se mostrará en Footer, en ingles"])
             ->add('aboutteamtext', TextareaType::class, ["label"=>"Texto sobre el equipo"])
@@ -30,7 +31,6 @@ class SiteContentType extends AbstractType
             ->add('aboutinfographtitleen', null,  ["label"=>"Titulo de la Infografía, en ingles"])
             ->add('aboutinfographtext', TextareaType::class, ["label"=>"Texto sobre la Infografía"])
             ->add('aboutinfographtexten', TextareaType::class, ["label"=>"Texto sobre la Infografía, en ingles"])
-            ->add('aboutinfographitems', null, ["label"=>"Elementos de la Infografía sobre nosotros"])
             ->add('servicestitle', null, ["label"=>"Título de los servicios"])
             ->add('servicestitleen', null, ["label"=>"Título de los servicios, en ingles"])
             ->add('servicestext', TextareaType::class, ["label"=>"Texto sobre los servicios"])
@@ -44,13 +44,24 @@ class SiteContentType extends AbstractType
             ->add('servicestaxitourstext', TextareaType::class, ["label"=>"Texto sobre el servicio de Tour"])
             ->add('servicestaxitourstexten', TextareaType::class, ["label"=>"Texto sobre el servicio de Tour, en ingles"])
             ->add('jsonmaproutes',null, ["label"=>"Datos del Mapa, en formato JSON"])
+
+            ->add('ownrouteimage',null, ["label"=> "Banner para Ruta perzonalizada."])
             ->add('servicesmakeroutetext', TextareaType::class, ["label"=>"Texto para rutas personalizadas"])
             ->add('servicesmakeroutetexten', TextareaType::class, ["label"=>"Texto para rutas personalizadas, en ingles"])
-            ->add('servicesotherinfographitems', null, ["label"=>"Elementos de la Infografía de servicios"])
+
+            ->add('servicesmakeroutesubtitle', null, ["label"=>"Subtitulo de rutas personalizadas"])
+            ->add('servicesmakeroutesubtitleen', null, ["label"=>"Subtitulo de rutas personalizadas, en ingles"])
+
+            ->add('servicesinfographtitle',null, ["label"=>"Título de infografía de servicios"])
+            ->add('servicesinfographtitleen',null, ["label"=>"Título de infografía de servicios, en ingles"])
             ->add('contacttelephone', null, ["label"=> "Teléfono de Contacto."])
             ->add('contactemail', null, ["label"=> "Email de Contacto."])
             ->add('contactaddress', null, ["label"=> "Dirección."])
-            ->add('contactaddress_en', null, ["label"=> "Dirección, en ingles."]);
+
+            ->add('contactaddress_en', null, ["label"=> "Dirección, en ingles."])
+            ->add('blogimage', null, ["label"=> "Banner para el Blog."]);
+
+
     }
 
     /**

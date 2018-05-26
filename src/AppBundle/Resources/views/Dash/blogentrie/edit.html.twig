@@ -1,0 +1,56 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+
+{% set pagename = 'blog' %}
+
+{% block content %}
+    <h1>{{ edit_form.vars.value.title }} <small>Edici&oacute;n</small></h1>
+
+    {{ form_start(edit_form) }}
+    <div class="row card">
+        <div class=" col-md-8">
+            {{ form_row(edit_form.title) }}
+            {{ form_row(edit_form.teaser) }}
+            {{ form_widget(edit_form.posttext) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(edit_form.publisheddate) }}
+            {{ form_row(edit_form.picture) }}
+            {{ form_row(edit_form.secondaryPicture) }}
+
+            <h3>Etiquetas</h3>
+            <ul class="tags" data-prototype="{{ form_widget(edit_form.tags.vars.prototype)|e }}">
+                {# iterate over each existing tag and render its only field: name #}
+                {% for tag in edit_form.tags %}
+                    <li>{{ form_widget(tag.tag) }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+
+    <h1>Blogentrie edit</h1>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input type="submit" value="Edit" />
+    <h3>Tags</h3>
+    <ul class="tags">
+        {# iterate over each existing tag and render its only field: name #}
+        {% for tag in edit_form.tags %}
+            <li>{{ form_row(tag.tag) }}</li>
+        {% endfor %}
+    </ul>
+
+    {{ form_end(edit_form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('dash_blog_index') }}">Back to the list</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -77,6 +77,12 @@
                         <p>Galer&iacute;a</p>
                     </a>
                 </li>
+                <li {% if pagename == 'blog' %} class="active" {% endif %}>
+                    <a href="{{ path('dash_blog_index') }}">
+                        <i class="ti-pencil-alt"></i>
+                        <p>Blog</p>
+                    </a>
+                </li>
                 <li {% if pagename == 'paygateway' %} class="active" {% endif %}>
                     <a href="{{ path('dash_paygateway') }}">
                         <i class="ti-credit-card"></i>

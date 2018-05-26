@@ -83,3 +83,19 @@ ul.btn-list li > a.btn {
 .placepicker-map {
     min-height: 250px;
 }
+#routeForm #deletebtn{
+  position: relative;
+  float: right;
+}
+#placeRouteSubmit{
+  position: absolute;
+}
+#appbundle_blogentries_posttext{
+  height: 60vh;
+}
+form[name="appbundle_blogentries"] .tags {
+
+    background: red;
+    border: solid 3px;
+
+}

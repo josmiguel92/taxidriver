@@ -12,12 +12,12 @@
                 <target>nosotros</target>
             </trans-unit>
 
-            <trans-unit id="email.confirm">
+            <trans-unit id="contact">
                 <source>contact</source>
                 <target>contactos</target>
             </trans-unit>
 
-            <trans-unit id="email.confirm">
+            <trans-unit id="confirm.reservation">
                 <source>Confirm reservation!</source>
                 <target>Confirmar reservación!</target>
             </trans-unit>

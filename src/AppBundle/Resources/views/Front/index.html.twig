@@ -136,18 +136,19 @@
                                     <div style="max-width: 100%;" class="reveal-inline-block">
                                         <!-- Unit-->
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
-                                            <div class="unit-left"><img src="images/places/cayo-levisa-general.jpg" width="270" height="263" alt="" class="img-responsive center-block">
+                                            <div class="unit-left">
+                                                <img src="{{ asset(service.place.image.getWebPath) }}" width="270" height="263" alt="{{ service.place.image.getDetailsLocale }}" class="img-responsive center-block">
                                             </div>
                                             <div class="unit-body">
                                                 <div>
-                                                    <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">Havana & Cayo Levisa</a></h5>
+                                                    <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ service.place.getNameLocale }}</a></h5>
 
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> Distance: </b> 144km <p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> Time: </b> 4h </p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> Price: </b> since 120 USD <br/></p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ service.place.getDistance }} km <p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ service.getTime|date('h:i') }} h </p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ service.getPrice }} USD <br/></p>
 
                                                     <div class="offset-top-40">
-                                                        <a href="#" class="btn btn-calypso">Book Now</a>
+                                                        <a href="#" class="btn btn-calypso">{% trans %}Book Now{% endtrans %}</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -176,18 +177,18 @@
                                         <!-- Unit-->
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                                             <div class="unit-left">
-                                                <img src="{{ asset(service.place.image.getWebPath) }}" width="270" height="263" alt="{{ service.place.image.getDatailsLocale }}" class="img-responsive center-block">
+                                                <img src="{{ asset(service.place.image.getWebPath) }}" width="270" height="263" alt="{{ service.place.image.getDetailsLocale }}" class="img-responsive center-block">
                                             </div>
                                             <div class="unit-body">
                                                 <div>
-                                                    <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">Havana & Cayo Levisa</a></h5>
+                                                    <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ service.place.getNameLocale }}</a></h5>
 
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> Distance: </b> {{ service.place.getDistance }} km <p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> Time: </b> {{ service.getTime|date('h:i') }} </p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> Price: </b> since {{ service.getPrice }} USD <br/></p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ service.place.getDistance }} km <p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ service.getTime|date('h:i') }} h </p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ service.getPrice }} USD <br/></p>
 
                                                     <div class="offset-top-40">
-                                                        <a href="#" class="btn btn-calypso">Book Now</a>
+                                                        <a href="#" class="btn btn-calypso">{% trans %}Book Now{% endtrans %}</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -211,7 +212,7 @@
         <section class="context-dark offset-top-0" style="margin-top: -8px;">
             <!-- RD Parallax-->
             <div data-on="false" data-md-on="true" class="rd-parallax">
-                <div data-speed="0.25" data-type="media" data-url="{{ asset("images/banners/make-your-own-tour.jpg") }}" class="rd-parallax-layer"></div>
+                <div data-speed="0.25" data-type="media" data-url="{{ asset(content.getOwnrouteimage.getWebPath) }}" class="rd-parallax-layer"></div>
                 <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
                     <div class="shell section-75 section-md-top-103 section-md-bottom-110">
                         <div class="range range-xs-center">
@@ -219,18 +220,18 @@
                                 <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
                                     <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block"></div>
                                 <div class="veil reveal-sm-inline-block">
-                                    <span class="icon icon-lg thin-ico thin-icon-car text-white"></span>
+                                    <span class="icon icon-lg thin-ico thin-icon-map-marker text-white"></span>
                                 </div>
                                 <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
                                     <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block"></div>
                                 <div class="offset-top-15 offset-md-top-30">
-                                    <h1 class="text-spacing-0 text-uppercase">Create your own Tour</h1>
+                                    <h1 class="text-spacing-0 text-uppercase">{{ content.getServicesmakeroutetextLocale }}</h1>
                                     <div class="offset-top-20 offset-md-top-44">
                                         <p class="h5 text-spacing-inverse-25 text-transform-none">
-                                            You can always explore, Cuba in your own way.
+                                            {{ content.getServicesmakeroutesubtitleLocale }}
                                         </p>
                                     </div>
-                                    <div class="offset-top-30 offset-md-top-60"><a href="#" style="min-width:240px;" class="btn btn-calypso">Make your own Tour!</a></div>
+                                    <div class="offset-top-30 offset-md-top-60"><a href="#" style="min-width:240px;" class="btn btn-calypso"{% trans %}>Make your own Tour!{% endtrans %}</a></div>
                                 </div>
                             </div>
                         </div>
@@ -242,10 +243,11 @@
         <!-- Other Services-->
         <section class="section-75 section-md-top-103 section-md-bottom-40">
             <div class="shell">
-                <h1 class="text-spacing-inverse-25">Other services </h1>
+                <h1 class="text-spacing-inverse-25">{% trans %}Other services{% endtrans %}</h1>
 
                 <div class="range range-xs-center list-index-lg offset-md-top-15">
 
+                    {% for infography in infographys %}
                     <div class="cell-sm-10 cell-md-4">
                         <div class="inset-lg-left-30 inset-lg-right-10">
                             <div class="h2 text-spacing-inverse-50 color-sky"> <i class="fa fa-plane fa-2x"></i> </div>
@@ -258,34 +260,6 @@
                             <div class="offset-top-10">
                                 <h5 class="text-spacing-20 text-silver-chalice">...</h5>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="cell-sm-10 cell-md-4 offset-top-64 offset-md-top-0">
-                        <div class="inset-lg-left-30 inset-lg-right-10">
-                            <div class="h2 text-spacing-inverse-50 color-sky"> <i class="fa fa-archive fa-2x"></i> </div>
-                            <div class="offset-top-10">
-                                <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">Delivery</p>
-                            </div>
-                            <div class="offset-top-20">
-                                <p class="text-spacing-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid asperiores deleniti dolores excepturi exercitationem nobis quo sed? Commodi distinctio</p>
-                            </div>
-                            <div class="offset-top-10">
-                                <h5 class="text-spacing-20 text-silver-chalice">...</h5>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cell-sm-10 cell-md-4 offset-top-64 offset-md-top-0">
-                        <div class="h2 text-spacing-inverse-50 color-sky"> <i class="fa fa-paw fa-2x"></i> </div>
-                        <div class="offset-top-10">
-                            <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">pet's transportation</p>
-                        </div>
-                        <div class="offset-top-20">
-                            <p class="text-spacing-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid asperiores deleniti dolores excepturi exercitationem nobis quo sed? Commodi distinctio</p>
-                        </div>
-                        <div class="offset-top-10">
-                            <h5 class="text-spacing-20 text-silver-chalice">...</h5>
                         </div>
                     </div>
 
@@ -601,19 +575,14 @@
         function init() {
             // Basic options for a simple Google Map
             // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-            // var myLatlng = new google.maps.LatLng(40.71751, -73.990922);
 
             {% for service in services %}
                 {% set name = "mypos_"~loop.index %}
 
-                var {{ name }} = new google.maps.LatLng(service.place.getLatlong);
+                var {{ name }} = new google.maps.LatLng({{ service.place.getLatlong }});
             {% endfor %}
 
             var mycenter = new google.maps.LatLng(22.5267186, -81.12788139999998);
-
-            // 39.399872
-            // -8.224454
-            //23.1395344,-82.3565055 -> Monserrate y Empedrado
 
             var mapOptions = {
                 // How zoomed in you want the map to start at (always required)
@@ -638,7 +607,7 @@
                 {% set name = "mypos_"~loop.index %}
 
                 new google.maps.Marker({
-                    position: name,
+                    position: {{ name }},
                     map: map
                     //icon: 'images/loc.png'
                 });

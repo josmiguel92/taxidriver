@@ -71,7 +71,7 @@ class Config
     private $aboutinfographtext;
 
     /**
-     * //TODO: OneToMany -> InfographItem
+     * //TODO: ManyToMany -> InfographItem
      *
      * @ORM\Column(name="aboutinfographitems", type="string", length=255)
      */

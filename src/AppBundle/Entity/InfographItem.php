@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use AppBundle\Utils\Utils;
 /**
  * InfographItem
  *
@@ -29,16 +29,53 @@ class InfographItem
     /**
      * @var string
      *
-     * @ORM\Column(name="subtitle", type="string", length=255, nullable=true)
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
-    private $subtitle;
+    private $title;
+
+    /**
+     * @return string
+     */
+    public function getIsservices()
+    {
+        return $this->isservices;
+    }
+
+    /**
+     * @param string $isservices
+     */
+    public function setIsservices($isservices)
+    {
+        $this->isservices = $isservices;
+    }
 
     /**
      * @var string
      *
-     * @ORM\Column(name="subtitle_en", type="string", length=255, nullable=true)
+     * @ORM\Column(name="isservices", type="boolean", nullable=true)
      */
-    private $subtitle_en;
+    private $isservices;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title_en", type="string", length=255, nullable=true)
+     */
+    private $title_en;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="text", type="string", length=500, nullable=true)
+     */
+    private $text;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="text_en", type="string", length=500, nullable=true)
+     */
+    private $text_en;
 
     /**
      * Get id
@@ -53,54 +90,94 @@ class InfographItem
     /**
      * @return string
      */
-    public function getSubtitleEn()
+    public function getTitle()
     {
-        return $this->subtitle_en;
+        return $this->title;
     }
 
     /**
-     * @param string $subtitle_en
+     * @param string $title
      */
-    public function setSubtitleEn($subtitle_en)
+    public function setTitle($title)
     {
-        $this->subtitle_en = $subtitle_en;
+        $this->title = $title;
     }
+
     /**
-     * Set subtitle
-     *
-     * @param string $subtitle
-     *
-     * @return InfographItem
+     * @return string
      */
-    public function setSubtitle($subtitle)
+    public function getTitleEn()
     {
-        $this->subtitle = $subtitle;
-
-        return $this;
+        return $this->title_en;
     }
 
     /**
-     * Get subtitle
+     * @param string $title_en
+     */
+    public function setTitleEn($title_en)
+    {
+        $this->title_en = $title_en;
+    }
+
+    /**
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * @param string $text
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTextEn()
+    {
+        return $this->text_en;
+    }
+
+    /**
+     * @param string $text_en
+     */
+    public function setTextEn($text_en)
+    {
+        $this->text_en = $text_en;
+    }
+
+
+
+
+    /**
+     * Get text
      *
      * @return string
      */
-    public function getSubtitle()
-    {
-        return $this->subtitle;
-    }
-
-
-    /**
-     * Get subtitle
-     *
-     * @return string
-     */
-    public function getSubtitleLocale()
+    public function getTextLocale()
     {
         if(Utils::getRequestLocaleLang()=="es")
-            return $this->subtitle;
+            return $this->text;
 
-        else return $this->subtitle_en;
+        else return $this->text_en;
+    }
+
+    /**
+     * Get text
+     *
+     * @return string
+     */
+    public function getTitleLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->title;
+
+        else return $this->title_en;
     }
 
     /**
@@ -119,7 +196,10 @@ class InfographItem
         $this->icon = $icon;
     }
 
-
+    public function __toString()
+    {
+        return $this->title;
+    }
 
 
 }

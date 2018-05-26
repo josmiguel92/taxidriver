@@ -27,12 +27,16 @@ class DefaultController extends Controller
         $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
         $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
         $services = $em->getRepository('AppBundle:Services')->findAll();
+        $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
+
+
         if(count($content)>0)
             return $this->render('AppBundle:Front:index.html.twig',
             ['content'=>$content[0],
             'socialNetworks'=>$socialNetworks,
             'hashtags'=>$hashtags,
-            'services'=>$services]);
+            'services'=>$services,
+            'infographys'=>$infographys]);
         else throw new Exception("No hay configuracion disponible");
         return $this->render('AppBundle:Front:index.html.twig', []);
     }
@@ -47,11 +51,13 @@ class DefaultController extends Controller
         {
             Utils::setRequestLocaleLang($_locale);
             $em = $this->getDoctrine()->getManager();
+            $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
 
             return $this->render('AppBundle:Front:blog.html.twig',
-            ['hashtags'=>$hashtags,
+            ['content'=>$content[0],
+            'hashtags'=>$hashtags,
             'socialNetworks'=>$socialNetworks,]);
         }
 

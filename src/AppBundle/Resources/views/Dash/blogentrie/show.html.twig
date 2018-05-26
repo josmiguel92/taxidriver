@@ -1,0 +1,46 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+
+{% set pagename = 'blog' %}
+
+{% block content %}
+    <h1>Blogentrie</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ blogentrie.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ blogentrie.title }}</td>
+            </tr>
+            <tr>
+                <th>Teaser</th>
+                <td>{{ blogentrie.teaser }}</td>
+            </tr>
+            <tr>
+                <th>Posttext</th>
+                <td>{{ blogentrie.posttext }}</td>
+            </tr>
+            <tr>
+                <th>Publisheddate</th>
+                <td>{% if blogentrie.publisheddate %}{{ blogentrie.publisheddate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('dash_blog_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('dash_blog_edit', { 'id': blogentrie.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

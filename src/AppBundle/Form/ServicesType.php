@@ -14,9 +14,10 @@ class ServicesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('time', null, ["label"=> "Tiempo de recorrido, (horas:minutos)"])->add('price')
+            ->add('place', null,['label'=>"Destino"] )
             ->add('istour', null, ['label'=>"¿Es un Tour?"])
-            ->add('place', null,['label'=>"Destino"] );
+            ->add('time', null, ["label"=> "Tiempo de recorrido, (horas:minutos)"])->add('price')
+            ;
     }/**
      * {@inheritdoc}
      */

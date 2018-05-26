@@ -3,15 +3,46 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Blogentries
  *
  * @ORM\Table(name="blogentries")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\BlogentriesRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\BlogentrieRepository")
  */
-class Blogentries
+class Blogentrie
 {
+    /**
+     * @return mixed
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param mixed $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+    /**
+     * @return mixed
+     */
+    public function getSecondaryPicture()
+    {
+        return $this->secondaryPicture;
+    }
+
+    /**
+     * @param mixed $secondaryPicture
+     */
+    public function setSecondaryPicture($secondaryPicture)
+    {
+        $this->secondaryPicture = $secondaryPicture;
+    }
     /**
      * @var int
      *
@@ -62,12 +93,11 @@ class Blogentries
      */
     private $publisheddate;
 
+
     /**
-     * @var array
-     *
-     * @ORM\Column(name="keywords", type="simple_array", nullable=true)
+     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
      */
-    private $keywords;
+    protected $tags;
 
 
     /**
@@ -200,28 +230,18 @@ class Blogentries
         return $this->publisheddate;
     }
 
-    /**
-     * Set keywords
-     *
-     * @param array $keywords
-     *
-     * @return Blogentries
-     */
-    public function setKeywords($keywords)
+    public function __construct()
     {
-        $this->keywords = $keywords;
-
-        return $this;
+        $this->tags = new ArrayCollection();
     }
 
-    /**
-     * Get keywords
-     *
-     * @return array
-     */
-    public function getKeywords()
+    public function addTag(Tag $tag)
     {
-        return $this->keywords;
+        $this->tags->add($tag);
+    }
+    public function removeTag(Tag $tag)
+    {
+        $this->tags->removeElement($tag);
     }
 }
 

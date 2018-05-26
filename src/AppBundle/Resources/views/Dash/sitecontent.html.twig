@@ -93,8 +93,6 @@
                     {{ form_row(content_form.aboutinfographtitleen) }}
                     {{ form_row(content_form.aboutinfographtext) }}
                     {{ form_row(content_form.aboutinfographtexten) }}
-                    {{ form_row(content_form.aboutinfographitems) }}
-                    {{ form_row(content_form.servicesotherinfographitems) }}
 
 
                 </div>
@@ -170,6 +168,33 @@
                             {{ form_row(content_form.servicesmakeroutetexten) }}
 
                         </div>
+                        <div class="col-md-6">
+                            {{ form_row(content_form.servicesmakeroutesubtitle) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(content_form.servicesmakeroutesubtitleen) }}
+
+                        </div>
+
+                        <div class="col-md-6">
+                            {{ form_row(content_form.servicesinfographtitle) }}
+
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(content_form.servicesinfographtitleen) }}
+
+                        </div>
+
+                        <div class="col-md-6">
+                            {{ form_row(content_form.aboutusimage) }}
+
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(content_form.ownrouteimage) }}
+
+                        </div>
+
+
                         <div class="col-md-12">
                         {{ form_widget(content_form) }}
                         </div>
@@ -211,9 +236,18 @@
                 <h4 class="title">Elementos de Infograf&iacute;a</h4>
             </div>
             <div class="content">
-                <ul>
+                <ul class="btn-list">
                 {% for infographitem in infographs %}
-                    <li>({{ infographitem.id }}) <i class="{{ infographitem.icon }}"></i> {{ infographitem.subtitle }} | <small>{{ infographitem.SubtitleEn }}</small></li>
+                    <li><h5><i class="{{ infographitem.icon }}"></i> {{ infographitem.title }}
+                        {% if infographitem.isServices %}
+                            <small>(servicios)</small>
+                        {% endif %}
+                        </h5>
+                        <small>{{ infographitem.text }}</small>
+                        <a href="{{ path('dash_infographitem_delete', {'id' : infographitem.id  }) }}" class="btn btn-danger btn-sm">
+                            <i class="ti-trash"></i>
+                        </a>
+                    </li>
                 {% else %}
                     Ninguno hasta ahora
                 {% endfor %}

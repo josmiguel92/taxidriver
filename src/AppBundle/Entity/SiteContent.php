@@ -107,11 +107,6 @@ class SiteContent
      */
     private $aboutinfographtexten;
 
-    /**
-     * ids eparados por comas
-     * @ORM\Column(name="aboutinfographitems", type="string", length=255)
-     */
-    private $aboutinfographitems;
 
     /**
      * @var string
@@ -197,6 +192,51 @@ class SiteContent
      */
     private $servicestaxitourstexten;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="servicesinfographtitle", type="string", length=700, nullable=true)
+     */
+    private $servicesinfographtitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="servicesinfographtitleen", type="string", length=700, nullable=true)
+     */
+    private $servicesinfographtitleen;
+
+    /**
+     * @return string
+     */
+    public function getServicesinfographtitle()
+    {
+        return $this->servicesinfographtitle;
+    }
+
+    /**
+     * @param string $servicesinfographtitle
+     */
+    public function setServicesinfographtitle($servicesinfographtitle)
+    {
+        $this->servicesinfographtitle = $servicesinfographtitle;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServicesinfographtitleen()
+    {
+        return $this->servicesinfographtitleen;
+    }
+
+    /**
+     * @param string $servicesinfographtitleen
+     */
+    public function setServicesinfographtitleen($servicesinfographtitleen)
+    {
+        $this->servicesinfographtitleen = $servicesinfographtitleen;
+    }
 
     /**
      * @var string
@@ -220,10 +260,19 @@ class SiteContent
     private $servicesmakeroutetexten;
 
     /**
-     * ids separados por comas
-     * @ORM\Column(name="servicesotherinfographitems", type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="servicesmakeroutesubtitleen", type="string", length=700)
      */
-    private $servicesotherinfographitems;
+    private $servicesmakeroutesubtitleen;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="servicesmakeroutesubtitle", type="string", length=700)
+     */
+    private $servicesmakeroutesubtitle;
+
 
     /**
      * @var string
@@ -255,8 +304,59 @@ class SiteContent
     private $contactaddress_en;
 
     /**
+     * @ORM\OneToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="ownrouteimage_id", referencedColumnName="id")
+     */
+    private $ownrouteimage;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="aboutusimage_id", referencedColumnName="id")
+     */
+    private $aboutusimage;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="blogimage_id", referencedColumnName="id")
+     */
+    private $blogimage;
+    /**
      * @return string
      */
+
+    /**
+     * @return mixed
+     */
+    public function getOwnrouteimage()
+    {
+        return $this->ownrouteimage;
+    }
+
+    /**
+     * @param mixed $ownrouteimage
+     */
+    public function setOwnrouteimage($ownrouteimage)
+    {
+        $this->ownrouteimage = $ownrouteimage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAboutusimage()
+    {
+        return $this->aboutusimage;
+    }
+
+    /**
+     * @param mixed $aboutusimage
+     */
+    public function setAboutusimage($aboutusimage)
+    {
+        $this->aboutusimage = $aboutusimage;
+    }
+
+
     public function getContactaddress()
     {
         return $this->contactaddress;
@@ -551,6 +651,50 @@ class SiteContent
     /**
      * @return string
      */
+    public function getServicesmakeroutesubtitleLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->servicesmakeroutesubtitle;
+        else
+            return $this->servicesmakeroutesubtitleen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServicesmakeroutesubtitleen()
+    {
+        return $this->servicesmakeroutesubtitleen;
+    }
+
+    /**
+     * @param string $servicesmakeroutesubtitleen
+     */
+    public function setServicesmakeroutesubtitleen($servicesmakeroutesubtitleen)
+    {
+        $this->servicesmakeroutesubtitleen = $servicesmakeroutesubtitleen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServicesmakeroutesubtitle()
+    {
+        return $this->servicesmakeroutesubtitle;
+    }
+
+    /**
+     * @param string $servicesmakeroutesubtitle
+     */
+    public function setServicesmakeroutesubtitle($servicesmakeroutesubtitle)
+    {
+        $this->servicesmakeroutesubtitle = $servicesmakeroutesubtitle;
+    }
+
+
+    /**
+     * @return string
+     */
     public function getServicesmakeroutetexten()
     {
         return $this->servicesmakeroutetexten;
@@ -790,19 +934,6 @@ class SiteContent
         return $this->aboutinfographtext;
     }
 
-    /**
-     * Set aboutinfographitems
-     *
-     * @param string $aboutinfographitems
-     *
-     * @return Config
-     */
-    public function setAboutinfographitems($aboutinfographitems)
-    {
-        $this->aboutinfographitems = $aboutinfographitems;
-
-        return $this;
-    }
 
     /**
      * @return string
@@ -820,15 +951,7 @@ class SiteContent
         $this->aboutinfographtexten = $aboutinfographtexten;
     }
 
-    /**
-     * Get aboutinfographitems
-     *
-     * @return string
-     */
-    public function getAboutinfographitems()
-    {
-        return $this->aboutinfographitems;
-    }
+
 
     /**
      * Set servicestitle
@@ -1022,29 +1145,8 @@ class SiteContent
         return $this->servicesmakeroutetext;
     }
 
-    /**
-     * Set servicesotherinfographitems
-     *
-     * @param string $servicesotherinfographitems
-     *
-     * @return Config
-     */
-    public function setServicesotherinfographitems($servicesotherinfographitems)
-    {
-        $this->servicesotherinfographitems = $servicesotherinfographitems;
 
-        return $this;
-    }
 
-    /**
-     * Get servicesotherinfographitems
-     *
-     * @return string
-     */
-    public function getServicesotherinfographitems()
-    {
-        return $this->servicesotherinfographitems;
-    }
 
     /**
      * Set contacttelephone
@@ -1098,6 +1200,24 @@ class SiteContent
     public function getSerialized(){
         return serialize($this);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBlogimage()
+    {
+        return $this->blogimage;
+    }
+
+    /**
+     * @param mixed $blogimage
+     */
+    public function setBlogimage($blogimage)
+    {
+        $this->blogimage = $blogimage;
+    }
+
+
 
 }
 
