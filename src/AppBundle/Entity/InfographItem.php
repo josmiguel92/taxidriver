@@ -33,6 +33,12 @@ class InfographItem
      */
     private $subtitle;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="subtitle_en", type="string", length=255, nullable=true)
+     */
+    private $subtitle_en;
 
     /**
      * Get id
@@ -42,6 +48,22 @@ class InfographItem
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubtitleEn()
+    {
+        return $this->subtitle_en;
+    }
+
+    /**
+     * @param string $subtitle_en
+     */
+    public function setSubtitleEn($subtitle_en)
+    {
+        $this->subtitle_en = $subtitle_en;
     }
     /**
      * Set subtitle
@@ -65,6 +87,20 @@ class InfographItem
     public function getSubtitle()
     {
         return $this->subtitle;
+    }
+
+
+    /**
+     * Get subtitle
+     *
+     * @return string
+     */
+    public function getSubtitleLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->subtitle;
+
+        else return $this->subtitle_en;
     }
 
     /**

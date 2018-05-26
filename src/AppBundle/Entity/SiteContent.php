@@ -22,12 +22,6 @@ class SiteContent
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="logourl", type="string", length=255)
-     */
-    private $logourl;
 
     /**
      * @var string
@@ -247,6 +241,51 @@ class SiteContent
 
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="contactaddress", type="string", length=255)
+     */
+    private $contactaddress;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contactaddress_en", type="string", length=255)
+     */
+    private $contactaddress_en;
+
+    /**
+     * @return string
+     */
+    public function getContactaddress()
+    {
+        return $this->contactaddress;
+    }
+
+    /**
+     * @param string $contactaddress
+     */
+    public function setContactaddress($contactaddress)
+    {
+        $this->contactaddress = $contactaddress;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContactaddressEn()
+    {
+        return $this->contactaddress_en;
+    }
+
+    /**
+     * @param string $contactaddress_en
+     */
+    public function setContactaddressEn($contactaddress_en)
+    {
+        $this->contactaddress_en = $contactaddress_en;
+    }
+    /**
      * Get id
      *
      * @return int
@@ -256,6 +295,15 @@ class SiteContent
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
+    public function getContactaddressLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->contactaddress;
+        else return $this->getContactaddressEn();
+    }
 
     /**
      * @return string
@@ -514,30 +562,6 @@ class SiteContent
     public function setServicesmakeroutetexten($servicesmakeroutetexten)
     {
         $this->servicesmakeroutetexten = $servicesmakeroutetexten;
-    }
-
-    /**
-     * Set logourl
-     *
-     * @param string $logourl
-     *
-     * @return Config
-     */
-    public function setLogourl($logourl)
-    {
-        $this->logourl = $logourl;
-
-        return $this;
-    }
-
-    /**
-     * Get logourl
-     *
-     * @return string
-     */
-    public function getLogourl()
-    {
-        return $this->logourl;
     }
 
     /**

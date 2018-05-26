@@ -34,6 +34,13 @@ class Blogentries
      */
     private $picture;
 
+
+    /**
+     * @ORM\OneToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="secondImage_id", referencedColumnName="id")
+     */
+    private $secondaryPicture;
+
     /**
      * @var string
      *

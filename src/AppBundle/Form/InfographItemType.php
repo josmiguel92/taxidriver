@@ -13,7 +13,8 @@ class InfographItemType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('subtitle')->add('icon');
+        $builder->add('subtitle', null, ['label'=>"Subtitulo"])
+            ->add('subtitle_en', null,  ['label'=>"Subtitulo, en ingles"])->add('icon');
     }/**
      * {@inheritdoc}
      */

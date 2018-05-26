@@ -65,9 +65,11 @@
                         <a href="#"><small>{{ content_form.vars.value.contactemail }}</small></a>
                     </h4>
                 </div>
-                {{ form_row(content_form.logourl) }}
                 {{ form_row(content_form.contacttelephone) }}
                 {{ form_row(content_form.contactemail) }}
+
+                {{ form_row(content_form.contactaddress) }}
+                {{ form_row(content_form.contactaddress_en) }}
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-info btn-fill btn-wd">Guardar</button>
@@ -211,7 +213,7 @@
             <div class="content">
                 <ul>
                 {% for infographitem in infographs %}
-                    <li>({{ infographitem.id }}) <i class="{{ infographitem.icon }}"></i> {{ infographitem.subtitle }}</li>
+                    <li>({{ infographitem.id }}) <i class="{{ infographitem.icon }}"></i> {{ infographitem.subtitle }} | <small>{{ infographitem.SubtitleEn }}</small></li>
                 {% else %}
                     Ninguno hasta ahora
                 {% endfor %}

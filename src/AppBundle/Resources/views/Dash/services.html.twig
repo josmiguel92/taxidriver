@@ -159,7 +159,7 @@
                 mapIconClass: "ti-map-alt",
                 placeChanged: function(place) {
                     $("#appbundle_place_name")[0].value = place.name;
-                    $("#appbundle_place_latlong")[0].value = this.getLocation().latitude + '; '+this.getLocation().longitude;
+                    $("#appbundle_place_latlong")[0].value = this.getLocation().latitude + ', '+this.getLocation().longitude;
                     $("#appbundle_place_googlename")[0].value = place.formatted_address;
                 },
                 mapOptions: {

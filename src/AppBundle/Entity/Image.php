@@ -53,6 +53,25 @@ class Image
      */
     private $details_es;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="details_en", type="string",  nullable=true)
+     */
+    private $details_en;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $path;
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $file;
+
+
+
     function __construct($active = false)
     {
         $this->active = $active;
@@ -115,20 +134,11 @@ class Image
      *
      * @return string
      */
-    public function getTransName($locale)
+    public function getTitleLocale()
     {
-        switch (strtolower($locale)) {
-            case 'en':
-                return $this->title_en;
-                break;
-            case 'es':
-                return $this->title;
-                break;
-
-            default:
-                return $this->title;
-                break;
-        }
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->title;
+        else return $this->title_en;
 
     }
 
@@ -138,39 +148,13 @@ class Image
      *
      * @return string
      */
-    public function getTransDetails($locale)
+    public function getDetailsLocale()
     {
-        switch (strtolower($locale)) {
-            case 'en':
-                return $this->details_en;
-                break;
-            case 'es':
-                return $this->details_es;
-                break;
-
-            default:
-                return $this->details_es;
-                break;
-        }
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->details_es;
+        else $this->details_en;
 
     }
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="details_en", type="string",  nullable=true)
-     */
-    private $details_en;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    public $path;
-
-    /**
-     * @Assert\File(maxSize="6000000")
-     */
-    private $file;
-
 
     /**
      * Get id

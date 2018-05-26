@@ -16,7 +16,7 @@ class SiteContentType extends AbstractType
     {
 
 
-        $builder->add('logourl', null, ["label"=>"URL del Logo"])
+        $builder
             ->add('abouttitle', null, ["label"=> "Título de la sección About"])
             ->add('abouttitleen', null, ["label"=> "Título de la sección About, en ingles"])
 
@@ -48,7 +48,9 @@ class SiteContentType extends AbstractType
             ->add('servicesmakeroutetexten', TextareaType::class, ["label"=>"Texto para rutas personalizadas, en ingles"])
             ->add('servicesotherinfographitems', null, ["label"=>"Elementos de la Infografía de servicios"])
             ->add('contacttelephone', null, ["label"=> "Teléfono de Contacto."])
-            ->add('contactemail', null, ["label"=> "Email de Contacto."]);
+            ->add('contactemail', null, ["label"=> "Email de Contacto."])
+            ->add('contactaddress', null, ["label"=> "Dirección."])
+            ->add('contactaddress_en', null, ["label"=> "Dirección, en ingles."]);
     }
 
     /**
