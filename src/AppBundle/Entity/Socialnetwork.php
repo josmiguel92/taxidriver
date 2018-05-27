@@ -21,12 +21,6 @@ class Socialnetwork
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
-     */
-    private $name;
 
     /**
      * @var string
@@ -35,12 +29,6 @@ class Socialnetwork
      */
     private $profilelink;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="icon", type="string", length=255)
-     */
-    private $icon;
 
 
     /**
@@ -51,30 +39,6 @@ class Socialnetwork
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Socialnetwork
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
@@ -101,28 +65,23 @@ class Socialnetwork
         return $this->profilelink;
     }
 
-    /**
-     * Set icon
-     *
-     * @param string $icon
-     *
-     * @return Socialnetwork
-     */
-    public function setIcon($icon)
-    {
-        $this->icon = $icon;
-
-        return $this;
-    }
 
     /**
      * Get icon
      *
      * @return string
      */
-    public function getIcon()
+    public function getName()
     {
-        return $this->icon;
+            $tmp = str_replace('https://www.','',$this->profilelink);
+            $tmp = str_replace('http://www.','',$tmp);
+            $tmp = str_replace('https://','',$tmp);
+            $tmp = str_replace('http://','',$tmp);
+
+            $end = strpos($tmp, '.');
+            $tmp = substr($tmp,0, $end);
+
+        return $tmp;
     }
 }
 

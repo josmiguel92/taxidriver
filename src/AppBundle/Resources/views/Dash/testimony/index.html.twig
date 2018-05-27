@@ -1,0 +1,35 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+
+{% set pagename = 'testimonies' %}
+
+{% block content %}
+    <h1>Lista de Testimonios
+        <a href="{{ path('dash_testimonies_new') }}" class="btn-primary btn" style="float: right">Agregar testimonio</a>
+    </h1>
+
+    {% for testimony in testimonies %}
+    <div class="media card">
+        <div class="col-md-2">
+            <a class="pull-left" href="#">
+                <img class="img-responsive" style="height: 100%" src="{{ testimony.avatar }}" alt="{{ testimony.name }}">
+            </a>
+        </div>
+
+
+        <div class="col-md-8">
+            <h4 class="media-heading">{{ testimony.name }}</h4>
+            {{ testimony.text }}
+        </div>
+
+        <div class="col-md-2">
+            <ul style="list-style: none" class="btn-list">
+                <li>
+                    <a href="{{ path('dash_testimonies_edit', { 'id': testimony.id }) }}"><i class="ti-pencil-alt"></i> Editar</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    {% endfor %}
+
+{% endblock %}

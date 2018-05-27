@@ -9,7 +9,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-	<title>{% block title %}{% endblock %} | Taxi Drivers Cuba</title>
+	<title>{{ title }} | Taxi Drivers Cuba</title>
 
 	<link rel="stylesheet" type="text/css" href="{{ asset("css/css.css") }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset("css/style.css") }}">
@@ -75,7 +75,7 @@
                                         {% for socialNetwork in socialNetworks %}
                                             <li class="text-center">
                                                 <a href="{{ socialNetwork.getProfilelink }}" class="text-white">
-                                                    <i class="{{ socialNetwork.getIcon }}"></i>
+                                                    <i class="fa fa-{{ socialNetwork.getName }}"></i>
                                                 </a>
                                             </li>
                                         {% endfor %}
@@ -89,13 +89,20 @@
 
                 <!-- Modern Breadcrumbs-->
                 <section class="section-height-800 breadcrumb-modern rd-parallax context-dark">
-                    <div data-speed="0.6" data-type="media" data-url="{{ asset("images/backgrounds/background-02-1920x900.jpg") }}" class="rd-parallax-layer"></div>
+                    <div data-speed="0.6" data-type="media" data-url="
+                    {% block header_image %}
+                        {{ asset(content.getHeaderimage.getWebPath) }}
+                    {% endblock %}
+                    " class="rd-parallax-layer"></div>
                     <div data-speed="0" data-type="html" class="rd-parallax-layer">
                         <div class="shell section-top-34 section-bottom-34 section-md-top-175 section-md-bottom-75 section-lg-top-158 section-lg-bottom-125 section-md-tablet-75">
-                            <div class="veil reveal-md-block">
-                                <div class="text-extra-big font-accent text-bold text-spacing-inverse-50">Blog</div>
+
+                            <div class="offset-top-75">
+                                <div class="text-extra-big font-accent text-bold text-spacing-inverse-50">
+                                    {{ title }}
+                                </div>
                             </div>
-                            <div class="offset-top-5">
+                            <div class="offset-top-35">
                                 <ul class="list-inline list-inline-dashed h5 text-uppercase">
                                     <li class="text-spacing-75"><a href="index.html">home</a></li>
                                     <li class="text-spacing-75"><a href="#">News</a></li>
@@ -142,16 +149,16 @@
                             <!-- Contact Info-->
                             <address class="contact-info text-left offset-top-25">
                                 <div>
-                                    <p class="text-gray-light text-spacing-0">4578 Marmora St, San Francisco D04 89GR.</p>
+                                    <p class="text-gray-light text-spacing-0">{{ content.getContactaddressLocale }}</p>
                                 </div>
                                 <dl>
-                                    <dt class="text-gray-light text-regular reveal-inline-block">{% trans %}Phone:{% endtrans %}</dt>
+                                    <dt class="text-gray-light text-regular reveal-inline-block">{% trans %}Phone{% endtrans %}:</dt>
                                     <dd class="text-gray-light reveal-inline-block p">
                                         <a href="tel://{{ content.getContacttelephone }}" class="text-gray-light">{{ content.getContacttelephone() }}</a>
                                     </dd>
                                 </dl>
                                 <dl>
-                                    <dt class="text-gray-light text-regular reveal-inline-block">{% trans %}E-mail:{% endtrans %} </dt>
+                                    <dt class="text-gray-light text-regular reveal-inline-block">{% trans %}E-mail{% endtrans %}:</dt>
                                     <dd class="text-gray-light p reveal-inline-block">
                                         <a href="mailto:{{ content.getContactemail() }}" class="color-sky">{{ content.getContactemail() }}</a>
                                     </dd>
@@ -166,7 +173,7 @@
                                     {% for socialNetwork in socialNetworks %}
                                     <li class="text-center">
                                         <a href="{{ socialNetwork.getProfilelink }}" class="text-gray-light">
-                                            <i class="{{ socialNetwork.getIcon }} fa-2x"></i>
+                                            <i class="fa fa-{{ socialNetwork.getName }} fa-2x"></i>
                                         </a>
                                     </li>
                                     {% endfor %}

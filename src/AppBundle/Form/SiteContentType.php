@@ -59,7 +59,7 @@ class SiteContentType extends AbstractType
             ->add('contactaddress', null, ["label"=> "Dirección."])
 
             ->add('contactaddress_en', null, ["label"=> "Dirección, en ingles."])
-            ->add('blogimage', null, ["label"=> "Banner para el Blog."]);
+            ->add('blogimage', null, ["label"=> "Banner para el Header."]);
 
 
     }

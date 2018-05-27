@@ -53,10 +53,10 @@
             </div>
 
             <ul class="nav">
-                <li {% if pagename == 'dash' %} class="active" {% endif %}>
-                    <a href="{{ path('dash') }}">
-                        <i class="ti-panel"></i>
-                        <p>Resumen</p>
+                <li {% if pagename == 'booking' %} class="active" {% endif %}>
+                    <a href="{{ path('dash_booking') }}">
+                        <i class="ti-calendar"></i>
+                        <p>Reservaciones</p>
                     </a>
                 </li>
                 <li {% if pagename == 'services' %} class="active" {% endif %}>
@@ -65,12 +65,7 @@
                         <p>Servicios</p>
                     </a>
                 </li>
-                <li {% if pagename == 'booking' %} class="active" {% endif %}>
-                    <a href="{{ path('dash_booking') }}">
-                        <i class="ti-calendar"></i>
-                        <p>Reservaciones</p>
-                    </a>
-                </li>
+
                 <li {% if pagename == 'gallery' %} class="active" {% endif %}>
                     <a href="{{ path('dash_gallery') }}">
                         <i class="ti-gallery"></i>
@@ -99,6 +94,18 @@
                     <a href="{{ path('dash_socialnet_edit') }}">
                         <i class="ti-themify-favicon-alt"></i>
                         <p>Redes Sociales</p>
+                    </a>
+                </li>
+                <li {% if pagename == 'testimonies' %} class="active" {% endif %}>
+                    <a href="{{ path('dash_testimonies_index') }}">
+                        <i class="fa fa-comments-o"></i>
+                        <p>Testimonios</p>
+                    </a>
+                </li>
+                <li {% if pagename == 'drivers' %} class="active" {% endif %}>
+                    <a href="{{ path('dash_drivers_index') }}">
+                        <i class="fa fa-user"></i>
+                        <p>Choferes</p>
                     </a>
                 </li>
                 <li {% if pagename == 'config' %} class="active" {% endif %}>

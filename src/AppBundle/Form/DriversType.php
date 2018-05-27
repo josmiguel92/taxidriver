@@ -6,25 +6,25 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ServicesType extends AbstractType
+class DriversType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('place', null,['label'=>"Destino"] )
-            ->add('istour', null, ['label'=>"¿Es un Tour?"])
-            ->add('time', null, ["label"=> "Tiempo de recorrido, (horas:minutos)"])->add('price')
-            ;
+        $builder->add('fullname')
+            ->add('file', null, ['label'=>'Imagen'])
+            ->add('enterprisetitle', null, ['label'=>'Puesto'])
+            ->add('jobdescription',null, ['label'=>'Descripción del trabajo'])
+            ->add('jobdescriptionen', null, ['label'=>'Descripción del trabajo, en ingles']);
     }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Services'
+            'data_class' => 'AppBundle\Entity\Drivers'
         ));
     }
 
@@ -33,7 +33,7 @@ class ServicesType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_services';
+        return 'appbundle_drivers';
     }
 
 

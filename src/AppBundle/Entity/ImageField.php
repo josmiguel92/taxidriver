@@ -3,19 +3,18 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Utils\Utils;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Utils\Utils;
 
 /**
- * Drivers
+ * Image
  * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="drivers")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\DriversRepository")
  */
-class Drivers
+class ImageField
 {
+    private $temp;
     /**
      * @var int
      *
@@ -23,35 +22,6 @@ class Drivers
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="fullname", type="string", length=255)
-     */
-    private $fullname;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="enterprisetitle", type="string", length=255)
-     */
-    private $enterprisetitle;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="jobdescription", type="string", length=255)
-     */
-    private $jobdescription;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="jobdescriptionen", type="string", length=255)
-     */
-    private $jobdescriptionen;
 
 
     /**
@@ -65,137 +35,6 @@ class Drivers
     private $file;
 
 
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set fullname
-     *
-     * @param string $fullname
-     *
-     * @return Drivers
-     */
-    public function setFullname($fullname)
-    {
-        $this->fullname = $fullname;
-
-        return $this;
-    }
-
-    /**
-     * Get fullname
-     *
-     * @return string
-     */
-    public function getFullname()
-    {
-        return $this->fullname;
-    }
-
-    /**
-     * Set enterprisetitle
-     *
-     * @param string $enterprisetitle
-     *
-     * @return Drivers
-     */
-    public function setEnterprisetitle($enterprisetitle)
-    {
-        $this->enterprisetitle = $enterprisetitle;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getJobdescriptionen()
-    {
-        return $this->jobdescriptionen;
-    }
-
-    /**
-     * @param string $jobdescriptionen
-     */
-    public function setJobdescriptionen($jobdescriptionen)
-    {
-        $this->jobdescriptionen = $jobdescriptionen;
-    }
-
-
-    /**
-     * Get enterprisetitle
-     *
-     * @return string
-     */
-    public function getEnterprisetitle()
-    {
-        return $this->enterprisetitle;
-    }
-
-    /**
-     * Set jobdescription
-     *
-     * @param string $jobdescription
-     *
-     * @return Drivers
-     */
-    public function setJobdescription($jobdescription)
-    {
-        $this->jobdescription = $jobdescription;
-
-        return $this;
-    }
-
-    /**
-     * Get jobdescription
-     *
-     * @return string
-     */
-    public function getJobdescription()
-    {
-        return $this->jobdescription;
-    }
-
-    /**
-     * Set picture
-     *
-     * @param string $picture
-     *
-     * @return Drivers
-     */
-    public function setPicture($picture)
-    {
-        $this->picture = $picture;
-
-        return $this;
-    }
-
-    /**
-     * Get picture
-     *
-     * @return string
-     */
-    public function getPicture()
-    {
-        return $this->picture;
-    }
-
-    public function getJobdescriptionLocale()
-    {
-        if(Utils::getRequestLocaleLang()=="es")
-            return $this->jobdescription;
-        return $this->jobdescriptionen;
-
-    }
 
     public function setFile(UploadedFile $file = null)
     {
@@ -220,15 +59,15 @@ class Drivers
     public function getAbsolutePath()
     {
         return null === $this->path
-            ? null
-            : $this->getUploadRootDir().'/'.$this->path;
+        ? null
+        : $this->getUploadRootDir().'/'.$this->path;
     }
 
     public function getWebPath()
     {
         return null === $this->path
-            ? null
-            : $this->getUploadDir().'/'.$this->path;
+        ? null
+        : $this->getUploadDir().'/'.$this->path;
     }
 
     protected function getUploadRootDir()
@@ -283,11 +122,11 @@ class Drivers
         }
     }
 
-    /**
+     /**
      * @ORM\PostRemove()
      */
-    public function removeUpload()
-    {
+     public function removeUpload()
+     {
         if ($file = $this->getAbsolutePath()) {
             @unlink($file);
         }
@@ -315,5 +154,5 @@ class Drivers
     {
         return $this->path;
     }
-}
 
+}

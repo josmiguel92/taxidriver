@@ -3,54 +3,146 @@
 {% set pagename = 'blog' %}
 
 {% block content %}
-    <h1>{{ edit_form.vars.value.title }} <small>Edici&oacute;n</small></h1>
-
     {{ form_start(edit_form) }}
+    <h1>{{ edit_form.vars.value.title }} <small>Edici&oacute;n</small>
+        <a href="#" class="btn btn-circle active" id="langEs">Español</a>
+        <a href="#" class="btn btn-circle" id="langEn">Ingles</a>
+    </h1>
+
     <div class="row card">
         <div class=" col-md-8">
             {{ form_row(edit_form.title) }}
+            {{ form_row(edit_form.titleen) }}
             {{ form_row(edit_form.teaser) }}
-            {{ form_widget(edit_form.posttext) }}
+            {{ form_row(edit_form.teaseren) }}
+            <div class="form-group">
+                {{ form_widget(edit_form.posttext) }}
+            </div>
+            <div class="form-group">
+            {{ form_widget(edit_form.posttexten) }}
+            </div>
         </div>
         <div class="col-md-4">
             {{ form_row(edit_form.publisheddate) }}
             {{ form_row(edit_form.picture) }}
+            {{ form_row(edit_form.quote) }}
+
+            {{ form_row(edit_form.quoteen) }}
+
             {{ form_row(edit_form.secondaryPicture) }}
+            {{ form_row(edit_form.place) }}
 
             <h3>Etiquetas</h3>
             <ul class="tags" data-prototype="{{ form_widget(edit_form.tags.vars.prototype)|e }}">
                 {# iterate over each existing tag and render its only field: name #}
                 {% for tag in edit_form.tags %}
-                    <li>{{ form_widget(tag.tag) }}</li>
+                    <li>{{ form_widget(tag) }}</li>
                 {% endfor %}
             </ul>
+            <a href="#" class="" id="deleteTag"><i class=" fa fa-2x fa-minus-circle"></i> </a>
+
+
+        </div>
+        <div class="col-md-4">
+
+            <input type="submit" class="btn btn-primary" value="Guardar" />
+
+            <div class="hidden">{{ form_end(edit_form) }}</div>
+
+
+        </div>
+        <div class="col-md-4">
+            {{ form_start(delete_form) }}
+            <input type="submit" class="btn btn-danger" value="Eliminar">
+            {{ form_end(delete_form) }}
         </div>
 
     </div>
 
-    <h1>Blogentrie edit</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    <h3>Tags</h3>
-    <ul class="tags">
-        {# iterate over each existing tag and render its only field: name #}
-        {% for tag in edit_form.tags %}
-            <li>{{ form_row(tag.tag) }}</li>
-        {% endfor %}
-    </ul>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
 
-    {{ form_end(edit_form) }}
+    <script>
+        function goSpanish(){
+            $('[reflang="en"]').parent().hide();
+            $('[reflang="es"]').parent().show();
+            $("#langEn")[0].classList.remove('active')
+            $("#langEs")[0].classList.add('active')
+        }
 
-    <ul>
-        <li>
-            <a href="{{ path('dash_blog_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        function goEnglish(){
+            $('[reflang="es"]').parent().hide();
+            $('[reflang="en"]').parent().show();
+            $("#langEs")[0].classList.remove('active')
+            $("#langEn")[0].classList.add('active')
+        }
+
+        function updateLangFields(){
+            if( $("#langEn")[0].classList.contains('active'))
+                goEnglish();
+            if( $("#langEs")[0].classList.contains('active'))
+                goSpanish();
+        }
+
+        $('document').ready(function(){
+            goSpanish();
+
+            $("#langEs").click(function () {
+                goSpanish();
+            });
+            $("#langEn").click(function () {
+                goEnglish();
+            });
+            
+            $('#deleteTag').click(function (e) {
+                if($('ul.tags li').children().length > 1)
+                {
+                    items = $('ul.tags li').children()
+                    items[items.length-2].remove();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        var $collectionHolder;
+        // setup an "add a tag" link
+        var $addTagLink = $('<a href="#" class="add_tag_link" id="addtagbtn"><i class=" fa fa-2x fa-plus-circle"></i> </a>');
+        var $newLinkLi = $('<li></li>').append($addTagLink);
+        jQuery(document).ready(function() {
+// Get the ul that holds the collection of tags
+            $collectionHolder = $('ul.tags');
+// add the "add a tag" anchor and li to the tags ul
+            $collectionHolder.append($newLinkLi);
+// count the current form inputs we have (e.g. 2), use that as the new
+// index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+            $addTagLink.on('click', function(e) {
+// prevent the link from creating a "#" on the URL
+                e.preventDefault();
+// add a new tag form (see next code block)
+                addTagForm($collectionHolder, $newLinkLi);
+                updateLangFields();
+            });
+        });
+
+        function addTagForm($collectionHolder, $newLinkLi) {
+// Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+// get the new index
+            var index = $collectionHolder.data('index');
+// Replace '__name__' in the prototype's HTML to
+// instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+// increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newFormLi = $('<li></li>').append(newForm);
+            $newLinkLi.before($newFormLi);
+        }
+    </script>
+
+
 {% endblock %}

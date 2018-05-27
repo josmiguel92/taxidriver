@@ -1,0 +1,38 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+
+{% set pagename = 'drivers' %}
+
+{% block content %}
+    <h1>Choferes <a href="{{ path('dash_drivers_new') }}" class="btn btn-primary" style="float: right;">Añadir chofer</a></h1>
+
+
+        {% for driver in drivers %}
+
+            <div class="media card">
+                <div class="col-md-2">
+                    <a class="pull-left" href="{{ path('dash_drivers_edit', { 'id': driver.id }) }}">
+                        <img class="img-responsive" style="height: 100%" src="{{ asset(driver.webPath) }}" alt="{{ driver.fullname }}">
+                    </a>
+                </div>
+
+
+                <div class="col-md-8">
+                    <h4 class="media-heading">{{ driver.fullname }}</h4>
+                    <p>{{ driver.enterprisetitle }}</p>
+                    <p>{{ driver.jobdescription }} | {{ driver.jobdescription }} </p>
+                </div>
+
+                <div class="col-md-2">
+                    <ul style="list-style: none" class="btn-list">
+                        <li>
+                            <a href="{{ path('dash_drivers_edit', { 'id': driver.id }) }}"><i class="ti-pencil-alt"></i> Editar</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        {% endfor %}
+ 
+
+{% endblock %}

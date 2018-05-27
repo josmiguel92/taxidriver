@@ -141,3 +141,13 @@ button.test:hover{
 #map{
     height: 75vh;
 }
+
+.blog-content p{
+    margin-top: 30px;
+    letter-spacing: 0;
+}
+
+.blog-post .rd-parallax,
+.blog-post .rd-parallax .rd-parallax-inner{
+    height: 80vh !important;
+}

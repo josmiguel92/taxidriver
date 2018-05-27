@@ -5,11 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Utils;
 
+
 /**
  * Keyword
  *
  * @ORM\Table(name="tags")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\KeywordRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TagRepository")
  */
 class Tag
 {

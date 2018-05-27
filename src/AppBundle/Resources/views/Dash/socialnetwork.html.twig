@@ -15,7 +15,7 @@
                     <div class="col-md-12">
                         <ul class="btn-list">
                             {% for net in socialnetworks %}
-                                <li><i class="{{ net.icon }}"></i> <a href="{{ net.profilelink }}" target="_blank">{{ net.name }}</a> <a class="btn btn-danger btn-sm" href="{{ path('dash_socialnet_profile_delete', {'id':net.id}) }}" title="Eliminar"><i class="ti-trash"></i> </a> </li>
+                                <li><i class="fa fa-{{ net.name }}"></i> <a href="{{ net.profilelink }}" target="_blank">{{ net.name }}</a> <a class="btn btn-danger btn-sm" href="{{ path('dash_socialnet_profile_delete', {'id':net.id}) }}" title="Eliminar"><i class="ti-trash"></i> </a> </li>
                             {% else %}
                                 No hay perfiles a&uacute;n
                             {% endfor %}

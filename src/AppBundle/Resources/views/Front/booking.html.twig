@@ -1,6 +1,39 @@
-<h1>Hola mundo</h1>
-<p>este será el reservas de la web <b>TaxiDriver</b>.</p>
-{{ form_start(booking_form) }}
-{{ form_widget(booking_form) }}
-<input type="submit" value="Enviar">
-{{ form_end(booking_form) }}
+{% extends 'AppBundle:Front:baseBooking.html.twig' %}
+
+
+{% set title = "I will go to..." %}
+{% if locale=='es' %}
+    {% set title = "Voy a ir a..." %}
+{% endif %}
+
+{% block destination %}
+
+    {% for place in places %}
+        {% if place.istour %}
+            <div class="cell-sm-10 cell-md-7 cell-lg-6 offset-top-60">
+                <div style="max-width: 100%;" class="reveal-inline-block">
+                    <!-- Unit-->
+                    <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
+                        <div class="unit-left">
+                            <img src="{{ asset(place.image.getWebPath) }}" width="270" height="263" alt="{{ place.image.getDetailsLocale }}" class="img-responsive center-block">
+                        </div>
+                        <div class="unit-body">
+                            <div>
+                                <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}</a></h5>
+
+                                <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km <p>
+                                <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} h </p>
+                                <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }} USD <br/></p>
+
+                                <div class="offset-top-40">
+                                    <a href="#" class="btn btn-calypso">{% trans %}Add{% endtrans %}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

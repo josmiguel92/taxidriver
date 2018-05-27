@@ -8,14 +8,17 @@
     <div class="col-lg-6 col-md-6">
         <div class="card">
             <div class="header">
-                <h4 class="title">Lugares disponibles</h4>
+                <h4 class="title">Destinos disponibles</h4>
             </div>
             <div class="content">
                 <div class="row">
                     <div class="col-md-12">
-                        <ul class="btn-list">
+                        <ul class="btn-list places">
                             {% for place in places %}
-                                <li> {{ place.name }}</a> <a class="btn btn-danger btn-sm" href="{{ path('dash_services_place_delete', {'id':place.id}) }}" title="Eliminar"><i class="ti-trash"></i> </a> </li>
+                                <li> {{ place.name }}
+                                    <a href="#" class="btn btn-sm btn-info editbtn" title="Editar" data-placeid="{{ place.id }}"><i class="ti-pencil"></i> </a>
+
+                                </li>
                             {% else %}
                                 No hay lugares a&uacute;n
                             {% endfor %}
@@ -30,40 +33,14 @@
             </div>
         </div>
         </div>
-        <div class="col-lg-6 col-md-6">
-            <div class="card">
-            <div class="header">
-                <h4 class="title">Rutas disponibles</h4>
-            </div>
-            <div class="content">
-                <div class="row">
-                    <div class="col-md-12">
-                        <ul class="btn-list">
-                            {% for service in services %}
-                                <li> {{ service }}</a> <a href="#" class="btn btn-sm btn-info editbtn" title="Editar" data-routeid="{{ service.id }}"><i class="ti-pencil"></i> </a> {# <a class="btn btn-danger btn-sm" href="{{ path('dash_services_route_delete', {'id':service.id}) }}" title="Eliminar"><i class="ti-trash"></i> </a> #} </li>
-                            {% else %}
-                                No hay rutas a&uacute;n
-                            {% endfor %}
-                        </ul>
-
-                    </div>
 
 
-                </div>
-                <div class="clearfix"></div>
-
-            </div>
-        </div>
-
-        </div>
-    </div>
 
 
-<div class="row">
     <div class="col-lg-6 col-md-6">
-        <div class="card">
+        <div class="card" id="placeForm">
             <div class="header">
-                <h4 class="title"  data-toggle="collapse" data-target="#addPlace">Agregar un lugar<i class="ti-angle-down" style="float:right;"></i></h4>
+                <h4 class="title"  data-toggle="collapse" data-target="#addPlace">Agregar un destino<small><i class="fa-spin fa fa-spinner hidden formLoader" style="float: right"></i></small></h4>
             </div>
             <div class="content">
 
@@ -97,38 +74,9 @@
         </div>
     </div>
 
-    <div class="col-lg-6 col-md-6">
-        <div class="card" id="routeForm">
-            <div class="header">
-                <h4 class="title" data-toggle="collapse" data-target="#addRoute">Agregar una ruta de servicio<i class="ti-angle-down" style="float:right;"></i></h4>
-            </div>
-            <div class="content">
 
-                {{ form_start(serviceForm) }}
-                <div class="row" id="addRoute">
-                    <div class="col-md-12">
-
-                        {{ form_widget(serviceForm) }}
-
-                    </div>
-
-
-                </div>
-
-                <div class="text-center">
-                    <button type="submit" class="btn btn-info btn-fill btn-wd">Guardar</button>
-                </div>
-
-                {{ form_end(serviceForm) }}
-                <div class="clearfix"></div>
-
-            </div>
-        </div>
-    </div>
 
 </div>
-
-
 
 
 
@@ -144,29 +92,38 @@
 
     <script>
         $('document').ready(function(){
-            $('div.card  .btn.editbtn').click(function(e){
+            $('ul.places .btn.editbtn').click(function(e){
                 e.preventDefault();
-                edit_path = "{{ path('dash_services_route_edit', {'id':'routeidplaceholder'}) }}"
+                $(".fa-spinner.formLoader")[0].classList.remove('hidden');
+                var edit_path = "{{ path('dash_services_place_edit', {'id':'placeidplaceholder'}) }}"
 
-                route_id = this.dataset['routeid']
-                current_edit_path = edit_path.replace('routeidplaceholder',route_id)
-
-                $('#routeForm').load(current_edit_path)
+                console.log(edit_path)
+                place_id = this.dataset['placeid']
+                current_edit_path = edit_path.replace('placeidplaceholder',place_id)
+                console.log(current_edit_path)
+                $('#placeForm').load(current_edit_path, function () {
+                    $(".fa-spinner.formLoader")[0].classList.add('hidden');
+                })
 
             });
-        //    if(typeof google === 'undefined' || google === null)
-            $(".placepicker").placepicker({
-                mapIconClass: "ti-map-alt",
-                placeChanged: function(place) {
-                    $("#appbundle_place_name")[0].value = place.name;
-                    $("#appbundle_place_latlong")[0].value = this.getLocation().latitude + ', '+this.getLocation().longitude;
-                    $("#appbundle_place_googlename")[0].value = place.formatted_address;
-                },
-                mapOptions: {
-                    zoom: 15,
-                    center: {lat: 23.143056, lng: -82.38055600000001}
-                }
-            }).data('placepicker');
+            //TODO: comment on PROD
+            if(typeof google === 'undefined' || google === null)
+                console.log("no-google")
+            else {
+                $(".placepicker").placepicker({
+                    mapIconClass: "ti-map-alt",
+                    placeChanged: function(place) {
+                        $("#appbundle_place_name")[0].value = place.name;
+                        $("#appbundle_place_latlong")[0].value = this.getLocation().latitude + ', '+this.getLocation().longitude;
+                        $("#appbundle_place_googlename")[0].value = place.formatted_address;
+                    },
+                    mapOptions: {
+                        zoom: 15,
+                        center: {lat: 23.143056, lng: -82.38055600000001}
+                    }
+                }).data('placepicker');
+            }
+
         console.log("final")
 
         });

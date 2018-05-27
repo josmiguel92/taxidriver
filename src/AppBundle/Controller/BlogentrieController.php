@@ -25,7 +25,12 @@ class BlogentrieController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $blogentries = $em->getRepository('AppBundle:Blogentrie')->findAll();
+        $blogentries = $em->getRepository('AppBundle:Blogentrie')
+
+            ->createQueryBuilder("c")->orderBy("c.id", "ASC")
+            ->getQuery()->getResult();
+
+          //  ->findBy(['id'=>''], ['publisheddate'=>'DESC']);
 
         return $this->render('AppBundle:Dash:blogentrie/index.html.twig', array(
             'blogentries' => $blogentries,
@@ -49,6 +54,8 @@ class BlogentrieController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $blogentrie->setTitleurl(urlencode($blogentrie->getTitle()));
+            $blogentrie->setTitleurlen(urlencode($blogentrie->getTitleEn()));
             $em->persist($blogentrie);
             $em->flush();
 

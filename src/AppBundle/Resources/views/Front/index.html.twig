@@ -1,8 +1,6 @@
 {% extends 'AppBundle:Front:base.html.twig' %}
 
-{% block title %}
-    Home
-{% endblock %}
+{% set title = "Home" %}
 
 
 {% block header %}
@@ -42,7 +40,7 @@
                         <div class="rd-navbar-nav-wrap reveal-md-inline-block">
                             <ul class="rd-navbar-nav">
                                 <!-- RD Navbar Nav-->
-                                <li><a href="{{ path("home") }}">home</a></li>
+                                <li><a href="{{ path("home") }}#home">home</a></li>
                                 <li><a href="{{ path("home") }}#services">services</a></li>
                                 <li><a href="{{ path("home") }}#about">about us</a></li>
                                 <li><a href="{{ path("home") }}#contact">contacts</a></li>
@@ -58,7 +56,7 @@
                                     {% for socialNetwork in socialNetworks %}
                                         <li class="text-center">
                                             <a href="{{ socialNetwork.getProfilelink }}" class="text-white">
-                                                <i class="{{ socialNetwork.getIcon }}"></i>
+                                                <i class="fa fa-{{ socialNetwork.getName }}"></i>
                                             </a>
                                         </li>
                                     {% endfor %}
@@ -76,20 +74,30 @@
 
             <div class="swiper-wrapper">
 
-                <div style="background-image:url({{ asset("images/sliders/Varadero.jpg") }})" class="swiper-slide">
-                    <div class="shell">
-                        <div class="range range-xs-center">
-                            <div class="cell-sm-10">
-                                <div class="text-extra-big font-accent text-bold text-spacing-inverse-50 text-white">A day in Varadero beach</div>
-                                <h5 class="offset-top-10 text-white text-spacing-0 text-transform-none">
-                                    We are always there at your service. Fast and reliable way to find
-                                    quality taxi service anywhere you need it.
-                                </h5>
-                                <div style="max-width:510px;" class="btn-both-lines offset-top-30 center-block"><a href="#" style="min-width:240px;" class="btn btn-primary">learn more</a></div>
+                {% for blogEntry in blogEntries %}
+
+                    <div style="background-image:url( {{ asset(blogEntry.getImagePrimary.getWebPath) }} )" class="swiper-slide">
+                        <div class="shell">
+                            <div class="range range-xs-center">
+                                <div class="cell-sm-10">
+                                    <div class="text-extra-big font-accent text-bold text-spacing-inverse-50 text-white">
+                                        {{ blogEntry.getTitleLocale }}
+                                    </div>
+                                    <h5 class="offset-top-10 text-white text-spacing-0 text-transform-none">
+                                        We are always there at your service. Fast and reliable way to find
+                                        quality taxi service anywhere you need it.
+                                    </h5>
+                                    <div style="max-width:510px;" class="btn-both-lines offset-top-30 center-block">
+                                        <a href="{{ path("blogEntry",{"_id":blogEntry.getId, "_name":blogEntry.getTitleLocale}) }}" style="min-width:240px;" class="btn btn-primary">
+                                            {% trans %}read more{% endtrans %}
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                {% endfor %}
 
             </div>
 
@@ -100,7 +108,10 @@
 
         <div class="swiper-container gallery-thumbs">
             <div class="swiper-wrapper">
-                <div style="background-image:url({{ asset("images/sliders/Varadero.jpg") }})" class="swiper-slide"></div>
+                {% for blogEntry in blogEntries %}
+                    <div style="background-image:url({{ asset(blogEntry.getImagePrimary.getWebPath) }})" class="swiper-slide"></div>
+                {% endfor %}
+
             </div>
         </div>
 
@@ -119,36 +130,53 @@
 
                 <div class="offset-top-100">
                     <h1 class="text-spacing-inverse-50">
-                        {{ content.getServicestitle() }}
+                        {{ content.getServicestitleLocale() }}
                     </h1>
+                    <div class="range range-xs-center offset-top-20">
+                        <div class="cell-sm-10 cell-lg-8">
+                            <p class="text-spacing-0">
+                                {{ content.getServicestextLocale }}
+                            </p>
+                        </div>
+                    </div>
+
 
                     <div class="offset-top-35"><svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/></svg></div>
                     <div class="offset-top-25">
                         <i class="fa fa-cab fa-3x color-sky"></i>
-                        <h5 class="text-spacing-75">Taxi {% trans %}services{% endtrans %}</h5>
+                        <h5 class="text-spacing-75">Taxi</h5>
                     </div>
+
+                    <div class="range range-xs-center offset-top-20">
+                        <div class="cell-sm-10 cell-lg-8">
+                            <p class="text-spacing-0">
+                                {{ content.getServicestaxitextLocale }}
+                            </p>
+                        </div>
+                    </div>
+
 
                     <div class="range range-xs-center offset-top-44 offset-md-top-53 text-sm-left">
 
-                        {% for service in services %}
-                            {% if not service.istour %}
+                        {% for place in places %}
+                            {% if not place.istour %}
                                 <div class="cell-sm-10 cell-md-7 cell-lg-6 offset-top-60">
                                     <div style="max-width: 100%;" class="reveal-inline-block">
                                         <!-- Unit-->
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                                             <div class="unit-left">
-                                                <img src="{{ asset(service.place.image.getWebPath) }}" width="270" height="263" alt="{{ service.place.image.getDetailsLocale }}" class="img-responsive center-block">
+                                                <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block">
                                             </div>
                                             <div class="unit-body">
                                                 <div>
-                                                    <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ service.place.getNameLocale }}</a></h5>
+                                                    <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}</a></h5>
 
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ service.place.getDistance }} km <p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ service.getTime|date('h:i') }} h </p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ service.getPrice }} USD <br/></p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km <p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} h </p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }} USD <br/></p>
 
                                                     <div class="offset-top-40">
-                                                        <a href="#" class="btn btn-calypso">{% trans %}Book Now{% endtrans %}</a>
+                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="btn btn-calypso">{% trans %}Book Now{% endtrans %}</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -161,34 +189,45 @@
                     </div>
 
                     <div class="offset-top-35">
-                        <svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/></svg></div>
+                        <svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/>
+                        </svg>
+                    </div>
 
                     <div class="offset-top-25">
                         <i class="fa fa-tree fa-3x color-sky"></i>
-                        <h5 class="text-spacing-75">Tours {% trans %}service{% endtrans %}</h5>
+                        <h5 class="text-spacing-75">Taxi-Tours</h5>
                     </div>
+
+                    <div class="range range-xs-center offset-top-20">
+                        <div class="cell-sm-10 cell-lg-8">
+                            <p class="text-spacing-0">
+                                {{ content.getServicestaxitourstextLocale }}
+                            </p>
+                        </div>
+                    </div>
+
 
                     <div class="range range-xs-center offset-top-44 offset-md-top-53 text-sm-left">
 
-                        {% for service in services %}
-                            {% if service.istour %}
+                        {% for place in places %}
+                            {% if place.istour %}
                                 <div class="cell-sm-10 cell-md-7 cell-lg-6 offset-top-60">
                                     <div style="max-width: 100%;" class="reveal-inline-block">
                                         <!-- Unit-->
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                                             <div class="unit-left">
-                                                <img src="{{ asset(service.place.image.getWebPath) }}" width="270" height="263" alt="{{ service.place.image.getDetailsLocale }}" class="img-responsive center-block">
+                                                <img src="{{ asset(place.image.getWebPath) }}" width="270" height="263" alt="{{ place.image.getDetailsLocale }}" class="img-responsive center-block">
                                             </div>
                                             <div class="unit-body">
                                                 <div>
-                                                    <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ service.place.getNameLocale }}</a></h5>
+                                                    <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}</a></h5>
 
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ service.place.getDistance }} km <p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ service.getTime|date('h:i') }} h </p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ service.getPrice }} USD <br/></p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km <p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} h </p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }} USD <br/></p>
 
                                                     <div class="offset-top-40">
-                                                        <a href="#" class="btn btn-calypso">{% trans %}Book Now{% endtrans %}</a>
+                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="btn btn-calypso">{% trans %}Book Now{% endtrans %}</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -231,7 +270,9 @@
                                             {{ content.getServicesmakeroutesubtitleLocale }}
                                         </p>
                                     </div>
-                                    <div class="offset-top-30 offset-md-top-60"><a href="#" style="min-width:240px;" class="btn btn-calypso"{% trans %}>Make your own Tour!{% endtrans %}</a></div>
+                                    <div class="offset-top-30 offset-md-top-60">
+                                        <a href="{{ path("bookingOwnTour") }}" style="min-width:240px;" class="btn btn-calypso">{% trans %}Make your own Tour!{% endtrans %}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -248,20 +289,29 @@
                 <div class="range range-xs-center list-index-lg offset-md-top-15">
 
                     {% for infography in infographys %}
-                    <div class="cell-sm-10 cell-md-4">
-                        <div class="inset-lg-left-30 inset-lg-right-10">
-                            <div class="h2 text-spacing-inverse-50 color-sky"> <i class="fa fa-plane fa-2x"></i> </div>
-                            <div class="offset-top-10">
-                                <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">Airport services</p>
+                        {% if infography.isservices %}
+                            <div class="cell-sm-10 cell-md-4">
+                                <div class="inset-lg-left-30 inset-lg-right-10">
+                                    <div class="h2 text-spacing-inverse-50 color-sky">
+                                        <i class="{{ infography.getIcon }} fa-2x"></i>
+                                    </div>
+                                    <div class="offset-top-10">
+                                        <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">
+                                            {{ infography.getTitleLocale }}
+                                        </p>
+                                    </div>
+                                    <div class="offset-top-20">
+                                        <p class="text-spacing-0">
+                                            {{ infography.getTextLocale }}
+                                        </p>
+                                    </div>
+                                    <div class="offset-top-10">
+                                        <h5 class="text-spacing-20 text-silver-chalice">...</h5>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="offset-top-20">
-                                <p class="text-spacing-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid asperiores deleniti dolores excepturi exercitationem nobis quo sed? Commodi distinctio</p>
-                            </div>
-                            <div class="offset-top-10">
-                                <h5 class="text-spacing-20 text-silver-chalice">...</h5>
-                            </div>
-                        </div>
-                    </div>
+                        {% endif %}
+                    {% endfor %}
 
                 </div>
             </div>
@@ -271,16 +321,20 @@
         <section id="about" style="padding-top: 1%;" class="context-dark">
             <!-- RD Parallax-->
             <div data-on="false" data-md-on="true" class="rd-parallax offset-top-100">
-                <div data-speed="0.15" data-type="media" data-url="images/banners/about-us.jpg" class="rd-parallax-layer"></div>
+                <div data-speed="0.15" data-type="media" data-url="{{ asset("images/banners/about-us.jpg") }}" class="rd-parallax-layer"></div>
                 <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
                     <div class="shell section-75 section-md-top-103 section-md-bottom-110">
                         <div class="range range-xs-center">
                             <div class="cell-sm-10">
-                                <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom"><img src="images/divider-01-135x4.png" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block"></div>
+                                <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
+                                    <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block">
+                                </div>
                                 <div class="veil reveal-sm-inline-block"><span class="icon icon-lg thin-ico thin-icon-car text-white"></span></div>
-                                <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom"><img src="images/divider-01-135x4.png" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block"></div>
+                                <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
+                                    <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block">
+                                </div>
                                 <div class="offset-top-15 offset-md-top-30">
-                                    <h1 class="text-spacing-0 text-uppercase">About us</h1>
+                                    <h1 class="text-spacing-0 text-uppercase">{{ content.getAbouttitleLocale }}</h1>
                                     <div class="offset-top-20 offset-md-top-44">
                                         <br/>
                                     </div>
@@ -298,62 +352,52 @@
 
                 <!-- Who we are-->
                 <div class="offset-top-10">
-                    <h3 class="text-spacing-75 text-left">Who we are?</h3>
+                    <h3 class="text-spacing-75 text-left">{% trans %}Who we are?{% endtrans %}</h3>
                 </div>
 
                 <div class="range range-xs-center offset-top-30 text-left">
                     <div class="cell-sm-12 cell-md-10">
                         <p class="text-spacing-0">
-                            {{ content.getAbouttext() }}
+                            {{ content.getAbouttextLocale() }}
                         </p>
                     </div>
                 </div>
 
                 <!-- Members-->
                 <div class="offset-top-64 offset-md-top-95">
-                    <h3 class="text-spacing-75 text-left">Our Team</h3>
+                    <h3 class="text-spacing-75 text-left">{% trans %}Our Team{% endtrans %}</h3>
                 </div>
 
                 <div class="range range-xs-center offset-top-30 text-left">
                     <div class="cell-sm-12 cell-md-10">
                         <p class="text-spacing-0">
-                            {{ content.getAboutteamtext() }}
+                            {{ content.getAboutteamtextLocale() }}
                         </p>
                     </div>
                 </div>
 
                 <div class="range range-condensed">
-
-                    <div class="cell-xs-6 cell-md-4 col-md-offset-2">
+                {% for driver in drivers %}
+                    <div class="cell-xs-6 cell-md-4 {% if loop.index is odd %}col-md-offset-2{% endif %}">
                         <!-- Box Member-->
                         <div class="box-member">
-                            <div class="box-member-img-wrap"><img src="images/users/lester.jpg" width="480" height="492" alt="" class="img-responsive center-block"></div>
+                            <div class="box-member-img-wrap">
+
+                                <img src="{{ asset(driver.webPath) }}" width="480" height="492" alt="" class="img-responsive center-block"></div>
                             <div class="box-member-caption">
                                 <div>
-                                    <h5 class="text-spacing-inverse-25 text-white text-capitalize">Lester </h5>
+                                    <h5 class="text-spacing-inverse-25 text-white text-capitalize">{{ driver.fullname }} </h5>
                                 </div>
                                 <div class="offset-top-4">
-                                    <p class="font-accent text-bold text-white text-spacing-inverse-25">(driver)</p>
+                                    <p class="font-accent text-bold text-white text-spacing-inverse-25">({{ driver.enterprisetitle }})</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+                {% endfor %}
 
-                    <div class="cell-xs-6 cell-md-4">
-                        <!-- Box Member-->
-                        <div class="box-member">
-                            <div class="box-member-img-wrap"><img src="images/users/ernesto.jpg" width="480" height="492" alt="" class="img-responsive center-block">
-                            </div>
-                            <div class="box-member-caption">
-                                <div>
-                                    <h5 class="text-spacing-inverse-25 text-white text-capitalize">Ernesto</h5>
-                                </div>
-                                <div class="offset-top-4">
-                                    <p class="font-accent text-bold text-white text-spacing-inverse-25">(driver)</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+
 
                 </div>
             </div>
@@ -364,7 +408,7 @@
             <div class="shell">
 
                 <h2 class="text-spacing-inverse-25">
-                    {{ content.getAboutinfographtitle }}
+                    {{ content.getAboutinfographtitleLocale }}
                 </h2>
 
                 <div class="range range-xs-center offset-top-20">
@@ -378,59 +422,31 @@
                 <div class="offset-top-15"><svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/></svg></div>
 
                 <div class="range range-xs-center list-index-lg offset-md-top-15">
-                    <div class="cell-sm-10 cell-md-4">
-                        <div class="inset-lg-left-30 inset-lg-right-10">
-                            <div class="h2 text-spacing-inverse-50 color-sky"> <i class="fa fa-smile-o fa-2x"></i> </div>
 
-                            <div class="offset-top-10">
-                                <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">+100 happy customers</p>
+                    {% for infography in infographys %}
+                        {% if not infography.isservices %}
+                            <div class="cell-sm-10 cell-md-4">
+                                <div class="inset-lg-left-30 inset-lg-right-10">
+                                    <div class="h2 text-spacing-inverse-50 color-sky">
+                                        <i class="{{ infography.getIcon }} fa-2x"></i>
+                                    </div>
+                                    <div class="offset-top-10">
+                                        <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">
+                                            {{ infography.getTitleLocale }}
+                                        </p>
+                                    </div>
+                                    <div class="offset-top-20">
+                                        <p class="text-spacing-0">
+                                            {{ infography.getTextLocale }}
+                                        </p>
+                                    </div>
+                                    <div class="offset-top-10">
+                                        <h5 class="text-spacing-20 text-silver-chalice">...</h5>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="offset-top-20">
-                                <p class="text-spacing-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid asperiores deleniti dolores excepturi exercitationem nobis quo sed? Commodi distinctio</p>
-                            </div>
-
-                            <div class="offset-top-10">
-                                <h5 class="text-spacing-20 text-silver-chalice">...</h5>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cell-sm-10 cell-md-4 offset-top-64 offset-md-top-0">
-                        <div class="inset-lg-left-30 inset-lg-right-10">
-                            <div class="h2 text-spacing-inverse-50 color-sky"> <i class="fa fa-tree fa-2x"></i> </div>
-
-                            <div class="offset-top-10">
-                                <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">+200 place to visit</p>
-                            </div>
-
-                            <div class="offset-top-20">
-                                <p class="text-spacing-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid asperiores deleniti dolores excepturi exercitationem nobis quo sed? Commodi distinctio</p>
-                            </div>
-
-                            <div class="offset-top-10">
-                                <h5 class="text-spacing-20 text-silver-chalice">...</h5>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cell-sm-10 cell-md-4 offset-top-64 offset-md-top-0">
-                        <div class="inset-lg-left-30 inset-lg-right-10">
-                            <div class="h2 text-spacing-inverse-50 color-sky"> <i class="fa fa-cab fa-2x"></i> </div>
-
-                            <div class="offset-top-10">
-                                <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">+5000 miles without accidents</p>
-                            </div>
-
-                            <div class="offset-top-20">
-                                <p class="text-spacing-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid asperiores deleniti dolores excepturi exercitationem nobis quo sed? Commodi distinctio</p>
-                            </div>
-
-                            <div class="offset-top-10">
-                                <h5 class="text-spacing-20 text-silver-chalice">...</h5>
-                            </div>
-                        </div>
-                    </div>
+                        {% endif %}
+                    {% endfor %}
 
                 </div>
 
@@ -440,73 +456,53 @@
         <!-- Testimonials-->
         <section class="section-75 section-md-top-40 section-md-bottom-20">
             <div class="shell">
-                <h2>Testimonials</h2>
+                <h3>Testimonials</h3>
                 <div class="range range-xs-center offset-top-20">
                     <div class="cell-sm-10 cell-md-12">
                         <div data-items="1" data-md-items="3" data-xs-stage-padding="5" data-loop="true" data-margin="30" data-mouse-drag="false" data-nav="true" data-dots="true" class="owl-carousel owl-nav-absolute owl-nav-primary owl-nav-top">
-                            <div class="owl-item">
-                                <!-- Blockquote-->
-                                <blockquote class="quote"><img src="images/users/user-john-wilson-169x169(2).jpg" width="169" height="169" alt="" class="img-circle img-responsive center-block">
-                                    <div class="offset-top-15 offset-md-top-30">
-                                        <p >
-                                            Just wanted to say how satisfied we were with the driver Mahesh, he was friendly and drove very well. The car was excellent and we will recommend your service. Many thanks. Kind regards.
-                                        </p>
-                                    </div>
-                                    <div class="offset-top-10 offset-md-top-25">
-                                        <p>
-                                            <cite class="font-accent text-bold text-spacing-inverse-25 text-primary"><a href="single-member.html" class="text-mine-shaft">John Wilson</a><span class="reveal-block">(client)</span></cite>
-                                        </p>
-                                    </div>
-                                    <div class="offset-top-10">
-                                        <h5 class="text-spacing-20 text-silver-chalice">...</h5>
-                                    </div>
-                                </blockquote>
-                            </div>
-                            <div class="owl-item">
-                                <!-- Blockquote-->
-                                <blockquote class="quote"><img src="images/users/user-ann-richardson-169x169.jpg" width="169" height="169" alt="" class="img-circle img-responsive center-block">
-                                    <div class="offset-top-15 offset-md-top-30">
-                                        <p>
-                                            For over ten years, City-Taxi has played a vital role in providing our agency with the necessary transportation to help visitors in crisis. We are extremely grateful for their support.
-                                        </p>
-                                    </div>
-                                    <div class="offset-top-10 offset-md-top-25">
-                                        <p>
-                                            <cite class="font-accent text-bold text-spacing-inverse-25 text-primary"><a href="single-member.html" class="text-mine-shaft">April Smith</a><span class="reveal-block">(client)</span></cite>
-                                        </p>
-                                    </div>
-                                    <div class="offset-top-10">
-                                        <h5 class="text-spacing-20 text-silver-chalice">...</h5>
-                                    </div>
-                                </blockquote>
-                            </div>
-                            <div class="owl-item">
-                                <!-- Blockquote-->
-                                <blockquote class="quote"><img src="images/users/user-richard-cox-169x169.jpg" width="169" height="169" alt="" class="img-circle img-responsive center-block">
-                                    <div class="offset-top-15 offset-md-top-30">
-                                        <p>
-                                            One of your drivers who got me from Broadway to the Museum of National History couldn’t have been more awesome! He was kind, polite and a great conversationalist!
-                                        </p>
-                                    </div>
-                                    <div class="offset-top-10 offset-md-top-25">
-                                        <p>
-                                            <cite class="font-accent text-bold text-spacing-inverse-25 text-primary"><a href="single-member.html" class="text-mine-shaft">Mike Hudson</a><span class="reveal-block">(client)</span></cite>
-                                        </p>
-                                    </div>
-                                    <div class="offset-top-10">
-                                        <h5 class="text-spacing-20 text-silver-chalice">...</h5>
-                                    </div>
-                                </blockquote>
-                            </div>
+
+                            {% for testimony in testimonials %}
+                                <div class="owl-item">
+                                    <!-- Blockquote-->
+                                    <blockquote class="quote">
+                                        <img src="{{ testimony.getAvatar }}" width="169" height="169" alt="{{ testimony.getName }}" class="img-circle img-responsive center-block">
+                                        <div class="offset-top-15 offset-md-top-30">
+                                            <p >
+                                                {{ testimony.getTextLocale }}
+                                            </p>
+                                        </div>
+                                        <div class="offset-top-10 offset-md-top-25">
+                                            <p>
+                                                <cite class="font-accent text-bold text-spacing-inverse-25 text-primary">
+                                                    <span class="text-mine-shaft">{{ testimony.getName }}</span>
+                                                    <span class="reveal-block">(client)</span>
+                                                </cite>
+                                            </p>
+                                        </div>
+                                        <div class="offset-top-10">
+                                            <h5 class="text-spacing-20 text-silver-chalice">...</h5>
+                                        </div>
+                                    </blockquote>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
-                <div style="max-width:560px;" class="btn-both-lines btn-both-lines-gray-lighter offset-top-30 center-block"><a href="testimonials.html" style="min-width:260px;" class="btn btn-calypso">more testimonials from <i class="fa fa-tripadvisor"></i> TripAdvisor</a></div>
+
+                {% for socialNetwork in socialNetworks %}
+                    {% if socialNetwork.getName=="tripadvisor" %}
+                        <div style="max-width:560px;" class="btn-both-lines btn-both-lines-gray-lighter offset-top-30 center-block">
+                            <a href="{{ socialNetwork.getProfilelink }}" style="min-width:260px;" class="btn btn-calypso">more testimonials from
+                                <i class="fa fa-tripadvisor"></i>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
             </div>
         </section>
 
         <!--Contact-->
-        <section id="contacts" style="padding-top: 1%;"  class="section-md-bottom-40">
+        <section id="contact" style="padding-top: 1%;"  class="section-md-bottom-40">
             <div class="shell offset-top-100">
                 <h1>Get in touch</h1>
 
@@ -576,10 +572,10 @@
             // Basic options for a simple Google Map
             // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
 
-            {% for service in services %}
+            {% for place in places %}
                 {% set name = "mypos_"~loop.index %}
 
-                var {{ name }} = new google.maps.LatLng({{ service.place.getLatlong }});
+                var {{ name }} = new google.maps.LatLng({{ place.getLatlong }});
             {% endfor %}
 
             var mycenter = new google.maps.LatLng(22.5267186, -81.12788139999998);
@@ -603,7 +599,7 @@
             // Create the Google Map using out element and options defined above
             var map = new google.maps.Map(mapElement, mapOptions);
 
-            {% for service in services %}
+            {% for place in places %}
                 {% set name = "mypos_"~loop.index %}
 
                 new google.maps.Marker({

@@ -13,9 +13,9 @@ class SocialnetworkType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', null, ["label"=>"Nombre de la Red Social"])
-            ->add('profilelink', null, ["label"=>"URL al perfil, incluyendo http://"])
-            ->add('icon', null, ["label"=>"Clases del Icono, ej: 'ti-facebook' o 'fa fa-facebook'"]);
+        $builder
+            ->add('profilelink', null, ["label"=>"URL al perfil de la red social, incluyendo http://"])
+           ;
     }/**
      * {@inheritdoc}
      */

@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
 use AppBundle\Entity\InfographItem;
+use AppBundle\Entity\Place;
 use AppBundle\Entity\Services;
 use AppBundle\Utils\Utils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -32,7 +33,7 @@ class AdminController extends Controller
      */
     public function indexAction(Request $request, $_locale)
     {
-        return $this->render('AppBundle:Dash:default.html.twig', ['pagename'=>'dash']);
+        return $this->redirectToRoute('dash_booking');
     }
 
     /**
@@ -237,7 +238,7 @@ class AdminController extends Controller
     public function socialnetAction(Request $request){
 
         $em = $this->getDoctrine()->getManager();
-        $socialnetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
+
         $social = new \AppBundle\Entity\Socialnetwork();
 
         $socialForm = $this->createForm('AppBundle\Form\SocialnetworkType', $social);
@@ -278,6 +279,8 @@ class AdminController extends Controller
                 'Ya existe un campo con esos datos! >> danger >> ti-face-sad'
             );
         }
+
+        $socialnetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
 
         return $this->render('AppBundle:Dash:socialnetwork.html.twig',
             ['pagename'=>'socialnet',
@@ -333,7 +336,7 @@ class AdminController extends Controller
      * Deletes a Place entity.
      *
      * @Route("/services/place/{id}/delete", name="dash_services_place_delete")
-     * @Method("GET")
+     * @Method("DELETE",)
      */
     public function deleteplaceAction(Request $request, \AppBundle\Entity\Place $item)
     {
@@ -362,10 +365,7 @@ class AdminController extends Controller
         $placeForm = $this->createForm('AppBundle\Form\PlaceType', $place);
         $placeForm->handleRequest($request);
 
-        $service = new \AppBundle\Entity\Services();
 
-        $serviceForm = $this->createForm('AppBundle\Form\ServicesType', $service);
-        $serviceForm->handleRequest($request);
 
         try{
             if ($placeForm->isSubmitted() && $placeForm->isValid()) {
@@ -377,17 +377,6 @@ class AdminController extends Controller
                 );
             }
 
-
-            if ($serviceForm->isSubmitted() && $serviceForm->isValid()) {
-
-                $em->persist($service);
-                $em->flush();
-
-                $this->addFlash(
-                    'notice',
-                    'Los cambios en los servicios fueron guardados! >> info >> ti-save'
-                );
-            }
         }
 
         catch(UniqueConstraintViolationException $e){
@@ -398,55 +387,34 @@ class AdminController extends Controller
         }
 
 
-        $services = $em->getRepository('AppBundle:Services')->findAll();
         $places = $em->getRepository('AppBundle:Place')->findAll();
 
         return $this->render('AppBundle:Dash:services.html.twig',
             ['pagename'=>'services',
-                'serviceForm' => $serviceForm->createView(),
-                'services'=> $services,
                 'places'=>$places,
                 'placeForm'=>$placeForm->createView()
             ]);
 
     }
 
-    /**
-     * Deletes a Place entity.
-     *
-     * @Route("/services/route/{id}/delete", name="dash_services_route_delete")
-     * @Method({"GET", "DELETE"})
-     */
-    public function deleteServiceAction(Request $request, \AppBundle\Entity\Services $item)
-    {
 
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($item);
-        $em->flush();
-
-        $this->addFlash(
-            'notice',
-            'La ruta fue eliminada! >> success >> ti-trash'
-        );
-        return $this->redirectToRoute('dash_services_edit');
-    }
 
     /**
-     * Displays a form to edit an existing Route entity.
+     * Displays a form to edit an existing Place entity.
      *
-     * @Route("/services/route/{id}/edit", name="dash_services_route_edit")
+     * @Route("/services/place/{id}/edit", name="dash_services_place_edit")
      * @Method({"GET", "POST"})
      */
-    public function editServiceRouteAction(Request $request, Services $services, $id)
+    public function editServiceRouteAction(Request $request, Place $place, $id)
     {
-        $deleteForm = $this->createServiceRouteDeleteForm($services);
-        $editForm = $this->createForm('AppBundle\Form\ServicesType', $services,
-            ['action' => $this->generateUrl('dash_services_route_edit', array('id' => $id))]);
+        $deleteForm = $this->createServicePlaceDeleteForm($place);
+        $editForm = $this->createForm('AppBundle\Form\PlaceType', $place,
+            ['action' => $this->generateUrl('dash_services_place_edit', array('id' => $id))]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($services);
+            $em->persist($place);
             $em->flush();
 
             $this->addFlash(
@@ -458,7 +426,7 @@ class AdminController extends Controller
         }
 
 
-        return $this->render('AppBundle:Dash:serviceRouteEditForm.html.twig', array(
+        return $this->render('AppBundle:Dash:servicePlaceEditForm.html.twig', array(
             'route_form' => $editForm->createView(),
             'route_delete_form' => $deleteForm->createView(),
         ));
@@ -468,15 +436,15 @@ class AdminController extends Controller
     /**
      * Creates a form to delete a Image entity.
      *
-     * @param Image $image The Services entity
+     * @param Place $image The Services entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createServiceRouteDeleteForm(\AppBundle\Entity\Services $service)
+    private function createServicePlaceDeleteForm(\AppBundle\Entity\Place $place)
     {
         return $this->createFormBuilder()
             ->setAttributes(['name'=>'delete_image_form'])
-            ->setAction($this->generateUrl('dash_services_route_delete', array('id' => $service->getId())))
+            ->setAction($this->generateUrl('dash_services_place_delete', array('id' => $place->getId())))
             ->setMethod('DELETE')
             ->getForm()
             ;

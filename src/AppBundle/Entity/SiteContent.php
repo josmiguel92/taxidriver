@@ -1217,6 +1217,11 @@ class SiteContent
         $this->blogimage = $blogimage;
     }
 
+    public function getHeaderimage()
+    {
+        return $this->blogimage;
+    }
+
 
 
 }

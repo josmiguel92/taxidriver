@@ -7,6 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
 class PlaceType extends AbstractType
 {
     /**
@@ -17,10 +19,16 @@ class PlaceType extends AbstractType
         $builder->add('name', null, ["label"=>"Nombre que se mostrará"])
             ->add('nameEn', null, ["label"=>"Nombre que se mostrará, en ingles"])
             ->add('distance', null, ["label"=>"Distancia, en km."])
+            ->add('file', null, ['label'=>"Imágen representativa"])
+
             ->add('image', null, ['label'=>"Imágen representativa"])
+            ->add('istour', null, ['label'=>"¿Es un Tour?"])
+            ->add('time', null, ["label"=> "Tiempo de recorrido, (horas:minutos)"])->add('price')
+
             //->add('services')
             ->add('latlong',HiddenType::class)
-            ->add('googlename',HiddenType::class);
+            ->add('googlename',HiddenType::class)
+        ;
     }/**
      * {@inheritdoc}
      */

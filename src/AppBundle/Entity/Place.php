@@ -4,15 +4,17 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Utils\Utils;
+use AppBundle\Entity\ImageField;
 
 /**
  * Place
- *
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="place")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PlaceRepository")
  */
-class Place
+class Place extends ImageField
 {
+
     /**
      * @var int
      *
@@ -36,21 +38,8 @@ class Place
      */
     private $nameEn;
 
-    /**
-     * @return mixed
-     */
-    public function getServices()
-    {
-        return $this->services;
-    }
 
-    /**
-     * @param mixed $services
-     */
-    public function setServices($services)
-    {
-        $this->services = $services;
-    }
+
 
     /**
      * @return mixed
@@ -84,16 +73,34 @@ class Place
         $this->distance = $distance;
     }
 
-    /**
-    * @ORM\OneToMany(targetEntity="Services", mappedBy="place")
-     */
-    private $services;
 
     /**
      * @ORM\ManyToOne(targetEntity="Image")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      */
     private $image;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="time", type="time", nullable=true)
+     */
+
+    private $time;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="price", type="float")
+     */
+    private $price;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="istour", type="boolean")
+     */
+    private $istour;
 
 
     /**
@@ -133,6 +140,55 @@ class Place
     {
         $this->googlename = $googlename;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getTime()
+    {
+        return $this->time;
+    }
+
+    /**
+     * @param \DateTime $time
+     */
+    public function setTime($time)
+    {
+        $this->time = $time;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param float $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isIstour()
+    {
+        return $this->istour;
+    }
+
+    /**
+     * @param bool $istour
+     */
+    public function setIstour($istour)
+    {
+        $this->istour = $istour;
+    }
+
 
     /**
      * @return int
@@ -217,9 +273,5 @@ class Place
         return $this->name;
     }
 
-    function __construct()
-    {
-        $this->services = new ArrayCollection();
-    }
 }
 

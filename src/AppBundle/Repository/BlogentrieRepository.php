@@ -10,4 +10,28 @@ namespace AppBundle\Repository;
  */
 class BlogentrieRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findBlogEntries($start, $count)
+    {
+
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT p FROM AppBundle:Blogentrie p ORDER BY p.publisheddate'
+            )
+
+            ->setMaxResults($count)
+            ->setFirstResult($start)
+            ->getResult();
+    }
+
+    public function findBlogEntriesCount()
+    {
+
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT count(p) FROM AppBundle:Blogentrie p'
+            )
+
+            ->setMaxResults(1)
+            ->getScalarResult()[0][1];
+    }
 }

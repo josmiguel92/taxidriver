@@ -62,8 +62,12 @@ div#gallery div.row div.active .card{
     position: relative;
 }
 #gallery-details > form:nth-child(2) > input:nth-child(2),
-#gallery-details #deletebtn{
+#gallery-details #deletebtn,
+#placeRouteSubmit, #savebtn{
     position: absolute;
+}
+#deletebtn{
+  float: right;
 }
 #gallery-details #deletebtn{
     right: 2em;
@@ -83,19 +87,56 @@ ul.btn-list li > a.btn {
 .placepicker-map {
     min-height: 250px;
 }
-#routeForm #deletebtn{
-  position: relative;
-  float: right;
+
+#iconModal .modal-header,
+#iconModal .modal-body,
+#iconModal .modal-footer {
+    margin: auto 2em;
 }
-#placeRouteSubmit{
-  position: absolute;
+
+#iconModal .modal-dialog{
+    width: 75vw;
 }
-#appbundle_blogentries_posttext{
-  height: 60vh;
-}
+/*
 form[name="appbundle_blogentries"] .tags {
 
-    background: red;
-    border: solid 3px;
 
+}*/
+#appbundle_blogentries_posttext,
+#appbundle_blogentries_posttexten{
+  height: 80vh;
+}
+#langEn, #langEs{
+  float: right;
+}
+[name="appbundle_blogentries"] ul.tags label{
+display: none;
+}
+[name="appbundle_blogentries"] ul.tags{
+list-style-type: none;
+}
+[name="appbundle_blogentries"] ul.tags div,
+[name="appbundle_blogentries"] ul.tags li{
+  display: inline-block;
+
+}
+[name="appbundle_blogentries"] ul.tags div.form-group > input{
+  width: 8em;  
+}
+[name="appbundle_blogentries"] ul.tags li:last-child{
+display: block;
+}
+#addtagbtn{
+  text-decoration: none;
+  position: absolute;
+  bottom: 0;
+  right: 1em;
+}
+#deleteTag{
+  color: #f06060;
+   float: right;
+   margin-right: 3em;
+}
+.sidebar[data-background-color="black"]{
+  background: #212120;
 }

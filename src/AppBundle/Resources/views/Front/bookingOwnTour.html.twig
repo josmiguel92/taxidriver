@@ -1,0 +1,21 @@
+{% extends 'AppBundle:Front:baseBooking.html.twig' %}
+
+
+{% set title = "I will make my own tour "%}
+{% if locale=='es' %}
+    {% set title = "Hare mi propio camino " %}
+{% endif %}
+
+{% block destination %}
+
+    <div class="cell-sm-10 cell-md-7 cell-lg-6 offset-top-60">
+        <div style="max-width: 100%;" class="reveal-inline-block">
+            <!-- Unit-->
+            <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
+                <h1>Own Tour</h1>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
