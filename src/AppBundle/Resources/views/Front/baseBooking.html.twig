@@ -8,7 +8,9 @@
         <section class="section-75 section-md-top-90 section-md-bottom-110">
             <div class="shell">
                 <h1>{{ title }}</h1>
-                <form data-form-output="form-output-global" data-form-type="order" method="post" action="bat/rd-mailform.php" class="offset-top-44 well rd-mailform text-md-left">
+                {{ form_start(booking_form)}}
+              <!--  <form data-form-output="form-output-global" data-form-type="order" method="post" action="bat/rd-mailform.php" class="offset-top-44 well rd-mailform text-md-left">
+              -->
 
                     <!-- airport data -->
                     <div class="well-row well-row-bg">
@@ -20,13 +22,13 @@
                         <div class="range range-xs-center">
 
                             <div class="cell-md-4">
-                                <input checked data-toggle="toggle" type="checkbox">
+                                {{ form_widget(booking_form.airport) }}
                             </div>
 
                             <div class="cell-md-4 col-md-offset-1">
                                 <div class="form-group">
-                                    <label for="forms-name" class="form-label rd-input-label">Flight number</label>
-                                    <input id="forms-name" name="name" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text">
+                                    <label for="forms-nacheckbox-custom-dummyme" class="form-label rd-input-label">Flight number</label>
+                                    {{ form_widget(booking_form.flynumber) }}
                                     <span class="form-validation"></span>
                                 </div>
                             </div>
@@ -38,14 +40,8 @@
                         <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">Where are you going?</p>
                     </div>
                     <div class="routes">
-                        <div class="well-row">
-                            <div class="range range-xs-center text-sm-left">
-
-                                {% block destination %}
-                                {% endblock %}
-
-                            </div>
-                        </div>
+                        {% block destination %}
+                        {% endblock %}
                     </div>
 
                     <!--- Pickup Data --->
@@ -58,12 +54,15 @@
                             <div class="cell-sm-5 cell-md-4 col-md-offset-2 well-row-flex">
                                 <label class="custom-label text-gray-dark">No. of passengers</label>
                                 <div class="form-group">
-                                    <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control">
+                                    {{ form_widget(booking_form.numpeople) }}
+                                <!--    <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control">
+                                -->
                                 </div>
                             </div>
                             <div class="offset-top-15 offset-sm-top-0 cell-sm-5 cell-md-4 well-row-flex">
                                 <label class="custom-label text-gray-dark">No. of luggage</label>
                                 <div class="form-group">
+                                    {{ form_widget(booking_form.burden) }}
                                     <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control">
                                 </div>
                             </div>
@@ -71,7 +70,10 @@
                             <div class="offset-top-15 cell-sm-5 cell-md-8 col-md-offset-2 well-row-flex">
                                 <label class="custom-label text-gray-dark">Date & Time</label>
                                 <div style="max-width: 400px; width: 350%;" class="form-group">
-                                    <input placeholder="Week Day, Day, Month, Year, Time" data-time-picker="" type="text" style="text-align: center; padding: 10px 12px;" name="usr_time" class="form-control">
+                                    {{ form_widget(booking_form.pickuptime) }}
+                                <!--    <input placeholder="Week Day, Day, Month, Year, Time" data-time-picker="" type="text" style="text-align: center; padding: 10px 12px;" name="usr_time" class="form-control">
+
+                               -->
                                 </div>
                             </div>
                         </div>
@@ -90,7 +92,9 @@
                             <div class="cell-md-4 inset-lg-right-8">
                                 <div class="form-group">
                                     <label for="forms-name" class="form-label rd-input-label">Name</label>
-                                    <input id="forms-name" name="name" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text"><span class="form-validation"></span>
+                                    {{ form_widget(booking_form.fullname) }}
+                                   <!-- <input id="forms-name" name="name" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text"><span class="form-validation"></span>
+                               -->
                                 </div>
                             </div>
 
@@ -98,7 +102,9 @@
                             <div class="cell-md-4 inset-lg-left-8 inset-lg-right-8 offset-top-15 offset-md-top-0">
                                 <div class="form-group">
                                     <label for="forms-email" class="form-label rd-input-label">Email</label>
-                                    <input id="forms-email" name="email" data-constraints="@Email @Required" class="form-control form-control-has-validation form-control-last-child" type="email"><span class="form-validation"></span>
+                                    {{ form_widget(booking_form.email) }}
+                                  <!-- <input id="forms-email" name="email" data-constraints="@Email @Required" class="form-control form-control-has-validation form-control-last-child" type="email"><span class="form-validation"></span>
+                                -->
                                 </div>
                             </div>
 
@@ -106,7 +112,10 @@
                             <div class="cell-md-4 inset-lg-left-8 inset-lg-right-8 offset-top-15 offset-md-top-0">
                                 <div class="form-group">
                                     <label for="forms-last-name" class="form-label rd-input-label">Phone number</label>
+                                    {{ form_widget(booking_form.telephone) }}
+                                    <!--
                                     <input id="forms-last-name" name="username" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text"><span class="form-validation"></span>
+                               ->>
                                 </div>
                             </div>
 
@@ -129,8 +138,8 @@
                             <button class="btn btn-sm btn-primary">book now</button>
                         </div>
                     </div>
-
-                </form>
+                    {{ form_end(booking_form)}}
+             <!--   </form> -->
             </div>
         </section>
     </main>

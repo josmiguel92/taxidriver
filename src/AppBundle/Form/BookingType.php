@@ -15,8 +15,11 @@ class BookingType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('airport')
-            ->add('service')->add('ownroute')->add('tour')->add('fullname')
+        $builder->add('airport', null, ['attr'=>['data-toggle'=>"toggle"]])
+            ->add('service')
+            ->add('ownroute')
+            ->add('tour')
+            ->add('fullname')
             ->add('email', EmailType::class)
             ->add('telephone')
             ->add('flynumber')

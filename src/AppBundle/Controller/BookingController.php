@@ -15,7 +15,7 @@ use AppBundle\Entity\Booking;
 
 /**
  * Booking controller.
- *
+ * @Route("/booking", defaults={"_locale": "en"})
  * @Route("/{_locale}/booking", defaults={"_locale": "en"}, requirements={
  * "_locale": "en|es|fr"})
  */
