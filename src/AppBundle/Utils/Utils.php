@@ -133,4 +133,9 @@ class Utils
         else
             return "en";
     }
+
+    static function dumpVar($var)
+    {
+        return var_dump($var,2);
+    }
 }

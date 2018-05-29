@@ -176,7 +176,7 @@ class Place extends ImageField
     /**
      * @return bool
      */
-    public function isIstour()
+    public function getistour()
     {
         return $this->istour;
     }

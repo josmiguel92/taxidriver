@@ -8,6 +8,7 @@ use AppBundle\Utils\Utils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse as RedirectResponse;
@@ -15,7 +16,7 @@ use AppBundle\Entity\Booking;
 
 /**
  * Booking controller.
- *
+ * @Route("/booking", defaults={"_locale": "en"})
  * @Route("/{_locale}/booking", defaults={"_locale": "en"}, requirements={
  * "_locale": "en|es|fr"})
  */
@@ -77,9 +78,13 @@ class BookingController extends Controller
             $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking);
 
             $booking_form->handleRequest($request);
-            if ($booking_form->isSubmitted() && $booking_form->isValid()) {
-                $em->persist($booking);
-                $em->flush();
+            if ($booking_form->isSubmitted()){
+
+                if($booking_form->isValid())
+                {
+                    $em->persist($booking);
+                    $em->flush();
+                }
             }
 
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();

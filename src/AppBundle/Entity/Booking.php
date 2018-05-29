@@ -30,73 +30,9 @@ class Booking
 
     /**
      * @var integer
-     * @ORM\Column(name="service", type="integer")
+     * @ORM\Column(name="place", type="integer")
      */
-    private $service;
-
-    /**
-     * @return array
-     */
-    public function getOwnroute()
-    {
-        return $this->ownroute;
-    }
-
-    /**
-     * @param array $ownroute
-     */
-    public function setOwnroute($ownroute)
-    {
-        $this->ownroute = $ownroute;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTour()
-    {
-        return $this->tour;
-    }
-
-    /**
-     * @param string $tour
-     */
-    public function setTour($tour)
-    {
-        $this->tour = $tour;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTelephone()
-    {
-        return $this->telephone;
-    }
-
-    /**
-     * @param string $telephone
-     */
-    public function setTelephone($telephone)
-    {
-        $this->telephone = $telephone;
-    }
-
-    /**
-     * @return string
-     */
-    public function getComment()
-    {
-        return $this->comment;
-    }
-
-    /**
-     * @param string $comment
-     */
-    public function setComment($comment)
-    {
-        $this->comment = $comment;
-    }
+    private $place;
 
     /**
      * @var array
@@ -178,13 +114,13 @@ class Booking
 
     /**
      * @var boolean
-     * @ORM\Column(name="accepted", type="boolean")
+     * @ORM\Column(name="accepted", type="boolean", nullable=true)
      */
     private $accepted;
 
     /**
      * @var boolean
-     * @ORM\Column(name="confirmed", type="boolean")
+     * @ORM\Column(name="confirmed", type="boolean", nullable=true)
      */
     private $confirmed;
 
@@ -198,6 +134,71 @@ class Booking
     function __construct()
     {
         $this->token = uniqid("bk".date("Ymd"));
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getOwnroute()
+    {
+        return $this->ownroute;
+    }
+
+    /**
+     * @param array $ownroute
+     */
+    public function setOwnroute($ownroute)
+    {
+        $this->ownroute = $ownroute;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTour()
+    {
+        return $this->tour;
+    }
+
+    /**
+     * @param string $tour
+     */
+    public function setTour($tour)
+    {
+        $this->tour = $tour;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * @param string $telephone
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param string $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
     }
 
     /**
@@ -235,27 +236,27 @@ class Booking
     }
 
     /**
-     * Set service
+     * Set Place
      *
-     * @param string $service
+     * @param string $place
      *
      * @return Booking
      */
-    public function setService($service)
+    public function setPlace($place)
     {
-        $this->service = $service;
+        $this->place = $place;
 
         return $this;
     }
 
     /**
-     * Get service
+     * Get Place
      *
      * @return string
      */
-    public function getService()
+    public function getPlace()
     {
-        return $this->service;
+        return $this->place;
     }
 
     /**
@@ -363,7 +364,7 @@ class Booking
      */
     public function setPickuptime($pickuptime)
     {
-        $this->pickuptime = $pickuptime;
+        $this->pickuptime = \DateTime::createFromFormat('l d M Y - H:i',$pickuptime);
 
         return $this;
     }

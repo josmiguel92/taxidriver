@@ -151,3 +151,8 @@ button.test:hover{
 .blog-post .rd-parallax .rd-parallax-inner{
     height: 80vh !important;
 }
+
+.booking-place .rd-parallax,
+.booking-place .rd-parallax .rd-parallax-inner{
+    height: 60vh !important;
+}

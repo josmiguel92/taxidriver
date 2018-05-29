@@ -1,7 +1,7 @@
 {% extends 'AppBundle:Front:baseBooking.html.twig' %}
 
 
-{% set title = "I will go "%}
+{% set title = "I'm going to "%}
 {% if locale=='es' %}
     {% set title = "Voy a ir a " %}
 {% endif %}
@@ -9,9 +9,9 @@
 {% set title = title~place.getNameLocale  %}
 
 {% block destination %}
-    
-    <!--- Parallax -->
-    <div class="blog-post context-dark offset-top-0" style="margin-top: -8px;">
+
+<!--- Parallax -->
+    <div class="booking-place context-dark offset-top-0" style="margin-top: -8px;">
         <!-- RD Parallax-->
         <div data-on="false" data-md-on="true" class="rd-parallax">
             <div data-speed="0.25" data-type="media" data-url="{{ asset(place.image.getWebPath) }}" class="rd-parallax-layer"></div>
@@ -19,28 +19,13 @@
                 <div class="shell section-75 section-md-top-103 section-md-bottom-110">
                     <div class="range range-xs-center">
                         <div class="cell-sm-10">
-                            <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
-                                <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block">
-                            </div>
 
-                            <div class="veil reveal-sm-inline-block">
-                                <span class="icon icon-lg thin-ico thin-icon-map-marker text-white"></span>
-                            </div>
-
-                            <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
-                                <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block">
-                            </div>
-
-                            <div class="offset-top-35 offset-md-top-30">
+                            <div class="offset-top-60 offset-md-top-30">
 
                                 <h1 class="text-spacing-0 text-uppercase" style="background-color: rgba(0,0,0,0.45); border-radius: 5px;">
                                     {{ place.getNameLocale }}
                                 </h1>
-                                <div class="offset-top-75 offset-md-top-75">
-                                    <a href="#" style="min-width:140px;" class="btn btn-calypso">
-                                        Book Now
-                                    </a>
-                                </div>
+
                             </div>
                         </div>
                     </div>

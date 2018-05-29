@@ -8,7 +8,9 @@
         <section class="section-75 section-md-top-90 section-md-bottom-110">
             <div class="shell">
                 <h1>{{ title }}</h1>
-                <form data-form-output="form-output-global" data-form-type="order" method="post" action="bat/rd-mailform.php" class="offset-top-44 well rd-mailform text-md-left">
+                {{ form_start(booking_form, {'attr':{'class':'offset-top-44 well rd-mailform text-md-left',
+                                                     'data-form-type':'order',
+                                                     'data-form-output':'form-output-global'}}) }}
 
                     <!-- airport data -->
                     <div class="well-row well-row-bg">
@@ -20,13 +22,14 @@
                         <div class="range range-xs-center">
 
                             <div class="cell-md-4">
-                                <input checked data-toggle="toggle" type="checkbox">
-                            </div>
+                                <input checked data-toggle="toggle" type="checkbox" id="{{ booking_form.airport.vars.id }}" name="{{ booking_form.airport.vars.full_name }}">
+                                </div>
 
                             <div class="cell-md-4 col-md-offset-1">
                                 <div class="form-group">
-                                    <label for="forms-name" class="form-label rd-input-label">Flight number</label>
-                                    <input id="forms-name" name="name" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text">
+                                    <label for="{{ booking_form.flynumber.vars.id }}" class="form-label rd-input-label">{% trans %}Fly number{% endtrans %}</label>
+                                    <input id="{{ booking_form.flynumber.vars.id }}" name="{{ booking_form.flynumber.vars.full_name }}" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text">
+
                                     <span class="form-validation"></span>
                                 </div>
                             </div>
@@ -38,14 +41,8 @@
                         <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">Where are you going?</p>
                     </div>
                     <div class="routes">
-                        <div class="well-row">
-                            <div class="range range-xs-center text-sm-left">
-
-                                {% block destination %}
-                                {% endblock %}
-
-                            </div>
-                        </div>
+                        {% block destination %}
+                        {% endblock %}
                     </div>
 
                     <!--- Pickup Data --->
@@ -58,20 +55,31 @@
                             <div class="cell-sm-5 cell-md-4 col-md-offset-2 well-row-flex">
                                 <label class="custom-label text-gray-dark">No. of passengers</label>
                                 <div class="form-group">
-                                    <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control">
+                                    <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.numpeople.vars.id }}" name="{{ booking_form.numpeople.vars.full_name }}">
                                 </div>
                             </div>
                             <div class="offset-top-15 offset-sm-top-0 cell-sm-5 cell-md-4 well-row-flex">
                                 <label class="custom-label text-gray-dark">No. of luggage</label>
                                 <div class="form-group">
-                                    <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control">
+                                    <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.burden.vars.id }}" name="{{ booking_form.burden.vars.full_name }}">
                                 </div>
                             </div>
 
                             <div class="offset-top-15 cell-sm-5 cell-md-8 col-md-offset-2 well-row-flex">
                                 <label class="custom-label text-gray-dark">Date & Time</label>
                                 <div style="max-width: 400px; width: 350%;" class="form-group">
-                                    <input placeholder="Week Day, Day, Month, Year, Time" data-time-picker="" type="text" style="text-align: center; padding: 10px 12px;" name="usr_time" class="form-control">
+                                    <input placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="" type="text" style="text-align: center; padding: 10px 12px;" class="form-control" id="{{ booking_form.pickuptime.vars.id }}" name="{{ booking_form.pickuptime.vars.full_name }}">
+
+
+                                </div>
+                            </div>
+
+                            <div class="offset-top-15 cell-sm-5 cell-md-8 col-md-offset-2 well-row-flex">
+                                <label class="custom-label text-gray-dark">Place</label>
+                                <div style="max-width: 400px; width: 350%;" class="form-group">
+                                    <input placeholder="Address"  type="text" style="text-align: center; padding: 10px 12px;" class="form-control" id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}">
+
+
                                 </div>
                             </div>
                         </div>
@@ -89,24 +97,30 @@
                             <!---Name-->
                             <div class="cell-md-4 inset-lg-right-8">
                                 <div class="form-group">
-                                    <label for="forms-name" class="form-label rd-input-label">Name</label>
-                                    <input id="forms-name" name="name" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text"><span class="form-validation"></span>
+                                    <label for="{{ booking_form.fullname.vars.id }}" class="form-label rd-input-label">Name</label>
+                                    <input name="{{ booking_form.fullname.vars.full_name }}" id="{{ booking_form.fullname.vars.id }}" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text">
+                                    <span class="form-validation"></span>
+
                                 </div>
                             </div>
 
                             <!---Email--->
                             <div class="cell-md-4 inset-lg-left-8 inset-lg-right-8 offset-top-15 offset-md-top-0">
                                 <div class="form-group">
-                                    <label for="forms-email" class="form-label rd-input-label">Email</label>
-                                    <input id="forms-email" name="email" data-constraints="@Email @Required" class="form-control form-control-has-validation form-control-last-child" type="email"><span class="form-validation"></span>
+                                    <label for="{{ booking_form.email.vars.id }}" class="form-label rd-input-label">Email</label>
+                                    <input name="{{ booking_form.email.vars.full_name }}" id="{{ booking_form.email.vars.id }}" data-constraints="@Email @Required" class="form-control form-control-has-validation form-control-last-child" type="email">
+                                    <span class="form-validation"></span>
+
                                 </div>
                             </div>
 
                             <!--Phone Number--->
                             <div class="cell-md-4 inset-lg-left-8 inset-lg-right-8 offset-top-15 offset-md-top-0">
                                 <div class="form-group">
-                                    <label for="forms-last-name" class="form-label rd-input-label">Phone number</label>
-                                    <input id="forms-last-name" name="username" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text"><span class="form-validation"></span>
+                                    <label for="{{ booking_form.telephone.vars.id }}" class="form-label rd-input-label">Phone number</label>
+
+                                    <input  name="{{ booking_form.telephone.vars.full_name }}" id="{{ booking_form.telephone.vars.id }}" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text"><span class="form-validation"></span>
+
                                 </div>
                             </div>
 
@@ -114,8 +128,8 @@
 
                             <div class="cell-sm-12 offset-top-15">
                                 <div class="form-group">
-                                    <label for="forms-message" class="form-label rd-input-label">Anything that you need to tell us</label>
-                                    <textarea id="forms-message" name="message" style="max-height: 115px;" class="form-control form-control-has-validation form-control-last-child"></textarea>
+                                    <label for="{{ booking_form.comment.vars.id }}" class="form-label rd-input-label">Anything that you need to tell us</label>
+                                    <textarea id="{{ booking_form.comment.vars.id }}" name="{{ booking_form.comment.vars.full_name }}" style="max-height: 115px;" class="form-control form-control-has-validation form-control-last-child"></textarea>
                                     <span class="form-validation"></span>
                                 </div>
                             </div>
@@ -129,7 +143,16 @@
                             <button class="btn btn-sm btn-primary">book now</button>
                         </div>
                     </div>
+                    {{ form_widget(booking_form._token)}}
+                {% if place is defined %}
+                    {{ form_widget(booking_form.place, {'value':place.id, 'type':'hidden'}) }}
+                    {{ form_widget(booking_form.tour, {'value':'josue', 'type':'hidden'}) }}
 
+                {% else %}
+                    {{ form_widget(booking_form.tour, {'value':0, 'type':'hidden'}) }}
+
+                    {{ form_widget(booking_form.place, {'value':0, 'type':'hidden'}) }}
+                {% endif %}
                 </form>
             </div>
         </section>
