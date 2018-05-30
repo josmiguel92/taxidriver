@@ -18,12 +18,12 @@
                         <button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
                         <!-- RD Navbar Brand-->
                         <div class="rd-navbar-brand veil reveal-md-block veil-tablet-md">
-                            <a href="index.html" class="brand-name"><img width="auto" src="{{ logo_dark }}" alt="Taxi Drivers Cuba">
+                            <a href="{{ path("home") }}" class="brand-name"><img width="auto" src="{{ logo_dark }}" alt="Logo Taxi Drivers Cuba">
                             </a>
                         </div>
                         <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block">
-                            <a href="index.html" class="brand-name">
-                                <img style="margin-top: -7px;" width="182" height="34" src="{{ logo_dark }}" alt="">
+                            <a href="{{ path("home") }}" class="brand-name">
+                                <img style="margin-top: -7px;" width="182" height="34" src="{{ logo_dark }}" alt="logo Taxi Drivers Cuba">
                             </a>
                         </div>
                         <!-- RD Navbar Toggle-->
@@ -32,7 +32,7 @@
                     <div class="rd-navbar-right-side">
                         <div class="pull-md-left veil reveal-lg-inline-block">
                             <ul class="rd-navbar-nav">
-                                <li><a class="btn-book" href="index.html">Book Now</a></li>
+                                <li><a class="btn-book" href="{{ path("add_booking") }}">Book Now</a></li>
                             </ul>
                         </div>
 
@@ -40,7 +40,7 @@
                         <div class="rd-navbar-nav-wrap reveal-md-inline-block">
                             <ul class="rd-navbar-nav">
                                 <!-- RD Navbar Nav-->
-                                <li><a href="{{ path("home") }}#home">home</a></li>
+                                <li class="active"><a href="{{ path("home") }}#home">home</a></li>
                                 <li><a href="{{ path("home") }}#services">services</a></li>
                                 <li><a href="{{ path("home") }}#about">about us</a></li>
                                 <li><a href="{{ path("home") }}#contact">contacts</a></li>
@@ -125,7 +125,7 @@
     <main class="page-content">
 
         <!-- Routes-->
-        <section  id="services" style="padding-top: 1%;" >
+        <section id="services" style="padding-top: 1%;">
             <div class="shell offset-top-100">
 
                 <div class="offset-top-100">
@@ -141,10 +141,15 @@
                     </div>
 
 
-                    <div class="offset-top-35"><svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/></svg></div>
+                    <div class="offset-top-35"><svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/></svg>
+                    </div>
+
+                    <!-- Taxi subsection -->
                     <div class="offset-top-25">
                         <i class="fa fa-cab fa-3x color-sky"></i>
-                        <h5 class="text-spacing-75">Taxi</h5>
+                        <h2 class="text-spacing-75">
+                            {% trans %}Taxi{% endtrans %}
+                        </h2>
                     </div>
 
                     <div class="range range-xs-center offset-top-20">
@@ -155,7 +160,7 @@
                         </div>
                     </div>
 
-
+                    <!--- list of taxis services -->
                     <div class="range range-xs-center offset-top-44 offset-md-top-53 text-sm-left">
 
                         {% for place in places %}
@@ -165,18 +170,25 @@
                                         <!-- Unit-->
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                                             <div class="unit-left">
-                                                <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block">
+                                                <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
                                             </div>
                                             <div class="unit-body">
                                                 <div>
-                                                    <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}</a></h5>
+                                                    <p class="p h5 text-capitalize text-spacing-inverse-25">
+                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
+                                                            {% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}
+                                                        </a>
+                                                    </p>
 
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km <p>
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} h </p>
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }} USD <br/></p>
 
                                                     <div class="offset-top-40">
-                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="btn btn-calypso">{% trans %}Book Now{% endtrans %}</a>
+                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="btn btn-calypso btn-icon btn-icon-left">
+                                                            <span class="icon icon-xs fa fa-shopping-cart"></span>
+                                                            {% trans %}Book Now{% endtrans %}
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -188,14 +200,18 @@
 
                     </div>
 
+                    <!--- Divider -->
                     <div class="offset-top-35">
                         <svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/>
                         </svg>
                     </div>
 
+                    <!-- Taxi-Tours subsection -->
                     <div class="offset-top-25">
                         <i class="fa fa-tree fa-3x color-sky"></i>
-                        <h5 class="text-spacing-75">Taxi-Tours</h5>
+                        <h2 class="text-spacing-75">
+                            {% trans %}Taxi-Tours{% endtrans %}
+                        </h2>
                     </div>
 
                     <div class="range range-xs-center offset-top-20">
@@ -206,7 +222,7 @@
                         </div>
                     </div>
 
-
+                    <!--List of Tours -->
                     <div class="range range-xs-center offset-top-44 offset-md-top-53 text-sm-left">
 
                         {% for place in places %}
@@ -216,18 +232,25 @@
                                         <!-- Unit-->
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                                             <div class="unit-left">
-                                                <img src="{{ asset(place.image.getWebPath) }}" width="270" height="263" alt="{{ place.image.getDetailsLocale }}" class="img-responsive center-block">
+                                                <img src="{{ asset(place.image.getWebPath) }}" width="270" height="263" alt="{{ place.image.getDetailsLocale }}" class="img-responsive center-block img-zoom">
                                             </div>
                                             <div class="unit-body">
                                                 <div>
-                                                    <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}</a></h5>
+                                                    <h3 class="p h5 text-capitalize text-spacing-inverse-25">
+                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
+                                                            {% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}
+                                                        </a>
+                                                    </h3>
 
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km <p>
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} h </p>
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }} USD <br/></p>
 
                                                     <div class="offset-top-40">
-                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="btn btn-calypso">{% trans %}Book Now{% endtrans %}</a>
+                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="btn btn-calypso btn-icon btn-icon-left">
+                                                            <span class="icon icon-xs fa fa-shopping-cart"></span>
+                                                            {% trans %}Book Now{% endtrans %}
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -264,14 +287,18 @@
                                 <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
                                     <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block"></div>
                                 <div class="offset-top-15 offset-md-top-30">
-                                    <h1 class="text-spacing-0 text-uppercase">{{ content.getServicesmakeroutetextLocale }}</h1>
+                                    <h2 class="text-spacing-0 text-uppercase">
+                                        {{ content.getServicesmakeroutetextLocale }}
+                                    </h2>
                                     <div class="offset-top-20 offset-md-top-44">
-                                        <p class="h5 text-spacing-inverse-25 text-transform-none">
+                                        <h3 class="h5 text-spacing-inverse-25 text-transform-none">
                                             {{ content.getServicesmakeroutesubtitleLocale }}
-                                        </p>
+                                        </h3>
                                     </div>
                                     <div class="offset-top-30 offset-md-top-60">
-                                        <a href="{{ path("bookingOwnTour") }}" style="min-width:240px;" class="btn btn-calypso">{% trans %}Make your own Tour!{% endtrans %}</a>
+                                        <a href="{{ path("bookingOwnTour") }}" style="min-width:240px;" class="btn btn-calypso">
+                                            {% trans %}Make your own Tour!{% endtrans %}
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -284,7 +311,9 @@
         <!-- Other Services-->
         <section class="section-75 section-md-top-103 section-md-bottom-40">
             <div class="shell">
-                <h1 class="text-spacing-inverse-25">{% trans %}Other services{% endtrans %}</h1>
+                <h2 class="text-spacing-inverse-25">
+                    {% trans %}Other services{% endtrans %}
+                </h2>
 
                 <div class="range range-xs-center list-index-lg offset-md-top-15">
 
@@ -317,6 +346,7 @@
             </div>
         </section>
 
+
         <!-- About Us-->
         <section id="about" style="padding-top: 1%;" class="context-dark">
             <!-- RD Parallax-->
@@ -330,11 +360,13 @@
                                     <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block">
                                 </div>
                                 <div class="veil reveal-sm-inline-block"><span class="icon icon-lg thin-ico thin-icon-car text-white"></span></div>
-                                <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
+                                <div style="margin-bottom:17px;" class=" veil reveal-sm-inline-block text-bottom">
                                     <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block">
                                 </div>
                                 <div class="offset-top-15 offset-md-top-30">
-                                    <h1 class="text-spacing-0 text-uppercase">{{ content.getAbouttitleLocale }}</h1>
+                                    <h1 class="text-spacing-0 text-uppercase">
+                                        {{ content.getAbouttitleLocale }}
+                                    </h1>
                                     <div class="offset-top-20 offset-md-top-44">
                                         <br/>
                                     </div>
@@ -352,7 +384,9 @@
 
                 <!-- Who we are-->
                 <div class="offset-top-10">
-                    <h3 class="text-spacing-75 text-left">{% trans %}Who we are?{% endtrans %}</h3>
+                    <h3 class="text-spacing-75 text-left">
+                        {% trans %}Who we are?{% endtrans %}
+                    </h3>
                 </div>
 
                 <div class="range range-xs-center offset-top-30 text-left">
@@ -368,6 +402,7 @@
                     <h3 class="text-spacing-75 text-left">{% trans %}Our Team{% endtrans %}</h3>
                 </div>
 
+                <!-- Text about team -->
                 <div class="range range-xs-center offset-top-30 text-left">
                     <div class="cell-sm-12 cell-md-10">
                         <p class="text-spacing-0">
@@ -376,29 +411,31 @@
                     </div>
                 </div>
 
+                <!-- list of team members -->
                 <div class="range range-condensed">
-                {% for driver in drivers %}
-                    <div class="cell-xs-6 cell-md-4 {% if loop.index is odd %}col-md-offset-2{% endif %}">
-                        <!-- Box Member-->
-                        <div class="box-member">
-                            <div class="box-member-img-wrap">
-
-                                <img src="{{ asset(driver.webPath) }}" width="480" height="492" alt="" class="img-responsive center-block"></div>
-                            <div class="box-member-caption">
-                                <div>
-                                    <h5 class="text-spacing-inverse-25 text-white text-capitalize">{{ driver.fullname }} </h5>
+                    {% for driver in drivers %}
+                        <div class="cell-xs-6 cell-md-4 {% if loop.index is odd %}col-md-offset-2{% endif %}">
+                            <!-- Box Member-->
+                            <div class="box-member">
+                                <div class="box-member-img-wrap">
+                                    <img src="{{ asset(driver.webPath) }}"
+                                         alt="{{ driver.fullname }} - {{ driver.enterprisetitle }}" width="480" height="492" class="img-responsive center-block">
                                 </div>
-                                <div class="offset-top-4">
-                                    <p class="font-accent text-bold text-white text-spacing-inverse-25">({{ driver.enterprisetitle }})</p>
+                                <div class="box-member-caption">
+                                    <div>
+                                        <p class="h5 text-spacing-inverse-25 text-white text-capitalize">
+                                            {{ driver.fullname }}
+                                        </p>
+                                    </div>
+                                    <div class="offset-top-4">
+                                        <p class="font-accent text-bold text-white text-spacing-inverse-25">
+                                            ({{ driver.enterprisetitle }})
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-
-
-
-
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -413,8 +450,10 @@
 
                 <div class="range range-xs-center offset-top-20">
                     <div class="cell-sm-10 cell-lg-8">
-                        <p class="text-spacing-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus dicta illum iusto nisi odio quibusdam quod quos voluptatum! Accusantium at, ipsa iste nostrum temporibus ullam ut. Alias et modi natus?
-                            <br>Call us at <a href="callto:#" class="text-gray-base">{{ content.contacttelephone }}</a>
+                        <p class="text-spacing-0">
+                            {{ content.getAboutinfographtextLocale }}
+                            <br>
+                            Call us at <a href="tel://{{ content.contacttelephone }}" class="text-gray-base">{{ content.contacttelephone }}</a>
                         </p>
                     </div>
                 </div>
@@ -468,7 +507,7 @@
                                         <img src="{{ testimony.getAvatar }}" width="169" height="169" alt="{{ testimony.getName }}" class="img-circle img-responsive center-block">
                                         <div class="offset-top-15 offset-md-top-30">
                                             <p >
-                                                {{ testimony.getTextLocale }}
+                                                {{ testimony.getTextLocale|striptags|slice(0,250) }}
                                             </p>
                                         </div>
                                         <div class="offset-top-10 offset-md-top-25">
@@ -500,6 +539,7 @@
                 {% endfor %}
             </div>
         </section>
+
 
         <!--Contact-->
         <section id="contact" style="padding-top: 1%;"  class="section-md-bottom-40">
@@ -563,10 +603,10 @@
 
 {% endblock %}
 
+
 {% block javascript %}
     {{ parent() }}
     <script>
-
         var google;
         function init() {
             // Basic options for a simple Google Map

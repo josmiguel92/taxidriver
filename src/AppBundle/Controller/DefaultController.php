@@ -36,7 +36,8 @@ class DefaultController extends Controller
             $drivers = $em->getRepository('AppBundle:Drivers')->findAll();
 
             return $this->render('AppBundle:Front:index.html.twig',
-            ['content'=>$content[0],
+            ['locale'=>$_locale,
+            'content'=>$content[0],
             'blogEntries'=>$blogEntries,
             'socialNetworks'=>$socialNetworks,
             'hashtags'=>$hashtags,
@@ -71,14 +72,17 @@ class DefaultController extends Controller
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
+            $places = $em->getRepository('AppBundle:Place')->findAll();
             $tags = $em->getRepository('AppBundle:Tag')->findAll();
             $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries($startEntry, $entriesNumber);
 
             $countEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntriesCount();
 
             return $this->render('AppBundle:Front:blog.html.twig',
-            ['content'=>$content[0],
+            ['locale'=>$_locale,
+            'content'=>$content[0],
             'hashtags'=>$hashtags,
+            'places'=>$places,
             'socialNetworks'=>$socialNetworks,
             'tags'=>$tags,
             'entriesNumber'=>$entriesNumber,
@@ -109,11 +113,14 @@ class DefaultController extends Controller
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
+            $places = $em->getRepository('AppBundle:Place')->findAll();
             $tags = $em->getRepository('AppBundle:Tag')->findAll();
 
             return $this->render('AppBundle:Front:blogEntry.html.twig',
-            ['content'=>$content[0],
+            ['locale'=>$_locale,
+            'content'=>$content[0],
             'hashtags'=>$hashtags,
+            'places'=>$places,
             'socialNetworks'=>$socialNetworks,
             'tags'=>$tags,
             'blogEntry'=>$blogEntry]);

@@ -3,7 +3,7 @@
 {% set divider = asset("images/divider-01-135x4.png") %}
 
 <!DOCTYPE html>
-<html lang="en" class="wide wow-animation smoothscroll  scrollTo desktop landscape mag-js rd-navbar-fullwidth-linked">
+<html lang="{{ locale }}" class="wide wow-animation smoothscroll  scrollTo desktop landscape mag-js rd-navbar-fullwidth-linked">
 
 <head>
 	<meta charset="utf-8">
@@ -12,7 +12,7 @@
 	<title>{{ title }} | Taxi Drivers Cuba</title>
 
 	<link rel="stylesheet" type="text/css" href="{{ asset("css/css.css") }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset("css/style.css") }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset("css/style2.css") }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset("css/custom.css") }}">
 </head>
 
@@ -40,13 +40,13 @@
                                 <!-- RD Navbar Brand-->
                                 <div class="rd-navbar-brand veil reveal-md-block">
                                     <a href="{{ path("home") }}" class="brand-name">
-                                        <img style='margin-top: -10px;' width='164' height='29' src='{{ logo }}' alt=''/>
+                                        <img style='margin-top: -10px;' width='164' height='29' src='{{ logo }}' alt='logo Taxi Drivers Cuba'/>
                                     </a>
                                 </div>
 
                                 <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block">
                                     <a href="" class="brand-name">
-                                        <img style='margin-top: -7px;' width='128' height='24' src='{{ logo }}' alt=''/>
+                                        <img style='margin-top: -7px;' width='128' height='24' src='{{ logo }}' alt='logo Taxi Drivers Cuba'/>
                                     </a>
                                 </div>
 
@@ -133,21 +133,21 @@
                             <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">{% trans %} about {% endtrans %}</p>
                         </div>
                         <div class="offset-top-25">
-                            <p class="text-gray-light text-spacing-0 text-left">
+                            <p class="text-gray-light text-spacing-0">
                                 {{ content.getAbouttextfooterLocale() }}
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="cell-sm-5 cell-md-4 offset-top-44 offset-sm-top-0">
+                <div class="cell-sm-5 cell-md-3 offset-top-44 offset-sm-top-0">
                     <div class="inset-lg-right-40">
                         <div>
                             <div>
                                 <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">{% trans %}contacts{% endtrans %}</p>
                             </div>
                             <!-- Contact Info-->
-                            <address class="contact-info text-left offset-top-25">
+                            <address class="contact-info offset-top-25">
                                 <div>
                                     <p class="text-gray-light text-spacing-0">{{ content.getContactaddressLocale }}</p>
                                 </div>
@@ -195,30 +195,50 @@
                     </div>
                 </div>
 
-                <div class="cell-sm-4 cell-md-4 offset-top-44 offset-md-top-0">
-                    <div>
-                        <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">Taxi-Tours</p>
-                    </div>
-                    <div class="reveal-inline-block offset-top-15 offset-md-top-30">
-                        <div class="col-md-6">
-                            <ul class="list-marked text-bold p text-left">
-                                <li><a href="fleet.html" class="color-sky">Cayo Coco</a></li>
-                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Cayo Jutia</a></li>
-                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Cayo Santa Maria</a></li>
-                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Cayo Levisa</a></li>
-                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Cayo Santa Maria</a></li>
-                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Cayo Levisa</a></li>
-                            </ul>
+                <div class="cell-sm-4 cell-md-5 offset-top-44 offset-md-top-0">
+
+                    <div class="row">
+                        <div class="cell-md-6 col-md-6">
+                            <!-- Taxi -->
+                            <div>
+                                <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">
+                                    {% trans %}Taxi{% endtrans %}
+                                </p>
+                            </div>
+                            <div class="reveal-inline-block offset-top-15 offset-md-top-30">
+                                <ul class="list-marked p text-left">
+                                    {% for place in places %}
+                                        {% if not place.istour %}
+                                            <li class="offset-top-5">
+                                                <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="color-sky">
+                                                    {{ place.getNameLocale }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <ul class="list-marked text-bold p text-left">
-                                <li><a href="fleet.html" class="color-sky">Trinidad</a></li>
-                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Viñales</a></li>
-                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Soroa</a></li>
-                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Cienfuegos</a></li>
-                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Cayo Santa Maria</a></li>
-                                <li class="offset-top-10"><a href="fleet.html" class="color-sky">Cayo Levisa</a></li>
-                            </ul>
+                        <div class="cell-md-6 col-md-6">
+                            <!-- Taxi-Tours -->
+                            <div>
+                                <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">
+                                    {% trans %}Taxi-Tours{% endtrans %}
+                                </p>
+                            </div>
+                            <div class="reveal-inline-block offset-top-15 offset-md-top-30">
+                                <ul class="list-marked p text-left">
+                                    {% for place in places %}
+                                        {% if place.istour %}
+                                            <li class="offset-top-5">
+                                                <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="color-sky">
+                                                    {{ place.getNameLocale }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </div>
                         <div class="col-md-12">
                             <ul class="offset-top-25">
@@ -226,11 +246,10 @@
                                     <a href="#" class="color-sky">Make your own Tour!</a>
                                 </li>
                             </ul>
-
                         </div>
-
-
                     </div>
+
+
                 </div>
 
             </div>
@@ -258,7 +277,7 @@
         <script src="{{ asset("js/script.js") }}"></script>
         <script src="{{ asset("js/custom.js") }}"></script>
         <!--  Google Maps Plugin    -->
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzw5JDg3BVa29LV4rMojmPEOgDOOR6udc&libraries=places"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzw5JDg3BVa29LV4rMojmPEOgDOOR6udc&libraries=places"></script>
     {% endblock %}
 </body>
 </html>
