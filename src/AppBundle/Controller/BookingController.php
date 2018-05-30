@@ -25,8 +25,9 @@ class BookingController extends Controller
     
     /**
      * @Route("/", name="add_booking")
+     * @Method("POST")
      */
-    public function bookingAction(Request $request, $_locale)
+    public function bookingProcessAction(Request $request, $_locale)
     {
         $em = $this->getDoctrine()->getManager();
         $places = $em->getRepository('AppBundle:Place')->findAll();
@@ -34,7 +35,11 @@ class BookingController extends Controller
         if ($places) {
 
             $booking = new Booking();
-            $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking);
+            $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking, array(
+                'action' => $this->generateUrl('add_booking'),
+                'method' => 'POST',
+            ));
+
             $booking_form->handleRequest($request);
 
             if ($booking_form->isSubmitted() && $booking_form->isValid()) {
@@ -45,8 +50,9 @@ class BookingController extends Controller
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
+            return new Response('listo');
 
-            return $this->render('AppBundle:Front:booking.html.twig', [
+/*            return $this->render('AppBundle:Front:booking.html.twig', [
                     'booking_form'=>$booking_form->createView(),
                     'locale'=>$_locale,
                     'content'=>$content[0],
@@ -54,6 +60,8 @@ class BookingController extends Controller
                     'hashtags'=>$hashtags,
                     'places'=>$places,
                     ]);
+
+  */
         }
         else
             throw new Exception("No hay entradas de lugares");
@@ -76,17 +84,10 @@ class BookingController extends Controller
         {
 
             $booking = new Booking();
-            $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking);
-
-            $booking_form->handleRequest($request);
-            if ($booking_form->isSubmitted()){
-
-                if($booking_form->isValid())
-                {
-                    $em->persist($booking);
-                    $em->flush();
-                }
-            }
+            $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking, array(
+                'action' => $this->generateUrl('add_booking'),
+                'method' => 'POST',
+            ));
 
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
@@ -107,6 +108,8 @@ class BookingController extends Controller
             throw new NotFoundHttpException();
     }
 
+
+
     /**
      * @Route("/own-tour", name="bookingOwnTour")
      */
@@ -119,14 +122,10 @@ class BookingController extends Controller
         if ($content) {
 
             $booking = new Booking();
-            $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking);
-            $booking_form->handleRequest($request);
-
-            if ($booking_form->isSubmitted() && $booking_form->isValid()) {
-                $em->persist($booking);
-                $em->flush();
-            }
-
+            $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking, array(
+                'action' => $this->generateUrl('add_booking'),
+                'method' => 'POST',
+            ));
 
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();

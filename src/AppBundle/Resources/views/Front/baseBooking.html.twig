@@ -140,7 +140,7 @@
                     <!--Submit button-->
                     <div class="well-row well-row-bg">
                         <div class="text-center offset-top-33">
-                            <button class="btn btn-sm btn-primary">book now</button>
+                            <button class="btn btn-sm btn-primary" id="booking_submit">book now</button>
                         </div>
                     </div>
                     {{ form_widget(booking_form._token)}}
@@ -160,4 +160,14 @@
         </section>
     </main>
 
+{% endblock %}
+{% block javascript %}
+{{ parent() }}
+<script>
+    $(document).ready(function(){
+        $('#booking_submit').click(function(){
+            $('form.offset-top-44')[0].submit(); /*TODO: poner identificador al formulario*/
+        })
+    });
+</script>
 {% endblock %}

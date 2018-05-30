@@ -10,7 +10,7 @@
     <div class="well-row" data-prototype="&lt;div class=&quot;cell-md-6&quot;&gt;
                 &lt;div class=&quot;form-group has-error&quot;&gt;
                     &lt;label for=&quot;ownroute_place_input___name__&quot; class=&quot;form-label rd-input-label&quot;&gt;Add a place&lt;/label&gt;
-                    &lt;input id=&quot;ownroute_place_input___name__&quot; name=&quot;ownroute_place_input[__name__]&quot; data-constraints=&quot;@Required&quot; class=&quot;form-control form-control-has-validation form-control-last-child&quot; type=&quot;text&quot;&gt;&lt;span class=&quot;form-validation&quot;&gt;The text field is required.&lt;/span&gt;
+                    &lt;input id=&quot;ownroute_place_input___name__&quot; name=&quot;ownroute_place_input[__name__]&quot; class=&quot;form-control form-control-has-validation form-control-last-child&quot; type=&quot;text&quot;&gt;&lt;span class=&quot;form-validation&quot;&gt;The text field is required.&lt;/span&gt;
 
                     &lt;span class=&quot;form-validation&quot;&gt;The text field is required.&lt;/span&gt;
                 &lt;/div&gt;
@@ -33,13 +33,14 @@
     <div>
         <a href="#" class="" id="deletePlaceInput"><i class=" fa fa-2x fa-minus-circle danger"></i> </a>
     </div>
-    <div class="well-row" id="map-container" style="background-color: #2d672d; height: 18em;">
+    <div class="well-row" id="map-container" style="background-color: #2d672d; height: 60vh;">
 
     </div>
 
 {% endblock %}
 {% block javascript %}
 {{ parent() }}
+<script src="{{ asset("js/jquery.placepicker.js") }}"></script>
 <script>
         var $collectionHolder;
         // setup an "add a place" link
@@ -95,5 +96,18 @@
             var $newFormLi = $('<div class=\"range range-xs-center text-sm-left\"></div>').append(newForm);
             $newLinkLi.before($newFormLi);
         }
+/*TODO: place picker, sin mapa*/
+        $(".placepicker").placepicker({
+                    mapIconClass: "ti-map-alt",
+                    placeChanged: function(place) {
+                        $("#appbundle_place_name")[0].value = place.name;
+                        $("#appbundle_place_latlong")[0].value = this.getLocation().latitude + ', '+this.getLocation().longitude;
+                        $("#appbundle_place_googlename")[0].value = place.formatted_address;
+                    },
+                    mapOptions: {
+                        zoom: 15,
+                        center: {lat: 23.143056, lng: -82.38055600000001}
+                    }
+                }).data('placepicker');
     </script>
 {% endblock %}
