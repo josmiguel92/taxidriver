@@ -69,6 +69,7 @@ class BookingController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
+        $places = $em->getRepository('AppBundle:Place')->findAll();
         $place = $em->getRepository('AppBundle:Place')->find($_id);
 
         if ($place)
@@ -91,6 +92,7 @@ class BookingController extends Controller
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
 
+
             return $this->render('AppBundle:Front:bookingPlace.html.twig', [
                     'booking_form'=>$booking_form->createView(),
                     'locale'=>$_locale,
@@ -98,6 +100,7 @@ class BookingController extends Controller
                     'socialNetworks'=>$socialNetworks,
                     'hashtags'=>$hashtags,
                     'place'=>$place,
+                    'places'=>$places,
                     ]);
         }
         else
@@ -111,6 +114,7 @@ class BookingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
+        $places = $em->getRepository('AppBundle:Place')->findAll();
 
         if ($content) {
 
@@ -128,12 +132,13 @@ class BookingController extends Controller
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
 
             return $this->render('AppBundle:Front:bookingOwnTour.html.twig', [
-                    'booking_form'=>$booking_form->createView(),
-                    'locale'=>$_locale,
-                    'content'=>$content[0],
-                    'socialNetworks'=>$socialNetworks,
-                    'hashtags'=>$hashtags,
-                    ]);
+                'booking_form'=>$booking_form->createView(),
+                'locale'=>$_locale,
+                'content'=>$content[0],
+                'socialNetworks'=>$socialNetworks,
+                'hashtags'=>$hashtags,
+                'places'=>$places,
+                ]);
         }
         else
             throw new Exception("No hay entradas de lugares");

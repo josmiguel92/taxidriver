@@ -30,13 +30,13 @@ class Booking
 
     /**
      * @var integer
-     * @ORM\Column(name="place", type="integer")
+     * @ORM\Column(name="place", type="integer", nullable=true)
      */
     private $place;
 
     /**
      * @var array
-     * @ORM\Column(name="ownroute", type="simple_array", nullable=true)
+     * @ORM\Column(name="ownroute", type="text", nullable=true)
      */
     private $ownroute;
 
@@ -130,6 +130,12 @@ class Booking
      */
     private $token;
 
+    /**
+     * @var string
+     * @ORM\Column(name="placescolection", type="string", length=1000, nullable=true)
+     */
+    private $places_collection;
+
 
     function __construct()
     {
@@ -160,6 +166,23 @@ class Booking
     {
         return $this->tour;
     }
+
+    /**
+     * @return string
+     */
+    public function getPlacesCollection()
+    {
+        return $this->places_collection;
+    }
+
+    /**
+     * @param string $places_collection
+     */
+    public function setPlacesCollection($places_collection)
+    {
+        $this->places_collection = $places_collection;
+    }
+
 
     /**
      * @param string $tour

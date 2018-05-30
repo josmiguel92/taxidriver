@@ -156,3 +156,8 @@ button.test:hover{
 .booking-place .rd-parallax .rd-parallax-inner{
     height: 60vh !important;
 }
+a.selected-place{ /*TODO:style for REMOVE and ADD btn*/
+    color: red;
+    background: black !important;
+    transition: none;
+}

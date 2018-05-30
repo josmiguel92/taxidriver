@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 class BookingType extends AbstractType
@@ -29,7 +29,8 @@ class BookingType extends AbstractType
             ->add('pickuptime', TextType::class)
             ->add('burden',IntegerType::class)
             ->add('numpeople',IntegerType::class)
-            ->add('comment');
+            ->add('comment')
+            ->add('places_collection', HiddenType::class);
     }/**
      * {@inheritdoc}
      */

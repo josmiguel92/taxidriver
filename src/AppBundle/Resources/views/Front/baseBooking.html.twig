@@ -144,9 +144,11 @@
                         </div>
                     </div>
                     {{ form_widget(booking_form._token)}}
+                    {{ form_widget(booking_form.places_collection)}}
+
                 {% if place is defined %}
                     {{ form_widget(booking_form.place, {'value':place.id, 'type':'hidden'}) }}
-                    {{ form_widget(booking_form.tour, {'value':'josue', 'type':'hidden'}) }}
+                    {{ form_widget(booking_form.tour, {'value':place.istour, 'type':'hidden'}) }}
 
                 {% else %}
                     {{ form_widget(booking_form.tour, {'value':0, 'type':'hidden'}) }}
