@@ -68,7 +68,7 @@ class User implements UserInterface, \Serializable
     {
         $this->isActive = true;
         $this->salt = md5(uniqid(null, true));
-        $this->roles = ['ROLE_ADMIN'];
+        $this->roles = 'ROLE_ADMIN';
     }
 
     /**

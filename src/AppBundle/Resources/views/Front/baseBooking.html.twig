@@ -18,23 +18,32 @@
                             {% trans %}Pickup from airport{% endtrans %}
                         </p>
                     </div>
-                    <div class="well-row">
-                        <div class="range range-xs-center">
-
-                            <div class="cell-md-4">
-                                <input checked data-toggle="toggle" type="checkbox" id="{{ booking_form.airport.vars.id }}" name="{{ booking_form.airport.vars.full_name }}">
-                                </div>
-
-                            <div class="cell-md-4 col-md-offset-1">
-                                <div class="form-group">
-                                    <label for="{{ booking_form.flynumber.vars.id }}" class="form-label rd-input-label">{% trans %}Fly number{% endtrans %}</label>
-                                    <input id="{{ booking_form.flynumber.vars.id }}" name="{{ booking_form.flynumber.vars.full_name }}" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text">
-
-                                    <span class="form-validation"></span>
+                <div class="row section-md-top-20 section-md-bottom-20">
+                    <div class="col-md-4 col-md-offset-2">
+                        <div class="well-row">
+                            <div class="range range-xs-middle">
+                                <div>
+                                    <input  data-toggle="toggle" type="checkbox" id="{{ booking_form.airport.vars.id }}" name="{{ booking_form.airport.vars.full_name }}">
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="well-row">
+                            <div class="range range-xs-middle">
+                                <div id="flynumber" style="display: none">
+                                    <div class="form-group">
+                                        <label for="{{ booking_form.flynumber.vars.id }}" class="form-label rd-input-label">{% trans %}Fly number{% endtrans %}</label>
+                                        <input id="{{ booking_form.flynumber.vars.id }}" name="{{ booking_form.flynumber.vars.full_name }}" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text">
+
+                                        <span class="form-validation"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                     <!--- Where are you going --->
                     <div class="well-row well-row-bg">
@@ -75,11 +84,10 @@
                             </div>
 
                             <div class="offset-top-15 cell-sm-5 cell-md-8 col-md-offset-2 well-row-flex">
-                                <label class="custom-label text-gray-dark">Place</label>
+
                                 <div style="max-width: 400px; width: 350%;" class="form-group">
-                                    <input placeholder="Address"  type="text" style="text-align: center; padding: 10px 12px;" class="form-control" id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}">
-
-
+                                    <label for="{{ booking_form.details.vars.id }}"  class="custom-label text-gray-dark">Place</label>
+                                    <input placeholder="Address" type="text" style="padding: 10px 12px;" class="form-control" id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}">
                                 </div>
                             </div>
                         </div>
@@ -163,11 +171,17 @@
 {% endblock %}
 {% block javascript %}
 {{ parent() }}
-<script>
-    $(document).ready(function(){
-        $('#booking_submit').click(function(){
-            $('form.offset-top-44')[0].submit(); /*TODO: poner identificador al formulario*/
-        })
-    });
-</script>
+    <script>
+        $(document).ready(function(){
+            $('#booking_submit').click(function(){
+                $('form.offset-top-44')[0].submit(); /*TODO: poner identificador al formulario*/
+            })
+
+            $("#{{ booking_form.airport.vars.id }}").change(function() {
+                $('.toggle')[0].classList.contains('off') ?
+                    $('#flynumber').fadeOut(200) :
+                    $('#flynumber').fadeIn(200);
+            })
+        });
+    </script>
 {% endblock %}

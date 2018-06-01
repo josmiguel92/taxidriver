@@ -7,107 +7,115 @@
 {% endif %}
 
 {% block destination %}
-    <div class="well-row" data-prototype="&lt;div class=&quot;cell-md-6&quot;&gt;
-                &lt;div class=&quot;form-group has-error&quot;&gt;
-                    &lt;label for=&quot;ownroute_place_input___name__&quot; class=&quot;form-label rd-input-label&quot;&gt;Add a place&lt;/label&gt;
-                    &lt;input id=&quot;ownroute_place_input___name__&quot; name=&quot;ownroute_place_input[__name__]&quot; class=&quot;form-control form-control-has-validation form-control-last-child&quot; type=&quot;text&quot;&gt;&lt;span class=&quot;form-validation&quot;&gt;The text field is required.&lt;/span&gt;
 
-                    &lt;span class=&quot;form-validation&quot;&gt;The text field is required.&lt;/span&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;" id="ownroute_places_input_container">
-        <div class="range range-xs-center text-sm-left">
+    <div class="row">
+        <div class="cell-md-8 col-md-8">
+            <div class="well-row">
+                <div id="placesList" class="range range-xs-center range-md-middle">
 
-                <div class="cell-md-6">
-                    <div class="form-group has-error">
-                        <label for="ownroute_place_input_0" class="form-label rd-input-label">Add a place</label>
-                        <input id="ownroute_place_input_0" name="ownroute_place_input[0]" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text"><span class="form-validation">The text field is required.</span>
+                    <div id="selectPlace_1" style="max-width: 400px; width: 350%;" class="form-group selectPlace">
+                        <label for="place_1" class="form-label rd-input-label"></label>
+                        <input class="placepicker form-control form-control-has-validation"
+                               id="place_1"
+                               name="place_1" type="text" style="padding: 10px 12px;"
+                              >
+                        <span class="form-validation"></span>
+                    </div>
 
-                        <span class="form-validation">The text field is required.</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="well-row">
+                <div class="range range-xs-center range-md-left">
+                    <div>
+                        <a href="#" class="" id="removePlaceInput">
+                            <i class=" fa fa-2x fa-minus-square-o"></i>
+                        </a>
+                        <a href="#" class="" id="addPlaceInput">
+                            <i class=" fa fa-2x fa-plus-square-o"></i>
+                        </a>
                     </div>
                 </div>
+            </div>
         </div>
-
-
-
     </div>
-    <div>
-        <a href="#" class="" id="deletePlaceInput"><i class=" fa fa-2x fa-minus-circle danger"></i> </a>
-    </div>
-    <div class="well-row" id="map-container" style="background-color: #2d672d; height: 60vh;">
 
-    </div>
+    <div class="well-row" id="map" style="height: 60vh;"></div>
 
 {% endblock %}
+
 {% block javascript %}
 {{ parent() }}
-<script src="{{ asset("js/jquery.placepicker.js") }}"></script>
-<script>
-        var $collectionHolder;
-        // setup an "add a place" link
-        var $addPlaceLink = $('<a href="#" class="add_place_link" id="addplacebtn"><i class=" fa fa-4x fa-plus-circle"></i> </a>');
-        var $newLinkLi = $('<div></div>').append($addPlaceLink);
-        jQuery(document).ready(function() {
-// Get the ul that holds the collection of places
-            $collectionHolder = $('#ownroute_places_input_container');
-// add the "add a place" anchor and li to the places ul
-            $collectionHolder.append($newLinkLi);
-// count the current form inputs we have (e.g. 2), use that as the new
-// index when inserting a new item (e.g. 2)
-            $collectionHolder.data('index', $collectionHolder.find(':input').length);
-            $addPlaceLink.on('click', function(e) {
-// prevent the link from creating a "#" on the URL
-                e.preventDefault();
-// add a new place form (see next code block)
-                if($('#ownroute_places_input_container').find(':input').last()[0].value.length > 0)
-                    {
-                        addplaceForm($collectionHolder, $newLinkLi);
-                    }
+    <script src="{{ asset("js/jquery.placepicker.js") }}"></script>
 
-            });
+    <script>
+        var google;
+        var inputsNumber = 1;
+        var item = "<div id='selectPlace_x' style='max-width: 400px; width: 350%;' class='form-group selectPlace'><label for='place_1' class='form-label rd-input-label'></label><input class='placepicker form-control form-control-has-validation' id='place_1' name='place_1' type='text' style='padding: 10px 12px;'><span class='form-validation'></span></div>";
 
-            $('#deletePlaceInput').click(function (e) {
-                e.preventDefault();
-                if($('#ownroute_places_input_container').children().length > 1)
-                {
-                    items = $('#ownroute_places_input_container').children()
-                    items[items.length-2].remove();
-                }
-            });
+        $("#addPlaceInput").on('click', function(e) {
+            e.preventDefault();
+            inputsNumber++;
+            var parent = $('#placesList');
+            parent.append(item);
+            var _idParent = 'selectPlace_'+inputsNumber;
+            $('#selectPlace_x')[0].setAttribute('id',_idParent);
+            var parent = $('#'+_idParent)[0];
+            var _id = 'place_'+inputsNumber;
+            parent.children[0].setAttribute('for', _id);
+            parent.children[1].setAttribute('id', _id);
+            parent.children[1].setAttribute('name', _id);
+            $('#'+_id).placepicker();
+        });
+        $("#removePlaceInput").on('click', function(e) {
+            e.preventDefault();
+            if (inputsNumber > 1){
+                inputsNumber--;
+                var parent = $('#placesList');
+                var lastChild = parent[0].children.length-1;
+                parent[0].children[lastChild].remove()
+            }
+            else{
+                $("#removePlaceInput").setAttribute()
+            }
 
-            /*TODO: make this work*/
-            $('#ownroute_places_input_container input').focusin(function (e) {
-                //e.preventDefault();
-                console.log('focus')
-                $('label[for="'+this.getAttribute('id')+'"]').hide();
-            });
         });
 
-        function addplaceForm($collectionHolder, $newLinkLi) {
-// Get the data-prototype explained earlier
-            var prototype = $collectionHolder.data('prototype');
-// get the new index
-            var index = $collectionHolder.data('index');
-// Replace '__name__' in the prototype's HTML to
-// instead be a number based on how many items we have
-            var newForm = prototype.replace(/__name__/g, index);
-// increase the index with one for the next item
-            $collectionHolder.data('index', index + 1);
-            // Display the form in the page in a div, before the "Add a place" link div
-            var $newFormLi = $('<div class=\"range range-xs-center text-sm-left\"></div>').append(newForm);
-            $newLinkLi.before($newFormLi);
+        function init() {
+            // Basic options for a simple Google Map
+            // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+
+            var mycenter = new google.maps.LatLng(22.5267186, -81.12788139999998);
+
+            var mapOptions = {
+                // How zoomed in you want the map to start at (always required)
+                zoom: 8,
+
+                // The latitude and longitude to center the map (always required)
+                center: mycenter,
+
+                // How you would like to style the map.
+                scrollwheel: false,
+                styles: [{"featureType":"administrative.land_parcel","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape.man_made","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"simplified"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"hue":"#f49935"}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"hue":"#fad959"}]},{"featureType":"road.arterial","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"visibility":"simplified"}]},{"featureType":"road.local","elementType":"labels","stylers":[{"visibility":"simplified"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"hue":"#a1cdfc"},{"saturation":30},{"lightness":49}]}]
+            };
+
+            // Get the HTML DOM element that will contain your map
+            // We are using a div with id="map" seen below in the <body>
+            var mapElement = document.getElementById('map');
+
+            // Create the Google Map using out element and options defined above
+            var map = new google.maps.Map(mapElement, mapOptions);
         }
-/*TODO: place picker, sin mapa*/
-        $(".placepicker").placepicker({
-                    mapIconClass: "ti-map-alt",
+
+        google.maps.event.addDomListener(window, 'load', init);
+
+        $("#place_1").placepicker({
                     placeChanged: function(place) {
                         $("#appbundle_place_name")[0].value = place.name;
                         $("#appbundle_place_latlong")[0].value = this.getLocation().latitude + ', '+this.getLocation().longitude;
                         $("#appbundle_place_googlename")[0].value = place.formatted_address;
-                    },
-                    mapOptions: {
-                        zoom: 15,
-                        center: {lat: 23.143056, lng: -82.38055600000001}
                     }
-                }).data('placepicker');
+                });
     </script>
 {% endblock %}

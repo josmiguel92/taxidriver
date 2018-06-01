@@ -126,17 +126,6 @@ div.toggle{
     margin-left: 1.5em;
 }
 
-button.test{
-    min-width: 45px;
-    width: 45px;
-    transition: width;
-    transition-duration: 1s;
-}
-
-button.test:hover{
-    width: 100px;
-}
-
 
 #map{
     height: 75vh;
@@ -156,8 +145,14 @@ button.test:hover{
 .booking-place .rd-parallax .rd-parallax-inner{
     height: 60vh !important;
 }
+
 a.selected-place{ /*TODO:style for REMOVE and ADD btn*/
     color: red;
     background: black !important;
     transition: none;
+}
+
+h2{
+    font-weight: 700;
+    font-size: 40px;
 }
