@@ -137,7 +137,9 @@ div.toggle{
 }
 
 .blog-post .rd-parallax,
-.blog-post .rd-parallax .rd-parallax-inner{
+.blog-post .rd-parallax .rd-parallax-inner,
+.blog-post.rd-parallax,
+.blog-post.rd-parallax .rd-parallax-inner{
     height: 80vh !important;
 }
 
