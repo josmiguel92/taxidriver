@@ -207,6 +207,35 @@ class SiteContent
     private $servicesinfographtitleen;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="sitedescription", type="text", nullable=true)
+     */
+    private $sitedescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sitedescriptionen", type="text", nullable=true)
+     */
+    private $sitedescriptionen;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sitekeywords", type="text", nullable=true)
+     */
+    private $sitekeywords;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sitekeywordsen", type="text", nullable=true)
+     */
+    private $sitekeywordsen;
+
+    /**
      * @return string
      */
     public function getServicesinfographtitle()
@@ -1222,7 +1251,83 @@ class SiteContent
         return $this->blogimage;
     }
 
+    /**
+     * @return string
+     */
+    public function getSitedescription()
+    {
+        return $this->sitedescription;
+    }
 
+    /**
+     * @param string $sitedescription
+     */
+    public function setSitedescription($sitedescription)
+    {
+        $this->sitedescription = $sitedescription;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSitedescriptionen()
+    {
+        return $this->sitedescriptionen;
+    }
+
+    /**
+     * @param string $sitedescriptionen
+     */
+    public function setSitedescriptionen($sitedescriptionen)
+    {
+        $this->sitedescriptionen = $sitedescriptionen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSitekeywords()
+    {
+        return $this->sitekeywords;
+    }
+
+    /**
+     * @param string $sitekeywords
+     */
+    public function setSitekeywords($sitekeywords)
+    {
+        $this->sitekeywords = $sitekeywords;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSitekeywordsen()
+    {
+        return $this->sitekeywordsen;
+    }
+
+    /**
+     * @param string $sitekeywordsen
+     */
+    public function setSitekeywordsen($sitekeywordsen)
+    {
+        $this->sitekeywordsen = $sitekeywordsen;
+    }
+
+    public function getSitekeywordsLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->sitekeywords;
+        else return $this->sitekeywordsen;
+    }
+
+    public function getcLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->sitedescription;
+        else return $this->sitedescriptionen;
+    }
 
 }
 

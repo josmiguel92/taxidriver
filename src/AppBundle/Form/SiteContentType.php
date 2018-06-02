@@ -57,9 +57,14 @@ class SiteContentType extends AbstractType
             ->add('contacttelephone', null, ["label"=> "Teléfono de Contacto."])
             ->add('contactemail', null, ["label"=> "Email de Contacto."])
             ->add('contactaddress', null, ["label"=> "Dirección."])
-
             ->add('contactaddress_en', null, ["label"=> "Dirección, en ingles."])
-            ->add('blogimage', null, ["label"=> "Banner para el Header."]);
+            ->add('blogimage', null, ["label"=> "Banner para el Header."])
+
+            ->add('sitedescription',null, ["label"=>"Descripción del sitio"])
+            ->add('sitedescriptionen',null, ["label"=>"Descripción del sitio, en ingles"])
+
+            ->add('sitekeywords',null, ["label"=>"Keywords del sitio"])
+            ->add('sitekeywordsen',null, ["label"=>"Keywords del sitio, en ingles"]);
 
 
     }
