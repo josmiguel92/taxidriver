@@ -96,14 +96,14 @@ class SiteContent
     /**
      * @var string
      *
-     * @ORM\Column(name="aboutinfographtext", type="string", length=2000, nullable=true)
+     * @ORM\Column(name="aboutinfographtext", type="text", nullable=true)
      */
     private $aboutinfographtext;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="aboutinfographtexten", type="string", length=2000, nullable=true)
+     * @ORM\Column(name="aboutinfographtexten", type="text", nullable=true)
      */
     private $aboutinfographtexten;
 
@@ -125,14 +125,14 @@ class SiteContent
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestext", type="string", length=2000)
+     * @ORM\Column(name="servicestext", type="text")
      */
     private $servicestext;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestexten", type="string", length=2000)
+     * @ORM\Column(name="servicestexten", type="text")
      */
     private $servicestexten;
 
@@ -153,14 +153,14 @@ class SiteContent
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxitext", type="string", length=2000)
+     * @ORM\Column(name="servicestaxitext", type="text")
      */
     private $servicestaxitext;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxitexten", type="string", length=2000)
+     * @ORM\Column(name="servicestaxitexten", type="text")
      */
     private $servicestaxitexten;
 
@@ -181,14 +181,14 @@ class SiteContent
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxitourstext", type="string", length=2000)
+     * @ORM\Column(name="servicestaxitourstext", type="text")
      */
     private $servicestaxitourstext;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxitourstexten", type="string", length=2000)
+     * @ORM\Column(name="servicestaxitourstexten", type="text")
      */
     private $servicestaxitourstexten;
 
