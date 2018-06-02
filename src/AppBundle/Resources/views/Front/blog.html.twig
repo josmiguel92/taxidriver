@@ -1,11 +1,10 @@
 {% extends 'AppBundle:Front:base.html.twig' %}
 
 {% set title = "Blog" %}
-{% set keywords = 'cuba taxi reservation trinidad cienfuegos airport' %}
-{% set og_image = asset(content.getHeaderimage.getWebPath) %}
+{% set featureImage = asset(content.getHeaderimage.getWebPath) %}
+{% set description =  content.getBlogDescriptionLocale %}
 
 {% block content %}
-{% set description =  content.getBlogDescriptionLocale %}
 
     <!-- Page Content-->
     <main class="page-content section-75 section-md-top-90 section-md-bottom-95">
@@ -26,7 +25,7 @@
                             <article class="post-classic text-left offset-top-50">
                                 <div class="post-classic-img-wrap">
                                     <a href="{{ url }}">
-                                        <img src="{{ asset(blogEntry.getImagePrimary.getWebPath) }}" width="770" height="381" alt="" class="img-responsive center-block">
+                                        <img src="{{ asset(blogEntry.getWebPath) }}" width="770" height="381" alt="" class="img-responsive center-block">
                                     </a>
                                 </div>
                                 <div class="post-classic-body offset-top-30">

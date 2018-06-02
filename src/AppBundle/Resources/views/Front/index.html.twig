@@ -41,10 +41,10 @@
                         <div class="rd-navbar-nav-wrap reveal-md-inline-block">
                             <ul class="rd-navbar-nav">
                                 <!-- RD Navbar Nav-->
-                                <li><a href="{{ path("home") }}#home">home</a></li>
-                                <li><a href="{{ path("home") }}#services">services</a></li>
-                                <li><a href="{{ path("home") }}#about">about us</a></li>
-                                <li><a href="{{ path("home") }}#contact">contacts</a></li>
+                                <li><a href="{{ path("home") }}#home">{% trans %}home{% endtrans %}</a></li>
+                                <li><a href="{{ path("home") }}#services">{% trans %}services{% endtrans %}</a></li>
+                                <li><a href="{{ path("home") }}#about">{% trans %}about us{% endtrans %}</a></li>
+                                <li><a href="{{ path("home") }}#contact">{% trans %}contacts{% endtrans %}</a></li>
                                 <li><a href="{{ path("blog") }}">blog</a></li>
                             </ul>
                         </div>
@@ -101,8 +101,7 @@
                                         {{ blogEntry.getTitleLocale }}
                                     </div>
                                     <h5 class="offset-top-10 text-white text-spacing-0 text-transform-none">
-                                        We are always there at your service. Fast and reliable way to find
-                                        quality taxi service anywhere you need it.
+                                        {{ blogEntry.getQuoteLocale }}
                                     </h5>
                                     <div style="max-width:510px;" class="btn-both-lines offset-top-30 center-block">
                                         <a href="{{ path("blogEntry",{"_id":blogEntry.getId, "_name":blogEntry.getTitleLocale}) }}" style="min-width:240px;" class="btn btn-primary">
@@ -467,13 +466,9 @@
                     <div class="cell-sm-10 cell-lg-8">
                         <p class="text-spacing-0">
                             {{ content.getAboutinfographtextLocale }}
-                            <br>
-                            Call us at <a href="tel://{{ content.contacttelephone }}" class="text-gray-base">{{ content.contacttelephone }}</a>
                         </p>
                     </div>
                 </div>
-
-                <div class="offset-top-15"><svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/></svg></div>
 
                 <div class="range range-xs-center list-index-lg offset-md-top-15">
 
@@ -510,7 +505,7 @@
         <!-- Testimonials-->
         <section class="section-75 section-md-top-40 section-md-bottom-20">
             <div class="shell">
-                <h3>Testimonials</h3>
+                <h2>{% trans %}Testimonials{% endtrans %}</h2>
                 <div class="range range-xs-center offset-top-20">
                     <div class="cell-sm-10 cell-md-12">
                         <div data-items="1" data-md-items="3" data-xs-stage-padding="5" data-loop="true" data-margin="30" data-mouse-drag="false" data-nav="true" data-dots="true" class="owl-carousel owl-nav-absolute owl-nav-primary owl-nav-top">
