@@ -1,0 +1,77 @@
+<div class="header">
+    <h4 class="title">Editar un destino<small><i class="fa-spin fa fa-spinner hidden formLoader" style="float: right"></i></small></h4>
+</div>
+<div class="content">
+
+{{ form_start(route_form) }}
+    <div class="col-md-8">
+        <div class="form-group">
+            <input class="placepicker form-control" data-map-container-id="collapsePlaceMap"/>
+        </div>
+        <div id="collapsePlaceMap" class="collapse">
+            <div class="placepicker-map thumbnail"></div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <img src="{{ asset(route_form.vars.value.getWebPath) }}" class="thumbnail img-responsive">
+    </div>
+    <div class="col-md-12">
+
+    {{ form_widget(route_form) }}
+        <div class="text-center"  id="placeRouteSubmit">
+            <button type="submit" class="btn btn-info btn-fill btn-wd btn-save">Guardar</button>
+        </div>
+
+        {{ form_end(route_form) }}
+        {% if route_delete_form is not empty %}
+            {{ form_start(route_delete_form) }}
+
+            {{ form_widget(route_delete_form) }}
+            <input type="submit" value="Eliminar" class="btn btn-danger unpressed" id="deletebtn"/>
+            {{ form_end(route_delete_form) }}
+        {% endif %}
+    </div>
+</div>
+
+
+
+
+    <div class="clearfix"></div>
+</div>
+<script> //previene eliminar imagenes sin confirmarlo
+    $("#deletebtn.unpressed").click(function(e){
+        console.log('click');
+        if(this.classList.contains('unpressed'))
+        {
+            e.preventDefault();
+            this.classList.remove('unpressed');
+            this.value = "¿En serio, eliminar?"
+        }
+
+    });
+
+    $(".placepicker").placepicker({
+        mapIconClass: "ti-map-alt",
+        placeChanged: function(place) {
+            $("#appbundle_place_name")[0].value = place.name;
+            $("#appbundle_place_latlong")[0].value = this.getLocation().latitude + ', '+this.getLocation().longitude;
+            $("#appbundle_place_googlename")[0].value = place.formatted_address;
+            var pStart = new google.maps.LatLng(23.143056, -82.38055600000001);//habana, hotel nacional
+            var pEnd = new google.maps.LatLng(this.getLocation().latitude, this.getLocation().longitude);
+            serviceDistance.getDistanceMatrix(
+                {
+                    origins: [pStart],
+                    destinations: [pEnd],
+                    travelMode: 'DRIVING',
+                    avoidHighways: false,
+                    avoidTolls: false,
+                }, callbackDistance);
+
+            $('#appbundle_place_distance')[0].value = calcDistance(pStart, pEnd);
+        },
+        mapOptions: {
+            zoom: 15,
+            center: {lat: 23.143056, lng: -82.38055600000001}
+        }
+    }).data('placepicker');
+</script>

@@ -28,12 +28,6 @@ class Hashtag
      */
     private $name;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nameen", type="string", length=255, unique=true)
-     */
-    private $nameEn;
 
 
     /**
