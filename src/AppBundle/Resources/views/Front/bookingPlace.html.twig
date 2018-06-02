@@ -6,12 +6,8 @@
     {% set title = "Voy a ir a " %}
 {% endif %}
 
-{% set title = title~place.getNameLocale %}
-{% set og_title = title %}
-{% set keywords = 'cuba taxi reservation {{ place.getNameLocale }}' %}
-{% set og_image = asset(place.image.getWebPath) %}
-{% set og_url = 'https://www.taxidriverscuba.com' %}
-{% set description = ''  %}
+{% set featureImage =  place.getWebPath %}
+
 
 {% block destination %}
 
@@ -19,7 +15,7 @@
     <div class="booking-place context-dark offset-top-0" style="margin-top: -8px;">
         <!-- RD Parallax-->
         <div data-on="false" data-md-on="true" class="rd-parallax">
-            <div data-speed="0.25" data-type="media" data-url="{{ asset(place.image.getWebPath) }}" class="rd-parallax-layer"></div>
+            <div data-speed="0.25" data-type="media" data-url="{{ asset(place.getWebPath) }}" class="rd-parallax-layer"></div>
             <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
                 <div class="shell section-75 section-md-top-103 section-md-bottom-110">
                     <div class="range range-xs-center">
