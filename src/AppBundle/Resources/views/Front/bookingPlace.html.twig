@@ -6,7 +6,7 @@
     {% set title = "Voy a ir a " %}
 {% endif %}
 
-{% set title = title~{{ place.getNameLocale }} %}
+{% set title = title~place.getNameLocale %}
 
 {% set featureImage =  place.getFullImageWebPath %}
 
