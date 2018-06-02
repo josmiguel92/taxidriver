@@ -31,7 +31,7 @@ class BookingType extends AbstractType
             ->add('numpeople',IntegerType::class)
             ->add('comment')
             ->add('places_collection', HiddenType::class)
-            ->add('g-recaptcha-response');
+            ;
     }/**
      * {@inheritdoc}
      */
