@@ -221,6 +221,37 @@ class SiteContent
     private $sitedescriptionen;
 
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="blogdescription", type="text", nullable=true)
+     */
+    private $blogdescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="blogdescriptionen", type="text", nullable=true)
+     */
+    private $blogdescriptionen;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reservationdescription", type="text", nullable=true)
+     */
+    private $reservationdescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reservationdescriptionen", type="text", nullable=true)
+     */
+    private $reservationdescriptionen;
+
+
     /**
      * @var string
      *
@@ -1260,6 +1291,86 @@ class SiteContent
     public function setSitekeywordsen($sitekeywordsen)
     {
         $this->sitekeywordsen = $sitekeywordsen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBlogdescription()
+    {
+        return $this->blogdescription;
+    }
+
+    /**
+     * @param string $blogdescription
+     */
+    public function setBlogdescription($blogdescription)
+    {
+        $this->blogdescription = $blogdescription;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBlogdescriptionen()
+    {
+        return $this->blogdescriptionen;
+    }
+
+    /**
+     * @param string $blogdescriptionen
+     */
+    public function setBlogdescriptionen($blogdescriptionen)
+    {
+        $this->blogdescriptionen = $blogdescriptionen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReservationdescription()
+    {
+        return $this->reservationdescription;
+    }
+
+    /**
+     * @param string $reservationdescription
+     */
+    public function setReservationdescription($reservationdescription)
+    {
+        $this->reservationdescription = $reservationdescription;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReservationdescriptionen()
+    {
+        return $this->reservationdescriptionen;
+    }
+
+    /**
+     * @param string $reservationdescriptionen
+     */
+    public function setReservationdescriptionen($reservationdescriptionen)
+    {
+        $this->reservationdescriptionen = $reservationdescriptionen;
+    }
+
+
+    public function getBlogDescriptionLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->blogdescription;
+        else return $this->blogdescriptionen;
+    }
+
+
+    public function getReservationDescriptionLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->blogdescription;
+        else return $this->blogdescriptionen;
     }
 
     public function getSitekeywordsLocale()
