@@ -75,6 +75,7 @@ class Socialnetwork
     {
             $tmp = str_replace('https://www.','',$this->profilelink);
             $tmp = str_replace('http://www.','',$tmp);
+            $tmp = str_replace('www.','',$tmp);
             $tmp = str_replace('https://','',$tmp);
             $tmp = str_replace('http://','',$tmp);
 
