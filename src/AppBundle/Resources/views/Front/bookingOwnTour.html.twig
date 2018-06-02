@@ -6,6 +6,15 @@
     {% set title = "Hare mi propio camino " %}
 {% endif %}
 
+{% set keywords = 'cuba taxi reservation trinidad cienfuegos airport' %}
+{% set og_url = 'https://www.taxidriverscuba.com' %}
+{% set og_title = title %}
+{#todo: hacer la descripcion#}
+{% set description = 'Somos taxi drivers' %}
+
+{# ToDo: put featureImage #}
+{% set og_image = 'imagen.png' %}
+
 {% block destination %}
 
     <div class="row">
@@ -61,7 +70,7 @@
             parent.append(item);
             var _idParent = 'selectPlace_'+inputsNumber;
             $('#selectPlace_x')[0].setAttribute('id',_idParent);
-            var parent = $('#'+_idParent)[0];
+            parent = $('#'+_idParent)[0];
             var _id = 'place_'+inputsNumber;
             parent.children[0].setAttribute('for', _id);
             parent.children[1].setAttribute('id', _id);

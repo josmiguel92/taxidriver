@@ -35,6 +35,8 @@ class DefaultController extends Controller
             $testimonials = $em->getRepository('AppBundle:Testimony')->findAll();
             $drivers = $em->getRepository('AppBundle:Drivers')->findAll();
 
+            //todo: pick the primary picture from the blogs for to be featureimage
+
             return $this->render('AppBundle:Front:index.html.twig',
             ['locale'=>$_locale,
             'content'=>$content[0],
@@ -57,7 +59,7 @@ class DefaultController extends Controller
      * "_page":"\d+"
      * }, name="blog")
      */
-    public function blogAction(Request $request, $_locale, $_page=1)
+    public function blogAction(Request $request, $_locale='en', $_page=1)
     {
         $entriesNumber = 2;
         $startEntry = $entriesNumber*($_page-1);
