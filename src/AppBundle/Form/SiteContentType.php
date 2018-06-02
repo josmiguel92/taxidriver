@@ -60,6 +60,12 @@ class SiteContentType extends AbstractType
             ->add('sitedescription',null, ["label"=>"Descripción del sitio"])
             ->add('sitedescriptionen',null, ["label"=>"Descripción del sitio, en ingles"])
 
+            ->add('blogdescription',null, ["label"=>"Descripción del blog"])
+            ->add('blogdescriptionen',null, ["label"=>"Descripción del blog, en ingles"])
+
+            ->add('reservationdescription',null, ["label"=>"Descripción de las reservaciones"])
+            ->add('reservationdescriptionen',null, ["label"=>"Descripción de las reservaciones, en ingles"])
+
             ->add('sitekeywords',null, ["label"=>"Keywords del sitio"])
             ->add('sitekeywordsen',null, ["label"=>"Keywords del sitio, en ingles"]);
 
