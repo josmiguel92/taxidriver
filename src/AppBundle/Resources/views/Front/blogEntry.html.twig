@@ -6,7 +6,7 @@
 {% set og_description = blogEntry.getTeaserLocale|striptags|slice(0,200)~'...' %}
 
 {% block header_image %}
-    {{ asset(blogEntry.getImagePrimary.getWebPath) }}
+    {{ asset(blogEntry.getFullImageWebPath) }}
 {% endblock %}
 
 {% block content %}
