@@ -49,9 +49,6 @@ class SiteContentType extends AbstractType
             ->add('servicesmakeroutetext', TextareaType::class, ["label"=>"Texto para rutas personalizadas"])
             ->add('servicesmakeroutetexten', TextareaType::class, ["label"=>"Texto para rutas personalizadas, en ingles"])
 
-            ->add('servicesmakeroutesubtitle', null, ["label"=>"Subtitulo de rutas personalizadas"])
-            ->add('servicesmakeroutesubtitleen', null, ["label"=>"Subtitulo de rutas personalizadas, en ingles"])
-
             ->add('servicesinfographtitle',null, ["label"=>"Título de infografía de servicios"])
             ->add('servicesinfographtitleen',null, ["label"=>"Título de infografía de servicios, en ingles"])
             ->add('contacttelephone', null, ["label"=> "Teléfono de Contacto."])

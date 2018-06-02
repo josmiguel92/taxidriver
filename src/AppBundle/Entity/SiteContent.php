@@ -288,19 +288,7 @@ class SiteContent
      */
     private $servicesmakeroutetexten;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="servicesmakeroutesubtitleen", type="string", length=700)
-     */
-    private $servicesmakeroutesubtitleen;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="servicesmakeroutesubtitle", type="string", length=700)
-     */
-    private $servicesmakeroutesubtitle;
 
 
     /**
@@ -677,48 +665,7 @@ class SiteContent
             return $this->servicesmakeroutetexten;
     }
 
-    /**
-     * @return string
-     */
-    public function getServicesmakeroutesubtitleLocale()
-    {
-        if(Utils::getRequestLocaleLang()=="es")
-            return $this->servicesmakeroutesubtitle;
-        else
-            return $this->servicesmakeroutesubtitleen;
-    }
 
-    /**
-     * @return string
-     */
-    public function getServicesmakeroutesubtitleen()
-    {
-        return $this->servicesmakeroutesubtitleen;
-    }
-
-    /**
-     * @param string $servicesmakeroutesubtitleen
-     */
-    public function setServicesmakeroutesubtitleen($servicesmakeroutesubtitleen)
-    {
-        $this->servicesmakeroutesubtitleen = $servicesmakeroutesubtitleen;
-    }
-
-    /**
-     * @return string
-     */
-    public function getServicesmakeroutesubtitle()
-    {
-        return $this->servicesmakeroutesubtitle;
-    }
-
-    /**
-     * @param string $servicesmakeroutesubtitle
-     */
-    public function setServicesmakeroutesubtitle($servicesmakeroutesubtitle)
-    {
-        $this->servicesmakeroutesubtitle = $servicesmakeroutesubtitle;
-    }
 
 
     /**
