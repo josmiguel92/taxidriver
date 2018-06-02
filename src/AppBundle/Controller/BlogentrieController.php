@@ -82,7 +82,10 @@ class BlogentrieController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            $this->addFlash(
+                'notice',
+                'Los cambios en el Post fueron guardados! >> info >> ti-save'
+            );
             return $this->redirectToRoute('dash_blog_edit', array('id' => $blogentrie->getId()));
         }
 
@@ -108,6 +111,10 @@ class BlogentrieController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($blogentrie);
             $em->flush();
+            $this->addFlash(
+                'notice',
+                'El Post fue eliminado correctamente >> danger >> ti-trash'
+            );
         }
 
         return $this->redirectToRoute('dash_blog_index');
