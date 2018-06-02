@@ -55,11 +55,11 @@
 
     <script>
         var google;
-        var inputsNumber = 1;
-        var item = "<div id='selectPlace_x' style='max-width: 400px; width: 350%;' class='form-group selectPlace'><label for='place_1' class='form-label rd-input-label'></label><input class='placepicker form-control form-control-has-validation' id='place_1' name='place_1' type='text' style='padding: 10px 12px;'><span class='form-validation'></span></div>";
+        var inputsNumber = 0;
+        var item = "<div id='selectPlace_x' style='max-width: 400px; width: 350%;' class='form-group selectPlace'><label for='place_1' class='form-label rd-input-label'></label><input class='placepicker form-control form-control-has-validation' id='place_1' name='place_1' type='text' data-googlename='' data-latlong='' style='padding: 10px 12px;'><span class='form-validation'></span></div>";
+        var markers = [];
 
-        $("#addPlaceInput").on('click', function(e) {
-            e.preventDefault();
+        function createPlaceInput() {
             inputsNumber++;
             var parent = $('#placesList');
             parent.append(item);
@@ -70,7 +70,19 @@
             parent.children[0].setAttribute('for', _id);
             parent.children[1].setAttribute('id', _id);
             parent.children[1].setAttribute('name', _id);
-            $('#'+_id).placepicker();
+            $('#'+_id).placepicker({
+                placeChanged: function(place) {
+                    markers[inputsNumber] = {}
+                    $('#'+_id)[0].dataset['googlename']= place.formatted_address;
+                    $('#'+_id)[0].dataset['latlong'] = this.getLocation().latitude + ', '+this.getLocation().longitude;
+                    }
+                });
+       }
+
+        $("#addPlaceInput").on('click', function(e) {
+            e.preventDefault();
+            createPlaceInput();
+
         });
         $("#removePlaceInput").on('click', function(e) {
             e.preventDefault();
@@ -110,16 +122,12 @@
 
             // Create the Google Map using out element and options defined above
             var map = new google.maps.Map(mapElement, mapOptions);
+            owntourPlaces = [];
         }
 
+      //  function addPlace
         google.maps.event.addDomListener(window, 'load', init);
 
-        $("#place_1").placepicker({
-                    placeChanged: function(place) {
-                        $("#appbundle_place_name")[0].value = place.name;
-                        $("#appbundle_place_latlong")[0].value = this.getLocation().latitude + ', '+this.getLocation().longitude;
-                        $("#appbundle_place_googlename")[0].value = place.formatted_address;
-                    }
-                });
+
     </script>
 {% endblock %}
