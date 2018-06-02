@@ -107,7 +107,7 @@ class Blogentrie  extends ImageField
 
     /**
      * @ORM\ManyToOne(targetEntity="Image")
-     * @ORM\JoinColumn(name="secondImage_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="secondImage_id", referencedColumnName="id", nullable=true)
      */
     private $secondaryPicture;
 
