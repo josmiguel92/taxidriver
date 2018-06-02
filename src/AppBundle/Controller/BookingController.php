@@ -118,7 +118,7 @@ class BookingController extends Controller
     }
 
     /**
-     *   @Route("/booking/own-tour")
+     * @Route("/booking/own-tour")
      * @Route("/{_locale}/booking/own-tour", defaults={"_locale": "en"},
      * requirements={"_locale": "en|es|fr"},  name="bookingOwnTour")
      */
@@ -151,4 +151,37 @@ class BookingController extends Controller
         else
             throw new Exception("No hay entradas de lugares");
     }
+
+    /**
+     * @Route("/purchase-details/{_token}", requirements={"_token":"[a-z0-9]"})
+     * @Route("/{_locale}/purchase-details/{_token}", defaults={"_locale": "en"},
+     * requirements={"_locale": "en|es|fr", "_token":"[a-z0-9]"},  name="purchase_details")
+     */
+    public function PurchaseDetailsAction(Request $request, $_locale='en', $_token)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $purchase = $em->getRepository('AppBundle:Booking')->findByToken($_token);
+
+        if ($purchase) {
+
+            $content = $em->getRepository('AppBundle:SiteContent')->findAll();
+            $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
+            $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
+            $places = $em->getRepository('AppBundle:Place')->findAll();
+
+            $text = 'sadas';
+
+            return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
+                'locale'=>$_locale,
+                'content'=>$content[0],
+                'text'=>$text,
+                'socialNetworks'=>$socialNetworks,
+                'hashtags'=>$hashtags,
+                'places'=>$places,
+                ]);
+        }
+        else
+            throw new Exception("No hay entradas de lugares");
+    }
+
 }

@@ -1,0 +1,29 @@
+{% extends 'AppBundle:Front:base.html.twig' %}
+
+{% set title = "Purchase details "%}
+{% if locale=='es' %}
+    {% set title = "Detalles de la compra " %}
+{% endif %}
+
+{% set featureImage = asset(content.getHeaderimage.getWebPath) %}
+{#todo:fix description#}
+{% set description =  'empty' %}
+
+{% block content %}
+
+    <!-- Page Content-->
+    <main class="page-content section-75 section-md-top-90 section-md-bottom-95">
+
+        <!-- Blog Classic Both Sidebar-->
+        <section>
+            <div class="shell">
+                <h1 class="inset-lg-left-200">{% trans %}Purchase details{% endtrans %}</h1>
+                <div class="range range-xs-center range-lg-left offset-top-50">
+                    <h2>{{ text }}</h2>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+{% endblock %}
