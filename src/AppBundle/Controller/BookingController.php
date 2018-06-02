@@ -41,11 +41,21 @@ class BookingController extends Controller
             ));
 
             $booking_form->handleRequest($request);
+            if(isset($_POST['g-recaptcha-response']))
+                $captcha=$_POST['g-recaptcha-response'];
 
+            if($captcha)
             if ($booking_form->isSubmitted() && $booking_form->isValid()) {
-                $em->persist($booking);
 
-                $em->flush();
+                $application_key = $this->container->getParameter('google.recaptcha_secret_key');
+                $response=json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$application_key."&response=".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']), true);
+                if($response['success'] == true)
+                {
+                    $em->persist($booking);
+                    $em->flush();
+                }
+                //TODO: enviar mensaje flash de que no se lleno el formulario correctamentes
+
             }
 
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
