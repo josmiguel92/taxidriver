@@ -59,28 +59,12 @@ class BlogentrieController extends Controller
             $em->persist($blogentrie);
             $em->flush();
 
-            return $this->redirectToRoute('dash_blog_show', array('id' => $blogentrie->getId()));
+            return $this->redirectToRoute('dash_blog_index');
         }
 
         return $this->render('AppBundle:Dash:blogentrie/new.html.twig', array(
             'blogentrie' => $blogentrie,
             'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a blogentrie entity.
-     *
-     * @Route("/{id}", name="dash_blog_show")
-     * @Method("GET")
-     */
-    public function showAction(Blogentrie $blogentrie)
-    {
-        $deleteForm = $this->createDeleteForm($blogentrie);
-
-        return $this->render('AppBundle:Dash:blogentrie/show.html.twig', array(
-            'blogentrie' => $blogentrie,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 

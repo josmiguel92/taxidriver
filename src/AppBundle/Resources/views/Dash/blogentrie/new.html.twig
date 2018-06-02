@@ -6,49 +6,68 @@
 
 
 {% block content %}
-    <h1>Nuevo Post</h1>
+    <h1>Nuevo Post
+        <a href="#" class="btn btn-circle active" id="langEs">Español</a>
+        <a href="#" class="btn btn-circle" id="langEn">Ingles</a>
+    </h1>
 
     {{ form_start(form) }}
-    <div class="row card">
-        <div class=" col-md-8">
-            {{ form_row(form.title) }}
-            {{ form_row(form.teaser) }}
+<div class="row card">
+    <div class=" col-md-8">
+        {{ form_row(form.title) }}
+        {{ form_row(form.titleen) }}
+        {{ form_row(form.teaser) }}
+        {{ form_row(form.teaseren) }}
+        <div class="form-group">
             {{ form_widget(form.posttext) }}
         </div>
-        <div class="col-md-4">
-            {{ form_row(form.publisheddate) }}
-            {{ form_row(form.picture) }}
-            {{ form_row(form.secondaryPicture) }}
-
-            <h3>Etiquetas</h3>
-            <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}">
-                {# iterate over each existing tag and render its only field: name #}
-                {% for tag in form.tags %}
-                    <li>{{ form_widget(tag.tag) }}</li>
-                {% endfor %}
-            </ul>
+        <div class="form-group">
+            {{ form_widget(form.posttexten) }}
         </div>
+    </div>
+    <div class="col-md-4">
+        {{ form_row(form.publisheddate) }}
+        {{ form_row(form.file) }}
+        {{ form_row(form.quote) }}
+
+        {{ form_row(form.quoteen) }}
+
+        {{ form_row(form.secondaryPicture) }}
+        {{ form_row(form.place) }}
+
+        <h3>Etiquetas</h3>
+        <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}">
+            {# iterate over each existing tag and render its only field: name #}
+            {% for tag in form.tags %}
+                <li>{{ form_widget(tag) }}</li>
+            {% endfor %}
+        </ul>
+        <a href="#" class="" id="deleteTag"><i class=" fa fa-2x fa-minus-circle"></i> </a>
+
 
     </div>
 
 
-        {#{ form_widget(form) }#}
 
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('dash_blog_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
+    <div class="col-md-4">
+
+        <input type="submit" class="btn btn-primary" value="Guardar" />
+
+        <div class="hidden">{{ form_end(form) }}</div>
+
+
+    </div>
+
+
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}
     <script>
         var $collectionHolder;
         // setup an "add a tag" link
-        var $addTagLink = $('<a href="#" class="add_tag_link">Agregar Etiqueta</a>');
+        var $addTagLink = $('<a href="#" class="add_tag_link" id="addtagbtn"><i class=" fa fa-2x fa-plus-circle"></i> </a>');
         var $newLinkLi = $('<li></li>').append($addTagLink);
         jQuery(document).ready(function() {
 // Get the ul that holds the collection of tags
@@ -63,6 +82,7 @@
                 e.preventDefault();
 // add a new tag form (see next code block)
                 addTagForm($collectionHolder, $newLinkLi);
+                updateLangFields();
             });
         });
 
@@ -81,4 +101,48 @@
             $newLinkLi.before($newFormLi);
         }
     </script>
+
+
+    <script>
+        function goSpanish(){
+            $('[reflang="en"]').parent().hide();
+            $('[reflang="es"]').parent().show();
+            $("#langEn")[0].classList.remove('active')
+            $("#langEs")[0].classList.add('active')
+        }
+
+        function goEnglish(){
+            $('[reflang="es"]').parent().hide();
+            $('[reflang="en"]').parent().show();
+            $("#langEs")[0].classList.remove('active')
+            $("#langEn")[0].classList.add('active')
+        }
+
+        function updateLangFields(){
+            if( $("#langEn")[0].classList.contains('active'))
+                goEnglish();
+            if( $("#langEs")[0].classList.contains('active'))
+                goSpanish();
+        }
+
+        $('document').ready(function(){
+            goSpanish();
+
+            $("#langEs").click(function () {
+                goSpanish();
+            });
+            $("#langEn").click(function () {
+                goEnglish();
+            });
+
+            $('#deleteTag').click(function (e) {
+                if($('ul.tags li').children().length > 1)
+                {
+                    items = $('ul.tags li').children()
+                    items[items.length-2].remove();
+                }
+            });
+        });
+    </script>
+
 {% endblock %}
