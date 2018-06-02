@@ -70,12 +70,13 @@
                             <div class="cell-sm-10">
                                 <div class="offset-top-35 offset-md-top-30">
 
-                                    <h3 class="text-spacing-0 text-uppercase"
+                                    <h3 class="text-spacing-0 text-lowercase"
                                         style="border-radius: 5px;">
                                         {{ blogEntry.getQuoteLocale }}
                                     </h3>
                                     <div class="offset-top-75 offset-md-top-75">
                                         <a href="{{ path("booking_place", {_id:blogEntry.getPlace.id, _name:blogEntry.getPlace.getNameLocale}) }}" style="min-width:140px;" class="btn btn-calypso">
+                                            <span class="icon icon-xs fa fa-shopping-cart"></span>
                                             {% trans %}Book Now{% endtrans %}
                                         </a>
                                     </div>
@@ -99,7 +100,7 @@
                             {{ blogEntry.getPostTextLocale }}
                         </div>
 
-                        <div class="group group-xs btn-tags offset-top-20 offset-md-top-30">
+                        <div class="group group-xs btn-tags offset-top-50 offset-md-top-30">
                             <a href="#" class="btn btn-info btn-icon btn-icon-left">
                                 <span class="icon icon-xs fa fa-facebook"></span>
                                 <span class="text-lowercase text-regular text-spacing-0 font-default">facebook</span>
