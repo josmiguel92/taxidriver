@@ -67,7 +67,7 @@ class ImageField
     {
         return null === $this->path
         ? null
-        : $this->getUploadDir().'/'.$this->path;
+        : $this->getUploadDir().'/'.$this->path.'-thumb.jpg';
     }
 
     protected function getUploadRootDir()
@@ -98,6 +98,7 @@ class ImageField
         // envía una excepción. This will properly prevent
         // the entity from being persisted to the database on error
         $this->getFile()->move($this->getUploadRootDir(), $this->path);
+        $this->createThumb();
 
         // check if we have an old image
         if (isset($this->temp)) {
@@ -129,6 +130,7 @@ class ImageField
      {
         if ($file = $this->getAbsolutePath()) {
             @unlink($file);
+            @unlink($file.'-thumb.jpg');
         }
     }
     /**
@@ -153,6 +155,46 @@ class ImageField
     public function getPath()
     {
         return $this->path;
+    }
+
+    private function createThumb()
+    {
+        $image = imagecreatefromjpeg($this->getAbsolutePath());
+        $filename = $this->getAbsolutePath().'-thumb.jpg';
+
+        $thumb_width = 1000;
+        $thumb_height = 1000;
+
+        $width = imagesx($image);
+        $height = imagesy($image);
+
+        $original_aspect = $width / $height;
+        $thumb_aspect = $thumb_width / $thumb_height;
+
+        if ( $original_aspect >= $thumb_aspect )
+        {
+            // If image is wider than thumbnail (in aspect ratio sense)
+            $new_height = $thumb_height;
+            $new_width = $width / ($height / $thumb_height);
+        }
+        else
+        {
+            // If the thumbnail is wider than the image
+            $new_width = $thumb_width;
+            $new_height = $height / ($width / $thumb_width);
+        }
+
+        $thumb = imagecreatetruecolor( $thumb_width, $thumb_height );
+
+// Resize and crop
+        imagecopyresampled($thumb,
+            $image,
+            0 - ($new_width - $thumb_width) / 2, // Center the image horizontally
+            0 - ($new_height - $thumb_height) / 2, // Center the image vertically
+            0, 0,
+            $new_width, $new_height,
+            $width, $height);
+        imagejpeg($thumb, $filename, 80);
     }
 
 }

@@ -21,7 +21,7 @@ class BlogentrieType extends AbstractType
             ->add('posttext',null, ['label'=>'Texto del Post','attr'=>['reflang'=>'es']])
             ->add('posttexten',null, ['attr'=>['reflang'=>'en']])
             ->add('publisheddate', null, ['label'=>"Fecha de Publicación"] )
-            ->add('picture', null,['label'=>"Imagen destacada"] )
+            ->add('file', null,['label'=>"Imagen destacada"] )
             ->add('secondaryPicture',null,['label'=>"Imagen secundaria"])
             ->add('quote',null,['label'=>"Cita destacada",'attr'=>['reflang'=>'es']])
             ->add('quoteen',null,['label'=>"Cita destacada, en ingles",'attr'=>['reflang'=>'en']])

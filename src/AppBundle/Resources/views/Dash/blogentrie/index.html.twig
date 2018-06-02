@@ -8,10 +8,10 @@
     {% for blogentrie in blogentries %}
     <div class="col-md-12 card">
         <div class="content">
-            <h2><a href="{{ path('dash_blog_show', { 'id': blogentrie.id }) }}">{{ blogentrie.title }}</a></h2>
+            <h2><a href="{{ path('dash_blog_edit', { 'id': blogentrie.id }) }}">{{ blogentrie.title }}</a></h2>
             <div class="row">
                 <div class="col-md-4">
-                    <img src="{{ asset(blogentrie.picture.getWebPath) }}" class="img-thumbnail">
+                    <img src="{{ asset(blogentrie.getWebPath) }}" class="img-thumbnail">
                 </div>
                 <div class="col-md-8">
                     <p>{{ blogentrie.teaser | striptags | slice(0, 400)}}...</p>
