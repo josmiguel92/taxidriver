@@ -68,23 +68,12 @@
                     <div class="shell section-75 section-md-top-103 section-md-bottom-110">
                         <div class="range range-xs-center">
                             <div class="cell-sm-10">
-                                <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
-                                    <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block">
-                                </div>
-
-                                <div class="veil reveal-sm-inline-block">
-                                    <span class="icon icon-lg thin-ico thin-icon-map-marker text-white"></span>
-                                </div>
-
-                                <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
-                                    <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block">
-                                </div>
-
                                 <div class="offset-top-35 offset-md-top-30">
 
-                                    <h1 class="text-spacing-0 text-uppercase" style="background-color: rgba(0,0,0,0.45); border-radius: 5px;">
+                                    <h3 class="text-spacing-0 text-uppercase"
+                                        style="border-radius: 5px;">
                                         {{ blogEntry.getQuoteLocale }}
-                                    </h1>
+                                    </h3>
                                     <div class="offset-top-75 offset-md-top-75">
                                         <a href="{{ path("booking_place", {_id:blogEntry.getPlace.id, _name:blogEntry.getPlace.getNameLocale}) }}" style="min-width:140px;" class="btn btn-calypso">
                                             {% trans %}Book Now{% endtrans %}
