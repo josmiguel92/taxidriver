@@ -35,11 +35,12 @@ class DefaultController extends Controller
             $testimonials = $em->getRepository('AppBundle:Testimony')->findAll();
             $drivers = $em->getRepository('AppBundle:Drivers')->findAll();
 
-            //todo: pick the primary picture from the blogs for to be featureimage
+            $featureImage = $blogEntries[0]->getWebPath();
 
             return $this->render('AppBundle:Front:index.html.twig',
             ['locale'=>$_locale,
             'content'=>$content[0],
+            'featureImage'=>$featureImage,
             'blogEntries'=>$blogEntries,
             'socialNetworks'=>$socialNetworks,
             'hashtags'=>$hashtags,
@@ -79,12 +80,14 @@ class DefaultController extends Controller
             $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries($startEntry, $entriesNumber);
 
             $countEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntriesCount();
+            $featureImage = "//";
 
             return $this->render('AppBundle:Front:blog.html.twig',
             ['locale'=>$_locale,
             'content'=>$content[0],
             'hashtags'=>$hashtags,
             'places'=>$places,
+            'featureImage'=>$featureImage,
             'socialNetworks'=>$socialNetworks,
             'tags'=>$tags,
             'entriesNumber'=>$entriesNumber,

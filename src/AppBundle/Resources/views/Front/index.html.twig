@@ -1,14 +1,8 @@
 {% extends 'AppBundle:Front:base.html.twig' %}
 
 {% set title = 'Home' %}
+{% set description = content.getSiteDescriptionLocale %}
 
-{% set keywords = 'cuba taxi reservation trinidad cienfuegos airport' %}
-{% set og_url = 'https://www.taxidriverscuba.com' %}
-{% set og_title = title %}
-{#todo: hacer la descripcion#}
-{% set description = 'Somos taxi drivers' %}
-{# ToDo: put featureImage #}
-{% set og_image = 'imagen.png' %}
 
 {% block header %}
 
@@ -170,6 +164,7 @@
                     <!-- Taxi subsection -->
                     <div class="offset-top-25">
                         <i class="fa fa-cab fa-3x color-sky"></i>
+                        <!--<img src="{{ asset("images/taxi.svg") }}">-->
                         <h2 class="text-spacing-75">
                             {% trans %}Taxi{% endtrans %}
                         </h2>
