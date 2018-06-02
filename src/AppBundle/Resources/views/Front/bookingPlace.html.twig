@@ -6,7 +6,12 @@
     {% set title = "Voy a ir a " %}
 {% endif %}
 
-{% set title = title~place.getNameLocale  %}
+{% set title = title~place.getNameLocale %}
+{% set og_title = title %}
+{% set keywords = 'cuba taxi reservation {{ place.getNameLocale }}' %}
+{% set og_image = asset(place.image.getWebPath) %}
+{% set og_url = 'https://www.taxidriverscuba.com' %}
+{% set description = ''  %}
 
 {% block destination %}
 
@@ -22,9 +27,9 @@
 
                             <div class="offset-top-60 offset-md-top-30">
 
-                                <h1 class="text-spacing-0 text-uppercase" style="background-color: rgba(0,0,0,0.45); border-radius: 5px;">
+                                <h2 class=" h1 text-center text-spacing-0 text-uppercase" style="background-color: rgba(0,0,0,0.45); border-radius: 5px;">
                                     {{ place.getNameLocale }}
-                                </h1>
+                                </h2>
 
                             </div>
                         </div>

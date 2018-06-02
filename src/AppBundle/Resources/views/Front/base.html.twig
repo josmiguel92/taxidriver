@@ -1,6 +1,7 @@
 {% set logo = asset("images/logo-light-183x34.png") %}
 {% set logo_dark = asset("images/logo-lg-dark-182x34.png") %}
 {% set divider = asset("images/divider-01-135x4.png") %}
+{% set base_url = 'https://www.taxidriverscuba.com' %}
 
 <!DOCTYPE html>
 <html lang="{{ locale }}" class="wide wow-animation smoothscroll  scrollTo desktop landscape mag-js rd-navbar-fullwidth-linked">
@@ -14,6 +15,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset("css/css.css") }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset("css/style2.css") }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset("css/custom.css") }}">
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 <body>
@@ -39,9 +42,12 @@
 
                                 <!-- RD Navbar Brand-->
                                 <div class="rd-navbar-brand veil reveal-md-block">
-                                    <a href="{{ path("home") }}" class="brand-name">
-                                        <img style='margin-top: -10px;' width='164' height='29' src='{{ logo }}' alt='logo Taxi Drivers Cuba'/>
-                                    </a>
+                                    <div class="pull-md-left veil reveal-lg-inline-block">
+                                        <ul class="rd-navbar-nav">
+                                            <li><a class="btn-book" href="{{ path("add_booking") }}">Book Now</a></li>
+                                        </ul>
+                                    </div>
+
                                 </div>
 
                                 <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block">
@@ -57,6 +63,7 @@
                             </div>
                             <div class="rd-navbar-right-side">
 
+
                                 <!--- Links --->
                                 <div class="rd-navbar-nav-wrap reveal-md-inline-block">
                                     <ul class="rd-navbar-nav">
@@ -71,14 +78,31 @@
 
                                 <!-- Social Network --->
                                 <div class="rd-navbar-collapse-wrap reveal-md-inline-block">
-                                    <ul class="list-inline list-inline-0 list-social">
-                                        {% for socialNetwork in socialNetworks %}
-                                            <li class="text-center">
-                                                <a href="{{ socialNetwork.getProfilelink }}" class="text-white">
-                                                    <i class="fa fa-{{ socialNetwork.getName }}"></i>
-                                                </a>
-                                            </li>
-                                        {% endfor %}
+
+                                        <ul class="list-inline list-inline-0 list-social">
+                                            {% for socialNetwork in socialNetworks %}
+                                                <li class="text-center">
+                                                    <a href="{{ socialNetwork.getProfilelink }}" class="text-white">
+                                                        <i class="fa fa-{{ socialNetwork.getName }}"></i>
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                </div>
+
+                                <div class="rd-navbar-collapse-wrap reveal-md-inline-block">
+
+                                    <ul class="list-inline list-inline-2 flags">
+                                        <li class="text-center">
+                                            <a href="">
+                                                <img src="{{ asset('images/flags/uk-flags.svg') }}">
+                                            </a>
+                                        </li>
+                                        <li class="text-center">
+                                            <a href="#">
+                                                <img src="{{ asset('images/flags/spana-flags.svg') }}">
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
 
@@ -103,12 +127,9 @@
                                 </div>
                             </div>
                             <div class="offset-top-35">
-                                <ul class="list-inline list-inline-dashed h5 text-uppercase">
-                                    <li class="text-spacing-75"><a href="index.html">home</a></li>
-                                    <li class="text-spacing-75"><a href="#">News</a></li>
-                                    <li class="text-spacing-75">Classic Blog
-                                    </li>
-                                </ul>
+                                <a href="" class="brand-name">
+                                    <img style='margin-top: -7px;' width='128' height='24' src='{{ logo }}' alt='logo Taxi Drivers Cuba'/>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -127,20 +148,23 @@
 
             <div class="range range-xs-center range-lg-justify">
 
-                <div class="cell-sm-5 cell-md-4">
-                    <div class="inset-lg-right-80">
+                <!-- about -->
+                <div class="cell-xs-12 cell-sm-6 cell-md-4">
+                    <div class="inset-lg-right-40">
                         <div>
                             <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">{% trans %} about {% endtrans %}</p>
                         </div>
                         <div class="offset-top-25">
                             <p class="text-gray-light text-spacing-0">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, debitis deleniti est ex, laudantium maiores molestias nobis officia omnis perspiciatis placeat quaerat quam quas quos reprehenderit repudiandae suscipit, veniam voluptate.
                                 {{ content.getAbouttextfooterLocale() }}
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="cell-sm-5 cell-md-3 offset-top-44 offset-sm-top-0">
+                <!-- contact -->
+                <div class="cell-xs-12 cell-sm-6 cell-md-3 offset-top-44 offset-sm-top-0">
                     <div class="inset-lg-right-40">
                         <div>
                             <div>
@@ -165,7 +189,7 @@
                                 </dl>
                             </address>
                         </div>
-                        <div class="offset-top-50">
+                        <div class="cell-xs-12 offset-top-50">
                             <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">We are Social</p>
                             <div class="offset-top-25">
 
@@ -195,58 +219,58 @@
                     </div>
                 </div>
 
-                <div class="cell-sm-4 cell-md-5 offset-top-44 offset-md-top-0">
+                <div class="cell-xs-12 cell-sm-6 cell-md-5 offset-top-44 offset-md-top-0">
 
-                    <div class="row">
-                        <div class="cell-md-6 col-md-6">
-                            <!-- Taxi -->
-                            <div>
-                                <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">
-                                    {% trans %}Taxi{% endtrans %}
-                                </p>
-                            </div>
-                            <div class="reveal-inline-block offset-top-15 offset-md-top-30">
-                                <ul class="list-marked p text-left">
-                                    {% for place in places %}
-                                        {% if not place.istour %}
-                                            <li class="offset-top-5">
-                                                <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="color-sky">
-                                                    {{ place.getNameLocale }}
-                                                </a>
-                                            </li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            </div>
+                    <div class="col-sm-6">
+                        <!-- Taxi -->
+                        <div>
+                            <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">
+                                {% trans %}Taxi{% endtrans %}
+                            </p>
                         </div>
-                        <div class="cell-md-6 col-md-6">
-                            <!-- Taxi-Tours -->
-                            <div>
-                                <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">
-                                    {% trans %}Taxi-Tours{% endtrans %}
-                                </p>
-                            </div>
-                            <div class="reveal-inline-block offset-top-15 offset-md-top-30">
-                                <ul class="list-marked p text-left">
-                                    {% for place in places %}
-                                        {% if place.istour %}
-                                            <li class="offset-top-5">
-                                                <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="color-sky">
-                                                    {{ place.getNameLocale }}
-                                                </a>
-                                            </li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <ul class="offset-top-25">
-                                <li class="text-center">
-                                    <a href="#" class="color-sky">Make your own Tour!</a>
-                                </li>
+                        <div class="reveal-inline-block offset-top-15 offset-md-top-30">
+                            <ul class="list-marked p text-left">
+                                {% for place in places %}
+                                    {% if not place.istour %}
+                                        <li class="offset-top-5">
+                                            <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="color-sky">
+                                                {{ place.getNameLocale }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
                             </ul>
                         </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <!-- Taxi-Tours -->
+                        <div>
+                            <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">
+                                {% trans %}Taxi-Tours{% endtrans %}
+                            </p>
+                        </div>
+                        <div class="reveal-inline-block offset-top-15 offset-md-top-30">
+                            <ul class="list-marked p text-left">
+                                {% for place in places %}
+                                    {% if place.istour %}
+                                        <li class="offset-top-5">
+                                            <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="color-sky">
+                                                {{ place.getNameLocale }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <ul class="offset-top-25">
+                            <li class="text-center">
+                                <a href="#" class="color-sky">Make your own Tour!</a>
+                            </li>
+                        </ul>
                     </div>
 
 

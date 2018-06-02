@@ -33196,9 +33196,6 @@ html:not(.lt-ie10) .not-animated {
   display: none;
 }
 
-.rd-navbar-static .rd-navbar-panel, .rd-navbar-static .rd-navbar-right-side {
-  display: table-cell;
-}
 
 .rd-navbar-static .rd-navbar-nav-wrap {
   padding-right: 12px;

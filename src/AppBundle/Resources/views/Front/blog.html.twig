@@ -1,8 +1,8 @@
-
-
 {% extends 'AppBundle:Front:base.html.twig' %}
 
 {% set title = "Blog" %}
+{% set keywords = 'cuba taxi reservation trinidad cienfuegos airport' %}
+{% set og_image = asset(content.getHeaderimage.getWebPath) %}
 
 {% block content %}
 
@@ -16,18 +16,6 @@
 
                 <div class="range range-xs-center range-lg-left offset-top-50">
                     <div class="cell-sm-10 cell-md-8 cell-md-push-1">
-
-                        <!--<p class="font-accent text-bold text-spacing-50 text-mine-shaft text-uppercase">search</p>-->
-
-                            <!-- RD Search Form-->
-                        <!--<div class="offset-top-30">
-                            <form action="search-results.html" method="GET" class="form-search blog-form-search rd-search">
-                                <div class="form-group">
-                                    <input type="text" name="s" autocomplete="off" class="form-search-input form-control null">
-                                </div>
-                                <button type="submit" class="form-search-submit"><span class="icon icon-sm material-icons-ico material-icons-search"></span></button>
-                            </form>
-                        </div>-->
 
 
                         {% for blogEntry in blogEntries %}

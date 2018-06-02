@@ -143,16 +143,46 @@ div.toggle{
 
 .booking-place .rd-parallax,
 .booking-place .rd-parallax .rd-parallax-inner{
-    height: 60vh !important;
+    height: 80vh !important;
+}
+
+.well-place{
+    padding: 0 1em;
+}
+
+div.item-place{
+    transition: box-shadow 0.5s;
+}
+
+div.selected-place{
+    box-shadow: 1px 1px 21px 0 #18acfb80;
+    border-radius: 6px;
 }
 
 a.selected-place{ /*TODO:style for REMOVE and ADD btn*/
-    color: red;
-    background: black !important;
+    color: white;
+    background: #50b4ea !important;
     transition: none;
 }
 
 h2{
     font-weight: 700;
     font-size: 40px;
+}
+
+.flags{
+    margin-left: 2em;
+}
+
+.flags li img{
+    height: 1.5em;
+    margin: 0 0.25em;
+}
+
+.two-columns{
+    column-count: 2;
+    text-align: justify;
+    column-gap: 4em;
+    column-rule-width: 1px;
+    column-rule-color: rgba(128, 128, 128, 0.45);
 }

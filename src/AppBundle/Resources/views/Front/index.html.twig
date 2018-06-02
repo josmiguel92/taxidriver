@@ -1,7 +1,14 @@
 {% extends 'AppBundle:Front:base.html.twig' %}
 
-{% set title = "Home" %}
+{% set title = 'Home' %}
 
+{% set keywords = 'cuba taxi reservation trinidad cienfuegos airport' %}
+{% set og_url = 'https://www.taxidriverscuba.com' %}
+{% set og_title = title %}
+{#todo: hacer la descripcion#}
+{% set description = 'Somos taxi drivers' %}
+{# ToDo: put featureImage #}
+{% set og_image = 'imagen.png' %}
 
 {% block header %}
 
@@ -40,7 +47,7 @@
                         <div class="rd-navbar-nav-wrap reveal-md-inline-block">
                             <ul class="rd-navbar-nav">
                                 <!-- RD Navbar Nav-->
-                                <li class="active"><a href="{{ path("home") }}#home">home</a></li>
+                                <li><a href="{{ path("home") }}#home">home</a></li>
                                 <li><a href="{{ path("home") }}#services">services</a></li>
                                 <li><a href="{{ path("home") }}#about">about us</a></li>
                                 <li><a href="{{ path("home") }}#contact">contacts</a></li>
@@ -232,7 +239,7 @@
                                         <!-- Unit-->
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                                             <div class="unit-left">
-                                                <img src="{{ asset(place.image.getWebPath) }}" width="270" height="263" alt="{{ place.image.getDetailsLocale }}" class="img-responsive center-block img-zoom">
+                                                <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.image.getDetailsLocale }}" class="img-responsive center-block img-zoom">
                                             </div>
                                             <div class="unit-body">
                                                 <div>
@@ -290,11 +297,6 @@
                                     <h2 class="text-spacing-0 text-uppercase">
                                         {{ content.getServicesmakeroutetextLocale }}
                                     </h2>
-                                    <div class="offset-top-20 offset-md-top-44">
-                                        <h3 class="h5 text-spacing-inverse-25 text-transform-none">
-                                            {{ content.getServicesmakeroutesubtitleLocale }}
-                                        </h3>
-                                    </div>
                                     <div class="offset-top-30 offset-md-top-60">
                                         <a href="{{ path("bookingOwnTour") }}" style="min-width:240px;" class="btn btn-calypso">
                                             {% trans %}Make your own Tour!{% endtrans %}
@@ -391,7 +393,7 @@
 
                 <div class="range range-xs-center offset-top-30 text-left">
                     <div class="cell-sm-12 cell-md-10">
-                        <p class="text-spacing-0">
+                        <p class="text-spacing-0 two-columns">
                             {{ content.getAbouttextLocale() }}
                         </p>
                     </div>
@@ -605,7 +607,7 @@
 
 
 {% block javascript %}
-    {{ parent() }}
+{{ parent() }}
     <script>
         var google;
         function init() {

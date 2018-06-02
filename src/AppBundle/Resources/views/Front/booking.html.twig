@@ -8,26 +8,26 @@
 
 {% block destination %}
     <div class="well-row">
-        <div class="range range-xs-center text-sm-left">
+        <div class="range range-xs-center text-sm-left well-place">
 
             {% for place in places %}
-                <div class="cell-sm-10 cell-md-7 cell-lg-6 offset-top-60">
-                    <div style="max-width: 100%;" class="reveal-inline-block">
+                <div id="parent_{{ loop.index }}" style="padding: 1em 0; margin: 1em 1em" class="cell-sm-10 cell-md-7 cell-lg-5 offset-top-60 item-place">
+                    <div style="max-width: 100%;" class="">
                         <!-- Unit-->
                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                             <div class="unit-left">
-                                <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block">
+                                <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
                             </div>
                             <div class="unit-body">
                                 <div>
                                     <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}</a></h5>
 
-                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km <p>
+                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km </p>
                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} h </p>
                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }} USD <br/></p>
 
                                     <div class="offset-top-40">
-                                        <a href="#" class="btn btn-calypso" data-role="booking-btn" data-place="{{ place.id }}">{% trans %}Add{% endtrans %}</a>
+                                        <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">{% trans %}Add{% endtrans %}</a>
                                     </div>
                                 </div>
                             </div>
@@ -51,19 +51,22 @@
 
             $('a[data-role="booking-btn"]').click(function (e) {
                 e.preventDefault();
+                var parent_id = this.attributes['data-parent'].value;
+
                 if ( this.classList.contains('selected-place')) {
-                        this.classList.remove('selected-place')
+                        this.classList.remove('selected-place');
+                        $('#'+parent_id).removeClass('selected-place');
                         this.innerHTML = _addText;
                         selected_places[this.dataset['place']] = false;
                 }
                 else{ /*Remove*/
                     this.innerHTML = _removeText;
                     this.classList.add('selected-place');
+                    $("#"+parent_id).addClass('selected-place');
                     selected_places[this.dataset['place']] = true;
                 }
 
-                $('#appbundle_booking_places_collection')[0].value =JSON.stringify(selected_places)
-                console.log(selected_places)
+                $('#appbundle_booking_places_collection')[0].value =JSON.stringify(selected_places);
             })
         });
     </script>

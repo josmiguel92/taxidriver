@@ -12,6 +12,11 @@
                 <target>Thanks for your opinion!</target>
             </trans-unit>
 
+            <trans-unit id="airport.reservation">
+                <source>Pickup from airport</source>
+                <target>Pickup from airport</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

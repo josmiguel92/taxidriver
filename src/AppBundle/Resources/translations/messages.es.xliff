@@ -7,21 +7,95 @@
                 <target>Inicio</target>
             </trans-unit>
 
-            <trans-unit id="email.confirm">
-                <source>about us</source>
-                <target>nosotros</target>
-            </trans-unit>
+           <trans-unit id="distance">
+           	<source>Distance</source>
+           	<target>Distancia</target>
+           </trans-unit>
 
-            <trans-unit id="contact">
-                <source>contact</source>
-                <target>contactos</target>
-            </trans-unit>
 
-            <trans-unit id="confirm.reservation">
-                <source>Confirm reservation!</source>
-                <target>Confirmar reservación!</target>
-            </trans-unit>
+           <trans-unit id="time">
+           	<source>Time</source>
+           	<target>Tiempo</target>
+           </trans-unit>
 
+
+           <trans-unit id="since">
+           	<source>since</source>
+           	<target>desde</target>
+           </trans-unit>
+
+
+           <trans-unit id="add">
+           	<source>Add</source>
+           	<target>agregar</target>
+           </trans-unit>
+
+
+           <trans-unit id="no..of.passengers">
+           	<source>No. of passengers</source>
+           	<target>No. de pasajeros</target>
+           </trans-unit>
+
+
+           <trans-unit id="no..of.luggage">
+           	<source>No. of luggage</source>
+           	<target>No. de equipaje</target>
+           </trans-unit>
+
+
+
+           <trans-unit id="place">
+           	<source>Place</source>
+           	<target>Lugar</target>
+           </trans-unit>
+
+
+           <trans-unit id="personal.data">
+           	<source>Personal Data</source>
+           	<target>Datos personales</target>
+           </trans-unit>
+
+
+           <trans-unit id="about">
+           	<source>about</source>
+           	<target>acerca de</target>
+           </trans-unit>
+
+
+           <trans-unit id="contacts">
+           	<source>contacts</source>
+           	<target>contacto</target>
+           </trans-unit>
+
+
+           <trans-unit id="phone">
+           	<source>Phone</source>
+           	<target>Telefono</target>
+           </trans-unit>
+
+
+           <trans-unit id="e.mail">
+           	<source>E-mail</source>
+           	<target>E-mail</target>
+           </trans-unit>
+
+
+           <trans-unit id="taxi">
+           	<source>Taxi</source>
+           	<target>Taxi</target>
+           </trans-unit>
+
+
+           <trans-unit id="taxi.tours">
+           	<source>Taxi-Tours</source>
+           	<target>Taxi-tours</target>
+           </trans-unit>
+
+
+           <trans-unit id="remove">
+           	<source>Remove</source>
+           	<target>Quitar</target>
+           </trans-unit>
 
         </body>
     </file>
