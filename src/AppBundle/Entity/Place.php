@@ -40,23 +40,6 @@ class Place extends ImageField
 
 
 
-
-    /**
-     * @return mixed
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * @param mixed $image
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-    }
-
     /**
      * @return int
      */
@@ -73,12 +56,6 @@ class Place extends ImageField
         $this->distance = $distance;
     }
 
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Image")
-     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
-     */
-    private $image;
 
     /**
      * @var \DateTime
@@ -106,7 +83,7 @@ class Place extends ImageField
     /**
      * @var int
      *
-     * @ORM\Column(name="distance", type="integer", nullable=true)
+     * @ORM\Column(name="distance", type="float", nullable=true)
      */
     private $distance;
 

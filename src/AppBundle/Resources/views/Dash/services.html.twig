@@ -106,26 +106,70 @@
                 })
 
             });
-            //TODO: comment on PROD
-            if(typeof google === 'undefined' || google === null)
-                console.log("no-google")
-            else {
+
                 $(".placepicker").placepicker({
                     mapIconClass: "ti-map-alt",
                     placeChanged: function(place) {
                         $("#appbundle_place_name")[0].value = place.name;
                         $("#appbundle_place_latlong")[0].value = this.getLocation().latitude + ', '+this.getLocation().longitude;
                         $("#appbundle_place_googlename")[0].value = place.formatted_address;
+                        var pStart = new google.maps.LatLng(23.143056, -82.38055600000001);//habana, hotel nacional
+                        var pEnd = new google.maps.LatLng(this.getLocation().latitude, this.getLocation().longitude);
+                        serviceDistance.getDistanceMatrix(
+                            {
+                                origins: [pStart],
+                                destinations: [pEnd],
+                                travelMode: 'DRIVING',
+                                avoidHighways: false,
+                                avoidTolls: false,
+                            }, callbackDistance);
+
+                        $('#appbundle_place_distance')[0].value = calcDistance(pStart, pEnd);
                     },
                     mapOptions: {
                         zoom: 15,
                         center: {lat: 23.143056, lng: -82.38055600000001}
                     }
                 }).data('placepicker');
+
+            var rad = function(x) {
+                return x * Math.PI / 180;
+            };
+
+            calcDistance = function calcDistancePlane(p1, p2) {
+                return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
             }
 
-        console.log("final")
+            serviceDistance = new google.maps.DistanceMatrixService();
+            var secondsToHourMinutes = function (seconds) {
+                return {'hours': Math.round(seconds/3600),
+                        'minutes': Math.round(seconds%3600 / 60)}
+            }
 
+
+            callbackDistance = function callbackDistanceMatrix(response, status) {
+                if (status == 'OK') {
+                    var origins = response.originAddresses;
+                    var destinations = response.destinationAddresses;
+
+                    for (var i = 0; i < origins.length; i++) {
+                        var results = response.rows[i].elements;
+                        for (var j = 0; j < results.length; j++) {
+                            var element = results[j];
+                            var distance = Math.round(element.distance.value/1000, -2);
+                            var duration = secondsToHourMinutes(element.duration.value);
+                            var from = origins[i];
+                            var to = destinations[j];
+                        }
+                    }
+                    $('#appbundle_place_distance')[0].value = distance;
+                    $('#appbundle_place_time_hour')[0].value = duration.hours;
+                    $('#appbundle_place_time_minute')[0].value = duration.minutes;
+
+                }
+
+
+            }
         });
 
 

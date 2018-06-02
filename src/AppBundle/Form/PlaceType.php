@@ -21,7 +21,6 @@ class PlaceType extends AbstractType
             ->add('distance', null, ["label"=>"Distancia, en km."])
             ->add('file', null, ['label'=>"Imágen representativa"])
 
-            ->add('image', null, ['label'=>"Imágen representativa"])
             ->add('istour', null, ['label'=>"¿Es un Tour?"])
             ->add('time', null, ["label"=> "Tiempo de recorrido, (horas:minutos)"])->add('price')
 

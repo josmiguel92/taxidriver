@@ -40,14 +40,14 @@ class SiteContent
     /**
      * @var string
      *
-     * @ORM\Column(name="abouttext", type="string", length=700)
+     * @ORM\Column(name="abouttext", type="text")
      */
     private $abouttext;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="abouttexten", type="string", length=700)
+     * @ORM\Column(name="abouttexten", type="text")
      */
     private $abouttexten;
 
@@ -68,42 +68,42 @@ class SiteContent
     /**
      * @var string
      *
-     * @ORM\Column(name="aboutteamtext", type="string", length=700)
+     * @ORM\Column(name="aboutteamtext", type="text")
      */
     private $aboutteamtext;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="aboutteamtexten", type="string", length=700)
+     * @ORM\Column(name="aboutteamtexten", type="text")
      */
     private $aboutteamtexten;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="aboutinfographtitle", type="string", length=255)
+     * @ORM\Column(name="aboutinfographtitle", type="string", length=500)
      */
     private $aboutinfographtitle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="aboutinfographtitleen", type="string", length=255)
+     * @ORM\Column(name="aboutinfographtitleen", type="string", length=500)
      */
     private $aboutinfographtitleen;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="aboutinfographtext", type="string", length=700, nullable=true)
+     * @ORM\Column(name="aboutinfographtext", type="text", nullable=true)
      */
     private $aboutinfographtext;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="aboutinfographtexten", type="string", length=700, nullable=true)
+     * @ORM\Column(name="aboutinfographtexten", type="text", nullable=true)
      */
     private $aboutinfographtexten;
 
@@ -111,100 +111,129 @@ class SiteContent
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestitle", type="string", length=255)
+     * @ORM\Column(name="servicestitle", type="string", length=1000)
      */
     private $servicestitle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestitleen", type="string", length=255)
+     * @ORM\Column(name="servicestitleen", type="string", length=1000)
      */
     private $servicestitleen;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestext", type="string", length=700)
+     * @ORM\Column(name="servicestext", type="text")
      */
     private $servicestext;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestexten", type="string", length=700)
+     * @ORM\Column(name="servicestexten", type="text")
      */
     private $servicestexten;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxititle", type="string", length=255)
+     * @ORM\Column(name="servicestaxititle", type="string", length=1000)
      */
     private $servicestaxititle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxititleen", type="string", length=255)
+     * @ORM\Column(name="servicestaxititleen", type="string", length=1000)
      */
     private $servicestaxititleen;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxitext", type="string", length=700)
+     * @ORM\Column(name="servicestaxitext", type="text")
      */
     private $servicestaxitext;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxitexten", type="string", length=700)
+     * @ORM\Column(name="servicestaxitexten", type="text")
      */
     private $servicestaxitexten;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxitourstitle", type="string", length=255)
+     * @ORM\Column(name="servicestaxitourstitle", type="string", length=1000)
      */
     private $servicestaxitourstitle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxitourstitleen", type="string", length=255)
+     * @ORM\Column(name="servicestaxitourstitleen", type="string", length=1000)
      */
     private $servicestaxitourstitleen;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxitourstext", type="string", length=700)
+     * @ORM\Column(name="servicestaxitourstext", type="text")
      */
     private $servicestaxitourstext;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxitourstexten", type="string", length=700)
+     * @ORM\Column(name="servicestaxitourstexten", type="text")
      */
     private $servicestaxitourstexten;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicesinfographtitle", type="string", length=700, nullable=true)
+     * @ORM\Column(name="servicesinfographtitle", type="string", length=1000, nullable=true)
      */
     private $servicesinfographtitle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicesinfographtitleen", type="string", length=700, nullable=true)
+     * @ORM\Column(name="servicesinfographtitleen", type="string", length=1000, nullable=true)
      */
     private $servicesinfographtitleen;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sitedescription", type="text", nullable=true)
+     */
+    private $sitedescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sitedescriptionen", type="text", nullable=true)
+     */
+    private $sitedescriptionen;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sitekeywords", type="text", nullable=true)
+     */
+    private $sitekeywords;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sitekeywordsen", type="text", nullable=true)
+     */
+    private $sitekeywordsen;
 
     /**
      * @return string
@@ -259,19 +288,7 @@ class SiteContent
      */
     private $servicesmakeroutetexten;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="servicesmakeroutesubtitleen", type="string", length=700)
-     */
-    private $servicesmakeroutesubtitleen;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="servicesmakeroutesubtitle", type="string", length=700)
-     */
-    private $servicesmakeroutesubtitle;
 
 
     /**
@@ -648,48 +665,7 @@ class SiteContent
             return $this->servicesmakeroutetexten;
     }
 
-    /**
-     * @return string
-     */
-    public function getServicesmakeroutesubtitleLocale()
-    {
-        if(Utils::getRequestLocaleLang()=="es")
-            return $this->servicesmakeroutesubtitle;
-        else
-            return $this->servicesmakeroutesubtitleen;
-    }
 
-    /**
-     * @return string
-     */
-    public function getServicesmakeroutesubtitleen()
-    {
-        return $this->servicesmakeroutesubtitleen;
-    }
-
-    /**
-     * @param string $servicesmakeroutesubtitleen
-     */
-    public function setServicesmakeroutesubtitleen($servicesmakeroutesubtitleen)
-    {
-        $this->servicesmakeroutesubtitleen = $servicesmakeroutesubtitleen;
-    }
-
-    /**
-     * @return string
-     */
-    public function getServicesmakeroutesubtitle()
-    {
-        return $this->servicesmakeroutesubtitle;
-    }
-
-    /**
-     * @param string $servicesmakeroutesubtitle
-     */
-    public function setServicesmakeroutesubtitle($servicesmakeroutesubtitle)
-    {
-        $this->servicesmakeroutesubtitle = $servicesmakeroutesubtitle;
-    }
 
 
     /**
@@ -1222,7 +1198,83 @@ class SiteContent
         return $this->blogimage;
     }
 
+    /**
+     * @return string
+     */
+    public function getSitedescription()
+    {
+        return $this->sitedescription;
+    }
 
+    /**
+     * @param string $sitedescription
+     */
+    public function setSitedescription($sitedescription)
+    {
+        $this->sitedescription = $sitedescription;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSitedescriptionen()
+    {
+        return $this->sitedescriptionen;
+    }
+
+    /**
+     * @param string $sitedescriptionen
+     */
+    public function setSitedescriptionen($sitedescriptionen)
+    {
+        $this->sitedescriptionen = $sitedescriptionen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSitekeywords()
+    {
+        return $this->sitekeywords;
+    }
+
+    /**
+     * @param string $sitekeywords
+     */
+    public function setSitekeywords($sitekeywords)
+    {
+        $this->sitekeywords = $sitekeywords;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSitekeywordsen()
+    {
+        return $this->sitekeywordsen;
+    }
+
+    /**
+     * @param string $sitekeywordsen
+     */
+    public function setSitekeywordsen($sitekeywordsen)
+    {
+        $this->sitekeywordsen = $sitekeywordsen;
+    }
+
+    public function getSitekeywordsLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->sitekeywords;
+        else return $this->sitekeywordsen;
+    }
+
+    public function getcLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->sitedescription;
+        else return $this->sitedescriptionen;
+    }
 
 }
 

@@ -49,17 +49,19 @@ class SiteContentType extends AbstractType
             ->add('servicesmakeroutetext', TextareaType::class, ["label"=>"Texto para rutas personalizadas"])
             ->add('servicesmakeroutetexten', TextareaType::class, ["label"=>"Texto para rutas personalizadas, en ingles"])
 
-            ->add('servicesmakeroutesubtitle', null, ["label"=>"Subtitulo de rutas personalizadas"])
-            ->add('servicesmakeroutesubtitleen', null, ["label"=>"Subtitulo de rutas personalizadas, en ingles"])
-
             ->add('servicesinfographtitle',null, ["label"=>"Título de infografía de servicios"])
             ->add('servicesinfographtitleen',null, ["label"=>"Título de infografía de servicios, en ingles"])
             ->add('contacttelephone', null, ["label"=> "Teléfono de Contacto."])
             ->add('contactemail', null, ["label"=> "Email de Contacto."])
             ->add('contactaddress', null, ["label"=> "Dirección."])
-
             ->add('contactaddress_en', null, ["label"=> "Dirección, en ingles."])
-            ->add('blogimage', null, ["label"=> "Banner para el Header."]);
+            ->add('blogimage', null, ["label"=> "Banner para el Header."])
+
+            ->add('sitedescription',null, ["label"=>"Descripción del sitio"])
+            ->add('sitedescriptionen',null, ["label"=>"Descripción del sitio, en ingles"])
+
+            ->add('sitekeywords',null, ["label"=>"Keywords del sitio"])
+            ->add('sitekeywordsen',null, ["label"=>"Keywords del sitio, en ingles"]);
 
 
     }

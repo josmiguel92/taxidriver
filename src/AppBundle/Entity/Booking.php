@@ -42,7 +42,7 @@ class Booking
 
     /**
      * @var string
-     * @ORM\Column(name="tourservice", type="string", length=255)
+     * @ORM\Column(name="tourservice", type="string", length=255, nullable=true)
      */
     private $tour;
 

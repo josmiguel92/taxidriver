@@ -123,6 +123,7 @@
                             <div class="cell-md-4 inset-lg-left-8 inset-lg-right-8 offset-top-15 offset-md-top-0">
                                 <div class="form-group">
                                     <label for="{{ booking_form.telephone.vars.id }}" class="form-label rd-input-label">Phone number</label>
+
                                     <input  name="{{ booking_form.telephone.vars.full_name }}" id="{{ booking_form.telephone.vars.id }}" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text"><span class="form-validation"></span>
 
                                 </div>
@@ -150,7 +151,7 @@
                     <!--Submit button-->
                     <div class="well-row well-row-bg">
                         <div class="text-center offset-top-33">
-                            <button class="btn btn-sm btn-primary">book now</button>
+                            <button class="btn btn-sm btn-primary" id="booking_submit">book now</button>
                         </div>
                     </div>
                     {{ form_widget(booking_form._token)}}
@@ -171,11 +172,14 @@
     </main>
 
 {% endblock %}
-
 {% block javascript %}
-    {{ parent() }}
+{{ parent() }}
     <script>
-        $(function() {
+        $(document).ready(function(){
+            $('#booking_submit').click(function(){
+                $('form.offset-top-44')[0].submit(); /*TODO: poner identificador al formulario*/
+            })
+
             $("#{{ booking_form.airport.vars.id }}").change(function() {
                 $('.toggle')[0].classList.contains('off') ?
                     $('#flynumber').fadeOut(200) :
