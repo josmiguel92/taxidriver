@@ -12,6 +12,7 @@
       icons: false
     },
     autoCompleteOptions: {
+        componentRestrictions: {country: 'cu'}
     },
     // callbacks
     placeChanged: null,

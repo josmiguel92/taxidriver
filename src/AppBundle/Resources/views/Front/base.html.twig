@@ -9,8 +9,28 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<title>{{ title }} | Taxi Drivers Cuba</title>
+
+    <!-- Meta tags -->
+    <meta name="description" content="{{ description }}">
+    <meta name="keywords" content="{{ content.getSitekeywordsLocale }}">
+    <meta name="author" content="Taxi Drivers Cuba">
+{#Todo: poner los link de las imagenes globales#}
+    <!-- Facebook Tags -->
+    <meta property="og:type"               content="article" />
+    <meta property="og:title"              content="{{ title }}" />
+    <meta property="og:description"        content="{{ description }}" />
+    <meta property="og:image"              content="{{ asset(featureImage) }}" />
+
+    <!-- Twitter tags -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@taxiDriverCuba" />
+    <meta name="twitter:creator" content="@taxiDriverCuba" />
+    <meta property="og:title" content="{{ title }}" />
+    <meta property="og:description" content="{{ description }}" />
+    <meta property="og:image" content="{{ asset(featureImage) }}" />
 
 	<link rel="stylesheet" type="text/css" href="{{ asset("css/css.css") }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset("css/style2.css") }}">
@@ -94,13 +114,13 @@
 
                                     <ul class="list-inline list-inline-2 flags">
                                         <li class="text-center">
-                                            <a href="">
-                                                <img src="{{ asset('images/flags/uk-flags.svg') }}">
+                                            <a href="{{ path("home", {"_locale":"en"}) }}">
+                                                <img src="{{ asset('images/flags/uk-flags.svg') }}" alt="{% trans %}change language to english{% endtrans %}">
                                             </a>
                                         </li>
                                         <li class="text-center">
-                                            <a href="#">
-                                                <img src="{{ asset('images/flags/spana-flags.svg') }}">
+                                            <a href="{{ path("home", {"_locale":"es"}) }}">
+                                                <img src="{{ asset('images/flags/spana-flags.svg') }}" alt="{% trans %}change languaje to spanish{% endtrans %}">
                                             </a>
                                         </li>
                                     </ul>
@@ -156,7 +176,6 @@
                         </div>
                         <div class="offset-top-25">
                             <p class="text-gray-light text-spacing-0">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, debitis deleniti est ex, laudantium maiores molestias nobis officia omnis perspiciatis placeat quaerat quam quas quos reprehenderit repudiandae suscipit, veniam voluptate.
                                 {{ content.getAbouttextfooterLocale() }}
                             </p>
                         </div>
@@ -205,7 +224,7 @@
 
                             </div>
                             <div class="row offset-top-25">
-                                <div class="two-columns">
+                                <div>
                                     {% for hashtag in hashtags %}
                                         <p><a href="#" class="color-sky"><i class="fa fa-hashtag"></i> {{ hashtag.name }}</a></p>
                                     {% else %}
@@ -268,7 +287,9 @@
                     <div class="col-md-12">
                         <ul class="offset-top-25">
                             <li class="text-center">
-                                <a href="#" class="color-sky">Make your own Tour!</a>
+                                <a href="{{ path("bookingOwnTour") }}" class="color-sky">
+                                    {% trans %}Make your own Tour!{% endtrans %}
+                                </a>
                             </li>
                         </ul>
                     </div>

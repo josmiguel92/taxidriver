@@ -184,5 +184,6 @@ h2{
     text-align: justify;
     column-gap: 4em;
     column-rule-width: 1px;
+    column-rule-style: dashed;
     column-rule-color: rgba(128, 128, 128, 0.45);
 }

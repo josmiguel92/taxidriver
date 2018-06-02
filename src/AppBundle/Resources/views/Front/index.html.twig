@@ -1,14 +1,8 @@
 {% extends 'AppBundle:Front:base.html.twig' %}
 
 {% set title = 'Home' %}
+{% set description = content.getSiteDescriptionLocale %}
 
-{% set keywords = 'cuba taxi reservation trinidad cienfuegos airport' %}
-{% set og_url = 'https://www.taxidriverscuba.com' %}
-{% set og_title = title %}
-{#todo: hacer la descripcion#}
-{% set description = 'Somos taxi drivers' %}
-{# ToDo: put featureImage #}
-{% set og_image = 'imagen.png' %}
 
 {% block header %}
 
@@ -70,6 +64,22 @@
                                 </ul>
                             </div>
 
+                            <div class="rd-navbar-collapse-wrap reveal-md-inline-block">
+
+                                <ul class="list-inline list-inline-2 flags">
+                                    <li class="text-center">
+                                        <a href="{{ path("home", {"_locale":"en"}) }}">
+                                            <img src="{{ asset('images/flags/uk-flags.svg') }}" alt="{% trans %}change language to english{% endtrans %}">
+                                        </a>
+                                    </li>
+                                    <li class="text-center">
+                                        <a href="{{ path("home", {"_locale":"es"}) }}">
+                                            <img src="{{ asset('images/flags/spana-flags.svg') }}" alt="{% trans %}change languaje to spanish{% endtrans %}">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -83,7 +93,7 @@
 
                 {% for blogEntry in blogEntries %}
 
-                    <div style="background-image:url( {{ asset(blogEntry.getImagePrimary.getWebPath) }} )" class="swiper-slide">
+                    <div style="background-image:url( {{ asset(blogEntry.getWebPath) }} )" class="swiper-slide">
                         <div class="shell">
                             <div class="range range-xs-center">
                                 <div class="cell-sm-10">
@@ -116,7 +126,7 @@
         <div class="swiper-container gallery-thumbs">
             <div class="swiper-wrapper">
                 {% for blogEntry in blogEntries %}
-                    <div style="background-image:url({{ asset(blogEntry.getImagePrimary.getWebPath) }})" class="swiper-slide"></div>
+                    <div style="background-image:url({{ asset(blogEntry.getWebPath) }})" class="swiper-slide"></div>
                 {% endfor %}
 
             </div>
@@ -154,6 +164,7 @@
                     <!-- Taxi subsection -->
                     <div class="offset-top-25">
                         <i class="fa fa-cab fa-3x color-sky"></i>
+                        <!--<img src="{{ asset("images/taxi.svg") }}">-->
                         <h2 class="text-spacing-75">
                             {% trans %}Taxi{% endtrans %}
                         </h2>
