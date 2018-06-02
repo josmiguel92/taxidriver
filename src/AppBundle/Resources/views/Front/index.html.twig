@@ -126,7 +126,7 @@
         <div class="swiper-container gallery-thumbs">
             <div class="swiper-wrapper">
                 {% for blogEntry in blogEntries %}
-                    <div style="background-image:url({{ asset(blogEntry.getImagePrimary.getWebPath) }})" class="swiper-slide"></div>
+                    <div style="background-image:url({{ asset(blogEntry.getWebPath) }})" class="swiper-slide"></div>
                 {% endfor %}
 
             </div>
