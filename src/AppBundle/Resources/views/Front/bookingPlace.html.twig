@@ -6,7 +6,9 @@
     {% set title = "Voy a ir a " %}
 {% endif %}
 
-{% set featureImage =  place.getWebPath %}
+{% set title = title~place.getNameLocale %}
+
+{% set featureImage =  place.getFullImageWebPath %}
 
 
 {% block destination %}
@@ -15,7 +17,7 @@
     <div class="booking-place context-dark offset-top-0" style="margin-top: -8px;">
         <!-- RD Parallax-->
         <div data-on="false" data-md-on="true" class="rd-parallax">
-            <div data-speed="0.25" data-type="media" data-url="{{ asset(place.getWebPath) }}" class="rd-parallax-layer"></div>
+            <div data-speed="0.25" data-type="media" data-url="{{ asset(place.getFullImageWebPath) }}" class="rd-parallax-layer"></div>
             <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
                 <div class="shell section-75 section-md-top-103 section-md-bottom-110">
                     <div class="range range-xs-center">
@@ -23,7 +25,7 @@
 
                             <div class="offset-top-60 offset-md-top-30">
 
-                                <h2 class=" h1 text-center text-spacing-0 text-uppercase" style="background-color: rgba(0,0,0,0.45); border-radius: 5px;">
+                                <h2 class=" h1 text-center text-spacing-0 text-uppercase" style="border-radius: 5px;">
                                     {{ place.getNameLocale }}
                                 </h2>
 

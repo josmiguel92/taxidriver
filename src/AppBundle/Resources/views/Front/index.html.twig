@@ -187,7 +187,9 @@
                                         <!-- Unit-->
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                                             <div class="unit-left">
-                                                <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
+                                                <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
+                                                    <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
+                                                </a>
                                             </div>
                                             <div class="unit-body">
                                                 <div>
@@ -249,7 +251,9 @@
                                         <!-- Unit-->
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                                             <div class="unit-left">
-                                                <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.NameLocale }}" class="img-responsive center-block img-zoom">
+                                                <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
+                                                    <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.NameLocale }}" class="img-responsive center-block img-zoom">
+                                                </a>
                                             </div>
                                             <div class="unit-body">
                                                 <div>
@@ -304,11 +308,12 @@
                                 <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
                                     <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block"></div>
                                 <div class="offset-top-15 offset-md-top-30">
-                                    <h2 class="text-spacing-0 text-uppercase">
+                                    <h2 class="text-spacing-0 text-lowercase">
                                         {{ content.getServicesmakeroutetextLocale }}
                                     </h2>
                                     <div class="offset-top-30 offset-md-top-60">
                                         <a href="{{ path("bookingOwnTour") }}" style="min-width:240px;" class="btn btn-calypso">
+                                            <i class="fa fa-heart fa-2x"></i>
                                             {% trans %}Make your own Tour!{% endtrans %}
                                         </a>
                                     </div>

@@ -2,12 +2,14 @@
 
 
 {% set title = blogEntry.getTitleLocale %}
-{% set og_image = asset(blogEntry.getImagePrimary.getWebPath) %}
-{% set og_description = blogEntry.getTeaserLocale|striptags|slice(0,200)~'...' %}
+{% set featureImage = asset(blogEntry.getFullImageWebPath) %}
+{% set description = blogEntry.getTeaserLocale|striptags|slice(0,200)~'...' %}
 
 {% block header_image %}
     {{ asset(blogEntry.getFullImageWebPath) }}
 {% endblock %}
+
+{% block class %}blog-post{% endblock %}
 
 {% block content %}
     <!-- Page Content-->
@@ -66,25 +68,15 @@
                     <div class="shell section-75 section-md-top-103 section-md-bottom-110">
                         <div class="range range-xs-center">
                             <div class="cell-sm-10">
-                                <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
-                                    <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block">
-                                </div>
-
-                                <div class="veil reveal-sm-inline-block">
-                                    <span class="icon icon-lg thin-ico thin-icon-map-marker text-white"></span>
-                                </div>
-
-                                <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
-                                    <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block">
-                                </div>
-
                                 <div class="offset-top-35 offset-md-top-30">
 
-                                    <h1 class="text-spacing-0 text-uppercase" style="background-color: rgba(0,0,0,0.45); border-radius: 5px;">
-                                        {{ blogEntry.getQuoteLocale }}
-                                    </h1>
+                                    <h3 class="text-spacing-0 text-lowercase"
+                                        style="border-radius: 5px;">
+                                        "{{ blogEntry.getQuoteLocale }}"
+                                    </h3>
                                     <div class="offset-top-75 offset-md-top-75">
                                         <a href="{{ path("booking_place", {_id:blogEntry.getPlace.id, _name:blogEntry.getPlace.getNameLocale}) }}" style="min-width:140px;" class="btn btn-calypso">
+                                            <span class="icon icon-xs fa fa-shopping-cart"></span>
                                             {% trans %}Book Now{% endtrans %}
                                         </a>
                                     </div>
@@ -101,14 +93,12 @@
             <div class="shell">
                 <div class="range">
                     <div class="cell-md-8 col-md-offset-2 text-justify">
-                        <p class="font-accent text-bold text-uppercase text-mine-shaft text-spacing-25">{% trans %}Part Two{% endtrans %}</p>
-
                         <!--- Content -->
                         <div class="blog-content">
                             {{ blogEntry.getPostTextLocale }}
                         </div>
 
-                        <div class="group group-xs btn-tags offset-top-20 offset-md-top-30">
+                        <div class="group group-xs btn-tags offset-top-50 offset-md-top-30">
                             <a href="#" class="btn btn-info btn-icon btn-icon-left">
                                 <span class="icon icon-xs fa fa-facebook"></span>
                                 <span class="text-lowercase text-regular text-spacing-0 font-default">facebook</span>
