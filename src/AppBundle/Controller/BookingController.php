@@ -53,6 +53,7 @@ class BookingController extends Controller
                 {
                     $em->persist($booking);
                     $em->flush();
+                    return new Response("form OK");
                 }
                 //TODO: enviar mensaje flash de que no se lleno el formulario correctamentes
 
