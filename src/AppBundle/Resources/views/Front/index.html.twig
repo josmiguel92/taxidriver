@@ -187,7 +187,9 @@
                                         <!-- Unit-->
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                                             <div class="unit-left">
-                                                <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
+                                                <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
+                                                    <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
+                                                </a>
                                             </div>
                                             <div class="unit-body">
                                                 <div>
@@ -249,7 +251,9 @@
                                         <!-- Unit-->
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                                             <div class="unit-left">
-                                                <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.NameLocale }}" class="img-responsive center-block img-zoom">
+                                                <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
+                                                    <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.NameLocale }}" class="img-responsive center-block img-zoom">
+                                                </a>
                                             </div>
                                             <div class="unit-body">
                                                 <div>
