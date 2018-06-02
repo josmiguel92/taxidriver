@@ -72,7 +72,7 @@
 
                                     <h3 class="text-spacing-0 text-lowercase"
                                         style="border-radius: 5px;">
-                                        {{ blogEntry.getQuoteLocale }}
+                                        "{{ blogEntry.getQuoteLocale }}"
                                     </h3>
                                     <div class="offset-top-75 offset-md-top-75">
                                         <a href="{{ path("booking_place", {_id:blogEntry.getPlace.id, _name:blogEntry.getPlace.getNameLocale}) }}" style="min-width:140px;" class="btn btn-calypso">
@@ -93,8 +93,6 @@
             <div class="shell">
                 <div class="range">
                     <div class="cell-md-8 col-md-offset-2 text-justify">
-                        <p class="font-accent text-bold text-uppercase text-mine-shaft text-spacing-25">{% trans %}Part Two{% endtrans %}</p>
-
                         <!--- Content -->
                         <div class="blog-content">
                             {{ blogEntry.getPostTextLocale }}
