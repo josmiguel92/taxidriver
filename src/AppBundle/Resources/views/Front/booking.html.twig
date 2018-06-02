@@ -6,6 +6,11 @@
     {% set title = "Voy a ir a..." %}
 {% endif %}
 
+{% set formTitle =  "I will go to..."%}
+{% if locale=='es' %}
+    {% set title = "Voy a ir a..." %}
+{% endif %}
+
 {% set featureImage =  asset(content.getHeaderimage.getWebPath) %}
 
 {% block destination %}
