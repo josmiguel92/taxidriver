@@ -1,42 +1,133 @@
-{% extends 'AppBundle:Front:base.html.twig' %}
+{% set locale = utils.getRequestLocaleLang %}
+
+<!DOCTYPE html>
+<html lang="{{ locale }}" class="wide wow-animation smoothscroll  scrollTo desktop landscape mag-js rd-navbar-fullwidth-linked">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>{{ status_code }} | Taxi Drivers Cuba</title>
+
+        <link rel="stylesheet" type="text/css" href="{{ asset("css/css.css") }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset("css/style2.css") }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset("css/custom.css") }}">
+
+    </head>
+
+    <body>
+        <!-- Page-->
+        <div class="page text-center">
+            <header class="page-header slider-menu-position">
+
+                <!-- RD Navbar-->
+
+                <div class="rd-navbar-wrap">
+
+                    <nav data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-static" data-md-stick-up-offset="50px" data-lg-stick-up-offset="1px" class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fullwidth" data-lg-layout="rd-navbar-static">
+                        <div class="rd-navbar-inner">
+                            <!-- RD Navbar Panel-->
+                            <div class="rd-navbar-panel">
+
+                                <!-- RD Navbar Toggle-->
+                                <button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle">
+                                    <span></span>
+                                </button>
+
+                                <!-- RD Navbar Toggle-->
+                                <button data-rd-navbar-toggle=".rd-navbar-collapse-wrap" class="rd-navbar-collapse">
+                                    <span></span>
+                                </button>
+                            </div>
+                            <div class="rd-navbar-right-side">
 
 
+                                <!--- Links --->
+                                <div class="rd-navbar-nav-wrap reveal-md-inline-block">
+                                    <ul class="rd-navbar-nav">
+                                        <!-- RD Navbar Nav-->
+                                        <li><a href="{{ path("home") }}#home">{% trans %}home{% endtrans %}</a></li>
+                                        <li><a href="{{ path("home") }}#services">{% trans %}services{% endtrans %}</a></li>
+                                        <li><a href="{{ path("home") }}#about">{% trans %}about us{% endtrans %}</a></li>
+                                        <li><a href="{{ path("home") }}#contact">{% trans %}contacts{% endtrans %}</a></li>
+                                        <li><a href="{{ path("blog") }}">blog</a></li>
+                                    </ul>
+                                </div>
 
-{% block content %}
+                            </div>
+                        </div>
+                    </nav>
+                </div>
 
-<!-- Page Content-->
-<main class="page-content section-75 section-md-top-90 section-md-bottom-110">
-    <!-- 404-->
-    <section>
-        <div class="shell">
-            <div>
-                <h1>{{ status_code }}</h1>
+                <!-- Modern Breadcrumbs-->
+                <section class="{% block class %}{% endblock %} section-height-800 breadcrumb-modern rd-parallax context-dark">
+                    <div data-speed="0.6" data-type="media" data-url="
+                    {{ asset("images/banners/make-your-own-tour.jpg") }}
+                    " class="rd-parallax-layer"></div>
+                    <div data-speed="0" data-type="html" class="rd-parallax-layer">
+                        <div class="shell section-top-34 section-bottom-34 section-md-top-175 section-md-bottom-75 section-lg-top-158 section-lg-bottom-125 section-md-tablet-75">
+
+                            <div class="offset-top-75">
+                                <div class="text-extra-big font-accent text-bold text-spacing-inverse-50">
+                                    <i class="fa fa-rocket fa-2x"></i>
+                                    {% trans %}Huston... we have a problem{% endtrans %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </header>
+
+            <!-- Page Content-->
+            <main class="page-content section-75 section-md-top-90 section-md-bottom-110">
+                <!-- 404-->
+                <section>
+                    <div class="shell">
+                        <div>
+                            <h1>{{ status_code }}</h1>
+                        </div>
+                        {% if status_code == 404 %}
+                            <div class="offset-top-25">
+                                <p>The page requested couldn't be found - this could be due to a spelling error in the URL or a removed page.</p>
+                            </div>
+                            <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
+                        {% elseif status_code == 500 %}
+                            <div class="offset-top-25">
+                                <p>Server error</p>
+                            </div>
+                            <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
+                        {% elseif status_code == 403 %}
+                            <div class="offset-top-25">
+                                <p>Forbiden</p>
+                            </div>
+                            <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
+                        {% elseif status_code == 503 %}
+                            <div class="offset-top-25">
+                                <p>Maintance</p>
+                            </div>
+                            <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
+                        {% endif %}
+
+                        <div class="offset-top-20"><svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/></svg></div>
+                    </div>
+                </section>
+        </main>
+
+        <footer class="page-footer bg-gray-base section-75 section-md-top-103 section-md-bottom-55 text-md-left">
+            <div class="shell">
+                <div class="offset-top-15">
+                    <p class="text-extra-small text-gray-light">Make with <i class="fa fa-heart"></i> and <i class="fa fa-code"></i> by <a href="#">Habana.Tech</a>
+                    </p>
+                </div>
             </div>
-            {% if status_code == 404 %}
-                <div class="offset-top-25">
-                    <p>The page requested couldn't be found - this could be due to a spelling error in the URL or a removed page.</p>
-                </div>
-                <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
-            {% elseif status_code == 500 %}
-                <div class="offset-top-25">
-                    <p>Server error</p>
-                </div>
-                <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
-            {% elseif status_code == 403 %}
-                <div class="offset-top-25">
-                    <p>Forbiden</p>
-                </div>
-                <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
-            {% elseif status_code == 503 %}
-                <div class="offset-top-25">
-                    <p>Maintance</p>
-                </div>
-                <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
-            {% endif %}
+        </footer>
 
-            <div class="offset-top-20"><svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/></svg></div>
         </div>
-    </section>
-</main>
+        <!-- Java script-->
+        <script src="{{ asset("js/core.min.js") }}"></script>
+        <script src="{{ asset("js/script.js") }}"></script>
+        <script src="{{ asset("js/custom.js") }}"></script>
+    </body>
 
-{% endblock %}
+</html>
