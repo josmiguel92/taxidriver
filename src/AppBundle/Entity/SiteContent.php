@@ -1269,7 +1269,7 @@ class SiteContent
         else return $this->sitekeywordsen;
     }
 
-    public function getcLocale()
+    public function getSiteDescriptionLocale()
     {
         if(Utils::getRequestLocaleLang()=="es")
             return $this->sitedescription;
