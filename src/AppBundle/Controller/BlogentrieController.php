@@ -27,7 +27,7 @@ class BlogentrieController extends Controller
 
         $blogentries = $em->getRepository('AppBundle:Blogentrie')
 
-            ->createQueryBuilder("c")->orderBy("c.id", "ASC")
+            ->createQueryBuilder("c")->orderBy("c.publisheddate", "DESC")
             ->getQuery()->getResult();
 
           //  ->findBy(['id'=>''], ['publisheddate'=>'DESC']);

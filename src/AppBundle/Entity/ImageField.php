@@ -70,6 +70,13 @@ class ImageField
         : $this->getUploadDir().'/'.$this->path.'-thumb.jpg';
     }
 
+    public function getFullImageWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path;
+    }
+
     protected function getUploadRootDir()
     {
         // la ruta absoluta del directorio donde se deben
@@ -162,8 +169,8 @@ class ImageField
         $image = imagecreatefromjpeg($this->getAbsolutePath());
         $filename = $this->getAbsolutePath().'-thumb.jpg';
 
-        $thumb_width = 1000;
-        $thumb_height = 1000;
+        $thumb_width = 700;
+        $thumb_height = 700;
 
         $width = imagesx($image);
         $height = imagesy($image);
