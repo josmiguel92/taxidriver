@@ -6,14 +6,8 @@
     {% set title = "Hare mi propio camino " %}
 {% endif %}
 
-{% set keywords = 'cuba taxi reservation trinidad cienfuegos airport' %}
-{% set og_url = 'https://www.taxidriverscuba.com' %}
-{% set og_title = title %}
-{#todo: hacer la descripcion#}
-{% set description = 'Somos taxi drivers' %}
-
-{# ToDo: put featureImage #}
-{% set og_image = 'imagen.png' %}
+{% set description = content.getReservationDescriptionLocale %}
+{% set featureImage = content.getOwnrouteimage.getWebPath %}
 
 {% block destination %}
 
