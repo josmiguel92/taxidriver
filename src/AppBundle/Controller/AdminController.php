@@ -244,7 +244,7 @@ class AdminController extends Controller
         $socialForm = $this->createForm('AppBundle\Form\SocialnetworkType', $social);
 
         $socialForm->handleRequest($request);
-        $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
+
         $hashtag = new \AppBundle\Entity\Hashtag();
 
         $tagsForm = $this->createForm('AppBundle\Form\HashtagType', $hashtag);
@@ -281,7 +281,7 @@ class AdminController extends Controller
         }
 
         $socialnetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
-
+        $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
         return $this->render('AppBundle:Dash:socialnetwork.html.twig',
             ['pagename'=>'socialnet',
                 'socialForm' => $socialForm->createView(),
@@ -526,7 +526,7 @@ class AdminController extends Controller
      */
     public function editinfographitemAction(Request $request, infographitem $item, $id)
     {
-        $deleteForm = $this->createImageDeleteForm($item);
+        $deleteForm = $this->createInfographDeleteForm($item);
         $editForm = $this->createForm('AppBundle\Form\InfographItemType', $item,
             ['action' => $this->generateUrl('dash_infographitem_edit', array('id' => $id))]);
         $editForm->handleRequest($request);
@@ -545,7 +545,7 @@ class AdminController extends Controller
         }
 
 
-        return $this->render('AppBundle:Dash:contentEditInfographitemForm.html.twig', array(
+        return $this->render('AppBundle:Dash:infographItemEditForm.html.twig', array(
             'infographitem_form' => $editForm->createView(),
             'infographitem_delete_form' => $deleteForm->createView(),
         ));
@@ -589,7 +589,6 @@ class AdminController extends Controller
         );
         return $this->redirectToRoute('dash_sitecontent_edit');
     }
-
 
 
 }

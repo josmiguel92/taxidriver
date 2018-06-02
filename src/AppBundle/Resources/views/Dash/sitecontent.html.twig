@@ -237,9 +237,11 @@
                         {% endif %}
                         </h5>
                         <small>{{ infographitem.text }}</small>
-                        <a href="{{ path('dash_infographitem_delete', {'id' : infographitem.id  }) }}" class="btn btn-danger btn-sm">
-                            <i class="ti-trash"></i>
+                        <a href="{{ path('dash_infographitem_edit', {'id' : infographitem.id  }) }}" class="btn btn-success btn-sm infograph-edit" data-itemid="{{ infographitem.id }}">
+                            <i class="ti-pencil-alt"></i>
                         </a>
+
+
                     </li>
                 {% else %}
                     Ninguno hasta ahora
@@ -249,9 +251,9 @@
         </div>
     </div>
     <div class="col-md-4">
-        <div class="card">
+        <div class="card" id="editForm">
             <div class="header">
-                <h4 class="title">Agregar elemento de infograf&iacute;a</h4>
+                <h4 class="title">Agregar elemento de infograf&iacute;a<small><i class="fa-spin fa fa-spinner hidden formLoader" style="float: right"></i></small></h4>
             </div>
             <div class="content">
                 {{ form_start(new_infograph_form) }}
@@ -3553,8 +3555,22 @@
                 $('#iconModal').modal('hide')
 
 
-            })
+            });
 
+         $('.infograph-edit').click(function(e){
+             e.preventDefault();
+             $(".fa-spinner.formLoader")[0].classList.remove('hidden');
+             var edit_path = "{{ path('dash_infographitem_edit', {'id':'itemidplaceholder'}) }}"
+
+             console.log(edit_path)
+             item_id = this.dataset['itemid']
+             current_edit_path = edit_path.replace('itemidplaceholder',item_id)
+             console.log(current_edit_path)
+             $('#editForm').load(current_edit_path, function () {
+                 $(".fa-spinner.formLoader")[0].classList.add('hidden');
+             })
+
+         });
          });
 
 
