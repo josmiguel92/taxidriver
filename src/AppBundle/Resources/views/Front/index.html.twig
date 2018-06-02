@@ -41,10 +41,10 @@
                         <div class="rd-navbar-nav-wrap reveal-md-inline-block">
                             <ul class="rd-navbar-nav">
                                 <!-- RD Navbar Nav-->
-                                <li><a href="{{ path("home") }}#home">home</a></li>
-                                <li><a href="{{ path("home") }}#services">services</a></li>
-                                <li><a href="{{ path("home") }}#about">about us</a></li>
-                                <li><a href="{{ path("home") }}#contact">contacts</a></li>
+                                <li><a href="{{ path("home") }}#home">{% trans %}home{% endtrans %}</a></li>
+                                <li><a href="{{ path("home") }}#services">{% trans %}services{% endtrans %}</a></li>
+                                <li><a href="{{ path("home") }}#about">{% trans %}about us{% endtrans %}</a></li>
+                                <li><a href="{{ path("home") }}#contact">{% trans %}contacts{% endtrans %}</a></li>
                                 <li><a href="{{ path("blog") }}">blog</a></li>
                             </ul>
                         </div>
@@ -101,8 +101,7 @@
                                         {{ blogEntry.getTitleLocale }}
                                     </div>
                                     <h5 class="offset-top-10 text-white text-spacing-0 text-transform-none">
-                                        We are always there at your service. Fast and reliable way to find
-                                        quality taxi service anywhere you need it.
+                                        {{ blogEntry.getQuoteLocale }}
                                     </h5>
                                     <div style="max-width:510px;" class="btn-both-lines offset-top-30 center-block">
                                         <a href="{{ path("blogEntry",{"_id":blogEntry.getId, "_name":blogEntry.getTitleLocale}) }}" style="min-width:240px;" class="btn btn-primary">
