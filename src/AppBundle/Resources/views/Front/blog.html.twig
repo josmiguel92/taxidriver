@@ -1,11 +1,10 @@
 {% extends 'AppBundle:Front:base.html.twig' %}
 
 {% set title = "Blog" %}
-{% set keywords = 'cuba taxi reservation trinidad cienfuegos airport' %}
-{% set og_image = asset(content.getHeaderimage.getWebPath) %}
+{% set featureImage = asset(content.getHeaderimage.getWebPath) %}
+{% set description =  content.getBlogDescriptionLocale %}
 
 {% block content %}
-{% set description =  content.getBlogDescriptionLocale %}
 
     <!-- Page Content-->
     <main class="page-content section-75 section-md-top-90 section-md-bottom-95">
