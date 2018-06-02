@@ -83,7 +83,7 @@ class Place extends ImageField
     /**
      * @var int
      *
-     * @ORM\Column(name="distance", type="integer", nullable=true)
+     * @ORM\Column(name="distance", type="float", nullable=true)
      */
     private $distance;
 

@@ -40,14 +40,14 @@ class SiteContent
     /**
      * @var string
      *
-     * @ORM\Column(name="abouttext", type="string", length=700)
+     * @ORM\Column(name="abouttext", type="text")
      */
     private $abouttext;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="abouttexten", type="string", length=700)
+     * @ORM\Column(name="abouttexten", type="text")
      */
     private $abouttexten;
 
@@ -68,42 +68,42 @@ class SiteContent
     /**
      * @var string
      *
-     * @ORM\Column(name="aboutteamtext", type="string", length=700)
+     * @ORM\Column(name="aboutteamtext", type="text")
      */
     private $aboutteamtext;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="aboutteamtexten", type="string", length=700)
+     * @ORM\Column(name="aboutteamtexten", type="text")
      */
     private $aboutteamtexten;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="aboutinfographtitle", type="string", length=255)
+     * @ORM\Column(name="aboutinfographtitle", type="string", length=500)
      */
     private $aboutinfographtitle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="aboutinfographtitleen", type="string", length=255)
+     * @ORM\Column(name="aboutinfographtitleen", type="string", length=500)
      */
     private $aboutinfographtitleen;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="aboutinfographtext", type="string", length=700, nullable=true)
+     * @ORM\Column(name="aboutinfographtext", type="string", length=2000, nullable=true)
      */
     private $aboutinfographtext;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="aboutinfographtexten", type="string", length=700, nullable=true)
+     * @ORM\Column(name="aboutinfographtexten", type="string", length=2000, nullable=true)
      */
     private $aboutinfographtexten;
 
@@ -111,98 +111,98 @@ class SiteContent
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestitle", type="string", length=255)
+     * @ORM\Column(name="servicestitle", type="string", length=1000)
      */
     private $servicestitle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestitleen", type="string", length=255)
+     * @ORM\Column(name="servicestitleen", type="string", length=1000)
      */
     private $servicestitleen;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestext", type="string", length=700)
+     * @ORM\Column(name="servicestext", type="string", length=2000)
      */
     private $servicestext;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestexten", type="string", length=700)
+     * @ORM\Column(name="servicestexten", type="string", length=2000)
      */
     private $servicestexten;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxititle", type="string", length=255)
+     * @ORM\Column(name="servicestaxititle", type="string", length=1000)
      */
     private $servicestaxititle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxititleen", type="string", length=255)
+     * @ORM\Column(name="servicestaxititleen", type="string", length=1000)
      */
     private $servicestaxititleen;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxitext", type="string", length=700)
+     * @ORM\Column(name="servicestaxitext", type="string", length=2000)
      */
     private $servicestaxitext;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxitexten", type="string", length=700)
+     * @ORM\Column(name="servicestaxitexten", type="string", length=2000)
      */
     private $servicestaxitexten;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxitourstitle", type="string", length=255)
+     * @ORM\Column(name="servicestaxitourstitle", type="string", length=1000)
      */
     private $servicestaxitourstitle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxitourstitleen", type="string", length=255)
+     * @ORM\Column(name="servicestaxitourstitleen", type="string", length=1000)
      */
     private $servicestaxitourstitleen;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxitourstext", type="string", length=700)
+     * @ORM\Column(name="servicestaxitourstext", type="string", length=2000)
      */
     private $servicestaxitourstext;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicestaxitourstexten", type="string", length=700)
+     * @ORM\Column(name="servicestaxitourstexten", type="string", length=2000)
      */
     private $servicestaxitourstexten;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicesinfographtitle", type="string", length=700, nullable=true)
+     * @ORM\Column(name="servicesinfographtitle", type="string", length=1000, nullable=true)
      */
     private $servicesinfographtitle;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="servicesinfographtitleen", type="string", length=700, nullable=true)
+     * @ORM\Column(name="servicesinfographtitleen", type="string", length=1000, nullable=true)
      */
     private $servicesinfographtitleen;
 
