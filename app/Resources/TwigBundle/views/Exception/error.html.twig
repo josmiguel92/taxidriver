@@ -89,22 +89,27 @@
                         </div>
                         {% if status_code == 404 %}
                             <div class="offset-top-25">
-                                <p>The page requested couldn't be found - this could be due to a spelling error in the URL or a removed page.</p>
+                                <p>{% trans %}The page requested couldn't be found - this could be due to a spelling error in the URL or a removed page.{% endtrans %}</p>
                             </div>
                             <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
                         {% elseif status_code == 500 %}
                             <div class="offset-top-25">
-                                <p>Server error</p>
+                                <p>{% trans %}Server error{% endtrans %}</p>
                             </div>
                             <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
                         {% elseif status_code == 403 %}
                             <div class="offset-top-25">
-                                <p>Forbiden</p>
+                                <p>{% trans %}Forbiden{% endtrans %}</p>
                             </div>
                             <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
                         {% elseif status_code == 503 %}
                             <div class="offset-top-25">
-                                <p>Maintance</p>
+                                <p>{% trans %}Maintance{% endtrans %}</p>
+                            </div>
+                            <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
+                        {% else %}
+                            <div class="offset-top-25">
+                                <p>{% trans %}Unknowk{% endtrans %}</p>
                             </div>
                             <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
                         {% endif %}
