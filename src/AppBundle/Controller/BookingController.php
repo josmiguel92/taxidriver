@@ -191,18 +191,20 @@ class BookingController extends Controller
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
-            $places = $em->getRepository('AppBundle:Place')->findBy(['id'=>$purchase->getPlacesCollection()]);
+            $_places = $em->getRepository('AppBundle:Place')->findBy(['id'=>$purchase->getPlacesCollection()]);
+            $place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
+            $places = $em->getRepository('AppBundle:Place')->findAll();
 
-            $text = 'sadas';
 
             return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
                 'locale'=>$_locale,
                 'content'=>$content[0],
-                'text'=>$text,
                 'socialNetworks'=>$socialNetworks,
                 'hashtags'=>$hashtags,
-                'places'=>$places,
+                'selectedPlaces'=>$_places,
+                'place'=>$place,
                 'purchase'=>$purchase,
+                'places'=>$places,
                 ]);
         }
         else
@@ -211,8 +213,8 @@ class BookingController extends Controller
     }
 
     /**
-     * @Route("/pay/{_token}", requirements={"_token":"[a-z0-9]*"}, name="paypal_redirection")
-     * */
+    * @Route("/pay/{_token}", requirements={"_token":"[a-z0-9]*"}, name="paypal_redirection")
+    **/
     public function payPalAction($_token){
         $em = $this->getDoctrine()->getManager();
         $purchase = $em->getRepository('AppBundle:Booking')->findOneBy(['token'=>$_token]);
@@ -239,5 +241,16 @@ class BookingController extends Controller
         throw new \HttpRequestException(
         "No existe esa referencia",400);
 
+    }
+
+    /**
+     * @Route("/purchase-details/{_token}/edit", requirements={"_token":"[a-z0-9]*"},  name="purchase_details_edit")
+     */
+    public function purchaseDetailsEditAction(Request $request, $_token)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $booking = $em->getRepository("AppBundle:Booking")->findOneBy(['token'=>$_token]);
+
+        return new Response($booking->getFullname());
     }
 }

@@ -6,6 +6,11 @@
     color: #50b4ea;
 }
 
+.btn-border{
+    border-color: #18acfb;
+    background-color: transparent;
+    color: #2c2b2b;
+}
 
 .btn-primary,
 .btn-calypso{
@@ -19,7 +24,9 @@
 .btn-primary:focus,
 .btn-calypso:hover,
 .btn-calypso:active,
-.btn-calypso:focus{
+.btn-calypso:focus,
+.btn-border:hover
+{
     color: #fff;
     background-color: #50b4ea;
     border-color: #50b4ea;

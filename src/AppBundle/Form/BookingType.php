@@ -27,7 +27,6 @@ class BookingType extends AbstractType
             ->add('flynumber')
             ->add('details')
             ->add('pickuptime', TextType::class)
-            ->add('burden',IntegerType::class)
             ->add('numpeople',IntegerType::class)
             ->add('comment')
             ->add('places_collection', HiddenType::class)

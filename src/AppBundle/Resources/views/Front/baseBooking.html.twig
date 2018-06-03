@@ -9,7 +9,7 @@
 
         <section class="section-75 section-md-top-90 section-md-bottom-110">
             <div class="shell">
-                <h2>{% trans %}Form reservation for{% endtrans %} {{ title }}</h2>
+                <h2>{% trans %}Reservation form for{% endtrans %} {{ title }}</h2>
                 {{ form_start(booking_form, {'attr':{'class':'offset-top-44 well rd-mailform text-md-left',
                                                      'data-form-type':'order',
                                                      'data-form-output':'form-output-global'}}) }}
@@ -17,7 +17,7 @@
                     <!-- airport data -->
                     <div class="well-row well-row-bg">
                         <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
-                            {% trans %}Pickup from airport{% endtrans %}
+                            {% trans %}Pickup from airport or cruise?{% endtrans %}
                         </p>
                     </div>
                 <div class="row section-md-top-20 section-md-bottom-20">
@@ -35,7 +35,7 @@
                             <div class="range range-xs-middle">
                                 <div id="flynumber" style="display: none">
                                     <div class="form-group">
-                                        <label for="{{ booking_form.flynumber.vars.id }}" class="form-label rd-input-label">{% trans %}Fly number{% endtrans %}</label>
+                                        <label for="{{ booking_form.flynumber.vars.id }}" class="form-label rd-input-label">{% trans %}Flight or cruiser number{% endtrans %}</label>
                                         <input id="{{ booking_form.flynumber.vars.id }}" name="{{ booking_form.flynumber.vars.full_name }}" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text">
 
                                         <span class="form-validation"></span>
@@ -49,7 +49,7 @@
 
                     <!--- Where are you going --->
                     <div class="well-row well-row-bg">
-                        <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">Where are you going?</p>
+                        <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">{% trans %}Where are you going?{% endtrans %}</p>
                     </div>
                     <div class="routes">
                         {% block destination %}
@@ -58,7 +58,7 @@
 
                     <!--- Pickup Data --->
                     <div class="well-row well-row-bg">
-                        <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">Pickup time</p>
+                        <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">{% trans %}Pickup time{% endtrans %}</p>
                     </div>
                     <div class="well-row">
 
@@ -69,15 +69,9 @@
                                     <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.numpeople.vars.id }}" name="{{ booking_form.numpeople.vars.full_name }}">
                                 </div>
                             </div>
-                            <div class="offset-top-15 offset-sm-top-0 cell-sm-5 cell-md-4 well-row-flex">
-                                <label class="custom-label text-gray-dark">{% trans %}No. of luggage{% endtrans %}</label>
-                                <div class="form-group">
-                                    <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.burden.vars.id }}" name="{{ booking_form.burden.vars.full_name }}">
-                                </div>
-                            </div>
 
                             <div class="offset-top-15 cell-sm-5 cell-md-8 col-md-offset-2 well-row-flex">
-                                <label class="custom-label text-gray-dark">{% trans %}Date & Time{% endtrans %}</label>
+                                <label class="custom-label text-gray-dark">{% trans %}Date and time{% endtrans %}</label>
                                 <div style="max-width: 400px; width: 350%;" class="form-group">
                                     <input placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="" type="text" style="text-align: left; padding: 10px 12px;" class="form-control" id="{{ booking_form.pickuptime.vars.id }}" name="{{ booking_form.pickuptime.vars.full_name }}">
                                 </div>
@@ -144,14 +138,18 @@
 
                     </div>
 
-                <div class="well-row">
+                    <div class="well-row">
 
-                    <div class="range range-xs-center">
-                        <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_public_key }}"></div>
+                        <div class="range range-xs-center">
+                            <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_public_key }}"></div>
+                        </div>
                     </div>
-                </div>
+
                     <!--Submit button-->
                     <div class="well-row well-row-bg">
+                        <p class="text-uppercase text-center text-bold text-spacing-25 font-accent text-gray-dark">
+                            {% trans %}Price{% endtrans %}: <i class="fa fa-dollar"></i> <small>340</small> USD
+                        </p>
                         <div class="text-center offset-top-33">
                             <button class="btn btn-sm btn-primary" id="booking_submit">{% trans %}book now{% endtrans %}</button>
                         </div>

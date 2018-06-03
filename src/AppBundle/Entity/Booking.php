@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+
+use AppBundle\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -90,12 +92,6 @@ class Booking
      */
     private $pickuptime;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="burden", type="smallint")
-     */
-    private $burden;
 
     /**
      * @var int
@@ -107,7 +103,7 @@ class Booking
     /**
      * @var int
      *
-     * @ORM\Column(name="price", type="float")
+     * @ORM\Column(name="price", type="float", nullable=true)
      */
     private $price;
 
@@ -143,11 +139,15 @@ class Booking
      * @ORM\Column(name="placescolection", type="simple_array", nullable=true)
      */
     private $places_collection;
-
+    
+    public function getBookingLocale()
+    {
+        return substr($this->token, 0, 2);
+    }
 
     function __construct()
     {
-        $this->token = uniqid("bk".date("Ymd"));
+        $this->token = Utils::getRequestLocaleLang().uniqid("bk".date("Ymd"));
         $this->places_collection = new ArrayCollection();
         $this->ownroute = new ArrayCollection();
     }
@@ -412,30 +412,7 @@ class Booking
         return $this->pickuptime;
     }
 
-    /**
-     * Set burden
-     *
-     * @param boolean $burden
-     *
-     * @return Booking
-     */
-    public function setBurden($burden)
-    {
-        $this->burden = $burden;
-
-        return $this;
-    }
-
-    /**
-     * Get burden
-     *
-     * @return bool
-     */
-    public function getBurden()
-    {
-        return $this->burden;
-    }
-
+  
     /**
      * Set numpeople
      *
