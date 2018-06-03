@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,7 +37,7 @@ class Booking
 
     /**
      * @var array
-     * @ORM\Column(name="ownroute", type="text", nullable=true)
+     * @ORM\Column(name="ownroute", type="simple_array", nullable=true)
      */
     private $ownroute;
 
@@ -103,11 +104,18 @@ class Booking
      */
     private $numpeople;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="price", type="float")
+     */
+    private $price;
+
 
     /**
      * @var string
      *
-     * @ORM\Column(name="comment", type="text")
+     * @ORM\Column(name="comment", type="text", nullable=true)
      */
     private $comment;
 
@@ -132,7 +140,7 @@ class Booking
 
     /**
      * @var string
-     * @ORM\Column(name="placescolection", type="string", length=1000, nullable=true)
+     * @ORM\Column(name="placescolection", type="simple_array", nullable=true)
      */
     private $places_collection;
 
@@ -140,6 +148,8 @@ class Booking
     function __construct()
     {
         $this->token = uniqid("bk".date("Ymd"));
+        $this->places_collection = new ArrayCollection();
+        $this->ownroute = new ArrayCollection();
     }
 
 
@@ -497,6 +507,23 @@ class Booking
     {
         $this->token = $token;
     }
+
+    /**
+     * @return int
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param int $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
 
 
 }

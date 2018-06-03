@@ -21,13 +21,26 @@
                 <div class="range range-xs-center range-lg-left offset-top-50">
                     <h2>{{ text }}</h2>
                     {{ purchase.token }}
+
+                    {% for place in places %}
+                        {{ place.getNameLocale }}
+                    {% else %}
+                        {# NO ES MANY PLACES, PUEDE SER OWNROUTE o simpleBook#}
+                        {% if purchase.ownroute is not empty %}
+                           {# OWNROUTE #}
+                        {% else %}
+                            <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-primary">GOTO PAYPAL</a>
+                        {% endif %}
+                    {% endfor %}
+
                 </div>
             </div>
 
-            {% if purchase.acepted %}
-                {# lester TRUE, a pagar...#}
+            {% if purchase.accepted %}
+                {# lester TRUE, a Paypal ...#}
+                <a href=""
             {% else %}
-                {# lester FALSE, aun no hay confirmacion#}
+                {# lester FALSE, aun no hay confirmacion, procesando.... #}
 
             {% endif %}
         </section>

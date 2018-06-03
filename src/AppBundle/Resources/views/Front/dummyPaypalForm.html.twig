@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Moving you to Paypal...</title>
+</head>
+<body>
+{#TODO: change paypal url outside from sandbox#}
+    <form name="myform" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <input type="hidden" name="cmd" value="_xclick">
+        {#TODO: change cancel and success url#}
+        <input type="hidden" name="cancel_return" value="{{ url("home") }}">
+        <input type="hidden" name="return" value="{{ url("home") }}">
+        <input type="hidden" name="business" value="{{ account_email }}">
+        <input type="hidden" name="lc" value="C2">
+        <input type="hidden" name="item_name" value="{{ product_name }}">
+        <input type="hidden" name="item_number" value="{{ product_id }}">
+        <input type="hidden" name="amount" value="{{ product_price }}">
+        <input type="hidden" name="currency_code" value="USD">
+        <input type="hidden" name="button_subtype" value="services">
+        <input type="hidden" name="no_note" value="0">
+    </form>
+    <script type="text/javascript">
+        document.myform.submit();
+    </script>
+
+</body>
+</html>
