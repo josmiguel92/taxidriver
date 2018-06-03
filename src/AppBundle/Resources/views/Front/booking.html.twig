@@ -34,7 +34,9 @@
                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }} USD <br/></p>
 
                                     <div class="offset-top-40">
-                                        <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">{% trans %}Add{% endtrans %}</a>
+                                        <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">
+                                            {% trans %}Add{% endtrans %}
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -52,9 +54,9 @@
             var _addText = '{% trans %}Add{% endtrans %}';
             var _removeText = '{% trans %}Remove{% endtrans %}';
 
-            selected_places =[{% spaceless %}
-                {% for place in places %}{ {{ place.id }} : false }{% if not loop.last %},{% endif %}{% endfor %}
-                {% endspaceless %}]
+            var selected_places ={ {% spaceless %}
+                {% for place in places %}{{ place.id }} : false{% if not loop.last %},{% endif %}{% endfor %}
+                {% endspaceless %} }
 
             $('a[data-role="booking-btn"]').click(function (e) {
                 e.preventDefault();
@@ -72,11 +74,6 @@
                     $("#"+parent_id).addClass('selected-place');
                     selected_places[this.dataset['place']] = true;
                 }
-                var id_places = [];
-                console.log(selected_places);
-                /*for(var i = 0; i < selected_places.length(); i++) {
-                  if(selected_places[i]);
-                }*/
 
                 $('#appbundle_booking_places_collection')[0].value =JSON.stringify(selected_places);
             })

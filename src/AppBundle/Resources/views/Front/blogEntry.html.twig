@@ -75,7 +75,12 @@
                                         "{{ blogEntry.getQuoteLocale }}"
                                     </h3>
                                     <div class="offset-top-75 offset-md-top-75">
-                                        <a href="{{ path("booking_place", {_id:blogEntry.getPlace.id, _name:blogEntry.getPlace.getNameLocale}) }}" style="min-width:140px;" class="btn btn-calypso">
+                                        {% set link = path("add_booking",{_locale:locale}) %}
+                                        {% if blogEntry.getPlace %}
+                                            {% set link = path("booking_place", {_id:blogEntry.getPlace.id, _name:blogEntry.getPlace.getNameLocale}) %}
+                                        {% endif %}
+
+                                        <a href="{{ link }}" style="min-width:140px;" class="btn btn-calypso">
                                             <span class="icon icon-xs fa fa-shopping-cart"></span>
                                             {% trans %}Book Now{% endtrans %}
                                         </a>

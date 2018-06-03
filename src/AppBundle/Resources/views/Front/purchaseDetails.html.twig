@@ -6,30 +6,133 @@
 {% endif %}
 
 {% set featureImage = asset(content.getHeaderimage.getWebPath) %}
-{#todo:fix description#}
-{% set description =  'empty' %}
+{% set description =  ''%}
+
+{% if paypalCallback is empty %}
+    {% set title = "Your transaction" %}
+{% else %}
+    {% set title = "Your transaction was " %}
+{% endif %}
+{% if paypalCallback == 'success' %}
+    {% set title = title~"success" %}
+{% elseif paypalCallback == 'cancel' %}
+    {% set title = title~"cancel" %}
+{% endif %}
+
+{% if locale == 'es' %}
+    {% set title = "Su transaccion fue " %}
+    {% if paypalCallback == 'success' %}
+        {% set title = title~"exitosa" %}
+    {% elseif paypalCallback == 'cancel' %}
+        {% set title = title~"cancelada" %}
+    {% endif %}
+{% endif %}
+
+
 
 {% block content %}
 
     <!-- Page Content-->
-    <main class="page-content section-75 section-md-top-90 section-md-bottom-95">
+    <main class="page-content">
 
-        <!-- Blog Classic Both Sidebar-->
-        <section>
+        <section class="section-75 section-md-top-90 section-md-bottom-95">
             <div class="shell">
-                <h1 class="">{% trans %}Almost done!{% endtrans %}</h1>
-                <div class="range range-xs-center range-lg-left offset-top-50">
-                    <h2>{{ text }}</h2>
-                    {{ purchase.token }}
+
+                {% if paypalCallback == 'success' %}
+                    <i class="fa fa-check-circle-o fa-5x color-sky"></i>
+                {% elseif paypalCallback == 'cancel' %}
+                    <i class="fa fa-times-circle-o fa-5x color-sky"></i>
+                {% endif %}
+                <h2>
+                    {% trans %}Yours purchase details{% endtrans %}
+                </h2>
+
+                <div class="offset-top-50">
+
+                    <!--- Simple Path -->
+                    <div class="row section-bottom-40">
+
+                        <div class="well-row well-row-bg">
+                            <p class="text-bold text-spacing-25 font-accent text-gray-dark">
+                                {% trans %}You have been selected{% endtrans %}:
+                            </p>
+                            <!-- List-->
+                            <ul class="p">
+                                {% for place in selectedPlaces %}
+                                <li class="offset-top-10">
+                                    <p class="text-gray-dark">{{ place.getNameLocale }}</p>
+                                </li>
+                                {% else %}
+                                    {% if purchase.ownroute is not empty %}
+                                        {#own route#}
+                                    {% else %}
+                                        <li class="offset-top-10">
+                                            <p class="text-gray-dark">{{ place.getNameLocale }}</p>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+
+                        </div>
+                        <div class="well-row">
+                            <p class="text-bold text-spacing-25 font-accent text-gray-dark">
+                                {% trans %}No. of passengers{% endtrans %}: {{ purchase.getNumpeople }}
+                            </p>
+                        </div>
+                        <div class="well-row well-row-bg">
+                            <p class="text-bold text-spacing-25 font-accent text-gray-dark">
+                                {% trans %}At{% endtrans %}: {{ purchase.getPickuptime|date("l, d F Y - H:i")  }}
+                            </p>
+                        </div>
+
+                    </div>
+
+                    {% if paypalCallback is empty %}
+                        <div class="row section-bottom-40">
+                            {% if selectedPlaces or purchase.ownroute %}
+                                <div class="cell-md-6 col-md-6 col-md-offset-3">
+                                    <i class="fa fa-clock-o fa-5x color-sky"></i>
+                                    <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">
+                                        {% trans %}We are processing your reservation.
+                                        As soon we have all resources confirm, we will get in touch with you,
+                                        usually this take less than a day.{% endtrans %}
+                                    </p>
+                                </div>
+                            {% elseif not (selectedPlaces or purchase.ownroute) or purchase.accepted %}
+                                {% set discountPrice = purchase.price - purchase.price*0.1 %}
+                                <!-- simple purchase -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-lg btn-primary">
+                                            <i class="fa fa-paypal"></i>
+                                            {% trans %}Pay with PayPal{% endtrans %} - {{ discountPrice }} USD
+                                        </a>
+                                        <p class="offset-top-15 text-extra-small">
+                                            <strong>if you pay using paypal you have access to a 10% discount.</strong>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-border">
+                                            <i class="fa fa-dollar"></i>
+                                            {% trans %}Pay with cash{% endtrans %} - {{ purchase.price }} usd
+                                        </a>
+                                        <p class="offset-top-15 text-extra-small">
+                                            You can always pay in Cuba with cash.
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <a href="{{ path("home", {'locale':locale}) }}" class="btn btn-primary">
+                            <i class="fa fa-arrow-circle-left fa-2x"></i>
+                            {% trans %}Go back to home{% endtrans %}
+                        </a>
+                    {% endif %}
+
                 </div>
             </div>
 
-            {% if purchase.acepted %}
-                {# lester TRUE, a pagar...#}
-            {% else %}
-                {# lester FALSE, aun no hay confirmacion#}
-
-            {% endif %}
         </section>
 
     </main>

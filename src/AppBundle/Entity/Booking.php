@@ -2,6 +2,10 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
+use AppBundle\Utils\Utils;
+use AppBundle\Entity\Place;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,7 +40,7 @@ class Booking
 
     /**
      * @var array
-     * @ORM\Column(name="ownroute", type="text", nullable=true)
+     * @ORM\Column(name="ownroute", type="simple_array", nullable=true)
      */
     private $ownroute;
 
@@ -89,12 +93,6 @@ class Booking
      */
     private $pickuptime;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="burden", type="smallint")
-     */
-    private $burden;
 
     /**
      * @var int
@@ -103,11 +101,18 @@ class Booking
      */
     private $numpeople;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="price", type="float", nullable=true)
+     */
+    private $price;
+
 
     /**
      * @var string
      *
-     * @ORM\Column(name="comment", type="text")
+     * @ORM\Column(name="comment", type="text", nullable=true)
      */
     private $comment;
 
@@ -124,6 +129,14 @@ class Booking
      */
     private $confirmed;
 
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="idpaypal", type="string", length=255, nullable=true)
+     */
+    private $idpaypal;
+
+
     /**
      * @var string
      * @ORM\Column(name="token", type="string", length=255)
@@ -132,14 +145,20 @@ class Booking
 
     /**
      * @var string
-     * @ORM\Column(name="placescolection", type="string", length=1000, nullable=true)
+     * @ORM\Column(name="placescolection", type="simple_array", nullable=true)
      */
     private $places_collection;
-
+    
+    public function getBookingLocale()
+    {
+        return substr($this->token, 0, 2);
+    }
 
     function __construct()
     {
-        $this->token = uniqid("bk".date("Ymd"));
+        $this->token = Utils::getRequestLocaleLang().uniqid("bk".date("Ymd"));
+        $this->places_collection = new ArrayCollection();
+        $this->ownroute = new ArrayCollection();
     }
 
 
@@ -157,6 +176,23 @@ class Booking
     public function setOwnroute($ownroute)
     {
         $this->ownroute = $ownroute;
+    }
+
+    
+    /**
+     * @return string
+     */
+    public function getIdpaypal()
+    {
+        return $this->idpaypal;
+    }
+
+    /**
+     * @param array $idpaypal
+     */
+    public function setIdpaypal($idpaypal)
+    {
+        $this->idpaypal = $idpaypal;
     }
 
     /**
@@ -402,30 +438,7 @@ class Booking
         return $this->pickuptime;
     }
 
-    /**
-     * Set burden
-     *
-     * @param boolean $burden
-     *
-     * @return Booking
-     */
-    public function setBurden($burden)
-    {
-        $this->burden = $burden;
-
-        return $this;
-    }
-
-    /**
-     * Get burden
-     *
-     * @return bool
-     */
-    public function getBurden()
-    {
-        return $this->burden;
-    }
-
+  
     /**
      * Set numpeople
      *
@@ -497,6 +510,23 @@ class Booking
     {
         $this->token = $token;
     }
+
+    /**
+     * @return int
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param int $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    }
+
 
 
 }

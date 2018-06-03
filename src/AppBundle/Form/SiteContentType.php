@@ -43,8 +43,7 @@ class SiteContentType extends AbstractType
             ->add('servicestaxitourstitleen', null, ["label"=>"Título del servicio de taxi-tour, en ingles"])
             ->add('servicestaxitourstext', TextareaType::class, ["label"=>"Texto sobre el servicio de Tour"])
             ->add('servicestaxitourstexten', TextareaType::class, ["label"=>"Texto sobre el servicio de Tour, en ingles"])
-            ->add('jsonmaproutes',null, ["label"=>"Datos del Mapa, en formato JSON"])
-
+            
             ->add('ownrouteimage',null, ["label"=> "Banner para Ruta perzonalizada."])
             ->add('servicesmakeroutetext', TextareaType::class, ["label"=>"Texto para rutas personalizadas"])
             ->add('servicesmakeroutetexten', TextareaType::class, ["label"=>"Texto para rutas personalizadas, en ingles"])
@@ -64,7 +63,7 @@ class SiteContentType extends AbstractType
             ->add('blogdescriptionen',null, ["label"=>"Descripción del blog, en ingles"])
 
             ->add('reservationdescription',null, ["label"=>"Descripción de las reservaciones"])
-            ->add('reservationdescriptionen',null, ["label"=>"Descripción de las reservaciones, en ingles"])
+            ->add('reservationdescriptionen',null, ["label"=>"Desc. de las reservaciones, en ingles"])
 
             ->add('sitekeywords',null, ["label"=>"Keywords del sitio"])
             ->add('sitekeywordsen',null, ["label"=>"Keywords del sitio, en ingles"]);

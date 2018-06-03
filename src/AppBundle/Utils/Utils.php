@@ -136,18 +136,33 @@ class Utils
             return "en";
     }
 
-    static function dumpVar($var)
-    {
-        return var_dump($var,2);
-    }
-
     //retorna falso si tiene multiples lugares o es un  owntour
     static function isSimpleBooking(\AppBundle\Entity\Booking $booking){
         $ownroute = false;
         $manyplaces = false;
-        if($booking->getOwnroute() != null OR count($booking->getOwnroute())>0)
-            $ownroute = true;
-        if($booking->getPlacesCollection() != null OR count($booking->getPlacesCollection())>0)
-            $manyplaces = true;
+
+        if($booking->getOwnroute() != null)
+            return false;
+        if($booking->getPlacesCollection() != null)
+            return false;
+
+        return $booking->getNumpeople() <= 5;
+    }
+
+    static function placesJasonParse($placeCollections){
+        $places = json_decode($placeCollections, true);
+        $idPlaces = [];
+        foreach ($places as $key=>$value){
+            if($value)
+                $idPlaces[]=$key;
+        }
+        return $idPlaces;
+    }
+
+    static function calculateSimpleRoutePrices(\AppBundle\Entity\Place $place, $persons){
+        if($persons<=2) //TODO: vinales specific data price
+            return $place->getPrice();
+        return $place->getPrice()+($persons-2)*10;
+
     }
 }
