@@ -17,11 +17,19 @@
         <!-- Blog Classic Both Sidebar-->
         <section>
             <div class="shell">
-                <h1 class="inset-lg-left-200">{% trans %}Purchase details{% endtrans %}</h1>
+                <h1 class="">{% trans %}Almost done!{% endtrans %}</h1>
                 <div class="range range-xs-center range-lg-left offset-top-50">
                     <h2>{{ text }}</h2>
+                    {{ purchase.token }}
                 </div>
             </div>
+
+            {% if purchase.acepted %}
+                {# lester TRUE, a pagar...#}
+            {% else %}
+                {# lester FALSE, aun no hay confirmacion#}
+
+            {% endif %}
         </section>
 
     </main>

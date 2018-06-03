@@ -12,6 +12,8 @@
 namespace AppBundle\Utils;
 
 
+use AppBundle\AppBundle;
+
 class Utils
 {
 
@@ -137,5 +139,15 @@ class Utils
     static function dumpVar($var)
     {
         return var_dump($var,2);
+    }
+
+    //retorna falso si tiene multiples lugares o es un  owntour
+    static function isSimpleBooking(\AppBundle\Entity\Booking $booking){
+        $ownroute = false;
+        $manyplaces = false;
+        if($booking->getOwnroute() != null OR count($booking->getOwnroute())>0)
+            $ownroute = true;
+        if($booking->getPlacesCollection() != null OR count($booking->getPlacesCollection())>0)
+            $manyplaces = true;
     }
 }

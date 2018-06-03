@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse as RedirectResponse;
 use AppBundle\Entity\Booking;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -41,21 +42,36 @@ class BookingController extends Controller
             ));
 
             $booking_form->handleRequest($request);
-            if(isset($_POST['g-recaptcha-response']))
-                $captcha=$_POST['g-recaptcha-response'];
 
-            if($captcha)
+
             if ($booking_form->isSubmitted() && $booking_form->isValid()) {
 
-                $application_key = $this->container->getParameter('google.recaptcha_secret_key');
-                $response=json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$application_key."&response=".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']), true);
-                if($response['success'] == true)
+                if(isset($_POST['g-recaptcha-response']))
                 {
-                    $em->persist($booking);
-                    $em->flush();
-                    return new Response("form OK");
+                    $captcha=$_POST['g-recaptcha-response'];
+
+                    $application_key = $this->container->getParameter('google.recaptcha_secret_key');
+                    $response=json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$application_key."&response=".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']), true);
+                /*    if($response['success'] == true)
+                    {
+*/
+                        //validacion para enviar correo a lester o no.
+                        if($booking->getNumpeople() <= 5 && Utils::isSimpleBooking($booking))
+                        {
+                            $booking->setAccepted(true);
+                            $em->persist($booking);
+                            $em->flush();
+                            return $this->redirectToRoute('purchase_details', [
+                                'token'=>$booking->getToken(),
+                                '_locale'=>$_locale
+                            ]);
+                        }
+
+                 //   }
+                    //TODO: enviar mensaje flash de que no se lleno el formulario correctamentes
+
                 }
-                //TODO: enviar mensaje flash de que no se lleno el formulario correctamentes
+
 
             }
 
@@ -153,14 +169,14 @@ class BookingController extends Controller
     }
 
     /**
-     * @Route("/purchase-details/{_token}", requirements={"_token":"[a-z0-9]"})
+     * @Route("/purchase-details/{_token}", requirements={"_token":"[a-z0-9]*"})
      * @Route("/{_locale}/purchase-details/{_token}", defaults={"_locale": "en"},
      * requirements={"_locale": "en|es|fr", "_token":"[a-z0-9]"},  name="purchase_details")
      */
     public function PurchaseDetailsAction(Request $request, $_locale='en', $_token)
     {
         $em = $this->getDoctrine()->getManager();
-        $purchase = $em->getRepository('AppBundle:Booking')->findByToken($_token);
+        $purchase = $em->getRepository('AppBundle:Booking')->findOneBy(['token'=>$_token]);
 
         if ($purchase) {
 
@@ -178,10 +194,12 @@ class BookingController extends Controller
                 'socialNetworks'=>$socialNetworks,
                 'hashtags'=>$hashtags,
                 'places'=>$places,
+                'purchase'=>$purchase,
                 ]);
         }
         else
-            throw new Exception("No hay entradas de lugares");
+            throw new \HttpRequestException(
+                "No existe esa referencia",400);
     }
 
 }
