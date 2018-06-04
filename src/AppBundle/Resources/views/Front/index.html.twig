@@ -339,9 +339,9 @@
                             <div class="cell-sm-10 cell-md-4">
                                 <div class="inset-lg-left-30 inset-lg-right-10">
                                     <div class="h2 text-spacing-inverse-50 color-sky">
-                                        {% if infography.getIcon contains 'horse' %}
+                                        {% if 'horse' in infography.getIcon %}
                                             <img src="{{ asset("images/custom-icons/horse.svg") }}">
-                                        {% if infography.getIcon contains 'diving' %}
+                                        {% elseif  'diving' in infography.getIcon %}
                                             <img src="{{ asset("images/custom-icons/diving.svg") }}">
                                         {% else %}
                                             <i class="{{ infography.getIcon }} fa-2x"></i>
