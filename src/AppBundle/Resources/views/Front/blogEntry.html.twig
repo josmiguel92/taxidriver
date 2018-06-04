@@ -51,7 +51,7 @@
 
                         <!--- Content -->
                         <div class="blog-content">
-                            {{ blogEntry.getTeaserLocale }}
+                            {{ blogEntry.getTeaserLocale|nl2br }}
                         </div>
 
                     </div>
@@ -100,7 +100,7 @@
                     <div class="cell-md-8 col-md-offset-2 text-justify">
                         <!--- Content -->
                         <div class="blog-content">
-                            {{ blogEntry.getPostTextLocale }}
+                            {{ blogEntry.getPostTextLocale|nl2br }}
                         </div>
 
                         <div class="group group-xs btn-tags offset-top-50 offset-md-top-30">
