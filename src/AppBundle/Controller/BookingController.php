@@ -180,8 +180,10 @@ class BookingController extends Controller
      * @Route("/purchase-details/{_token}", requirements={"_token":"[a-z0-9]*"})
      * @Route("/{_locale}/purchase-details/{_token}", defaults={"_locale": "en"},
      * requirements={"_locale": "en|es|fr", "_token":"[a-z0-9]*"},  name="purchase_details")
+     * @Route("/{_locale}/purchase-details/{_token}/{_paypalCallback}", defaults={"_locale": "en"},
+     * requirements={"_locale": "en|es|fr", "_token":"[a-z0-9]*"},  name="purchase_details_paypal")
      */
-    public function purchaseDetailsAction(Request $request, $_locale='en', $_token)
+    public function purchaseDetailsAction(Request $request, $_locale='en', $_token, $_paypalCallback=null)
     {
         $em = $this->getDoctrine()->getManager();
         $purchase = $em->getRepository('AppBundle:Booking')->findOneBy(['token'=>$_token]);
@@ -205,6 +207,7 @@ class BookingController extends Controller
                 'place'=>$place,
                 'purchase'=>$purchase,
                 'places'=>$places,
+                'paypalCallback'=>$_paypalCallback
                 ]);
         }
         else
@@ -218,21 +221,23 @@ class BookingController extends Controller
     public function payPalAction($_token){
         $em = $this->getDoctrine()->getManager();
         $purchase = $em->getRepository('AppBundle:Booking')->findOneBy(['token'=>$_token]);
+        $_locale = Utils::getRequestLocaleLang();
+
         if($purchase)
         {
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             //$email = $content[0]->getEmail();
-            $account_email = 'karlita.garcia.l0v3-facila@gmail.com';
+            $account_email = 'karlita.garcia.l0v3@gmail.com';
             $_place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
             $product_name = "Tour Taxi driver Cuba".$_place->getNameLocale();
-            $product_id = $_token;
             $_person_number = $purchase->getNumpeople();
             $product_price = Utils::calculateSimpleRoutePrices($_place, $_person_number);
 
             return $this->render('AppBundle:Front:dummyPaypalForm.html.twig', [
                 'account_email'=>$account_email,
                 'product_name'=>$product_name,
-                'product_id'=>$_token,
+                '_token'=>$_token,
+                '_locale'=>$_locale,
                 'product_price'=>$product_price
 
             ]);
@@ -243,14 +248,5 @@ class BookingController extends Controller
 
     }
 
-    /**
-     * @Route("/purchase-details/{_token}/edit", requirements={"_token":"[a-z0-9]*"},  name="purchase_details_edit")
-     */
-    public function purchaseDetailsEditAction(Request $request, $_token)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $booking = $em->getRepository("AppBundle:Booking")->findOneBy(['token'=>$_token]);
-
-        return new Response($booking->getFullname());
-    }
+    
 }

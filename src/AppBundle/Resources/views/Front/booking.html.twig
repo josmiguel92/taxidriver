@@ -34,7 +34,9 @@
                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }} USD <br/></p>
 
                                     <div class="offset-top-40">
-                                        <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">{% trans %}Add{% endtrans %}</a>
+                                        <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">
+                                            {% trans %}Add{% endtrans %}
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -77,4 +79,11 @@
             })
         });
     </script>
+
+    <script>
+        $("#document").ready(function (){
+            $("#priceValue")[0].innerHTML = "";
+        });
+    </script>
+
 {% endblock %}

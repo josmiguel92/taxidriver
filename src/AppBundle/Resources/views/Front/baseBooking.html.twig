@@ -9,7 +9,7 @@
 
         <section class="section-75 section-md-top-90 section-md-bottom-110">
             <div class="shell">
-                <h2>{% trans %}Reservation form for{% endtrans %} {{ title }}</h2>
+                <h2>{% trans %}Reservation form {% endtrans %}</h2>
                 {{ form_start(booking_form, {'attr':{'class':'offset-top-44 well rd-mailform text-md-left',
                                                      'data-form-type':'order',
                                                      'data-form-output':'form-output-global'}}) }}
@@ -147,13 +147,27 @@
 
                     <!--Submit button-->
                     <div class="well-row well-row-bg">
-                        <p class="text-uppercase text-center text-bold text-spacing-25 font-accent text-gray-dark">
-                            {% trans %}Price{% endtrans %}: <i class="fa fa-dollar"></i> <small>340</small> USD
+                        <p id="priceValue" class="text-uppercase text-center text-bold text-spacing-25 font-accent text-gray-dark">
+
                         </p>
+
                         <div class="text-center offset-top-33">
-                            <button class="btn btn-sm btn-primary" id="booking_submit">{% trans %}book now{% endtrans %}</button>
+                            <button class="btn btn-xl btn-primary" id="booking_submit">
+                                <i class="fa fa-shopping-cart "></i>
+                                {% trans %}book now{% endtrans %}
+                                <span class="text-extra-small">*</span>
+                            </button>
+                        </div>
+
+                        <div>
+                            <p class="text-extra-small offset-top-30 text-justify">*
+                                {% trans %}The prices can vary in function of the amount of passengers and customs places.
+                                    Also we offer discount if paypal payment method is used.
+                                {% endtrans %}
+                            </p>
                         </div>
                     </div>
+
                     {{ form_widget(booking_form._token)}}
                     {{ form_widget(booking_form.places_collection)}}
 

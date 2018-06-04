@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use AppBundle\Utils\Utils;
+use AppBundle\Entity\Place;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -128,6 +129,14 @@ class Booking
      */
     private $confirmed;
 
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="idpaypal", type="string", length=255, nullable=true)
+     */
+    private $idpaypal;
+
+
     /**
      * @var string
      * @ORM\Column(name="token", type="string", length=255)
@@ -167,6 +176,23 @@ class Booking
     public function setOwnroute($ownroute)
     {
         $this->ownroute = $ownroute;
+    }
+
+    
+    /**
+     * @return string
+     */
+    public function getIdpaypal()
+    {
+        return $this->idpaypal;
+    }
+
+    /**
+     * @param array $idpaypal
+     */
+    public function setIdpaypal($idpaypal)
+    {
+        $this->idpaypal = $idpaypal;
     }
 
     /**

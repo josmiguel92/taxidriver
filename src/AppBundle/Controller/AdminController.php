@@ -458,11 +458,19 @@ class AdminController extends Controller
     public function bookingAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $booking = $em->getRepository("AppBundle:Booking")->findAll();
+        $booking = $em->getRepository("AppBundle:Booking")
+        ->createQueryBuilder("b")->orderBy("b.id", "DESC")
+            ->getQuery()->getResult();
+        $_places = $em->getRepository("AppBundle:Place")->findByNonePlaceNames();
+        $places = [];
+        foreach ($_places as $value) {
+            $places[$value['id']]=$value['name'];
+        }
 
         return $this->render('AppBundle:Dash:booking.html.twig', [
             'pagename' => 'booking',
-            'booking' => $booking]);
+            'booking' => $booking,
+            'places'=>$places]);
     }
 
     /**

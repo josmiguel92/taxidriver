@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class PlaceRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByNonePlaceNames()
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT p.id, p.name FROM AppBundle:Place p'
+            )
+            ->getResult();
+   
+    }
 }

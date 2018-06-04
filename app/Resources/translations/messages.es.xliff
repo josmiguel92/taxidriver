@@ -2,169 +2,194 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="es" datatype="plaintext" original="file.ext">
         <body>
-            <trans-unit id="0">
-                <source>Elizalde's Restaurant-Bar</source>
-                <target>Elizalde Restaurante-Bar</target>
-            </trans-unit>
-            <trans-unit id="start">
-                <source>start</source>
-                <target>Inicio</target>
-            </trans-unit>
-            <trans-unit id="start_">
-                <source>Start</source>
-                <target>Inicio</target>
-            </trans-unit>
-            <trans-unit id="food">
-                <source>food</source>
-                <target>Comida</target>
-            </trans-unit>
-            <trans-unit id="food_">
-                <source>Food</source>
-                <target>Comida</target>
-            </trans-unit>
-            <trans-unit id="drinks">
-                <source>drinks</source>
-                <target>Bebidas</target>
-            </trans-unit>
-            <trans-unit id="drinks_">
-                <source>Drinks</source>
-                <target>Bebidas</target>
-            </trans-unit>
-            <trans-unit id="we">
-                <source>About Us</source>
-                <target>Nosotros</target>
-            </trans-unit>
-            <trans-unit id="we_">
-                <source>We</source>
-                <target>Nosotros</target>
-            </trans-unit>
-            <trans-unit id="contact">
-                <source>contact</source>
-                <target>Contacto</target>
-            </trans-unit>
-            <trans-unit id="contact_">
-                <source>Contact</source>
-                <target>Contacto</target>
-            </trans-unit>
-            <trans-unit id="galery">
-                <source>galery</source>
-                <target>Galería</target>
-            </trans-unit>
-            <trans-unit id="galery_">
-                <source>Galery</source>
-                <target>Galería</target>
-            </trans-unit>
-            <trans-unit id="01">
-                <source>Name</source>
-                <target>Nombre</target>
-            </trans-unit>
-            <trans-unit id="02">
-                <source>Price</source>
-                <target>Precio</target>
-            </trans-unit>
-            <trans-unit id="03">
-                <source>Ingredients</source>
-                <target>Ingredientes</target>
-            </trans-unit>
-            <trans-unit id="04">
-                <source>File</source>
-                <target>Archivo</target>
-            </trans-unit>
-            <trans-unit id="05">
-                <source>Suggestion</source>
-                <target>Sugerencia</target>
-            </trans-unit>
-            <trans-unit id="06">
-                <source>Havana</source>
-                <target>La Habana</target>
-            </trans-unit>
-            <trans-unit id="all.rights.reserved">
-                <source>All Rights Reserved</source>
-                <target>Todos los derechos reservados</target>
-            </trans-unit>
-            <trans-unit id="button.give.opinion">
-                <source>Give us your opinion</source>
-                <target>Denos su opinión</target>
-            </trans-unit>
-            <trans-unit id="label.follow.us">
-                <source>Follow Us</source>
-                <target>Síguenos</target>
-            </trans-unit>
-            <trans-unit id="button.send">
-                <source>Send</source>
-                <target>Enviar</target>
-            </trans-unit>
-            <trans-unit id="button.close">
-                <source>Close</source>
-                <target>Cerrar</target>
-            </trans-unit>
-            <trans-unit id="modal.opinion.text">
-                <source>modal.opinion.text</source>
-                <target>Queremos formar parte de usted, por eso nos interesa saber lo qué piensa. Háganos saber sus criterios y vivencias en nuestro restaurante-bar.</target>
-            </trans-unit>
-            <trans-unit id="label.about.you">
-                <source>About you</source>
-                <target>Acerca de usted</target>
-            </trans-unit>
-            <trans-unit id="label.message">
-                <source>Message</source>
-                <target>Mensaje</target>
+
+            <trans-unit id="distance">
+            	<source>Distance</source>
+            	<target>Distancia</target>
             </trans-unit>
 
-            <trans-unit id="email.receiving">
-                <source>You are receiving this email because you reserved on our restaurant</source>
-                <target>Está recibiendo este mensaje pues reservó en nuestro restaurante</target>
-            </trans-unit>
-            <trans-unit id="email.visitweb">
-                <source>Visit our website</source>
-                <target>Visite nuestra Web</target>
-            </trans-unit>
-            <trans-unit id="email.dear">
-                <source>Dear</source>
-                <target>Estimado/a</target>
-            </trans-unit>
-           <trans-unit id="email.thank">
-               <source>thank you very much for your reservation on Elizalde for</source>
-               <target>muchas gracias por reservar en Elizalde para </target>
-           </trans-unit>
-           <trans-unit id="email.persons">
-              <source>persons</source>
-              <target>personas</target>
-          </trans-unit>
-          <trans-unit id="email.proud">
-            <source>We are proud because your preference</source>
-            <target>Estamos muy orgullosos por su preferencia</target>
-        </trans-unit>
-        <trans-unit id="email.expect">
-            <source>We'll expect you on</source>
-            <target>Le esperamos entonces el</target>
-        </trans-unit>
-        <trans-unit id="email.at">
-            <source>at</source>
-            <target>a las</target>
-        </trans-unit>
-        <trans-unit id="email.about">
-            <source>About Elizalde Habana</source>
-            <target>Sobre el Restaurante Elizalde</target>
-        </trans-unit>
-        <trans-unit id="email.about.text">
-            <source>ElizaldeHavana is that place where the Cuban and Spanish cultures join on a special way. Merging flavors from Pamplona and the most delightful ingredients we are creating a huge family of friends that come back for more.</source>
-            <target>Elizalde Habana es ese lugar donde las culturas de Cuba y España se unen de una manera especial. Combinando sabores típicos de Pamplona con los más deliciosos ingredientes estamos creando una inmensa familia de amigos que regresan por más.</target>
-        </trans-unit>
 
-        <trans-unit id="email.friday">
-            <source>Every Friday, Happy Hours from 16:00 to 20:00 you can get two cocktails by the price of one. We specialize in daiquiris of fruits and mojitos. You can combine it with ham and cheese.</source>
-            <target>Cada Viernes, Happy Hours desde las 4:00pm y hasta las 8:00pm puedes tomar dos cocteles por el precio de uno. Nuestra especialidad son los daiquiris de frutas y los mojitos. Puedes combinarlos con jamón y quesos.</target>
-        </trans-unit>
+            <trans-unit id="time">
+            	<source>Time</source>
+            	<target>Tiempo</target>
+            </trans-unit>
 
-        <trans-unit id="email.verification">
-            <source>To make it official, you must confirm this reservation by click this link</source>
-            <target>Para hacerlo oficial, debe confirmar esta reservación haciendo click en este enlace.</target>
-        </trans-unit>
-        <trans-unit id="email.confirm">
-            <source>Confirm reservation!</source>
-            <target>Confirmar reservación!</target>
-        </trans-unit>
+
+            <trans-unit id="since">
+            	<source>since</source>
+            	<target>desde</target>
+            </trans-unit>
+
+
+            <trans-unit id="add">
+            	<source>Add</source>
+            	<target>agregar</target>
+            </trans-unit>
+
+
+            <trans-unit id="no..of.passengers">
+            	<source>No. of passengers</source>
+            	<target>No. de pasajeros</target>
+            </trans-unit>
+
+
+            <trans-unit id="no..of.luggage">
+            	<source>No. of luggage</source>
+            	<target>No. de equipaje</target>
+            </trans-unit>
+
+
+            <trans-unit id="date.and.time">
+            	<source>Date and time</source>
+            	<target>Fecha y hora</target>
+            </trans-unit>
+
+
+            <trans-unit id="place">
+            	<source>Place</source>
+            	<target>Lugar</target>
+            </trans-unit>
+
+
+            <trans-unit id="personal.data">
+            	<source>Personal Data</source>
+            	<target>Datos personales</target>
+            </trans-unit>
+
+
+            <trans-unit id="about">
+            	<source>about</source>
+            	<target>acerca de</target>
+            </trans-unit>
+
+
+            <trans-unit id="contacts">
+            	<source>contacts</source>
+            	<target>contacto</target>
+            </trans-unit>
+
+
+            <trans-unit id="phone">
+            	<source>Phone</source>
+            	<target>Telefono</target>
+            </trans-unit>
+
+
+            <trans-unit id="e.mail">
+            	<source>E-mail</source>
+            	<target>E-mail</target>
+            </trans-unit>
+
+
+            <trans-unit id="taxi">
+            	<source>Taxi</source>
+            	<target>Taxi</target>
+            </trans-unit>
+
+
+            <trans-unit id="taxi.tours">
+            	<source>Taxi-Tours</source>
+            	<target>Taxi-tours</target>
+            </trans-unit>
+
+
+            <trans-unit id="remove">
+            	<source>Remove</source>
+            	<target>Quitar</target>
+            </trans-unit>
+
+
+            <trans-unit id="home">
+            	<source>home</source>
+            	<target>inicio</target>
+            </trans-unit>
+
+
+            <trans-unit id="services">
+            	<source>services</source>
+            	<target>servicios</target>
+            </trans-unit>
+
+
+            <trans-unit id="about.us">
+            	<source>about us</source>
+            	<target>nosotros</target>
+            </trans-unit>
+
+
+            <trans-unit id="change.language.to.english">
+            	<source>change language to english</source>
+            	<target>cambiar idioma a ingles</target>
+            </trans-unit>
+
+
+            <trans-unit id="change.languaje.to.spanish">
+            	<source>change languaje to spanish</source>
+            	<target>cambiar idioma a español</target>
+            </trans-unit>
+
+
+            <trans-unit id="read.more">
+            	<source>read more</source>
+            	<target>leer más</target>
+            </trans-unit>
+
+
+            <trans-unit id="havana">
+            	<source>Havana</source>
+            	<target>Habana</target>
+            </trans-unit>
+
+
+            <trans-unit id="price">
+            	<source>Price</source>
+            	<target>Precio</target>
+            </trans-unit>
+
+
+            <trans-unit id="book.now">
+            	<source>Book Now</source>
+            	<target>Reservar</target>
+            </trans-unit>
+
+
+            <trans-unit id="make.your.own.tour">
+            	<source>Make your own Tour!</source>
+            	<target>Haz tu propia ruta</target>
+            </trans-unit>
+
+
+            <trans-unit id="other.services">
+            	<source>Other services</source>
+            	<target>Otros servicios</target>
+            </trans-unit>
+
+
+            <trans-unit id="who.we.are">
+            	<source>Who we are?</source>
+            	<target>¿Quienes somos?</target>
+            </trans-unit>
+
+
+            <trans-unit id="our.team">
+            	<source>Our Team</source>
+            	<target>Nuestro equipo</target>
+            </trans-unit>
+
+
+            <trans-unit id="testimonials">
+            	<source>Testimonials</source>
+            	<target>Testimonios</target>
+            </trans-unit>
+
+
+            <trans-unit id="follow.us">
+            	<source>Follow us</source>
+            	<target>Siguenos</target>
+            </trans-unit>
+
+
+
 
         </body>
     </file>

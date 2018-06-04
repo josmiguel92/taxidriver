@@ -113,7 +113,7 @@
             owntourPlaces = [];
         }
 
-      //  function addPlace
+        //function addPlace
         google.maps.event.addDomListener(window, 'load', init);
 
         $("#place_1").placepicker({
@@ -123,5 +123,11 @@
                         $("#appbundle_place_googlename")[0].value = place.formatted_address;
                     }
                 });
+    </script>
+
+    <script>
+        $("#document").ready(function (){
+            $("#priceValue")[0].innerHTML = "";
+        });
     </script>
 {% endblock %}
