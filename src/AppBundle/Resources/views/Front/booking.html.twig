@@ -31,7 +31,7 @@
 
                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km </p>
                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} h </p>
-                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }} USD <br/></p>
+                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 USD <br/></p>
 
                                     <div class="offset-top-40">
                                         <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">
@@ -60,15 +60,27 @@
 
             $('a[data-role="booking-btn"]').click(function (e) {
                 e.preventDefault();
+
                 var parent_id = this.attributes['data-parent'].value;
 
-                if ( this.classList.contains('selected-place')) {
+                if (this.classList.contains('selected-place')) {
                         this.classList.remove('selected-place');
                         $('#'+parent_id).removeClass('selected-place');
                         this.innerHTML = _addText;
                         selected_places[this.dataset['place']] = false;
                 }
-                else{ /*Remove*/
+                else{ /*Add*/
+
+                    for(var id = 1; id < {{ places|length }}; id++){
+
+                        if(id==parent_id)
+                            continue;
+
+                        $("#parent_"+id).removeClass("selected-place");
+                        var _id = "data-parent=parent_"+id;
+                        $('a['+_id+']')[0].innerHTML = _addText;
+                    }
+
                     this.innerHTML = _removeText;
                     this.classList.add('selected-place');
                     $("#"+parent_id).addClass('selected-place');
