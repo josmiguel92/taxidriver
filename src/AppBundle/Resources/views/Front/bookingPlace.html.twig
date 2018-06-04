@@ -41,9 +41,9 @@
 
 {% block addTour %}
     {% if place.isTour %}
-        <div class="offset-top-15 cell-sm-6 cell-md-8 col-md-offset-2 well-row-flex">
+        <div class="offset-top-15 cell-sm-6 cell-md-8 col-md-offset-2 well-row-flex" style="margin-bottom: 25px;">
             <label class="custom-label text-gray-dark">
-                {% trans %}The selected place, admits a tour tour. Do you want to activate it?{% endtrans %}
+                {% trans %}The selected place, admits a <a href="#">tour</a>. Do you want to activate it?{% endtrans %}
             </label>
             <div style="max-width: 200px; width: 350%;" class="form-group">
                 <input data-toggle="toggle" type="checkbox" id="activeTour" name="">
@@ -56,17 +56,54 @@
 {{ parent() }}
 
     <script>
-        $("#document").ready(function (){
+
+        function wrapperPrice(price)
+        {
+            if (typeof(price)=="number")
+                return '<i class=\'fa fa-dollar color-sky\'></i> '+price+' USD';
+            else
+                return "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
+            return price;
+        }
+
+        function updatePrice()
+        {
             var price = {{ place.getPrice }};
-            $("#labelPrice")[0].innerHTML = price;
+            var numberPeople = $('#{{ booking_form.numpeople.vars.id }}')[0].value;
+
+
+            {#todo: we shoul use a better identificator of the toggle botton not the element in [1]#}
+
+            if ($('.toggle')[1].classList.contains('off') && numberPeople <= 5)
+                priceContent = wrapperPrice(price);
+
+            if (!$('.toggle')[1].classList.contains('off') && numberPeople > 2 && numberPeople <= 5)
+                priceContent = wrapperPrice(price + (numberPeople-2)*10);
+
+            if (numberPeople > 5)
+                priceContent = wrapperPrice("");
+
+            $("#labelPrice")[0].innerHTML = priceContent;
+        }
+
+
+        $("#document").ready(function (){
+            updatePrice();
+
+            $("#activeTour").change(function() {
+              updatePrice();
+            });
+
+            $("#{{ booking_form.numpeople.vars.id }}").change(function() {
+              updatePrice();
+            });
+
         });
 
-        $("#activeTour").change(function() {
-                var price = {{ place.getPrice }}
-                $('#activeTour')[0].classList.contains('off') ?
 
-                $("#labelPrice")[0].innerHTML = price;
-                });
+
+
+
     </script>
 
 {% endblock %}

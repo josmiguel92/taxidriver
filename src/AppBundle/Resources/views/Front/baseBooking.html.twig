@@ -67,7 +67,7 @@
 
                             {% block addTour %}{% endblock %}
 
-                            <div class="cell-sm-5 cell-md-4 col-md-offset-2 well-row-flex offset-top-25">
+                            <div class="cell-sm-5 cell-md-4 col-md-offset-2 well-row-flex">
                                 <label class="custom-label text-gray-dark">{% trans %}No. of passengers{% endtrans %}</label>
                                 <div class="form-group">
                                     <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.numpeople.vars.id }}" name="{{ booking_form.numpeople.vars.full_name }}">
@@ -76,7 +76,7 @@
 
                             <div class="cell-sm-5 cell-md-4 col-md-offset-2 well-row-flex">
                                 <label class="custom-label text-gray-dark">
-                                    {% trans %}Price: {% endtrans %}<span id="labelPrice"></span>
+                                    {% trans %}Price{% endtrans %}: <span id="labelPrice"></span>
                                 </label>
                             </div>
 
