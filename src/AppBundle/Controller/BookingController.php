@@ -46,9 +46,10 @@ class BookingController extends Controller
 
             if ($booking_form->isSubmitted() && $booking_form->isValid()) {
 
-                if(isset($_POST['g-recaptcha-response']))
-                {
-                    $captcha=$_POST['g-recaptcha-response'];
+                //TODO: recapthcha on PROD, descomentar lineas
+            //    if(isset($_POST['g-recaptcha-response']))
+            //    {
+                   // $captcha=$_POST['g-recaptcha-response'];
 
                     if ($booking->getPlacesCollection())
                         $booking->setPlacesCollection(Utils::placesJasonParse($booking->getPlacesCollection()));
@@ -78,7 +79,7 @@ class BookingController extends Controller
                  //   }
                     //TODO: enviar mensaje flash de que no se lleno el formulario correctamentes
 
-                }
+                //}
 
 
             }
@@ -181,7 +182,7 @@ class BookingController extends Controller
      * @Route("/{_locale}/purchase-details/{_token}", defaults={"_locale": "en"},
      * requirements={"_locale": "en|es|fr", "_token":"[a-z0-9]*"},  name="purchase_details")
      * @Route("/{_locale}/purchase-details/{_token}/{_paypalCallback}", defaults={"_locale": "en"},
-     * requirements={"_locale": "en|es|fr", "_token":"[a-z0-9]*"},  name="purchase_details_paypal")
+     * requirements={"_locale": "en|es|fr", "_paypalCallback":"success|cancel|cash", "_token":"[a-z0-9]*"},  name="purchase_details_paypal")
      */
     public function purchaseDetailsAction(Request $request, $_locale='en', $_token, $_paypalCallback=null)
     {

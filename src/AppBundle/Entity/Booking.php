@@ -159,6 +159,8 @@ class Booking
         $this->token = Utils::getRequestLocaleLang().uniqid("bk".date("Ymd"));
         $this->places_collection = new ArrayCollection();
         $this->ownroute = new ArrayCollection();
+        $this->setAccepted(0);
+        $this->setConfirmed(0);
     }
 
 

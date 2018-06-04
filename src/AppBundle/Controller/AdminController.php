@@ -452,17 +452,40 @@ class AdminController extends Controller
 
 
     /**
-     * @Route("/booking", name="dash_booking")
+     * @Route("/bookinglist", name="dash_booking")
      * @Method("GET")
      */
     public function bookingAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $booking = $em->getRepository("AppBundle:Booking")
-        ->createQueryBuilder("b")->orderBy("b.id", "DESC")
+        ->createQueryBuilder("b")
+            ->where("b.pickuptime > :yesterday")
+            ->setParameter("yesterday", new \DateTime('yesterday'))
+            ->orderBy("b.pickuptime", "DESC")
             ->getQuery()->getResult();
         $_places = $em->getRepository("AppBundle:Place")->findByNonePlaceNames();
         $places = [];
+
+        $next_week = $em->getRepository("AppBundle:Booking")
+            ->createQueryBuilder("b")->orderBy("b.id", "DESC")
+            ->where("b.pickuptime > :today AND b.pickuptime < :nextweek")
+            ->setParameter("today", new \DateTime('today'))
+            ->setParameter("nextweek", new \DateTime('today + 1 week'))
+            ->getQuery()->getResult();
+
+        $pendientes_month = $em->createQuery(
+                            'SELECT b.id
+                FROM AppBundle:Booking b
+                WHERE b.pickuptime > :today AND b.pickuptime < :nextmonth'
+                        )
+            ->setParameter("today", new \DateTime('today'))
+            ->setParameter("nextmonth", new \DateTime('today + 1 month'));
+
+        $booking_pend = $em->getRepository("AppBundle:Booking")->findBy(
+            ['accepted'=>false]
+        );
+
         foreach ($_places as $value) {
             $places[$value['id']]=$value['name'];
         }
@@ -470,7 +493,10 @@ class AdminController extends Controller
         return $this->render('AppBundle:Dash:booking.html.twig', [
             'pagename' => 'booking',
             'booking' => $booking,
-            'places'=>$places]);
+            'places'=>$places,
+            'pendientes'=>$booking_pend,
+            'nextweek'=>$next_week,
+            'nextmonth'=>$pendientes_month]);
     }
 
     /**
@@ -598,5 +624,54 @@ class AdminController extends Controller
         return $this->redirectToRoute('dash_sitecontent_edit');
     }
 
+    public function notificationsAction(){
+        $em =  $this->getDoctrine()->getManager();
+        $booking_pend = $em->getRepository("AppBundle:Booking")->findBy(
+            ['accepted'=>false]
+        );
+        $notify = false;
 
+        if($booking_pend)
+            $notify = true;
+
+        return $this->render("AppBundle:Dash:notify.html.twig", [
+            'notify'=>$notify,
+            'booking'=>$booking_pend,
+        ]);
+    }
+
+    /**
+     * Shows a Booking Details and Edit it.
+     * @Route("/bookinglist/{booking}/details", requirements={"booking":"\d+"}, name="booking_details")
+     * @Method({"GET", "POST"})
+     **/
+    public function bookinDetailsAction(Request $request, \AppBundle\Entity\Booking $booking){
+
+        $editForm = $this->createForm('AppBundle\Form\BookingType', $booking);
+        $em = $this->getDoctrine()->getManager();
+        $place = $em->getRepository("AppBundle:Place")
+                ->find($booking->getId());
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $em->persist($booking);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'Los cambios fueron guardados! >> info >> ti-save'
+            );
+            return $this->redirectToRoute('dash_booking');
+        }
+
+        return $this->render('AppBundle:Dash:bookingAjaxDetails.html.twig',
+            ['pagename'=>'sitecontent',
+                'content_form' => $editForm->createView(),
+                'booking' => $booking,
+                'place'=>$place,
+            ]);
+
+    }
 }

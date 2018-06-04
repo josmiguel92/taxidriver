@@ -14,7 +14,7 @@
                         <div class="col-xs-7">
                             <div class="numbers">
                                 <p>Pendientes</p>
-                                105
+                                {{ nextmonth|length }}
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                         <div class="col-xs-7">
                             <div class="numbers">
                                 <p>Pr&oacute;ximas</p>
-                                4
+                                {{ nextweek|length }}
                             </div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                         <div class="col-xs-7">
                             <div class="numbers">
                                 <p>Por confirmar</p>
-                                23
+                                {{ pendientes|length }}
                             </div>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                         <div class="col-xs-7">
                             <div class="numbers">
                                 <p>Total Reserv.</p>
-                                +450
+                                +{{ booking|length }}
                             </div>
                         </div>
                     </div>
@@ -143,5 +143,15 @@
 
 
     </div>
+
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content" id="booking-details-wrap">
+      
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 
 {% endblock %}

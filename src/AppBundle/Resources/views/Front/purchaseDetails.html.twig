@@ -27,6 +27,7 @@
         {% set title = title~"cancelada" %}
     {% endif %}
 {% endif %}
+{% endif %}
 
 
 
@@ -38,7 +39,7 @@
         <section class="section-75 section-md-top-90 section-md-bottom-95">
             <div class="shell">
 
-                {% if paypalCallback == 'success' %}
+                {% if paypalCallback == 'success' or paypalCallback == 'cash' %}
                     <i class="fa fa-check-circle-o fa-5x color-sky"></i>
                 {% elseif paypalCallback == 'cancel' %}
                     <i class="fa fa-times-circle-o fa-5x color-sky"></i>
@@ -112,7 +113,7 @@
                                         </p>
                                     </div>
                                     <div class="col-md-6">
-                                        <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-border">
+                                        <a href="{{ path('purchase_details_paypal', {'_token': purchase.token, '_paypalCallback':'cash'}) }}" class="btn btn-border">
                                             <i class="fa fa-dollar"></i>
                                             {% trans %}Pay with cash{% endtrans %} - {{ purchase.price }} usd
                                         </a>
