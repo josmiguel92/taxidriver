@@ -46,8 +46,9 @@ class BookingController extends Controller
 
             if ($booking_form->isSubmitted() && $booking_form->isValid()) {
 
-                if(isset($_POST['g-recaptcha-response']))
-                {
+                //TODO: recapthcha on PROD, descomentar lineas
+            //    if(isset($_POST['g-recaptcha-response']))
+            //    {
                     $captcha=$_POST['g-recaptcha-response'];
 
                     if ($booking->getPlacesCollection())
@@ -78,7 +79,7 @@ class BookingController extends Controller
                  //   }
                     //TODO: enviar mensaje flash de que no se lleno el formulario correctamentes
 
-                }
+                //}
 
 
             }
@@ -248,5 +249,35 @@ class BookingController extends Controller
 
     }
 
+    /**
+     * @Route("/booking/{booking}/details", requirements={"booking":"\d+"}, name="booking_details")
+     * @Method({"GET", "POST"})
+     **/
+    public function bookinDetailsAction(Request $request, \AppBundle\Entity\Booking $booking){
+
+        $editForm = $this->createForm('AppBundle\Form\SiteContentType', $booking);
+        $em = $this->getDoctrine()->getManager();
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $em->persist($booking);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'Los cambios fueron guardados! >> info >> ti-save'
+            );
+            return $this->redirectToRoute('dash_booking');
+        }
+
+        return $this->render('AppBundle:Dash:bookingAjaxDetails.html.twig',
+            ['pagename'=>'sitecontent',
+                'content_form' => $editForm->createView(),
+                'booking' => $booking,
+            ]);
+
+    }
     
 }

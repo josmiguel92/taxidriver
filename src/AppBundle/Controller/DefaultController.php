@@ -35,7 +35,11 @@ class DefaultController extends Controller
             $testimonials = $em->getRepository('AppBundle:Testimony')->findAll();
             $drivers = $em->getRepository('AppBundle:Drivers')->findAll();
 
-            $featureImage = $blogEntries[0]->getWebPath();
+            $featureImage = '';
+            if(count($blogEntries)>0)
+                $featureImage = $blogEntries[0]->getWebPath();
+
+
 
             return $this->render('AppBundle:Front:index.html.twig',
             ['locale'=>$_locale,
