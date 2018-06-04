@@ -46,7 +46,7 @@
                 {% trans %}The selected place, admits a tour tour. Do you want to activate it?{% endtrans %}
             </label>
             <div style="max-width: 200px; width: 350%;" class="form-group">
-                <input data-toggle="toggle" type="checkbox" id="" name="">
+                <input data-toggle="toggle" type="checkbox" id="activeTour" name="">
             </div>
         </div>
     {% endif %}
@@ -60,6 +60,13 @@
             var price = {{ place.getPrice }};
             $("#labelPrice")[0].innerHTML = price;
         });
+
+        $("#activeTour").change(function() {
+                var price = {{ place.getPrice }}
+                $('#activeTour')[0].classList.contains('off') ?
+
+                $("#labelPrice")[0].innerHTML = price;
+                });
     </script>
 
 {% endblock %}

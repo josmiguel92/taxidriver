@@ -19,3 +19,4 @@
 /web/uploads
 .idea
 web/app_dev.php
+/app/config/security.yml
