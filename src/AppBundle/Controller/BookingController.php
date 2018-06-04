@@ -69,6 +69,9 @@ class BookingController extends Controller
                         }
                         $em->persist($booking);
                         $em->flush();
+
+                        $this->sendEmailNotifications($booking);
+
                         return $this->redirectToRoute('purchase_details', [
                             '_token'=>$booking->getToken(),
                             '_locale'=>$_locale
@@ -249,5 +252,56 @@ class BookingController extends Controller
 
     }
 
+    private function sendEmailNotifications(\AppBundle\Entity\Booking $booking){
+
+        $subject = "Taxidriverscuba Notification";
+        $em = $this->getDoctrine()->getManager();
+        $place = $em->getRepository("AppBundle:Place")
+            ->find($booking->getId());
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject($subject)
+            ->setFrom('taxidriverscuba@gmail.com') //TODO: obtenerlo dinamicamente
+            ->setTo($booking->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'AppBundle:Email:clientNotification.html.twig',
+                    [
+                        'subject'=>$subject,
+                        '_locale'=>$booking->getBookingLocale(),
+                        'address' => 'Hotel Nacional, La Habana, Cuba', //TODO: obtener dinamicamente
+                        'telephone'=> '+53 5 5864523',
+
+                        'place'=>$place,
+
+                        'booking'=>$booking,
+                    ]
+                ),
+                'text/html'
+            );
+        $this->get('mailer')->send($message);
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject($subject)
+            ->setFrom('taxidriverscuba@gmail.com') //TODO: obtenerlo dinamicamente
+            ->setTo('taxidriverscuba@gmail.com')
+            ->setBody(
+                $this->renderView(
+                    'AppBundle:Email:booking-email.html.twig',
+                    [
+                        'subject'=>$subject,
+                        '_locale'=>$booking->getBookingLocale(),
+                        'address' => 'Hotel Nacional, La Habana, Cuba', //TODO: obtener dinamicamente
+                        'telephone'=> '+53 5 5864523',
+
+                        'place'=>$place,
+
+                        'booking'=>$booking,
+                    ]
+                ),
+                'text/html'
+            );
+        $this->get('mailer')->send($message);
+    }
     
 }

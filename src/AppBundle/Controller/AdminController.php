@@ -647,7 +647,12 @@ class AdminController extends Controller
      **/
     public function bookinDetailsAction(Request $request, \AppBundle\Entity\Booking $booking){
 
-        $editForm = $this->createForm('AppBundle\Form\BookingType', $booking);
+        $editForm = $this->createForm('AppBundle\Form\BookingAdminType', $booking, [
+            'action' => $this->generateUrl(
+                'booking_details',
+                array('booking' => $booking->getId())
+            )
+        ]);
         $em = $this->getDoctrine()->getManager();
         $place = $em->getRepository("AppBundle:Place")
                 ->find($booking->getId());
@@ -655,7 +660,7 @@ class AdminController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-
+            $booking->setAccepted(true);
             $em->persist($booking);
             $em->flush();
 
@@ -668,7 +673,7 @@ class AdminController extends Controller
 
         return $this->render('AppBundle:Dash:bookingAjaxDetails.html.twig',
             ['pagename'=>'sitecontent',
-                'content_form' => $editForm->createView(),
+                'form' => $editForm->createView(),
                 'booking' => $booking,
                 'place'=>$place,
             ]);
