@@ -38,3 +38,14 @@
     </div>
 
 {% endblock %}
+
+{% block javascript %}
+{{ parent() }}
+
+    <script>
+        $("#document").ready(function (){
+            $("#priceValue")[0].innerHTML = "dasd";
+        });
+    </script>
+
+{% endblock %}

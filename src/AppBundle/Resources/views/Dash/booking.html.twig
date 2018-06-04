@@ -113,11 +113,12 @@
 
                 </div>
                 <div class="content table-responsive table-full-width">
-                    <table class="table table-striped">
+                    <table class="table table-striped table-hover">
                         <thead>
                         <th>Nombre</th>
                         <th>Lugar</th>
                         <th>Fecha/Hora</th>
+                        <th>Precio</th>
                         <th>Detalles</th>
                         </thead>
                         <tbody>
@@ -130,7 +131,15 @@
                             Ruta personalizada
                             {% endif %}</td>
                             <td>{{ item.pickuptime | date("Y/M/d - H:i")}}</td>
-                            <td>{{ item.details }}<br>{{ item.token }}</td>
+                            <td>
+                                {% if item.price > 0 %}
+                                {{  item.price }} USD
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            </td>
+
+                            <td>{{ item.details }}<a style="float: right" class="booking-details-modal btn btn-sm btn-{% if item.accepted %}success{% else %}danger{% endif %}" data-id="{{ item.id }}"> <i class="ti-search"></i> </a> </td>
                         </tr>
                         {% endfor %}
 
@@ -144,4 +153,46 @@
 
     </div>
 
+<!-- Modal -->
+<div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Detalles de reservaci&oacute;n <span><i class="modal fa fa-spinner"></i> </span></h4>
+      </div>
+      <div class="modal-body" id="modalBodyContainer">
+
+      </div>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+<script>
+    $('document').ready(function() {
+        console.log('ok');
+
+      $("a.booking-details-modal").click(function(e) {
+          e.preventDefault();
+          var AjaxDetailsRoute = "{{ path('booking_details', {'booking': '123454321'}) }}"
+
+          $('.modal.fa').show();
+        $("#bookingModal").modal({
+            backdrop: false
+        });
+        console.log(this.dataset['id'])
+          _route = AjaxDetailsRoute.replace('123454321',this.dataset['id']);
+        $("#modalBodyContainer").load(_route, function () {
+            $('.modal.fa').hide();
+        })
+      });
+
+    });
+</script>
 {% endblock %}

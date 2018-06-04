@@ -452,7 +452,7 @@ class AdminController extends Controller
 
 
     /**
-     * @Route("/booking", name="dash_booking")
+     * @Route("/bookinglist", name="dash_booking")
      * @Method("GET")
      */
     public function bookingAction(Request $request)
@@ -640,4 +640,43 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Shows a Booking Details and Edit it.
+     * @Route("/bookinglist/{booking}/details", requirements={"booking":"\d+"}, name="booking_details")
+     * @Method({"GET", "POST"})
+     **/
+    public function bookinDetailsAction(Request $request, \AppBundle\Entity\Booking $booking){
+
+        $editForm = $this->createForm('AppBundle\Form\BookingAdminType', $booking, [
+            'action' => $this->generateUrl(
+                'booking_details',
+                array('booking' => $booking->getId())
+            )
+        ]);
+        $em = $this->getDoctrine()->getManager();
+        $place = $em->getRepository("AppBundle:Place")
+                ->find($booking->getId());
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $booking->setAccepted(true);
+            $em->persist($booking);
+            $em->flush();
+
+            $this->addFlash(
+                'notice',
+                'Los cambios fueron guardados! >> info >> ti-save'
+            );
+            return $this->redirectToRoute('dash_booking');
+        }
+
+        return $this->render('AppBundle:Dash:bookingAjaxDetails.html.twig',
+            ['pagename'=>'sitecontent',
+                'form' => $editForm->createView(),
+                'booking' => $booking,
+                'place'=>$place,
+            ]);
+
+    }
 }

@@ -9,7 +9,7 @@
 {% set description =  ''%}
 
 {% if paypalCallback is empty %}
-    {% set title = "Your transaction" %}
+    {% set title = "Your transaction is almost done" %}
 {% else %}
     {% set title = "Your transaction was " %}
 {% endif %}
@@ -20,7 +20,7 @@
 {% endif %}
 
 {% if locale == 'es' %}
-    {% set title = "Su transaccion fue " %}
+    {% set title = "Su transaccion esta casi lista" %}
     {% if paypalCallback == 'success' %}
         {% set title = title~"exitosa" %}
     {% elseif paypalCallback == 'cancel' %}
@@ -38,7 +38,7 @@
         <section class="section-75 section-md-top-90 section-md-bottom-95">
             <div class="shell">
 
-                {% if paypalCallback == 'success' %}
+                {% if paypalCallback == 'success' or paypalCallback == 'cash' %}
                     <i class="fa fa-check-circle-o fa-5x color-sky"></i>
                 {% elseif paypalCallback == 'cancel' %}
                     <i class="fa fa-times-circle-o fa-5x color-sky"></i>
@@ -89,7 +89,7 @@
 
                     {% if paypalCallback is empty %}
                         <div class="row section-bottom-40">
-                            {% if selectedPlaces or purchase.ownroute %}
+                            {% if selectedPlaces or purchase.ownroute or purchase.getNumpeople > 5 %}
                                 <div class="cell-md-6 col-md-6 col-md-offset-3">
                                     <i class="fa fa-clock-o fa-5x color-sky"></i>
                                     <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">
@@ -112,7 +112,7 @@
                                         </p>
                                     </div>
                                     <div class="col-md-6">
-                                        <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-border">
+                                        <a href="{{ path('purchase_details_paypal', {'_token': purchase.token, '_paypalCallback':'cash'}) }}" class="btn btn-border">
                                             <i class="fa fa-dollar"></i>
                                             {% trans %}Pay with cash{% endtrans %} - {{ purchase.price }} usd
                                         </a>

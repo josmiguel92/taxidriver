@@ -211,6 +211,7 @@
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script src="{{ asset("/js/demo.js")}}"></script>
 
+        {% if app.session.flashbag.get('notice') %}
         <script>
             $('document').ready(function(){
 
@@ -227,7 +228,7 @@
                 {% endfor %}
             });
         </script>
-
+        {% endif %}
 
     {% endblock javascripts %}
 

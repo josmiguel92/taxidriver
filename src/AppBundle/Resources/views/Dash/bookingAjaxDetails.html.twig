@@ -1,0 +1,42 @@
+{{ form_start(form) }}
+ <h4 class="modal-title">Reservaci&oacute;n de {{ booking.fullname}}</h4>
+  {%  if place %}
+    <h5>{{ place.name }}</h5>
+      {% else %}
+          <h5>Ruta personalllizada</h5>
+
+    {%  endif %}
+
+
+  <p>Nombre: {{ booking.fullname }}</p>
+  {% if booking.airport %}
+  <p>Recogida al aereopuerto o crucero ({{ booking.flynumber }})</p>
+  {% endif %}
+  <p>{{ booking.pickuptime | date("l, d F Y - H:i") }}</p>
+  <p>Su correo: <a href="mailto:{{ booking.email }}">{{ booking.email }}</a>
+  </p>
+
+    {% if not place %}
+        <hr>
+        {{ booking.ownrouteFormated }}
+    {% endif %}
+    {% if booking.accepted %}
+(Ya este precio se acept&oacute; por ambas partes).
+        {% if booking.idpaypal %}
+            {{ booking.idpaypal }}
+        {% endif %}
+    {% else %}
+        Debe especificar un precio
+    {% endif %}
+ {{ form_row(form.price)}}
+ {{ form_widget(form._token)}}
+
+<p>{{ booking.comment }}</p>
+
+
+<div class="modal-footer">
+  <button type="submit" class="btn btn-primary">Aceptar</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+</div>
+</form>

@@ -530,6 +530,9 @@ class Booking
     }
 
 
+    public function ownrouteFormated(){
+        return implode('-', $this->ownroute);
+    }
 
 }
 

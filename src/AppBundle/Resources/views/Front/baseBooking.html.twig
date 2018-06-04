@@ -25,7 +25,7 @@
                         <div class="well-row">
                             <div class="range range-xs-middle">
                                 <div>
-                                    <input  data-toggle="toggle" type="checkbox" id="{{ booking_form.airport.vars.id }}" name="{{ booking_form.airport.vars.full_name }}">
+                                    <input data-toggle="toggle" type="checkbox" id="{{ booking_form.airport.vars.id }}" name="{{ booking_form.airport.vars.full_name }}">
                                 </div>
                             </div>
                         </div>
@@ -33,11 +33,10 @@
                     <div class="col-md-4">
                         <div class="well-row">
                             <div class="range range-xs-middle">
-                                <div id="flynumber" style="display: none">
+                                <div id="flynumber">
                                     <div class="form-group">
                                         <label for="{{ booking_form.flynumber.vars.id }}" class="form-label rd-input-label">{% trans %}Flight or cruiser number{% endtrans %}</label>
-                                        <input id="{{ booking_form.flynumber.vars.id }}" name="{{ booking_form.flynumber.vars.full_name }}" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text">
-
+                                        <input id="{{ booking_form.flynumber.vars.id }}" name="{{ booking_form.flynumber.vars.full_name }}"  class="form-control form-control-has-validation form-control-last-child" type="text" disabled>
                                         <span class="form-validation"></span>
                                     </div>
                                 </div>
@@ -120,7 +119,8 @@
                                 <div class="form-group">
                                     <label for="{{ booking_form.telephone.vars.id }}" class="form-label rd-input-label">Phone number</label>
 
-                                    <input  name="{{ booking_form.telephone.vars.full_name }}" id="{{ booking_form.telephone.vars.id }}" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text"><span class="form-validation"></span>
+                                    <input  name="{{ booking_form.telephone.vars.full_name }}" id="{{ booking_form.telephone.vars.id }}" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text">
+                                    <span class="form-validation"></span>
 
                                 </div>
                             </div>
@@ -147,22 +147,21 @@
 
                     <!--Submit button-->
                     <div class="well-row well-row-bg">
-                        <p class="text-uppercase text-center text-bold text-spacing-25 font-accent text-gray-dark">
-                            {% trans %}Price{% endtrans %}:
-                            <i class="fa fa-dollar"></i>
-                            <span>340</span> USD<span class="text-extra-small">*</span>
+                        <p id="priceValue" class="text-uppercase text-center text-bold text-spacing-25 font-accent text-gray-dark">
+
                         </p>
 
                         <div class="text-center offset-top-33">
                             <button class="btn btn-xl btn-primary" id="booking_submit">
                                 <i class="fa fa-shopping-cart "></i>
                                 {% trans %}book now{% endtrans %}
+                                <span class="text-extra-small">*</span>
                             </button>
                         </div>
 
                         <div>
                             <p class="text-extra-small offset-top-30 text-justify">*
-                                {% trans %}The prices can vary in function of the amount of passengers.
+                                {% trans %}The prices can vary in function of the amount of passengers and customs places.
                                     Also we offer discount if paypal payment method is used.
                                 {% endtrans %}
                             </p>
@@ -197,9 +196,12 @@
             })
 
             $("#{{ booking_form.airport.vars.id }}").change(function() {
+                var item = $('#{{ booking_form.flynumber.vars.id }}')[0];
                 $('.toggle')[0].classList.contains('off') ?
-                    $('#flynumber').fadeOut(200) :
-                    $('#flynumber').fadeIn(200);
+                    (item.setAttribute('disabled','true') ||
+                    item.removeAttribute('data-constraints')):
+                    (item.removeAttribute('disabled') ||
+                    item.setAttribute('data-constraints','@Required'));
             })
         });
     </script>

@@ -49,7 +49,7 @@ class BookingController extends Controller
                 //TODO: recapthcha on PROD, descomentar lineas
             //    if(isset($_POST['g-recaptcha-response']))
             //    {
-                    $captcha=$_POST['g-recaptcha-response'];
+                   // $captcha=$_POST['g-recaptcha-response'];
 
                     if ($booking->getPlacesCollection())
                         $booking->setPlacesCollection(Utils::placesJasonParse($booking->getPlacesCollection()));
@@ -69,6 +69,9 @@ class BookingController extends Controller
                         }
                         $em->persist($booking);
                         $em->flush();
+
+                        $this->sendEmailNotifications($booking);
+
                         return $this->redirectToRoute('purchase_details', [
                             '_token'=>$booking->getToken(),
                             '_locale'=>$_locale
@@ -182,7 +185,7 @@ class BookingController extends Controller
      * @Route("/{_locale}/purchase-details/{_token}", defaults={"_locale": "en"},
      * requirements={"_locale": "en|es|fr", "_token":"[a-z0-9]*"},  name="purchase_details")
      * @Route("/{_locale}/purchase-details/{_token}/{_paypalCallback}", defaults={"_locale": "en"},
-     * requirements={"_locale": "en|es|fr", "_token":"[a-z0-9]*"},  name="purchase_details_paypal")
+     * requirements={"_locale": "en|es|fr", "_paypalCallback":"success|cancel|cash", "_token":"[a-z0-9]*"},  name="purchase_details_paypal")
      */
     public function purchaseDetailsAction(Request $request, $_locale='en', $_token, $_paypalCallback=null)
     {
@@ -249,35 +252,56 @@ class BookingController extends Controller
 
     }
 
-    /**
-     * @Route("/booking/{booking}/details", requirements={"booking":"\d+"}, name="booking_details")
-     * @Method({"GET", "POST"})
-     **/
-    public function bookinDetailsAction(Request $request, \AppBundle\Entity\Booking $booking){
+    private function sendEmailNotifications(\AppBundle\Entity\Booking $booking){
 
-        $editForm = $this->createForm('AppBundle\Form\SiteContentType', $booking);
+        $subject = "Taxidriverscuba Notification";
         $em = $this->getDoctrine()->getManager();
+        $place = $em->getRepository("AppBundle:Place")
+            ->find($booking->getId());
 
-        $editForm->handleRequest($request);
+        $message = \Swift_Message::newInstance()
+            ->setSubject($subject)
+            ->setFrom('taxidriverscuba@gmail.com') //TODO: obtenerlo dinamicamente
+            ->setTo($booking->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'AppBundle:Email:clientNotification.html.twig',
+                    [
+                        'subject'=>$subject,
+                        '_locale'=>$booking->getBookingLocale(),
+                        'address' => 'Hotel Nacional, La Habana, Cuba', //TODO: obtener dinamicamente
+                        'telephone'=> '+53 5 5864523',
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+                        'place'=>$place,
 
-            $em->persist($booking);
-            $em->flush();
-
-            $this->addFlash(
-                'notice',
-                'Los cambios fueron guardados! >> info >> ti-save'
+                        'booking'=>$booking,
+                    ]
+                ),
+                'text/html'
             );
-            return $this->redirectToRoute('dash_booking');
-        }
+        $this->get('mailer')->send($message);
 
-        return $this->render('AppBundle:Dash:bookingAjaxDetails.html.twig',
-            ['pagename'=>'sitecontent',
-                'content_form' => $editForm->createView(),
-                'booking' => $booking,
-            ]);
+        $message = \Swift_Message::newInstance()
+            ->setSubject($subject)
+            ->setFrom('taxidriverscuba@gmail.com') //TODO: obtenerlo dinamicamente
+            ->setTo('taxidriverscuba@gmail.com')
+            ->setBody(
+                $this->renderView(
+                    'AppBundle:Email:booking-email.html.twig',
+                    [
+                        'subject'=>$subject,
+                        '_locale'=>$booking->getBookingLocale(),
+                        'address' => 'Hotel Nacional, La Habana, Cuba', //TODO: obtener dinamicamente
+                        'telephone'=> '+53 5 5864523',
 
+                        'place'=>$place,
+
+                        'booking'=>$booking,
+                    ]
+                ),
+                'text/html'
+            );
+        $this->get('mailer')->send($message);
     }
     
 }

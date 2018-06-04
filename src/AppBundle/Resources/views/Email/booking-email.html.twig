@@ -172,17 +172,10 @@
                                                      {% endif %}
                                                     </p>
 													<br>
-                                                    {% if places_collection %}
-                                                    <ul>
-                                                        {% for _place in places_collection %}
-                                                        <li>{{_place.Name}}</li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                    {% endif %}
 
-                                                    {% if ownroute %}
+                                                    {% if booking.ownroute %}
                                                     <ul>
-                                                        {% for _place in ownroute %}
+                                                        {% for _place in booking.ownroute %}
                                                         <li>{{_place.Name}}</li>
                                                         {% endfor %}
                                                     </ul>
@@ -239,7 +232,7 @@
 													<td bgcolor="#18acfB" align="center" style="border-radius:4px;" width="200" height="50">
 														<div class="contentEditableContainer contentTextEditable">
 															<div class="contentEditable" >
-																<a target='_blank' href="{{ absolute_url(path('purchase_details_paypal', {'_token': token}))}}" class='link2'>Ver reservaci&oacute;n en el sitio</a>
+																<a target='_blank' href="{{ absolute_url(path('purchase_details_paypal', {'_token': booking.token}))}}" class='link2'>Ver reservaci&oacute;n en el sitio</a>
 															</div>
 														</div>
 
@@ -330,13 +323,13 @@
 										<td width="60%" height="70" valign="middle" style="padding-bottom:20px;">
 											<div class="contentEditableContainer contentTextEditable">
 												<div class="contentEditable" >
-													<span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">Sent to <b>{{ email }}</b> by <a href="{{ absolute_url(path('home')) }}" target="_blank">Taxidriverscuba.com</a></span>
+													<span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">Sent to <b>{{  booking.email }}</b> by <a href="{{ absolute_url(path('home')) }}" target="_blank">Taxidriverscuba.com</a></span>
 													<br/>
 													<span style="font-size:11px;color:#555;font-family:Helvetica, Arial, sans-serif;line-height:200%;">{{ address }} | {{ telephone }}</span>
 													<br/>
 
 													<span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">
-														<a target='_blank' href="{{ absolute_url(path('purchase_details_paypal', {'_token': token})) }}" style="text-decoration:none;color:#555">Click here to manage your reservation</a></span>
+														<a target='_blank' href="{{ absolute_url(path('purchase_details_paypal', {'_token': booking.token})) }}" style="text-decoration:none;color:#555">Click here to manage your reservation</a></span>
 													</div>
 												</div>
 											</td>
