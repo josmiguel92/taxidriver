@@ -155,3 +155,16 @@
 
 
 {% endblock %}
+{% block javascript %}
+{{ parent() }}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.show-details').click(function(e){
+            var details_route = {{ path('booking_details', )}};
+            e.preventDefault();
+            var idBooking = this.dataset('id');
+            $
+        });
+    });
+</script>
+{% endblock %}
