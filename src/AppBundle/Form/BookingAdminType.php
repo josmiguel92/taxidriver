@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 class BookingAdminType extends AbstractType
 {
@@ -19,7 +19,7 @@ class BookingAdminType extends AbstractType
     {
         $builder
             ->add('numpeople',IntegerType::class)
-            ->add('price', null, ['attr'=>['required'=>'true']])
+            ->add('price', MoneyType::class, ['attr'=>['required'=>'true'], 'currency'=>"USD"])
             ;
     }/**
      * {@inheritdoc}

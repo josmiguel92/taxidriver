@@ -154,7 +154,7 @@
 										<td width="100%" colspan="3" align="center" style="padding-bottom:10px;padding-top:25px;">
 											<div class="contentEditableContainer contentTextEditable">
 												<div class="contentEditable" >
-													<h2 >Tenemos una nueva reservaci&oacute;n!</h2>
+													<h2 >Your reserve have been updated!</h2>
 												</div>
 											</div>
 										</td>
@@ -164,56 +164,9 @@
 										<td width="400" align="center" style="padding-bottom:5px;">
 											<div class="contentEditableContainer contentTextEditable">
 												<div class="contentEditable" >
-													<p >Reservaci&oacute;n para
-                                                     {% if place %}
-                                                     ir a <b>{{place.Name}}</b>
-                                                     {% else %}
-                                                     una ruta personalizada.
-                                                     {% endif %}
-                                                    </p>
+													<p >Thanks for booking up with us - we've updated your booking!</p>
 													<br>
-
-                                                    {% if booking.ownroute %}
-                                                    <ul>
-                                                        {% for _place in booking.ownroute %}
-                                                        <li>{{_place.Name}}</li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                    {% endif %}
-
-													<p>Los detalles son los siguientes:</p>
-                                                    <p>Nombre: <b>{{ booking.fullname }}</b><br>
-                                                        Cantidad de personas: {{ booking.numpeople }}<br>
-                                                        Email: <a href="mailto:{{ booking.email }}">{{ booking.email }}</a><br>
-                                                        Tel&eacute;fono: {{ booking.telephone }}<br>
-                                                        {% if booking.airport %} <br>
-                                                        Debe recogerlo en el aereopuerto, <br>
-                                                        viene en el vuelo <b>{{booking.flynumber}}</b>
-                                                        <br>
-                                                                {% endif %}
-
-                                                    </p>
-                                                     <br>
-                                                     <p>Hora y fecha:<br>
-                                                     {{ booking.pickuptime | date("l d/m/Y H:i") }}</p>
-                                                    <p>Detalles de recogida:<br>
-                                                        {{ booking.details}}
-                                                    </p>
-
-                                                    <br>
-                                                    {% if booking.idpaypal %}
-                                                    <p>El pago se realiz&oacute; por PayPal, con la ID de transacci&oacute;n 
-                                                        {{ booking.idpaypal }}, se pagaron {{ booking.price }}<br>
-                                                    </p>
-                                                    {% else %}
-                                                    <p>No se ha realizado el pago a&uacute;n.
-                                                        {% if booking.price %}
-                                                        El precio es <b>{{ booking.price }} USD</b>.
-                                                        {% else %}
-                                                        <b>Deberas definir el precio</b>
-                                                        {% endif %}
-                                                    </p>
-                                                    {% endif %}
+													<p>You can check it by click in the link below. The price of service you have selected is: {{ booking.price }} USD</p>
 												</div>
 											</div>
 										</td>
@@ -232,7 +185,7 @@
 													<td bgcolor="#18acfB" align="center" style="border-radius:4px;" width="200" height="50">
 														<div class="contentEditableContainer contentTextEditable">
 															<div class="contentEditable" >
-																<a target='_blank' href="{{ absolute_url(path('booking_details', {'booking': booking.id}))}}" class='link2'>Ver reservaci&oacute;n en el sitio</a>
+																<a target='_blank' href="{{ absolute_url(path('purchase_details_paypal', {'_token': booking.token}))}}" class='link2'>Check booking status</a>
 															</div>
 														</div>
 
@@ -245,6 +198,28 @@
 								</table>
 							</div>
 
+							<div class='movableContent'>
+								<table cellpadding="0" cellspacing="0" border="0" align="center" width="600">
+									<tr>
+										<td width="100">&nbsp;</td>
+										<td width="400" align="center" style="padding-top:25px;padding-bottom:115px;">
+											<table cellpadding="0" cellspacing="0" border="0" align="center" width="200" height="50">
+												<tr>
+													<td bgcolor="#18acfB" align="center" style="border-radius:4px;" width="200" height="50">
+														<div class="contentEditableContainer contentTextEditable">
+															<div class="contentEditable" >
+																<a target='_blank' href="{{ absolute_url(path('home'))}}" class='link2'>Visit our Website</a>
+															</div>
+														</div>
+
+													</td>
+												</tr>
+											</table>
+										</td>
+										<td width="100">&nbsp;</td>
+									</tr>
+								</table>
+							</div>
 
 
 							<div class='movableContent'>
@@ -323,7 +298,7 @@
 										<td width="60%" height="70" valign="middle" style="padding-bottom:20px;">
 											<div class="contentEditableContainer contentTextEditable">
 												<div class="contentEditable" >
-													<span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">Sent to <b>{{  booking.email }}</b> by <a href="{{ absolute_url(path('home')) }}" target="_blank">Taxidriverscuba.com</a></span>
+													<span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">Sent to <b>{{ booking.email }}</b> by <a href="{{ absolute_url(path('home')) }}" target="_blank">Taxidriverscuba.com</a></span>
 													<br/>
 													<span style="font-size:11px;color:#555;font-family:Helvetica, Arial, sans-serif;line-height:200%;">{{ address }} | {{ telephone }}</span>
 													<br/>

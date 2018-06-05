@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Utils\Utils;
 use AppBundle\Entity\Place;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Booking
@@ -54,21 +55,20 @@ class Booking
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="fullname", type="string", length=255)
      */
     private $fullname;
 
     /**
      * @var string
-     *
+     * @Assert\Email()
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
 
     /**
      * @var string
-     *
      * @ORM\Column(name="telephone", type="string", length=255)
      */
     private $telephone;
@@ -88,7 +88,7 @@ class Booking
 
     /**
      * @var \DateTime
-     *
+     * @Assert\DateTime()
      * @ORM\Column(name="pickuptime", type="datetime")
      */
     private $pickuptime;
@@ -96,15 +96,15 @@ class Booking
 
     /**
      * @var int
-     *
+     * @Assert\GreaterThan(0)
      * @ORM\Column(name="numpeople", type="smallint")
      */
     private $numpeople;
 
     /**
      * @var int
-     *
-     * @ORM\Column(name="price", type="float", nullable=true)
+     * @Assert\GreaterThan(0)
+     * @ORM\Column(name="price", type="float", nullable=true, )
      */
     private $price;
 
@@ -139,7 +139,7 @@ class Booking
 
     /**
      * @var string
-     * @ORM\Column(name="token", type="string", length=255)
+     * @ORM\Column(name="token", type="string", length=255, unique=true)
      */
     private $token;
 

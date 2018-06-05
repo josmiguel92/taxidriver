@@ -89,7 +89,7 @@
 
                     {% if paypalCallback is empty %}
                         <div class="row section-bottom-40">
-                            {% if selectedPlaces or purchase.ownroute or purchase.getNumpeople > 5 %}
+                            {% if purchase.ownroute or purchase.getNumpeople > 5 %}
                                 <div class="cell-md-6 col-md-6 col-md-offset-3">
                                     <i class="fa fa-clock-o fa-5x color-sky"></i>
                                     <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">

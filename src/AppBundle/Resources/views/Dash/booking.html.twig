@@ -159,7 +159,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Detalles de reservaci&oacute;n <span><i class="modal fa fa-spinner"></i> </span></h4>
+        <h4 class="modal-title" id="myModalLabel">Detalles de reservaci&oacute;n <i class="modal fa fa-spinner fa-spin" style="position: relative"></i></h4>
       </div>
       <div class="modal-body" id="modalBodyContainer">
 
@@ -183,6 +183,7 @@
           var AjaxDetailsRoute = "{{ path('booking_details', {'booking': '123454321'}) }}"
 
           $('.modal.fa').show();
+          $('#modalBodyContainer').fadeOut();
         $("#bookingModal").modal({
             backdrop: false
         });
@@ -190,6 +191,7 @@
           _route = AjaxDetailsRoute.replace('123454321',this.dataset['id']);
         $("#modalBodyContainer").load(_route, function () {
             $('.modal.fa').hide();
+            $('#modalBodyContainer').fadeIn();
         })
       });
 
