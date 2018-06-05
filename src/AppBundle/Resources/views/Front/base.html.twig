@@ -75,7 +75,12 @@
                                 <div class="rd-navbar-brand veil reveal-md-block">
                                     <div class="pull-md-left veil reveal-lg-inline-block">
                                         <ul class="rd-navbar-nav">
-                                            <li><a class="btn-book" href="{{ path("add_booking") }}">Book Now</a></li>
+                                            <li>
+                                                <a class="btn-book" href="{{ path("add_booking") }}">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                    {% trans %}Book Now{% endtrans %}
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
 
@@ -183,7 +188,7 @@
                 <div class="cell-xs-12 cell-sm-6 cell-md-4">
                     <div class="inset-lg-right-40">
                         <div>
-                            <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">{% trans %} about {% endtrans %}</p>
+                            <p class="text-uppercase text-bold font-accent text-spacing-25 text-white">{% trans %} about {% endtrans %}</p>
                         </div>
                         <div class="offset-top-25">
                             <p class="text-gray-light text-spacing-0">
@@ -198,7 +203,7 @@
                     <div class="inset-lg-right-40">
                         <div>
                             <div>
-                                <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">{% trans %}contacts{% endtrans %}</p>
+                                <p class="text-uppercase text-bold font-accent text-spacing-25 text-white">{% trans %}contacts{% endtrans %}</p>
                             </div>
                             <!-- Contact Info-->
                             <address class="contact-info offset-top-25">
@@ -220,7 +225,7 @@
                             </address>
                         </div>
                         <div class="cell-xs-12 offset-top-50">
-                            <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">{% trans %}Follow us{% endtrans %}</p>
+                            <p class="text-uppercase text-bold font-accent text-spacing-25 text-white">{% trans %}Follow us{% endtrans %}</p>
                             <div class="offset-top-25">
 
                                 <ul class="list-inline list-inline-0 list-social">
@@ -254,7 +259,7 @@
                     <div class="col-sm-6">
                         <!-- Taxi -->
                         <div>
-                            <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">
+                            <p class="text-uppercase text-bold font-accent text-spacing-25 text-white">
                                 {% trans %}Taxi{% endtrans %}
                             </p>
                         </div>
@@ -276,7 +281,7 @@
                     <div class="col-sm-6">
                         <!-- Taxi-Tours -->
                         <div>
-                            <p class="text-uppercase text-bold font-accent text-spacing-50 text-white">
+                            <p class="text-uppercase text-bold font-accent text-spacing-25 text-white offset-xs-top-20">
                                 {% trans %}Taxi-Tours{% endtrans %}
                             </p>
                         </div>

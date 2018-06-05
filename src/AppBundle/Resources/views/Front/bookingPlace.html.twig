@@ -39,19 +39,6 @@
 
 {% endblock %}
 
-{% block addTour %}
-    {% if place.isTour %}
-        <div class="offset-top-15 cell-sm-6 cell-md-8 col-md-offset-2 well-row-flex" style="margin-bottom: 25px;">
-            <label class="custom-label text-gray-dark">
-                {% trans %}The selected place, admits a <a href="#">tour</a>. Do you want to activate it?{% endtrans %}
-            </label>
-            <div style="max-width: 200px; width: 350%;" class="form-group">
-                <input data-toggle="toggle" type="checkbox" id="activeTour" name="">
-            </div>
-        </div>
-    {% endif %}
-{% endblock %}
-
 {% block javascript %}
 {{ parent() }}
 
@@ -69,16 +56,21 @@
         function updatePrice()
         {
             var price = {{ place.getPrice }};
+            var isTour = {{ place.isTour? "true":"false" }};
             var numberPeople = $('#{{ booking_form.numpeople.vars.id }}')[0].value;
 
 
             {#todo: we shoul use a better identificator of the toggle botton not the element in [1]#}
 
-            if ($('.toggle')[1].classList.contains('off') && numberPeople <= 5)
+            if ((!isTour || $('.toggle')[1].classList.contains('off')) && numberPeople <= 5)
                 priceContent = wrapperPrice(price);
 
-            if (!$('.toggle')[1].classList.contains('off') && numberPeople > 2 && numberPeople <= 5)
+            if ((!isTour || !$('.toggle')[1].classList.contains('off')) && numberPeople > 2 && numberPeople <= 5)
                 priceContent = wrapperPrice(price + (numberPeople-2)*10);
+
+            if ((!isTour) && numberPeople > 2 && numberPeople <= 5)
+                priceContent = wrapperPrice(price);
+
 
             if (numberPeople > 5)
                 priceContent = wrapperPrice("");
@@ -100,10 +92,12 @@
 
         });
 
-
-
-
-
     </script>
+
+    {% if place.isTour %}
+        <script>
+            $("#tourToggle").fadeIn(500);
+        </script>
+    {% endif %}
 
 {% endblock %}
