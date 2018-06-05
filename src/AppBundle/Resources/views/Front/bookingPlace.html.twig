@@ -8,7 +8,7 @@
 
 {% set title = title~place.getNameLocale %}
 
-{% set featureImage =  place.getFullImageWebPath %}
+{% set featureImage =  asset(place.getFullImageWebPath) %}
 {% set formTitle = place.getNameLocale %}
 
 {% set spanish_page = path("booking_place", {"_locale":"es", "_id":place.getId,  "_name":place.getName}) %}
