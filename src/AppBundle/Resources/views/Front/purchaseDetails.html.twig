@@ -44,7 +44,7 @@
                     <i class="fa fa-times-circle-o fa-5x color-sky"></i>
                 {% endif %}
                 <h2>
-                    {% trans %}Yours purchase details{% endtrans %}
+                    {% trans %}Hi{% endtrans %} {{ purchase.fullname }}, {% trans %}these are yours purchase details{% endtrans %}
                 </h2>
 
                 <div class="offset-top-50">
@@ -54,7 +54,7 @@
 
                         <div class="well-row well-row-bg">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
-                                {% trans %}You have been selected{% endtrans %}:
+                                {% trans %}You want to visit{% endtrans %}:
                             </p>
                             <!-- List-->
                             <ul class="p">
@@ -80,6 +80,11 @@
                             </p>
                         </div>
                         <div class="well-row well-row-bg">
+                            <p class="text-bold text-spacing-25 font-accent text-gray-dark">
+                                {% trans %}We will pickup you in{% endtrans %}: {{ purchase.getDetails }}
+                            </p>
+                        </div>
+                        <div class="well-row">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
                                 {% trans %}At{% endtrans %}: {{ purchase.getPickuptime|date("l, d F Y - H:i")  }}
                             </p>
@@ -124,10 +129,24 @@
                             {% endif %}
                         </div>
                     {% else %}
-                        <a href="{{ path("home", {'locale':locale}) }}" class="btn btn-primary">
-                            <i class="fa fa-arrow-circle-left fa-2x"></i>
-                            {% trans %}Go back to home{% endtrans %}
-                        </a>
+                        <div class="col-md-4">
+                            <a href="{{ path("home", {'locale':locale}) }}" class="btn btn-border">
+                                <i class="fa fa-arrow-circle-left"></i>
+                                {% trans %}Go back to home{% endtrans %}
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="{{ path("add_booking", {'locale':locale}) }}" class="btn btn-primary btn-lg">
+                                <i class="fa fa-shopping-cart"></i>
+                                {% trans %}Select more places{% endtrans %}
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="{{ path("bookingOwnTour", {'locale':locale}) }}" class="btn btn-border">
+                                <i class="fa fa-map-signs"></i>
+                                {% trans %}Make my own tour{% endtrans %}
+                            </a>
+                        </div>
                     {% endif %}
 
                 </div>

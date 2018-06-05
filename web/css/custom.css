@@ -196,3 +196,7 @@ h2{
     column-rule-style: dashed;
     column-rule-color: rgba(128, 128, 128, 0.45);
 }
+
+.place-description a {
+    text-transform: none;
+}

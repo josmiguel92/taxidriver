@@ -235,7 +235,8 @@ class BookingController extends Controller
             $_place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
             $product_name = "Tour Taxi driver Cuba".$_place->getNameLocale();
             $_person_number = $purchase->getNumpeople();
-            $product_price = Utils::calculateSimpleRoutePrices($_place, $_person_number);
+            $price = Utils::calculateSimpleRoutePrices($_place, $_person_number);
+            $product_price = $price - 0.1*$price;
 
             return $this->render('AppBundle:Front:dummyPaypalForm.html.twig', [
                 'account_email'=>$account_email,

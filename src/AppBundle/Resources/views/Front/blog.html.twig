@@ -12,8 +12,6 @@
         <!-- Blog Classic Both Sidebar-->
         <section>
             <div class="shell">
-                <h1 class="inset-lg-left-200">Blog</h1>
-
                 <div class="range range-xs-center range-lg-left offset-top-50">
                     <div class="cell-sm-10 cell-md-8 cell-md-push-1">
 
@@ -22,7 +20,7 @@
 
                             {% set url = path("blogEntry",{"_id":blogEntry.getId, "_name":blogEntry.getTitleLocale}) %}
                             <!-- Post Classic-->
-                            <article class="post-classic text-left offset-top-50">
+                            <article class="post-classic text-left offset-top-30">
                                 <div class="post-classic-img-wrap">
                                     <a href="{{ url }}">
                                         <img src="{{ asset(blogEntry.getFullImageWebPath) }}" width="770" height="381" alt="" class="img-responsive center-block">

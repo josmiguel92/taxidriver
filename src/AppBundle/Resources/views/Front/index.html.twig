@@ -33,7 +33,7 @@
                     <div class="rd-navbar-right-side">
                         <div class="pull-md-left veil reveal-lg-inline-block">
                             <ul class="rd-navbar-nav">
-                                <li><a class="btn-book" href="{{ path("add_booking") }}">Book Now</a></li>
+                                <li><a class="btn-book" href="{{ path("add_booking") }}">{% trans %}Book Now{% endtrans %}</a></li>
                             </ul>
                         </div>
 
@@ -162,9 +162,9 @@
 
                     <!-- Taxi subsection -->
                     <div class="offset-top-25">
-                        <i class="fa fa-cab fa-3x color-sky"></i>
-                        <!--<img src="{{ asset("images/taxi.svg") }}">-->
-                        <h2 class="text-spacing-75">
+                        <!--<i class="fa fa-cab fa-3x color-sky"></i>-->
+                        <img src="{{ asset("images/custom-icons/taxi-sign.svg") }}">
+                        <h2 class="text-spacing-25">
                             {% trans %}Taxi{% endtrans %}
                         </h2>
                     </div>
@@ -192,10 +192,10 @@
                                                 </a>
                                             </div>
                                             <div class="unit-body">
-                                                <div>
+                                                <div class="place-description">
                                                     <p class="p h5 text-capitalize text-spacing-inverse-25">
                                                         <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
-                                                            {% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}
+                                                            {% trans %}From Havana to{% endtrans %} {{ place.getNameLocale }}
                                                         </a>
                                                     </p>
 
@@ -227,8 +227,8 @@
 
                     <!-- Taxi-Tours subsection -->
                     <div class="offset-top-25">
-                        <i class="fa fa-tree fa-3x color-sky"></i>
-                        <h2 class="text-spacing-75">
+                        <i class="fa fa-binoculars fa-3x color-sky"></i>
+                        <h2 class="text-spacing-25">
                             {% trans %}Taxi-Tours{% endtrans %}
                         </h2>
                     </div>
@@ -256,10 +256,10 @@
                                                 </a>
                                             </div>
                                             <div class="unit-body">
-                                                <div>
+                                                <div class="place-description">
                                                     <h3 class="p h5 text-capitalize text-spacing-inverse-25">
                                                         <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
-                                                            {% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}
+                                                            {% trans %}From Havana to{% endtrans %} {{ place.getNameLocale }}
                                                         </a>
                                                     </h3>
 
@@ -308,7 +308,7 @@
                                 <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
                                     <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block"></div>
                                 <div class="offset-top-15 offset-md-top-30">
-                                    <h2 class="text-spacing-0 text-lowercase">
+                                    <h2 class="text-spacing-0">
                                         {{ content.getServicesmakeroutetextLocale }}
                                     </h2>
                                     <div class="offset-top-30 offset-md-top-60">
@@ -408,7 +408,7 @@
 
                 <!-- Who we are-->
                 <div class="offset-top-10">
-                    <h2 class="text-spacing-75 text-center">
+                    <h2 class="text-spacing-25 text-center">
                         {% trans %}Who we are?{% endtrans %}
                     </h2>
                 </div>
@@ -416,14 +416,14 @@
                 <div class="range range-xs-center offset-top-30 text-left">
                     <div class="cell-sm-12 cell-md-10">
                         <p class="text-spacing-0 two-columns">
-                            {{ content.getAbouttextLocale() }}
+                            {{ content.getAbouttextLocale()|nl2br }}
                         </p>
                     </div>
                 </div>
 
                 <!-- Members-->
                 <div class="offset-top-64 offset-md-top-95">
-                    <h2 class="text-spacing-75 text-center">
+                    <h2 class="text-spacing-25 text-center">
                         {% trans %}Our Team{% endtrans %}
                     </h2>
                 </div>
@@ -565,7 +565,7 @@
         <!--Contact-->
         <section id="contact" style="padding-top: 1%;"  class="section-md-bottom-40">
             <div class="shell offset-top-100">
-                <h1>Get in touch</h1>
+                <h1>{% trans %}Get in touch{% endtrans %}</h1>
 
                 <div class="range range-xs-center offset-top-50">
 
@@ -612,7 +612,8 @@
                             </dl>
                             <dl class="offset-top-30">
                                 <dt class="font-accent text-bold text-uppercase text-mine-shaft">email</dt>
-                                <dd class="offset-top-5"><a href="mailto:#" class="font-accent text-bold text-primary">info@demolink.org</a></dd>
+                                <dd class="offset-top-5">
+                                    <a href="mailto:{{ content.getContactemail() }}" class="font-accent text-bold text-primary">{{ content.getContactemail() }}</a></dd>
                             </dl>
                         </address>
                     </div>

@@ -30,14 +30,25 @@
     <meta name="twitter:creator" content="@taxiDriverCuba" />
     <meta property="og:title" content="{{ title }}" />
     <meta property="og:description" content="{{ description }}" />
-    <meta property="og:image" content="{{ asset(featureImage) }}" />
+    <meta property="og:image" content="{{ absolute_url(asset(featureImage)) }}" />
 
 	<link rel="stylesheet" type="text/css" href="{{ asset("css/css.css") }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset("css/style2.css") }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset("css/custom.css") }}">
-
+    {#TODO: remove font-awsome local and use CDN, also boostrap too#}
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">-->
     <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.10";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
 
 <body>
     <!-- Page-->
@@ -226,7 +237,7 @@
                             <div class="row offset-top-25">
                                 <div>
                                     {% for hashtag in hashtags %}
-                                        <p><a href="#" class="color-sky"><i class="fa fa-hashtag"></i> {{ hashtag.name }}</a></p>
+                                        <p><a href="https://www.facebook.com/hashtag/{{ hashtag.name }}" target="_blank" class="color-sky"><i class="fa fa-hashtag"></i> {{ hashtag.name }}</a></p>
                                     {% else %}
                                         no hay
                                     {% endfor %}
@@ -287,7 +298,7 @@
                     <div class="col-md-12">
                         <ul class="offset-top-25">
                             <li class="text-center">
-                                <a href="{{ path("bookingOwnTour") }}" class="color-sky">
+                                <a href="{{ path("bookingOwnTour") }}" class="color-sky" style="font-size: 1.15em;">
                                     {% trans %}Make your own Tour!{% endtrans %}
                                 </a>
                             </li>
