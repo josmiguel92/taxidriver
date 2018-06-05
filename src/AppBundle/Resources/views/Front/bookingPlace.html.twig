@@ -11,6 +11,9 @@
 {% set featureImage =  place.getFullImageWebPath %}
 {% set formTitle = place.getNameLocale %}
 
+{% set spanish_page = path("booking_place", {"_locale":"es", "_id":place.getId,  "_name":place.getName}) %}
+{% set english_page = path("booking_place", {"_locale":"en", "_id":place.getId, "_name":place.getNameEn}) %}
+
 {% block destination %}
 
 <!--- Parallax -->

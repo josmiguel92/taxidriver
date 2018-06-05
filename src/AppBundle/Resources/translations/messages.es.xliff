@@ -2,251 +2,324 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="es" datatype="plaintext" original="file.ext">
         <body>
+<trans-unit id="distance">
+	<source>Distance</source>
+	<target>Distancia</target>
+</trans-unit>
 
-            <trans-unit id="distance">
-                <source>Distance</source>
-                <target>Distancia</target>
-            </trans-unit>
 
+<trans-unit id="time">
+	<source>Time</source>
+	<target>Tiempo</target>
+</trans-unit>
 
-            <trans-unit id="time">
-                <source>Time</source>
-                <target>Tiempo</target>
-            </trans-unit>
 
+<trans-unit id="since">
+	<source>since</source>
+	<target>desde</target>
+</trans-unit>
 
-            <trans-unit id="since">
-                <source>since</source>
-                <target>desde</target>
-            </trans-unit>
 
+<trans-unit id="add">
+	<source>Add</source>
+	<target>agregar</target>
+</trans-unit>
 
-            <trans-unit id="add">
-                <source>Add</source>
-                <target>agregar</target>
-            </trans-unit>
 
+<trans-unit id="no..of.passengers">
+	<source>No. of passengers</source>
+	<target>No. de pasajeros</target>
+</trans-unit>
 
-            <trans-unit id="no..of.passengers">
-                <source>No. of passengers</source>
-                <target>No. de pasajeros</target>
-            </trans-unit>
 
+<trans-unit id="no..of.luggage">
+	<source>No. of luggage</source>
+	<target>No. de equipaje</target>
+</trans-unit>
 
-            <trans-unit id="no..of.luggage">
-                <source>No. of luggage</source>
-                <target>No. de equipaje</target>
-            </trans-unit>
 
+<trans-unit id="date.and.time">
+	<source>Date and time</source>
+	<target>Fecha y hora</target>
+</trans-unit>
 
-            <trans-unit id="date.and.time">
-                <source>Date and time</source>
-                <target>Fecha y hora</target>
-            </trans-unit>
 
+<trans-unit id="place">
+	<source>Place</source>
+	<target>Lugar</target>
+</trans-unit>
 
-            <trans-unit id="place">
-                <source>Place</source>
-                <target>Lugar</target>
-            </trans-unit>
 
+<trans-unit id="personal.data">
+	<source>Personal Data</source>
+	<target>Datos personales</target>
+</trans-unit>
 
-            <trans-unit id="personal.data">
-                <source>Personal Data</source>
-                <target>Datos personales</target>
-            </trans-unit>
 
+<trans-unit id="about">
+	<source>about</source>
+	<target>acerca de</target>
+</trans-unit>
 
-            <trans-unit id="about">
-                <source>about</source>
-                <target>acerca de</target>
-            </trans-unit>
 
+<trans-unit id="contacts">
+	<source>contacts</source>
+	<target>contacto</target>
+</trans-unit>
 
-            <trans-unit id="contacts">
-                <source>contacts</source>
-                <target>contacto</target>
-            </trans-unit>
 
+<trans-unit id="phone">
+	<source>Phone</source>
+	<target>Telefono</target>
+</trans-unit>
 
-            <trans-unit id="phone">
-                <source>Phone</source>
-                <target>Telefono</target>
-            </trans-unit>
 
+<trans-unit id="e.mail">
+	<source>E-mail</source>
+	<target>E-mail</target>
+</trans-unit>
 
-            <trans-unit id="e.mail">
-                <source>E-mail</source>
-                <target>E-mail</target>
-            </trans-unit>
 
+<trans-unit id="taxi">
+	<source>Taxi</source>
+	<target>Taxi</target>
+</trans-unit>
 
-            <trans-unit id="taxi">
-                <source>Taxi</source>
-                <target>Taxi</target>
-            </trans-unit>
 
+<trans-unit id="taxi.tours">
+	<source>Taxi-Tours</source>
+	<target>Taxi-tours</target>
+</trans-unit>
 
-            <trans-unit id="taxi.tours">
-                <source>Taxi-Tours</source>
-                <target>Taxi-tours</target>
-            </trans-unit>
 
+<trans-unit id="remove">
+	<source>Remove</source>
+	<target>Quitar</target>
+</trans-unit>
 
-            <trans-unit id="remove">
-                <source>Remove</source>
-                <target>Quitar</target>
-            </trans-unit>
 
+<trans-unit id="home">
+	<source>home</source>
+	<target>inicio</target>
+</trans-unit>
 
-            <trans-unit id="home">
-                <source>home</source>
-                <target>inicio</target>
-            </trans-unit>
 
+<trans-unit id="services">
+	<source>services</source>
+	<target>servicios</target>
+</trans-unit>
 
-            <trans-unit id="services">
-                <source>services</source>
-                <target>servicios</target>
-            </trans-unit>
 
+<trans-unit id="about.us">
+	<source>about us</source>
+	<target>nosotros</target>
+</trans-unit>
 
-            <trans-unit id="about.us">
-                <source>about us</source>
-                <target>nosotros</target>
-            </trans-unit>
 
+<trans-unit id="change.language.to.english">
+	<source>change language to english</source>
+	<target>cambiar idioma a ingles</target>
+</trans-unit>
 
-            <trans-unit id="change.language.to.english">
-                <source>change language to english</source>
-                <target>cambiar idioma a ingles</target>
-            </trans-unit>
 
+<trans-unit id="change.languaje.to.spanish">
+	<source>change languaje to spanish</source>
+	<target>cambiar idioma a español</target>
+</trans-unit>
 
-            <trans-unit id="change.languaje.to.spanish">
-                <source>change languaje to spanish</source>
-                <target>cambiar idioma a español</target>
-            </trans-unit>
 
+<trans-unit id="havana">
+	<source>Havana</source>
+	<target>Habana</target>
+</trans-unit>
 
-            <trans-unit id="havana">
-                <source>Havana</source>
-                <target>Habana</target>
-            </trans-unit>
 
+<trans-unit id="price">
+	<source>Price</source>
+	<target>Precio</target>
+</trans-unit>
 
-            <trans-unit id="price">
-                <source>Price</source>
-                <target>Precio</target>
-            </trans-unit>
 
+<trans-unit id="book.now">
+	<source>Book Now</source>
+	<target>Reservar</target>
+</trans-unit>
 
-            <trans-unit id="book.now">
-                <source>Book Now</source>
-                <target>Reservar</target>
-            </trans-unit>
 
+<trans-unit id="make.your.own.tour">
+	<source>Make your own Tour!</source>
+	<target>Haz tu propia ruta</target>
+</trans-unit>
 
-            <trans-unit id="make.your.own.tour">
-                <source>Make your own Tour!</source>
-                <target>Haz tu propia ruta</target>
-            </trans-unit>
 
+<trans-unit id="other.services">
+	<source>Other services</source>
+	<target>Otros servicios</target>
+</trans-unit>
 
-            <trans-unit id="other.services">
-                <source>Other services</source>
-                <target>Otros servicios</target>
-            </trans-unit>
 
+<trans-unit id="who.we.are">
+	<source>Who we are?</source>
+	<target>¿Quienes somos?</target>
+</trans-unit>
 
-            <trans-unit id="who.we.are">
-                <source>Who we are?</source>
-                <target>¿Quienes somos?</target>
-            </trans-unit>
 
+<trans-unit id="our.team">
+	<source>Our Team</source>
+	<target>Nuestro equipo</target>
+</trans-unit>
 
-            <trans-unit id="our.team">
-                <source>Our Team</source>
-                <target>Nuestro equipo</target>
-            </trans-unit>
 
+<trans-unit id="testimonials">
+	<source>Testimonials</source>
+	<target>Testimonios</target>
+</trans-unit>
 
-            <trans-unit id="testimonials">
-                <source>Testimonials</source>
-                <target>Testimonios</target>
-            </trans-unit>
 
+<trans-unit id="follow.us">
+	<source>Follow us</source>
+	<target>Siguenos</target>
+</trans-unit>
 
-            <trans-unit id="follow.us">
-                <source>Follow us</source>
-                <target>Siguenos</target>
-            </trans-unit>
 
+<trans-unit id="reservation.form">
+	<source>Reservation form</source>
+	<target>Formulario de reservación</target>
+</trans-unit>
 
-            <trans-unit id="reservation.form">
-                <source>Reservation form</source>
-                <target>Formulario de reservación</target>
-            </trans-unit>
 
+<trans-unit id="pickup.from.airport.or.cruise">
+	<source>Pickup from airport or cruise?</source>
+	<target>¿Recogida en el aeropuerto o crucero?</target>
+</trans-unit>
 
-            <trans-unit id="pickup.from.airport.or.cruise">
-                <source>Pickup from airport or cruise?</source>
-                <target>¿Recogida en el aeropuerto o crucero?</target>
-            </trans-unit>
 
+<trans-unit id="flight.or.cruiser.number">
+	<source>Flight or cruiser number</source>
+	<target>Número de vuelo o crucero</target>
+</trans-unit>
 
-            <trans-unit id="flight.or.cruiser.number">
-                <source>Flight or cruiser number</source>
-                <target>Número de vuelo o crucero</target>
-            </trans-unit>
 
+<trans-unit id="where.are.you.going">
+	<source>Where are you going?</source>
+	<target>¿Hacia donde vas?</target>
+</trans-unit>
 
-            <trans-unit id="where.are.you.going">
-                <source>Where are you going?</source>
-                <target>¿Hacia donde vas?</target>
-            </trans-unit>
 
+<trans-unit id="from.havana.to">
+	<source>From Havana to</source>
+	<target>Desde la Habana a</target>
+</trans-unit>
 
-            <trans-unit id="from.havana.to">
-                <source>From Havana to</source>
-                <target>Desde la Habana a</target>
-            </trans-unit>
 
+<trans-unit id="get.in.touch">
+	<source>Get in touch</source>
+	<target>Contáctanos</target>
+</trans-unit>
 
-            <trans-unit id="get.in.touch">
-                <source>Get in touch</source>
-                <target>Contáctanos</target>
-            </trans-unit>
 
+<trans-unit id="check.out.this.post">
+	<source>Check out this post!!</source>
+	<target>Mira este artículo!!</target>
+</trans-unit>
 
-            <trans-unit id="check.out.this.post">
-                <source>Check out this post!!</source>
-                <target>Mira este artículo!!</target>
-            </trans-unit>
 
+<trans-unit id="read.more">
+	<source>Read More</source>
+	<target>Leer más</target>
+</trans-unit>
 
-            <trans-unit id="read.more">
-                <source>Read More</source>
-                <target>Leer más</target>
-            </trans-unit>
 
+<trans-unit id="select.a.service.first">
+	<source>Select a service first</source>
+	<target>Selecciona un servicio primero</target>
+</trans-unit>
 
-            <trans-unit id="select.a.service.first">
-                <source>Select a service first</source>
-                <target>Selecciona un servicio primero</target>
-            </trans-unit>
 
+<trans-unit id="pickup.time.and.price">
+	<source>Pickup time and Price</source>
+	<target>Datos de recogida y Precio</target>
+</trans-unit>
 
-            <trans-unit id="pickup.time.and.price">
-                <source>Pickup time and Price</source>
-                <target>Datos de recogida y Precio</target>
-            </trans-unit>
 
+<trans-unit id="the.prices.can.vary.in.function.of.the.amount.of.passengers.and.customs.places..also.we.offer.discount.if.paypal.payment.method.is.used.">
+	<source>The prices can vary in function of the amount of passengers and customs places. Also we offer discount if paypal payment method is used.</source>
+	<target>Los precios pueden variar en funcion de la cantidad de pasajeros y de la particularidad de los lugares. Ofrecemos descuentos si los metodos de pagos online son usados.</target>
+</trans-unit>
 
-            <trans-unit id="the.prices.can.vary.in.function.of.the.amount.of.passengers.and.customs.places..also.we.offer.discount.if.paypal.payment.method.is.used.">
-                <source>The prices can vary in function of the amount of passengers and customs places. Also we offer discount if paypal payment method is used.</source>
-                <target>Los precios pueden variar en funcion de la cantidad de pasajeros y de la particularidad de los lugares. Ofrecemos descuentos si los metodos de pagos online son usados.</target>
-            </trans-unit>
+
+<trans-unit id="hi">
+	<source>Hi</source>
+	<target>Hola</target>
+</trans-unit>
+
+
+<trans-unit id="these.are.yours.purchase.details">
+	<source>these are yours purchase details</source>
+	<target>estos son los detalles de tu compra</target>
+</trans-unit>
+
+
+<trans-unit id="you.want.to.visit">
+	<source>You want to visit</source>
+	<target>Quieres visitar</target>
+</trans-unit>
+
+
+<trans-unit id="we.will.pickup.you.in">
+	<source>We will pickup you in</source>
+	<target>Te recogeremos en</target>
+</trans-unit>
+
+
+<trans-unit id="at">
+	<source>At</source>
+	<target>a las</target>
+</trans-unit>
+
+
+<trans-unit id="pay.with.paypal">
+	<source>Pay with PayPal</source>
+	<target>Pagar con PayPal</target>
+</trans-unit>
+
+
+<trans-unit id="pay.with.cash">
+	<source>Pay with cash</source>
+	<target>Pagar en efectivo</target>
+</trans-unit>
+
+
+<trans-unit id="if.you.pay.using.paypal.you.have.access.to.a.10%.discount.">
+	<source>If you pay using PayPal you have access to a 10% discount.</source>
+	<target>Si pagas usando Paypal posees un descuento del 10%.</target>
+</trans-unit>
+
+
+<trans-unit id="you.can.always.pay.in.cuba.with.cash.">
+	<source>You can always pay in Cuba with cash.</source>
+	<target>Siempre podrás pagar en Cuba en efectivo.</target>
+</trans-unit>
+
+
+<trans-unit id="go.back.to.home">
+	<source>Go back to home</source>
+	<target>Volver a inicio</target>
+</trans-unit>
+
+
+<trans-unit id="select.more.places">
+	<source>Select more places</source>
+	<target>Seleccionar más lugares</target>
+</trans-unit>
+
+
+<trans-unit id="make.my.own.tour">
+	<source>Make my own tour</source>
+	<target>Hacer mi propia ruta</target>
+</trans-unit>
+
+
 
 
         </body>

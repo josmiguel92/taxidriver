@@ -28,6 +28,8 @@
     {% endif %}
 {% endif %}
 
+{% set spanish_page = path("purchase_details", {"_locale":"es", "_token":purchase.getToken}) %}
+{% set english_page = path("purchase_details", {"_locale":"en", "_token":purchase.getToken}) %}
 
 
 {% block content %}
@@ -74,6 +76,7 @@
                             </ul>
 
                         </div>
+
                         <div class="well-row">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
                                 {% trans %}No. of passengers{% endtrans %}: {{ purchase.getNumpeople }}
@@ -113,7 +116,7 @@
                                             {% trans %}Pay with PayPal{% endtrans %} - {{ discountPrice }} USD
                                         </a>
                                         <p class="offset-top-15 text-extra-small">
-                                            <strong>if you pay using paypal you have access to a 10% discount.</strong>
+                                            <strong>{% trans %}If you pay using PayPal you have access to a 10% discount.{% endtrans %}</strong>
                                         </p>
                                     </div>
                                     <div class="col-md-6">
@@ -122,7 +125,7 @@
                                             {% trans %}Pay with cash{% endtrans %} - {{ purchase.price }} usd
                                         </a>
                                         <p class="offset-top-15 text-extra-small">
-                                            You can always pay in Cuba with cash.
+                                            {% trans %}You can always pay in Cuba with cash.{% endtrans %}
                                         </p>
                                     </div>
                                 </div>

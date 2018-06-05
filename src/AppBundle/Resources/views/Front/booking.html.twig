@@ -13,6 +13,10 @@
 
 {% set featureImage =  asset(content.getHeaderimage.getWebPath) %}
 
+{% set spanish_page = path("add_booking", {"_locale":"es"}) %}
+{% set english_page = path("add_booking", {"_locale":"en"}) %}
+
+
 {% block destination %}
     <div class="well-row">
         <div class="range range-xs-center text-sm-left well-place">
@@ -196,7 +200,7 @@
                     //des-seleccionar a los otros elementos
                     for(var id = 1; id < ({{ places|length }}+1); id++){
                         $("#parent_"+id).removeClass("selected-place");
-                        $('a[data-parent]')[0].innerHTML = _addText;
+                        $('a[data-parent]')[(id-1)].innerHTML = _addText;
                     }
 
                     this.innerHTML = _removeText;

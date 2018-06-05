@@ -33,7 +33,12 @@
                     <div class="rd-navbar-right-side">
                         <div class="pull-md-left veil reveal-lg-inline-block">
                             <ul class="rd-navbar-nav">
-                                <li><a class="btn-book" href="{{ path("add_booking") }}">{% trans %}Book Now{% endtrans %}</a></li>
+                                <li>
+                                    <a class="btn-book" href="{{ path("add_booking") }}">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        {% trans %}Book Now{% endtrans %}
+                                    </a>
+                                </li>
                             </ul>
                         </div>
 
@@ -547,12 +552,14 @@
                             {% endfor %}
                         </div>
                     </div>
+                    <div id="TA_cdsratingsonlynarrow928" class="TA_cdsratingsonlynarrow"><ul id="YPw5Zqh5chZ" class="TA_links nDDQ73HI"><li id="8T0FWuA5qa" class="0zhfthpPY5g"><a target="_blank" href="https://www.tripadvisor.es/"><img src="https://www.tripadvisor.es/img/cdsi/img2/branding/tripadvisor_logo_transp_340x80-18034-2.png" alt="TripAdvisor"/></a></li></ul></div><script async src="https://www.jscache.com/wejs?wtype=cdsratingsonlynarrow&amp;uniq=928&amp;locationId=13554747&amp;lang=es&amp;border=true&amp;shadow=true&amp;backgroundColor=white&amp;display_version=2"></script>
+
                 </div>
 
                 {% for socialNetwork in socialNetworks %}
                     {% if socialNetwork.getName=="tripadvisor" %}
                         <div style="max-width:560px;" class="btn-both-lines btn-both-lines-gray-lighter offset-top-30 center-block">
-                            <a href="{{ socialNetwork.getProfilelink }}" style="min-width:260px;" class="btn btn-calypso">more testimonials from
+                            <a href="{{ socialNetwork.getProfilelink }}" target="_blank" style="min-width:260px;" class="btn btn-calypso">more testimonials from
                                 <i class="fa fa-tripadvisor"></i>
                             </a>
                         </div>

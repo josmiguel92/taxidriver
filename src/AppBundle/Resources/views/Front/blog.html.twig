@@ -4,6 +4,10 @@
 {% set featureImage = asset(content.getHeaderimage.getWebPath) %}
 {% set description =  content.getBlogDescriptionLocale %}
 
+{% set spanish_page = path("blog", {"_locale":"es"}) %}
+{% set english_page = path("blog", {"_locale":"en"}) %}
+
+
 {% block content %}
 
     <!-- Page Content-->

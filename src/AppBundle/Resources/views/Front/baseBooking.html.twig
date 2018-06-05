@@ -63,42 +63,67 @@
                     </div>
                     <div class="well-row">
 
-                        <div class="range">
+                        <div class="">
 
-                            <div id="tourToggle" class="offset-top-15 cell-sm-6 cell-md-8 col-md-offset-2 well-row-flex" style="margin-bottom: 25px; display: none;">
-                                <label class="custom-label text-gray-dark">
-                                    {% trans %}The selected place, admits a <a href="#">tour</a>. Do you want to activate it?{% endtrans %}
-                                </label>
-                                <div style="max-width: 200px; width: 350%;" class="form-group">
-                                    <input data-toggle="toggle" type="checkbox" id="activeTour" name="">
+                            <div class="row">
+
+
+                                    <div class="row">
+                                        <div id="tourToggle" class="offset-top-15 cell-sm-6 cell-md-8 well-row-flex" style="margin-bottom: 25px; display: none;">
+                                            <label class="custom-label text-gray-dark">
+                                                {% trans %}The selected place, admits a <a href="#">tour</a>. Do you want to activate it?{% endtrans %}
+                                            </label>
+                                            <div style="max-width: 200px; width: 350%;" class="form-group">
+                                                <input data-toggle="toggle" type="checkbox" id="activeTour" name="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <div class="row">
+                                    <div class="cell-md-8">
+                                        <p id="tourDescription" class="offset-top-15" style="margin-bottom: 25px; display: none;">
+                                            We offer a turistic tour from Havana to Varadero, the most beautiful and clean beach in our island, taking a few stops in our way where we´ll visit the gazebo of Bacunayagua bridge which is 313.5 meters long, with an arc extensión of 114 meters and it´s 103.5 above sea level and 16 meters wide. It´s considerated one of the 7 wonders of Cuban´s civil engineering. This construction began in 1956 and it was finished in September 26th, 1959. There you can have a delicious piña colada, a clasical refreshing drink of the area, while you enjoy the majestic view of the bridge and the natual landscape. You´ll be able to travel to Saturno´s Cave that is found 20 meters deep with beautiful stalactites and stalagmites, it has an 18 meters deep lake with water so deep that you can see its bottom making it a natural pool with clear and cold water to bathe in. We´d continue our trip to Varadero´s peninsula enjoing its wide waters and thin sand.
+
+                                            We recomend to take this tour starting at 8:30 am due to long distances. The return to Havana will be at the afternoon.
+
+                                            We offer the posibility to have a previous reservation in restaurants.
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="cell-sm-5 cell-md-4 col-md-offset-2 well-row-flex">
-                                <label class="custom-label text-gray-dark">{% trans %}No. of passengers{% endtrans %}</label>
-                                <div class="form-group">
-                                    <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.numpeople.vars.id }}" name="{{ booking_form.numpeople.vars.full_name }}">
-                                </div>
-                            </div>
+                                    <div class="row">
+                                        <div class=" cell-sm-5 cell-md-12 well-row-flex form-inline">
+                                            <label class="custom-label text-gray-dark">{% trans %}No. of passengers{% endtrans %}</label>
+                                            <div class="form-group">
+                                                <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.numpeople.vars.id }}" name="{{ booking_form.numpeople.vars.full_name }}">
+                                            </div>
+                                            <label style="margin: 0 2em;" class="custom-label text-gray-dark text-right">
+                                                {% trans %}Price{% endtrans %}: <span id="labelPrice"></span>
+                                            </label>
+                                        </div>
 
-                            <div class="cell-sm-5 cell-md-4 col-md-offset-2 well-row-flex">
-                                <label class="custom-label text-gray-dark">
-                                    {% trans %}Price{% endtrans %}: <span id="labelPrice"></span>
-                                </label>
-                            </div>
+                                    </div>
 
-                            <div class="offset-top-15 cell-sm-5 cell-md-8 col-md-offset-2 well-row-flex">
-                                <label class="custom-label text-gray-dark">{% trans %}Date and time{% endtrans %}</label>
-                                <div style="max-width: 400px; width: 350%;" class="form-group">
-                                    <input placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="" type="text" style="text-align: left; padding: 10px 12px;" class="form-control" id="{{ booking_form.pickuptime.vars.id }}" name="{{ booking_form.pickuptime.vars.full_name }}">
-                                </div>
-                            </div>
+                                    <div class="row">
+                                        <div class="offset-top-15 cell-sm-5 cell-md-8 well-row-flex">
+                                            <label class="custom-label text-gray-dark">{% trans %}Date and time{% endtrans %}</label>
+                                            <div style="max-width: 400px; width: 350%;" class="form-group">
+                                                <input placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="" type="text" style="text-align: left; padding: 10px 12px;" class="form-control" id="{{ booking_form.pickuptime.vars.id }}" name="{{ booking_form.pickuptime.vars.full_name }}">
+                                            </div>
+                                        </div>
+                                    </div>
 
-                            <div class="offset-top-15 cell-sm-5 cell-md-8 col-md-offset-2 well-row-flex">
-                                <label for="{{ booking_form.details.vars.id }}"  class="custom-label text-gray-dark">{% trans %}Place{% endtrans %}</label>
-                                <div style="max-width: 400px; width: 350%;" class="form-group">
-                                    <input placeholder="Address" type="text" style="padding: 10px 12px;" class="form-control" id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}">
-                                </div>
+                                    <div class="row">
+                                        <div class="offset-top-15 cell-sm-5 cell-md-8 well-row-flex">
+                                            <label for="{{ booking_form.details.vars.id }}"  class="custom-label text-gray-dark">{% trans %}Place{% endtrans %}</label>
+                                            <div style="max-width: 400px; width: 350%;" class="form-group">
+                                                <input placeholder="Address" type="text" style="padding: 10px 12px;" class="form-control" id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
                             </div>
                         </div>
                     </div>
@@ -137,7 +162,7 @@
                                 <div class="form-group">
                                     <label for="{{ booking_form.telephone.vars.id }}" class="form-label rd-input-label">Phone number</label>
 
-                                    <input  name="{{ booking_form.telephone.vars.full_name }}" id="{{ booking_form.telephone.vars.id }}" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text">
+                                    <input  name="{{ booking_form.telephone.vars.full_name }}" id="{{ booking_form.telephone.vars.id }}" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="tel">
                                     <span class="form-validation"></span>
 
                                 </div>
@@ -206,11 +231,12 @@
 {% block javascript %}
 {{ parent() }}
     <script>
-        $(document).ready(function(){
+        $(document).ready(function()
+        {
             $('#booking_submit').click(function(){
                 //if($(this).valid())
                 $('form.offset-top-44')[0].submit(); /*TODO: poner identificador al formulario*/
-            })
+            });
 
             $("#{{ booking_form.airport.vars.id }}").change(function() {
                 var item = $('#{{ booking_form.flynumber.vars.id }}')[0];
@@ -219,7 +245,15 @@
                     item.removeAttribute('data-constraints')):
                     (item.removeAttribute('disabled') ||
                     item.setAttribute('data-constraints','@Required'));
-            })
+            });
+
+            $("#activeTour").change(function() {
+                  if (!$('.toggle')[1].classList.contains('off'))
+                      $('#tourDescription').fadeIn(500);
+                  else
+                      $('#tourDescription').fadeOut(500);
+            });
+
         });
     </script>
 {% endblock %}
