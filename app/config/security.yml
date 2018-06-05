@@ -52,7 +52,7 @@ security:
      # - { path: ^/dash/supervisor, roles: ROLE_SUPERVISOR }
       - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
       - { path: ^/dash, roles: ROLE_ADMIN } # , requires_channel: https } #TODO: set requires_channel:https
-      - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY} # , requires_channel: https } #TODO: set requires_channel:https
+      - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY , requires_channel: https } #TODO: set requires_channel:https
 
      
 

@@ -9,7 +9,7 @@
 
         <section class="section-75 section-md-top-90 section-md-bottom-110">
             <div class="shell">
-                <h2>{% trans %}Reservation form {% endtrans %}</h2>
+                <h2>{% trans %}Form reservation for{% endtrans %} {{ title }}</h2>
                 {{ form_start(booking_form, {'attr':{'class':'offset-top-44 well rd-mailform text-md-left',
                                                      'data-form-type':'order',
                                                      'data-form-output':'form-output-global'}}) }}
@@ -57,16 +57,27 @@
 
                     <!--- Pickup Data --->
                     <div class="well-row well-row-bg">
-                        <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">{% trans %}Pickup time{% endtrans %}</p>
+                        <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
+                            {% trans %}Pickup time and Price{% endtrans %}
+                        </p>
                     </div>
                     <div class="well-row">
 
                         <div class="range">
+
+                            {% block addTour %}{% endblock %}
+
                             <div class="cell-sm-5 cell-md-4 col-md-offset-2 well-row-flex">
                                 <label class="custom-label text-gray-dark">{% trans %}No. of passengers{% endtrans %}</label>
                                 <div class="form-group">
                                     <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.numpeople.vars.id }}" name="{{ booking_form.numpeople.vars.full_name }}">
                                 </div>
+                            </div>
+
+                            <div class="cell-sm-5 cell-md-4 col-md-offset-2 well-row-flex">
+                                <label class="custom-label text-gray-dark">
+                                    {% trans %}Price{% endtrans %}: <span id="labelPrice"></span>
+                                </label>
                             </div>
 
                             <div class="offset-top-15 cell-sm-5 cell-md-8 col-md-offset-2 well-row-flex">
