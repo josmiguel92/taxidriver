@@ -8,7 +8,7 @@
     {%  endif %}
 
 
-  <p>Nombre: {{ booking.fullname }}</p>
+  <p>Nombre: {{ booking.fullname }} <small>( {{ booking.numpeople }} personas)</small></p>
   {% if booking.airport %}
   <p>Recogida al aereopuerto o crucero ({{ booking.flynumber }})</p>
   {% endif %}
@@ -21,14 +21,20 @@
         {{ booking.ownrouteFormated }}
     {% endif %}
     {% if booking.accepted %}
-(Ya este precio se acept&oacute; por ambas partes).
-        {% if booking.idpaypal %}
-            {{ booking.idpaypal }}
-        {% endif %}
+        (Ya este precio se acept&oacute; por ambas partes).
     {% else %}
-        Debe especificar un precio
+        Debe especificar un precio.
     {% endif %}
- {{ form_row(form.price)}}
+    {% if booking.idpaypal %}
+        <p>
+            Pagado mediante PayPal: <b>{{ booking.price }} USD</b>.<br>
+            ID PAYPAL<b> {{ booking.idpaypal }}</b>
+        </p>
+    {% else %}
+        {{ form_row(form.price)}}
+    {% endif %}
+
+
  {{ form_widget(form._token)}}
 
 <p>{{ booking.comment }}</p>

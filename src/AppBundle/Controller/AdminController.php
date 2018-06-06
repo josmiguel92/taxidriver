@@ -664,6 +664,8 @@ class AdminController extends Controller
             $em->persist($booking);
             $em->flush();
 
+            if($booking->getPrice() > 0)
+                $this->sendUpdateEmail($booking);
             $this->addFlash(
                 'notice',
                 'Los cambios fueron guardados! >> info >> ti-save'
@@ -671,12 +673,48 @@ class AdminController extends Controller
             return $this->redirectToRoute('dash_booking');
         }
 
-        return $this->render('AppBundle:Dash:bookingAjaxDetails.html.twig',
-            ['pagename'=>'sitecontent',
-                'form' => $editForm->createView(),
-                'booking' => $booking,
-                'place'=>$place,
-            ]);
+        $views = ['pagename'=>'sitecontent',
+            'form' => $editForm->createView(),
+            'booking' => $booking,
+            'place'=>$place,
+        ];
+
+        if($request->isXmlHttpRequest())
+            return $this->render('AppBundle:Dash:bookingAjaxDetails.html.twig', $views);
+
+        return $this->render('AppBundle:Dash:bookingGetDetails.html.twig', $views);
 
     }
+
+    private function sendUpdateEmail(\AppBundle\Entity\Booking $booking){
+
+        $subject = "Taxidriverscuba Notification [UPDATED]";
+        $em = $this->getDoctrine()->getManager();
+        $place = $em->getRepository("AppBundle:Place")
+            ->find($booking->getId());
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject($subject)
+            ->setFrom('taxidriverscuba@gmail.com') //TODO: obtenerlo dinamicamente
+            ->setTo($booking->getEmail())
+            ->setBody(
+                $this->renderView(
+                    'AppBundle:Email:clientNotificationUpdated.html.twig',
+                    [
+                        'subject'=>$subject,
+                        '_locale'=>$booking->getBookingLocale(),
+                        'address' => 'Hotel Nacional, La Habana, Cuba', //TODO: obtener dinamicamente
+                        'telephone'=> '+53 5 5864523',
+
+                        'place'=>$place,
+
+                        'booking'=>$booking,
+                    ]
+                ),
+                'text/html'
+            );
+        $this->get('mailer')->send($message);
+
+    }
+
 }
