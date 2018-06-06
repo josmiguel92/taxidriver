@@ -701,6 +701,7 @@ class AdminController extends Controller
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
+            ->setFrom("noreply@taxidriverscuba.com")
             ->setReplyTo($senderEmail)
             ->setTo($booking->getEmail())
             ->setBody(
