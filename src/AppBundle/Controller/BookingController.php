@@ -201,6 +201,7 @@ class BookingController extends Controller
             $place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
             $places = $em->getRepository('AppBundle:Place')->findAll();
 
+            /*TODO: proccess Paypal POST headers and push it on DB*/
 
             return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
                 'locale'=>$_locale,

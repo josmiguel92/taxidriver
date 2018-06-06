@@ -103,6 +103,68 @@ class Place extends ImageField
     private $googlename;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="placedesc", type="text", nullable=true)
+     */
+    private $placedesc;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="placedesen", type="text", nullable=true)
+     */
+    private $placedescen;
+
+    /**
+     * @return string
+     */
+    public function getPlacedesc()
+    {
+        return $this->placedesc;
+    }
+
+    /**
+     * @param string $placedesc
+     */
+    public function setPlacedesc($placedesc)
+    {
+        $this->placedesc = $placedesc;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getPlaceDescLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->placedesc;
+        return $this->placedescen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlacedescen()
+    {
+        return $this->placedescen;
+    }
+
+    /**
+     * @param string $placedescen
+     */
+    public function setPlacedescen($placedescen)
+    {
+        $this->placedescen = $placedescen;
+    }
+
+
+
+
+
+    /**
      * @return int
      */
     public function getGooglename()

@@ -1,6 +1,13 @@
 {% extends 'AppBundle:Front:base.html.twig' %}
 
 {% set title = "Blog" %}
+{% if currentTag is defined %}
+    {% if locale == 'es' %}
+        {% set title = "Blog: "~currentTag.tag  %}
+    {% else %}
+        {% set title = "Blog: "~currentTag.tagEn  %}
+    {% endif %}
+{% endif %}
 {% set featureImage = asset(content.getHeaderimage.getWebPath) %}
 {% set description =  content.getBlogDescriptionLocale %}
 

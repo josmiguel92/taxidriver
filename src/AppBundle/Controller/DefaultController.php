@@ -66,7 +66,7 @@ class DefaultController extends Controller
      */
     public function blogAction(Request $request, $_locale='en', $_page=1)
     {
-        $entriesNumber = 2;
+        $entriesNumber = 4;
         $startEntry = $entriesNumber*($_page-1);
 
 
@@ -81,7 +81,6 @@ class DefaultController extends Controller
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
             $places = $em->getRepository('AppBundle:Place')->findAll();
             $tags = $em->getRepository('AppBundle:Tag')->findAll();
-            $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries($startEntry, $entriesNumber);
 
             $countEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntriesCount();
             $featureImage = "//";
@@ -137,6 +136,64 @@ class DefaultController extends Controller
         else{
             throw new NotFoundHttpException();
         }
+    }
+
+    /**
+     * @Route("/{_locale}/blog/{_tag}/{_page}", defaults={"_locale": "en", "_page":1}, requirements={
+     * "_locale": "en|es|fr",
+     * "_page":"\d+",
+     * }, name="tag_posts")
+     */
+    public function tagPostsAction(Request $request, $_locale='en', $_page=1, $_tag){
+        $em = $this->getDoctrine()->getManager();
+
+        $tag = null;;
+        if($_locale == 'es')
+            $tag = $em->getRepository("AppBundle:Tag")->findBy(['tag'=>$_tag]);
+
+        else
+            $tag = $em->getRepository("AppBundle:Tag")->findBy(['tagEn'=>$_tag]);
+
+        if(!$tag)
+            throw new NotFoundHttpException();
+
+        $tags_id = [];
+        foreach ($tag as $item)
+            $tags_id[] = $item->getId();
+
+//TODO: write query to get blogentries from tag's ids
+        $blogEntries = $em->getRepository("AppBundle:Blogentrie")->findBy(['tags'=>$tags_id]);
+
+
+        if ($blogEntries) {
+
+            $content = $em->getRepository('AppBundle:SiteContent')->findAll();
+            $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
+            $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
+            $places = $em->getRepository('AppBundle:Place')->findAll();
+            $tags = $em->getRepository('AppBundle:Tag')->findAll();
+
+            $countEntries = count($blogEntries);
+            $featureImage = "//";
+
+            return $this->render('AppBundle:Front:blog.html.twig',
+                ['locale'=>$_locale,
+                    'content'=>$content[0],
+                    'hashtags'=>$hashtags,
+                    'places'=>$places,
+                    'featureImage'=>$featureImage,
+                    'socialNetworks'=>$socialNetworks,
+                    'tags'=>$tags,
+                    'entriesNumber'=>4,
+                    'blogEntries'=>$blogEntries,
+                    'countEntries' => $countEntries,
+                    'pageNumber' => $_page,
+                    'currentTag' =>$tag
+                ]);
+        }
+        else
+            throw new \Exception("No hay entradas en el blog");
+
     }
 
 }

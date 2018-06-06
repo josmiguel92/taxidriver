@@ -26,14 +26,14 @@ class Tag
     /**
      * @var string
      *
-     * @ORM\Column(name="tag", type="string", length=255, unique=true)
+     * @ORM\Column(name="tag", type="string", length=255)
      */
     private $tag;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tag_en", type="string", length=255, unique=true)
+     * @ORM\Column(name="tag_en", type="string", length=255)
      */
     private $tagEn;
 
