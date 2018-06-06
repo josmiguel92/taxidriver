@@ -694,7 +694,7 @@ class AdminController extends Controller
             ->find($booking->getId());
 
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
-        $senderEmail = $content[0]->getEmail();
+        $senderEmail = $content[0]->getContactemail();
         $address = $content[0]->getContactaddressLocale();
         $telephone = $content[0]->getContacttelephone();
 
