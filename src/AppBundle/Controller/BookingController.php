@@ -262,10 +262,14 @@ class BookingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $place = $em->getRepository("AppBundle:Place")
             ->find($booking->getId());
+        $content = $em->getRepository('AppBundle:SiteContent')->findAll();
+        $senderEmail = $content[0]->getEmail();
+        $address = $content[0]->getContactaddressLocale();
+        $telephone = $content[0]->getContacttelephone();
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
-            ->setFrom('taxidriverscuba@gmail.com') //TODO: obtenerlo dinamicamente
+            ->setReplyTo($senderEmail)
             ->setTo($booking->getEmail())
             ->setBody(
                 $this->renderView(
@@ -273,11 +277,9 @@ class BookingController extends Controller
                     [
                         'subject'=>$subject,
                         '_locale'=>$booking->getBookingLocale(),
-                        'address' => 'Hotel Nacional, La Habana, Cuba', //TODO: obtener dinamicamente
-                        'telephone'=> '+53 5 5864523',
-
+                        'address' => $address,
+                        'telephone'=> $telephone,
                         'place'=>$place,
-
                         'booking'=>$booking,
                     ]
                 ),
@@ -287,19 +289,16 @@ class BookingController extends Controller
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
-            ->setFrom('taxidriverscuba@gmail.com') //TODO: obtenerlo dinamicamente
-            ->setTo('taxidriverscuba@gmail.com')
+            ->setTo($senderEmail)
             ->setBody(
                 $this->renderView(
                     'AppBundle:Email:booking-email.html.twig',
                     [
                         'subject'=>$subject,
                         '_locale'=>$booking->getBookingLocale(),
-                        'address' => 'Hotel Nacional, La Habana, Cuba', //TODO: obtener dinamicamente
-                        'telephone'=> '+53 5 5864523',
-
+                        'address' => $address,
+                        'telephone'=> $telephone,
                         'place'=>$place,
-
                         'booking'=>$booking,
                     ]
                 ),
