@@ -10,6 +10,11 @@
 {% set description = content.getReservationDescriptionLocale %}
 {% set featureImage = content.getOwnrouteimage.getWebPath %}
 
+{% set spanish_page = path("bookingOwnTour", {"_locale":"es"}) %}
+{% set english_page = path("bookingOwnTour", {"_locale":"en"}) %}
+
+
+
 {% block destination %}
 
     <div class="row">
@@ -127,7 +132,7 @@
 
     <script>
         $("#document").ready(function (){
-            $("#priceValue")[0].innerHTML = "";
+            $("#labelPrice")[0].innerHTML = "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
         });
     </script>
 {% endblock %}

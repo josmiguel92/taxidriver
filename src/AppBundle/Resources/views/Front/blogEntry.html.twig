@@ -11,6 +11,9 @@
 
 {% block class %}blog-post{% endblock %}
 
+{% set spanish_page = path("blogEntry", {"_locale":"es", "_id":blogEntry.getId, "_name":blogEntry.getTitle}) %}
+{% set english_page = path("blogEntry", {"_locale":"en", "_id":blogEntry.getId, "_name":blogEntry.getTitleen}) %}
+
 {% block content %}
     <!-- Page Content-->
     <main class="page-content">
@@ -50,7 +53,7 @@
                         </div>
 
                         <!--- Content -->
-                        <div class="blog-content">
+                        <div class="blog-content offset-top-30">
                             {{ blogEntry.getTeaserLocale|nl2br }}
                         </div>
 
@@ -70,7 +73,7 @@
                             <div class="cell-sm-10">
                                 <div class="offset-top-35 offset-md-top-30">
 
-                                    <h3 class="text-spacing-0 text-lowercase"
+                                    <h3 class="text-spacing-0"
                                         style="border-radius: 5px;">
                                         "{{ blogEntry.getQuoteLocale }}"
                                     </h3>
@@ -104,19 +107,16 @@
                         </div>
 
                         <div class="group group-xs btn-tags offset-top-50 offset-md-top-30">
-                            <a href="#" class="btn btn-info btn-icon btn-icon-left">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ absolute_url(path("blogEntry", {"_locale":locale, "_name":blogEntry.getTitleLocale, "_id":blogEntry.getId}))|url_encode }}&amp;src=sdkpreparse" class="btn btn-info btn-icon btn-icon-left">
                                 <span class="icon icon-xs fa fa-facebook"></span>
                                 <span class="text-lowercase text-regular text-spacing-0 font-default">facebook</span>
                             </a>
-                            <a href="#" class="btn btn-curious-blue btn-icon btn-icon-left">
-                                <span class="icon icon-xs fa fa-twitter"></span>
-                                <span class="text-lowercase text-regular text-spacing-0 font-default">twitter</span>
-                            </a>
+                            {#Todo: google share#}
                             <a href="#" class="btn btn-mandy btn-icon btn-icon-left">
                                 <span class="icon icon-xs fa fa-google-plus"></span>
                                 <span class="text-lowercase text-regular text-spacing-0 font-default">google +</span>
                             </a>
-                            <a href="#" class="btn btn-success btn-icon btn-icon-left">
+                            <a href="mailto:yourfriend@mail.com?subject={% trans %}Check out this post!!{% endtrans %}&amp;body={{ absolute_url(path("blogEntry", {"_locale":locale, "_name":blogEntry.getTitleLocale, "_id":blogEntry.getId})) }}" class="btn btn-success btn-icon btn-icon-left">
                                 <span class="icon icon-xs fa fa-send"></span>
                                 <span class="text-lowercase text-regular text-spacing-0 font-default">Email</span>
                             </a>

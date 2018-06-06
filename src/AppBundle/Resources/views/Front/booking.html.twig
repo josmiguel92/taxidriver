@@ -13,89 +13,215 @@
 
 {% set featureImage =  asset(content.getHeaderimage.getWebPath) %}
 
+{% set spanish_page = path("add_booking", {"_locale":"es"}) %}
+{% set english_page = path("add_booking", {"_locale":"en"}) %}
+
+
 {% block destination %}
     <div class="well-row">
         <div class="range range-xs-center text-sm-left well-place">
 
-            {% for place in places %}
-                <div id="parent_{{ loop.index }}" style="padding: 1em 0; margin: 1em 1em" class="cell-sm-10 cell-md-7 cell-lg-5 offset-top-60 item-place">
-                    <div style="max-width: 100%;" class="">
-                        <!-- Unit-->
-                        <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
-                            <div class="unit-left">
-                                <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
-                            </div>
-                            <div class="unit-body">
-                                <div>
-                                    <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}</a></h5>
+            <!-- Taxi subsection -->
+            <div class="offset-top-25 text-center">
+                <!--<i class="fa fa-cab fa-3x color-sky"></i>-->
+                <img src="{{ asset("images/custom-icons/taxi-sign.svg") }}">
+                <h2 class="text-spacing-25">
+                    {% trans %}Taxi{% endtrans %}
+                </h2>
+            </div>
 
-                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km </p>
-                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} h </p>
-                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 USD <br/></p>
+            <!--List of Taxis -->
+            <div class="range range-xs-center offset-top-44 offset-md-top-53 text-sm-left">
+                {% for place in places %}
+                    {% if not place.istour %}
+                        <div id="parent_{{ loop.index }}" data-type="taxi" data-price="{{ place.getPrice }}" style="padding: 1em 0; margin: 1em 1em" class="cell-sm-10 cell-md-7 cell-lg-5 offset-top-60 item-place">
+                        <div style="max-width: 100%;" class="">
+                            <!-- Unit-->
+                            <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
+                                <div class="unit-left">
+                                    <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
+                                </div>
+                                <div class="unit-body">
+                                    <div>
+                                        <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}</a></h5>
 
-                                    <div class="offset-top-40">
-                                        <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">
-                                            {% trans %}Add{% endtrans %}
-                                        </a>
+                                        <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km </p>
+                                        <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} h </p>
+                                        <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 USD <br/></p>
+
+                                        <div class="offset-top-40">
+                                            <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">
+                                                {% trans %}Add{% endtrans %}
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- Taxi-Tours subsection -->
+            <div class="offset-top-25 text-center">
+                <i class="fa fa-binoculars fa-3x color-sky"></i>
+                <h2 class="text-spacing-25">
+                    {% trans %}Taxi-Tours{% endtrans %}
+                </h2>
+            </div>
+
+            <!--List of Tours -->
+            <div class="range range-xs-center offset-top-44 offset-md-top-53 text-sm-left">
+                {% for place in places %}
+                    {% if place.istour %}
+                        <div id="parent_{{ loop.index }}" data-type="tour" data-price="{{ place.getPrice }}" style="padding: 1em 0; margin: 1em 1em" class="cell-sm-10 cell-md-7 cell-lg-5 offset-top-60 item-place">
+                            <div style="max-width: 100%;" class="">
+                                <!-- Unit-->
+                                <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
+                                    <div class="unit-left">
+                                        <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
+                                    </div>
+                                    <div class="unit-body">
+                                        <div>
+                                            <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}</a></h5>
+
+                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km </p>
+                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} h </p>
+                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 USD <br/></p>
+
+                                            <div class="offset-top-40">
+                                                <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">
+                                                    {% trans %}Add{% endtrans %}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}
+
 {% block javascript %}
 {{ parent() }}
     <script>
+        _addText = '{% trans %}Add{% endtrans %}';
+        _removeText = '{% trans %}Remove{% endtrans %}';
+
+        price = 0;
+        isTour = false;
+
+        function wrapperPrice(price)
+        {
+            priceContent = "";
+
+            if (price=="init")
+                priceContent = "{% trans %}Select a service first{% endtrans %}";
+            else if (typeof(price)=="number")
+                priceContent = '<i class=\'fa fa-dollar color-sky\'></i> '+price+' USD';
+            else
+                priceContent = "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
+
+            $("#labelPrice")[0].innerHTML = priceContent;
+        }
+
+
+        function computeUpdatePrice()
+        {
+            var numberPeople = $('#{{ booking_form.numpeople.vars.id }}')[0].value;
+
+            {#todo: we shoul use a better identificator of the toggle botton not the element in [1]#}
+
+            if ((!isTour || $('.toggle')[1].classList.contains('off')) && numberPeople <= 5)
+                wrapperPrice(price);
+
+            if ((!isTour || !$('.toggle')[1].classList.contains('off')) && numberPeople > 2 && numberPeople <= 5)
+                wrapperPrice(price + (numberPeople-2)*10);
+
+            if ((!isTour) && numberPeople > 2 && numberPeople <= 5)
+                wrapperPrice(price);
+
+            if (numberPeople > 5)
+                wrapperPrice("");
+
+        }
+
         $(document).ready(function () {
-            var _addText = '{% trans %}Add{% endtrans %}';
-            var _removeText = '{% trans %}Remove{% endtrans %}';
+
+            $("#activeTour").change(function() {
+                  computeUpdatePrice();
+            });
+
+            $("#{{ booking_form.numpeople.vars.id }}").change(function() {
+              computeUpdatePrice();
+            });
 
             var selected_places ={ {% spaceless %}
                 {% for place in places %}{{ place.id }} : false{% if not loop.last %},{% endif %}{% endfor %}
-                {% endspaceless %} }
+                {% endspaceless %} };
 
-            $('a[data-role="booking-btn"]').click(function (e) {
+            selected_bottons = $('a[data-role="booking-btn"]');
+
+            wrapperPrice("init");
+
+            selected_bottons.click(function (e) {
+
                 e.preventDefault();
 
                 var parent_id = this.attributes['data-parent'].value;
+                var parent = $('#'+parent_id);
+                isTour = parent[0].attributes['data-type'].value=="tour";
+                price = parent[0].attributes['data-price'].value;
+                price = parseInt(price);
 
+                //si contiene la clase selecciona, entonces se le quita
                 if (this.classList.contains('selected-place')) {
-                        this.classList.remove('selected-place');
-                        $('#'+parent_id).removeClass('selected-place');
-                        this.innerHTML = _addText;
-                        selected_places[this.dataset['place']] = false;
+
+                    this.classList.remove('selected-place');
+                    parent.removeClass('selected-place');
+                    this.innerHTML = _addText;
+                    //logic
+                    selected_places[this.dataset['place']] = false;
+
+                    //hide the tour button if it visible
+                    $("#tourToggle").fadeOut(500);
+
+                    wrapperPrice("init");
+
                 }
-                else{ /*Add*/
+                //si no contiene la clase seleccionada, entonces agregarla
+                else{
 
-                    for(var id = 1; id < {{ places|length }}; id++){
-
-                        if(id==parent_id)
-                            continue;
-
+                    //des-seleccionar a los otros elementos
+                    for(var id = 1; id < ({{ places|length }}+1); id++){
                         $("#parent_"+id).removeClass("selected-place");
-                        var _id = "data-parent=parent_"+id;
-                        $('a['+_id+']')[0].innerHTML = _addText;
+                        $('a[data-parent]')[(id-1)].innerHTML = _addText;
                     }
 
                     this.innerHTML = _removeText;
+                    parent.addClass('selected-place');
                     this.classList.add('selected-place');
-                    $("#"+parent_id).addClass('selected-place');
+
+                    //logic
                     selected_places[this.dataset['place']] = true;
+
+                    //show the tour button
+                    if(isTour)
+                        $("#tourToggle").fadeIn(500);
+                    else
+                        $("#tourToggle").fadeOut(500);
+
+                    computeUpdatePrice();
                 }
 
                 $('#appbundle_booking_places_collection')[0].value =JSON.stringify(selected_places);
             })
-        });
-    </script>
-
-    <script>
-        $("#document").ready(function (){
-            $("#priceValue")[0].innerHTML = "";
-        });
+    });
     </script>
 
 {% endblock %}

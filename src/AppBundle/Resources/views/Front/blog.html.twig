@@ -4,6 +4,10 @@
 {% set featureImage = asset(content.getHeaderimage.getWebPath) %}
 {% set description =  content.getBlogDescriptionLocale %}
 
+{% set spanish_page = path("blog", {"_locale":"es"}) %}
+{% set english_page = path("blog", {"_locale":"en"}) %}
+
+
 {% block content %}
 
     <!-- Page Content-->
@@ -12,8 +16,6 @@
         <!-- Blog Classic Both Sidebar-->
         <section>
             <div class="shell">
-                <h1 class="inset-lg-left-200">Blog</h1>
-
                 <div class="range range-xs-center range-lg-left offset-top-50">
                     <div class="cell-sm-10 cell-md-8 cell-md-push-1">
 
@@ -22,7 +24,7 @@
 
                             {% set url = path("blogEntry",{"_id":blogEntry.getId, "_name":blogEntry.getTitleLocale}) %}
                             <!-- Post Classic-->
-                            <article class="post-classic text-left offset-top-50">
+                            <article class="post-classic text-left offset-top-30">
                                 <div class="post-classic-img-wrap">
                                     <a href="{{ url }}">
                                         <img src="{{ asset(blogEntry.getFullImageWebPath) }}" width="770" height="381" alt="" class="img-responsive center-block">
@@ -46,7 +48,7 @@
                                             <!-- Post Body-->
                                             <div class="post-body offset-top-15 offset-md-top-25">
                                                 <p class="text-spacing-0">
-                                                    {{ blogEntry.getTeaserLocale|striptags|slice(0, 500)|nl2br }} ...<a href="" class="text-extra-small text-bold text-turquoise text-uppercase text-spacing-50">Read More</a>
+                                                    {{ blogEntry.getTeaserLocale|striptags|slice(0, 500)|nl2br }} ...<a href="" class="text-extra-small text-bold text-turquoise text-uppercase text-spacing-50">{% trans %}Read More{% endtrans %}</a>
                                                 </p>
                                             </div>
                                             <div class="offset-top-20 offset-md-top-30">
