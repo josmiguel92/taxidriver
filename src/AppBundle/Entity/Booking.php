@@ -47,7 +47,7 @@ class Booking
 
     /**
      * @var string
-     * @ORM\Column(name="tourservice", type="string", length=255, nullable=true)
+     * @ORM\Column(name="tourservice", type="boolean", nullable=true)
      */
     private $tour;
 
@@ -534,5 +534,12 @@ class Booking
         return implode('-', $this->ownroute);
     }
 
+    public function isTour(){
+        return $this->tour;
+    }
+
+    public function getPickuptimeFormated($format = 'd-M-Y'){
+        return $this->pickuptime->format($format);
+    }
 }
 

@@ -165,4 +165,12 @@ class Utils
         return $place->getPrice()+($persons-2)*10;
 
     }
+
+    static function buildProductName(\AppBundle\Entity\Booking $booking, \AppBundle\Entity\Place $place){
+        $str = $booking->isTour() ? "Tour to " : "Transfer to ";
+        $str .= $place->getNameLocale();
+        $str .= " for ".$booking->getNumpeople()." persons";
+        $str .= "on ".$booking->getPickuptimeFormated();
+        return $str;
+    }
 }

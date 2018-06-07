@@ -189,6 +189,15 @@ class BookingController extends Controller
      */
     public function purchaseDetailsAction(Request $request, $_locale='en', $_token, $_paypalCallback=null)
     {
+        if(isset($_REQUEST['tx'])){
+            echo "<!-- ";
+            echo $_REQUEST['item_number']." ID del producto\n";
+            echo $_REQUEST['tx']." ID de transacción Paypal\n";
+            echo $_REQUEST['amt']." Monto recibido Paypal\n";
+            echo $_REQUEST['cc']."  Moneda recibida de Paypal\n";
+            echo $_REQUEST['st']." Estado del producto Paypal\n";
+            echo "-->";
+        }
         $em = $this->getDoctrine()->getManager();
         $purchase = $em->getRepository('AppBundle:Booking')->findOneBy(['token'=>$_token]);
 
@@ -236,7 +245,7 @@ class BookingController extends Controller
             $_place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
             $_person_number = $purchase->getNumpeople();
             //TODO:Escribir bien el nombre del producto
-            $product_name = $_place->getNameLocale();
+            $product_name = Utils::buildProductName($purchase, $_place);
 
             $price = Utils::calculateSimpleRoutePrices($_place, $_person_number);
             $product_price = $price - 0.1*$price;
