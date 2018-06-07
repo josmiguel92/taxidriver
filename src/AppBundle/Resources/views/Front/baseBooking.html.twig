@@ -9,7 +9,7 @@
 
         <section class="section-75 section-md-top-90 section-md-bottom-110">
             <div class="shell">
-                <h2>{% trans %}Form reservation{% endtrans %}</h2>
+                <h2>{% trans %}Reservation form{% endtrans %}</h2>
                 {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
                                                      'data-form-type':'order',
                                                      'data-form-output':'form-output-global'}}) }}
@@ -67,26 +67,23 @@
 
                             <div class="row">
 
-
-                                    <div class="row">
+                                <div class="row">
                                         <div id="tourToggle" class="offset-top-15 cell-sm-6 cell-md-8 well-row-flex" style="margin-bottom: 25px; display: none;">
                                             <label class="custom-label text-gray-dark">
-                                                {% trans %}The selected place, admits a <a href="#">tour</a>. Do you want to activate it?{% endtrans %}
+                                                {% trans %}
+                                                    The selected place, admits a tour. Do you want to activate it?
+                                                {% endtrans %}
                                             </label>
                                             <div style="max-width: 200px; width: 350%;" class="form-group">
-                                                <input data-toggle="toggle" type="checkbox" id="{{ booking_form.airport.vars.id }}" name="{{ booking_form.airport.vars.full_name }}">
+                                                {#TODO: Cambiar el name del input, no sobreescribir el id#}
+                                                <input data-toggle="toggle" type="checkbox" id="activeTour" name="{{ booking_form.tour.vars.full_name }}">
                                             </div>
                                         </div>
                                     </div>
 
                                 <div class="row">
                                     <div class="cell-md-8">
-                                        <p id="tourDescription" class="offset-top-15" style="margin-bottom: 25px; display: none;">
-                                            We offer a turistic tour from Havana to Varadero, the most beautiful and clean beach in our island, taking a few stops in our way where we´ll visit the gazebo of Bacunayagua bridge which is 313.5 meters long, with an arc extensión of 114 meters and it´s 103.5 above sea level and 16 meters wide. It´s considerated one of the 7 wonders of Cuban´s civil engineering. This construction began in 1956 and it was finished in September 26th, 1959. There you can have a delicious piña colada, a clasical refreshing drink of the area, while you enjoy the majestic view of the bridge and the natual landscape. You´ll be able to travel to Saturno´s Cave that is found 20 meters deep with beautiful stalactites and stalagmites, it has an 18 meters deep lake with water so deep that you can see its bottom making it a natural pool with clear and cold water to bathe in. We´d continue our trip to Varadero´s peninsula enjoing its wide waters and thin sand.
-
-                                            We recomend to take this tour starting at 8:30 am due to long distances. The return to Havana will be at the afternoon.
-
-                                            We offer the posibility to have a previous reservation in restaurants.
+                                        <p id="tourDescription" style="margin-bottom: 25px; display: none;">
                                         </p>
                                     </div>
                                 </div>
@@ -108,7 +105,8 @@
                                         <div class="offset-top-15 cell-sm-5 cell-md-8 well-row-flex">
                                             <label class="custom-label text-gray-dark">{% trans %}Date and time{% endtrans %}</label>
                                             <div style="max-width: 400px; width: 350%;" class="form-group">
-                                                <input placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="" type="text" style="text-align: left; padding: 10px 12px;" class="form-control" id="{{ booking_form.pickuptime.vars.id }}" name="{{ booking_form.pickuptime.vars.full_name }}">
+                                                <input data-constraints="@Required" required placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="" type="text" style="text-align: left; padding: 10px 12px;" class="form-control" id="{{ booking_form.pickuptime.vars.id }}" name="{{ booking_form.pickuptime.vars.full_name }}">
+                                                <span class="form-validation"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -141,9 +139,8 @@
                             <div class="cell-md-4 inset-lg-right-8">
                                 <div class="form-group">
                                     <label for="{{ booking_form.fullname.vars.id }}" class="form-label rd-input-label">{% trans %}Name{% endtrans %}</label>
-                                    <input name="{{ booking_form.fullname.vars.full_name }}" id="{{ booking_form.fullname.vars.id }}" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="text">
+                                    <input name="{{ booking_form.fullname.vars.full_name }}" id="{{ booking_form.fullname.vars.id }}" data-constraints="@Required" required class="form-control form-control-has-validation form-control-last-child" type="text">
                                     <span class="form-validation"></span>
-
                                 </div>
                             </div>
 
@@ -151,7 +148,7 @@
                             <div class="cell-md-4 inset-lg-left-8 inset-lg-right-8 offset-top-15 offset-md-top-0">
                                 <div class="form-group">
                                     <label for="{{ booking_form.email.vars.id }}" class="form-label rd-input-label">Email</label>
-                                    <input name="{{ booking_form.email.vars.full_name }}" id="{{ booking_form.email.vars.id }}" data-constraints="@Email @Required" class="form-control form-control-has-validation form-control-last-child" type="email">
+                                    <input name="{{ booking_form.email.vars.full_name }}" id="{{ booking_form.email.vars.id }}" data-constraints="@Email @Required" required class="form-control form-control-has-validation form-control-last-child" type="email">
                                     <span class="form-validation"></span>
 
                                 </div>
@@ -193,7 +190,7 @@
                         <div class="text-center offset-top-33">
                             <button type="submit" class="btn btn-xl btn-primary" id="booking_submit">
                                 <i class="fa fa-shopping-cart "></i>
-                                {% trans %}Book now{% endtrans %}
+                                {% trans %}Book Now{% endtrans %}
                                 <span class="text-extra-small">*</span>
                             </button>
                         </div>
@@ -213,9 +210,7 @@
 
                 {% if place is defined %}
                     {{ form_widget(booking_form.place, {'value':place.id, 'type':'hidden'}) }}
-
                 {% else %}
-
                     {{ form_widget(booking_form.place, {'value':0, 'type':'hidden'}) }}
                 {% endif %}
                 </form>

@@ -205,7 +205,7 @@
                                                     </p>
 
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km <p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} h </p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} {% trans %}hours{% endtrans %} </p>
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 USD <br/></p>
 
                                                     <div class="offset-top-40">
@@ -269,7 +269,7 @@
                                                     </h3>
 
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km <p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} h </p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} {% trans %}hours{% endtrans %} </p>
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 USD <br/></p>
 
                                                     <div class="offset-top-40">
