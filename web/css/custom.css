@@ -204,3 +204,9 @@ h2{
 .rd-parallax h2{
     text-shadow: 3px 3px 6px #000000b3;
 }
+
+.disabled-link
+{
+    cursor: not-allowed;
+    color: lightgrey !important;
+}

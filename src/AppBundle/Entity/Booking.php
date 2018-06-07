@@ -41,7 +41,7 @@ class Booking
 
     /**
      * @var array
-     * @ORM\Column(name="ownroute", type="simple_array", nullable=true)
+     * @ORM\Column(name="ownroute", type="string", nullable=true)
      */
     private $ownroute;
 
@@ -530,8 +530,11 @@ class Booking
     }
 
 
+    //TODO: make a a array with explode
     public function ownrouteFormated(){
-        return implode('-', $this->ownroute);
+        $places = explode('|', $this->ownroute);
+        array_pop($places);
+        return $places;
     }
 
     public function isTour(){

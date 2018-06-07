@@ -3,7 +3,7 @@
   {%  if place %}
     <h5>{{ place.name }}</h5>
       {% else %}
-          <h5>Ruta personalllizada</h5>
+          <h5>Ruta personalizada</h5>
 
     {%  endif %}
 
@@ -18,7 +18,15 @@
 
     {% if not place %}
         <hr>
-        {{ booking.ownrouteFormated }}
+        {% if booking.ownroute %}
+            <h4 class="modal-title">Lugares</h4>
+            <ul>
+                {% for _place in booking.ownrouteFormated %}
+                    <li>{{_place}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
     {% endif %}
     {% if booking.accepted %}
         (Ya este precio se acept&oacute; por ambas partes).

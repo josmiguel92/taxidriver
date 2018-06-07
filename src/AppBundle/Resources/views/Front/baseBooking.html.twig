@@ -10,7 +10,7 @@
         <section class="section-75 section-md-top-90 section-md-bottom-110">
             <div class="shell">
                 <h2>{% trans %}Form reservation{% endtrans %}</h2>
-                {{ form_start(booking_form, {'attr':{'class':'offset-top-44 well rd-mailform text-md-left',
+                {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
                                                      'data-form-type':'order',
                                                      'data-form-output':'form-output-global'}}) }}
 
@@ -36,7 +36,7 @@
                                 <div id="flynumber">
                                     <div class="form-group">
                                         <label for="{{ booking_form.flynumber.vars.id }}" class="form-label rd-input-label">{% trans %}Flight or cruiser number{% endtrans %}</label>
-                                        <input id="{{ booking_form.flynumber.vars.id }}" name="{{ booking_form.flynumber.vars.full_name }}"  class="form-control form-control-has-validation form-control-last-child" type="text" disabled>
+                                        <input id="{{ booking_form.flynumber.vars.id }}" name="{{ booking_form.flynumber.vars.full_name }}"  class="form-control form-control-has-validation form-control-last-child" type="text" required disabled>
                                         <span class="form-validation"></span>
                                     </div>
                                 </div>
@@ -74,7 +74,7 @@
                                                 {% trans %}The selected place, admits a <a href="#">tour</a>. Do you want to activate it?{% endtrans %}
                                             </label>
                                             <div style="max-width: 200px; width: 350%;" class="form-group">
-                                                <input data-toggle="toggle" type="checkbox" id="activeTour" name="">
+                                                <input data-toggle="toggle" type="checkbox" id="{{ booking_form.airport.vars.id }}" name="{{ booking_form.airport.vars.full_name }}">
                                             </div>
                                         </div>
                                     </div>
@@ -191,7 +191,7 @@
                     <!--Submit button-->
                     <div class="well-row well-row-bg">
                         <div class="text-center offset-top-33">
-                            <button class="btn btn-xl btn-primary" id="booking_submit">
+                            <button type="submit" class="btn btn-xl btn-primary" id="booking_submit">
                                 <i class="fa fa-shopping-cart "></i>
                                 {% trans %}Book now{% endtrans %}
                                 <span class="text-extra-small">*</span>
@@ -207,14 +207,14 @@
                     </div>
 
                     {{ form_widget(booking_form._token)}}
-                    {{ form_widget(booking_form.places_collection)}}
+                    {{ form_widget(booking_form.ownroute, {'type':'hidden'})}}
+
+
 
                 {% if place is defined %}
                     {{ form_widget(booking_form.place, {'value':place.id, 'type':'hidden'}) }}
-                    {{ form_widget(booking_form.tour, {'value':place.istour, 'type':'hidden'}) }}
 
                 {% else %}
-                    {{ form_widget(booking_form.tour, {'value':0, 'type':'hidden'}) }}
 
                     {{ form_widget(booking_form.place, {'value':0, 'type':'hidden'}) }}
                 {% endif %}
@@ -227,11 +227,16 @@
 {% block javascript %}
 {{ parent() }}
     <script>
-        $(document).ready(function()
+    $(document).ready(function()
         {
-            $('#booking_submit').click(function(){
-                //if($(this).valid())
-                $('form.offset-top-44')[0].submit(); /*TODO: poner identificador al formulario*/
+
+            $('#booking_submit').click(function(e){
+                 e.preventDefault();
+
+                {% block stringfy %}
+                {% endblock %}
+
+                 $('form.booking')[0].submit();
             });
 
             $("#{{ booking_form.airport.vars.id }}").change(function() {
@@ -243,7 +248,7 @@
                     item.setAttribute('data-constraints','@Required'));
             });
 
-            $("#activeTour").change(function() {
+            $("#{{ booking_form.airport.vars.id  }}").change(function() {
                   if (!$('.toggle')[1].classList.contains('off'))
                       $('#tourDescription').fadeIn(500);
                   else
