@@ -43,15 +43,15 @@
                                     </div>
                                     <div class="unit-body">
                                         <div>
-                                            <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}</a></h5>
+                                            <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} - {{ place.getNameLocale }}</a></h5>
 
                                             <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km </p>
                                             <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} {% trans %}hours{% endtrans %} </p>
-                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 USD <br/></p>
+                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 CUC <br/></p>
 
                                             <div class="offset-top-40">
                                                 <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">
-                                                    {% trans %}Add{% endtrans %}
+                                                    {% trans %}Select{% endtrans %}
                                                 </a>
                                             </div>
                                         </div>
@@ -87,15 +87,15 @@
                                     </div>
                                     <div class="unit-body">
                                         <div>
-                                            <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}</a></h5>
+                                            <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} - {{ place.getNameLocale }}</a></h5>
 
                                             <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km </p>
                                             <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} {% trans %}hours{% endtrans %} </p>
-                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 USD <br/></p>
+                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 CUC <br/></p>
 
                                             <div class="offset-top-40">
                                                 <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">
-                                                    {% trans %}Add{% endtrans %}
+                                                    {% trans %}Select{% endtrans %}
                                                 </a>
                                             </div>
                                         </div>
@@ -114,7 +114,7 @@
 {{ parent() }}
     <script>
 
-        _addText = '{% trans %}Add{% endtrans %}';
+        _addText = '{% trans %}Select{% endtrans %}';
         _removeText = '{% trans %}Remove{% endtrans %}';
 
         price = 0;
@@ -128,7 +128,7 @@
             if (price=="init")
                 priceContent = "{% trans %}Select a service first{% endtrans %}";
             else if (typeof(price)=="number")
-                priceContent = '<i class=\'fa fa-dollar color-sky\'></i> '+price+' USD';
+                priceContent = '<i class=\'fa fa-dollar color-sky\'></i> '+price+' CUC';
             else
                 priceContent = "{% trans %}We need to negotiate{% endtrans %} <span class=\"text-extra-small\"> *</span>";
 
@@ -160,8 +160,8 @@
 
             $("#activeTour").change(function() {
                 computeUpdatePrice();
+
                 if(!$('.toggle')[1].classList.contains('off')){
-                    console.log(place_id);
                     var tour_description = $("#tourDescription_"+place_id)[0].innerHTML;
                     $("#tourDescription")[0].innerHTML = tour_description;
                     $("#tourDescription").fadeIn(500);

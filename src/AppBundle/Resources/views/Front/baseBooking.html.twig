@@ -75,18 +75,17 @@
                                                 {% endtrans %}
                                             </label>
                                             <div style="max-width: 200px; width: 350%;" class="form-group">
-                                                {#TODO: Cambiar el name del input, no sobreescribir el id#}
                                                 <input data-toggle="toggle" type="checkbox" id="activeTour" name="{{ booking_form.tour.vars.full_name }}">
                                             </div>
                                         </div>
                                     </div>
 
-                                <div class="row">
-                                    <div class="cell-md-8">
-                                        <p id="tourDescription" style="margin-bottom: 25px; display: none;">
-                                        </p>
+                                    <div class="row">
+                                        <div class="cell-md-8">
+                                            <p id="tourDescription" style="margin-bottom: 25px; display: none;">
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
 
                                     <div class="row">
                                         <div class=" cell-sm-5 cell-md-12 well-row-flex form-inline">
@@ -154,17 +153,6 @@
                                 </div>
                             </div>
 
-                            <!--Phone Number--->
-                            <div class="cell-md-4 inset-lg-left-8 inset-lg-right-8 offset-top-15 offset-md-top-0">
-                                <div class="form-group">
-                                    <label for="{{ booking_form.telephone.vars.id }}" class="form-label rd-input-label">Phone number</label>
-
-                                    <input  name="{{ booking_form.telephone.vars.full_name }}" id="{{ booking_form.telephone.vars.id }}" data-constraints="@Required" class="form-control form-control-has-validation form-control-last-child" type="tel">
-                                    <span class="form-validation"></span>
-
-                                </div>
-                            </div>
-
                             <div class="cell-sm-12 offset-top-15">
                                 <div class="form-group">
                                     <label for="{{ booking_form.comment.vars.id }}" class="form-label rd-input-label">Anything that you need to tell us</label>
@@ -197,7 +185,7 @@
 
                         <div>
                             <p class="text-extra-small offset-top-30 text-justify">*
-                                {% trans %}The prices can vary in function of the amount of passengers and customs places. Also we offer discount if paypal payment method is used.
+                                {% trans %}The prices can vary in function of the amount of passengers and customs places.
                                 {% endtrans %}
                             </p>
                         </div>
@@ -243,7 +231,8 @@
                     item.setAttribute('data-constraints','@Required'));
             });
 
-            $("#{{ booking_form.airport.vars.id  }}").change(function() {
+            //Si active tour cambia entonces mostrar la descripcion del tour
+            $("#activeTour").change(function() {
                   if (!$('.toggle')[1].classList.contains('off'))
                       $('#tourDescription').fadeIn(500);
                   else

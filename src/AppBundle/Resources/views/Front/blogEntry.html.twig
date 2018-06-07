@@ -47,7 +47,7 @@
 
                         <!-- Title --->
                         <div class="offset-top-25 offset-md-top-5">
-                            <h1 class="text-spacing-inverse-50 text-capitalize text-center text-md-left">
+                            <h1 class="text-spacing-inverse-50 text-capitalize text-center text-md-left title-over-image">
                                 {{ title }}
                             </h1>
                         </div>
@@ -73,10 +73,10 @@
                             <div class="cell-sm-10">
                                 <div class="offset-top-35 offset-md-top-30">
 
-                                    <h3 class="text-spacing-0"
+                                    <h2 class="h3 text-spacing-0"
                                         style="border-radius: 5px;">
                                         "{{ blogEntry.getQuoteLocale }}"
-                                    </h3>
+                                    </h2>
                                     <div class="offset-top-75 offset-md-top-75">
                                         {% set link = path("add_booking",{_locale:locale}) %}
                                         {% if blogEntry.getPlace %}

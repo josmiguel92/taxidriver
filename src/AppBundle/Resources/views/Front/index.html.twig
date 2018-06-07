@@ -200,13 +200,13 @@
                                                 <div class="place-description">
                                                     <p class="p h5 text-capitalize text-spacing-inverse-25">
                                                         <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
-                                                            {% trans %}From Havana to{% endtrans %} {{ place.getNameLocale }}
+                                                            {% trans %}Havana{% endtrans %} - {{ place.getNameLocale }}
                                                         </a>
                                                     </p>
 
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km <p>
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} {% trans %}hours{% endtrans %} </p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 USD <br/></p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 CUC <br/></p>
 
                                                     <div class="offset-top-40">
                                                         <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="btn btn-calypso btn-icon btn-icon-left">
@@ -264,13 +264,13 @@
                                                 <div class="place-description">
                                                     <h3 class="p h5 text-capitalize text-spacing-inverse-25">
                                                         <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
-                                                            {% trans %}From Havana to{% endtrans %} {{ place.getNameLocale }}
+                                                            {% trans %}Havana{% endtrans %} - {{ place.getNameLocale }}
                                                         </a>
                                                     </h3>
 
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km <p>
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} {% trans %}hours{% endtrans %} </p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 USD <br/></p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 CUC <br/></p>
 
                                                     <div class="offset-top-40">
                                                         <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="btn btn-calypso btn-icon btn-icon-left">
@@ -426,6 +426,7 @@
                     </div>
                 </div>
 
+                {#
                 <!-- Members-->
                 <div class="offset-top-64 offset-md-top-95">
                     <h2 class="text-spacing-25 text-center">
@@ -468,6 +469,8 @@
                         </div>
                     {% endfor %}
                 </div>
+                #}
+
             </div>
         </section>
 
@@ -573,7 +576,7 @@
         <!--Contact-->
         <section id="contact" style="padding-top: 1%;"  class="section-md-bottom-40">
             <div class="shell offset-top-100">
-                <h1>{% trans %}Get in touch{% endtrans %}</h1>
+                <h1>{% trans %}Contact{% endtrans %}</h1>
 
                 <div class="range range-xs-center offset-top-50">
 
@@ -583,10 +586,6 @@
                             <div class="form-group">
                                 <label for="contact-name" class="form-label">Name</label>
                                 <input id="contact-name" type="text" name="name" data-constraints="@Required" class="form-control">
-                            </div>
-                            <div class="form-group offse-top-5">
-                                <label for="contact-last-name" class="form-label">Last name</label>
-                                <input id="contact-last-name" type="text" name="last-name" data-constraints="@Required" class="form-control">
                             </div>
                             <div class="form-group offse-top-5">
                                 <label for="contact-message" class="form-label">Message</label>
