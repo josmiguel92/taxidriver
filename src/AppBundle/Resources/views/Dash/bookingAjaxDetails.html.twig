@@ -9,12 +9,26 @@
 
 
   <p>Nombre: {{ booking.fullname }} <small>( {{ booking.numpeople }} personas)</small></p>
+<p>Su correo: <a href="mailto:{{ booking.email }}">{{ booking.email }}</a>
+</p>
   {% if booking.airport %}
   <p>Recogida al aereopuerto o crucero ({{ booking.flynumber }})</p>
   {% endif %}
-  <p>{{ booking.pickuptime | date("l, d F Y - H:i") }}</p>
-  <p>Su correo: <a href="mailto:{{ booking.email }}">{{ booking.email }}</a>
-  </p>
+
+<h4>Sobre la recogida</h4>
+<p>Hora y fecha:<br>
+    {{ booking.pickuptime | date("l d/m/Y H:i") }}</p>
+<p>Detalles de recogida:<br>
+    {{ booking.details}}
+</p>
+
+
+<h4>Sobre el regreso</h4>
+<p>Hora y fecha:<br>
+    {{ booking.returnpickuptime | date("l d/m/Y H:i") }}</p>
+<p>Detalles de recogida:<br>
+    {{ booking.returnpickupplacce}}
+</p>
 
     {% if not place %}
         <hr>

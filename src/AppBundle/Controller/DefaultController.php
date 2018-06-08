@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
+use AppBundle\Entity\ContactMsgs;
 use AppBundle\Utils\Utils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -39,9 +40,42 @@ class DefaultController extends Controller
             if(count($blogEntries)>0)
                 $featureImage = $blogEntries[0]->getWebPath();
 
+            $message = new ContactMsgs();
+            $messageForm = $this->createForm('AppBundle\Form\ContactMsgsType',$message);
+            $messageForm->handleRequest($request);
+            $sended_email = false;
+            if ($messageForm->isSubmitted() && $messageForm->isValid()) {
+                $em->persist($message);
+                $em->flush();
+                $sended_email = true;
+
+                $senderEmail = $content[0]->getContactemail();
+                $address = $content[0]->getContactaddressLocale();
+                $telephone = $content[0]->getContacttelephone();
+                $subject = "Nuevo contacto a traves de la Web";
+                $email = \Swift_Message::newInstance()
+                    ->setSubject($subject)
+                    ->setReplyTo($senderEmail)
+                    ->setTo($senderEmail)
+                    ->setFrom("noreply@taxidriverscuba.com")
+                    ->setBody(
+                        $this->renderView(
+                            'AppBundle:Email:contactNotification.html.twig',
+                            [
+                                'subject'=>$subject,
+                                '_locale'=>$_locale,
+                                'address' => $address,
+                                'telephone'=> $telephone,
+                                'message'=>$message,
+                            ]
+                        ),
+                        'text/html'
+                    );
+                $this->get('mailer')->send($email);
+            }
 
 
-            return $this->render('AppBundle:Front:index.html.twig',
+                return $this->render('AppBundle:Front:index.html.twig',
             ['locale'=>$_locale,
             'content'=>$content[0],
             'featureImage'=>$featureImage,
@@ -52,6 +86,8 @@ class DefaultController extends Controller
             'infographys'=>$infographys,
             'testimonials'=>$testimonials,
             'drivers'=>$drivers,
+            'messageForm' => $messageForm->createView(),
+            'sended_email'=>$sended_email
             ]);
         }
         else throw new \Exception("No hay datos en la DB",500 );

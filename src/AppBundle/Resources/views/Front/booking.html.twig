@@ -109,7 +109,12 @@
         </div>
     </div>
 {% endblock %}
-
+{% block submitAlert %}
+    <div class="alert alert-warning fade in" id="submitBookingPlaceAlert" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <strong>{{ "Are you done?" | trans }}</strong> {{ "You haven't selected any place!" | trans }}
+    </div>
+{% endblock submitAlert %}
 {% block javascript %}
 {{ parent() }}
     <script>
@@ -176,8 +181,6 @@
               computeUpdatePrice();
             });
 
-            var selected_places = [];
-
             selected_bottons = $('a[data-role="booking-btn"]');
 
             wrapperPrice("init");
@@ -198,8 +201,9 @@
                     this.classList.remove('selected-place');
                     parent.removeClass('selected-place');
                     this.innerHTML = _addText;
-                    //logic
-                    selected_places.pop();
+
+                    console.log('deselected')
+                    $('#appbundle_booking_place')[0].value = 'null';
 
                     //hide the tour button if it visible and the tour description
                     $("#tourToggle").fadeOut(500);
@@ -224,7 +228,9 @@
                     //logic
                     place_id = this.getAttribute("data-parent").replace("parent_","");
                     place_id = parseInt(place_id);
-                    selected_places.push(this.getAttribute("data-place"));
+
+                    $('#appbundle_booking_place')[0].value = place_id;
+
 
                     //show the tour button
                     if(isTour){
@@ -245,4 +251,11 @@
 
     </script>
 
+{% endblock %}
+{% block onsubmitBookingForm %}
+    if($('#appbundle_booking_place')[0].value == 'null')
+    {
+        e.preventDefault();
+        $('#submitBookingPlaceAlert').fadeIn();
+    }
 {% endblock %}

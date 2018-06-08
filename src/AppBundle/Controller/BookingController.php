@@ -30,6 +30,7 @@ class BookingController extends Controller
      */
     public function bookingAction(Request $request, $_locale)
     {
+        Utils::setRequestLocaleLang($_locale);
         $em = $this->getDoctrine()->getManager();
         $places = $em->getRepository('AppBundle:Place')->findAll();
 
@@ -46,44 +47,46 @@ class BookingController extends Controller
 
             if ($booking_form->isSubmitted() && $booking_form->isValid()) {
 
-                //TODO: recapthcha on PROD, descomentar lineas
-            //    if(isset($_POST['g-recaptcha-response']))
-            //    {
-                   // $captcha=$_POST['g-recaptcha-response'];
+                $captcha = '';
 
-                    if ($booking->getPlacesCollection())
-                        $booking->setPlacesCollection(Utils::placesJasonParse($booking->getPlacesCollection()));
+                //Si se ejecuta env. PROD, validar catpcha... y si no es success, ir a home!
+                if($_SERVER['APP_FRONT_CONTROLLER']!= 'app_dev.php') {
+                    if (isset($_POST['g-recaptcha-response'])) {
+                        $captcha = $_POST['g-recaptcha-response'];
+                    }
                     $application_key = $this->container->getParameter('google.recaptcha_secret_key');
-                    //$response=json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$application_key."&response=".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']), true);
-                    /*    if($response['success'] == true)
-                    {
-*/
-                        //validacion para enviar correo a lester o no.
-                        if(Utils::isSimpleBooking($booking))
-                        {
-                            $_place = $em->getRepository('AppBundle:Place')->find($booking->getPlace());
-                            $booking->setPrice(Utils::calculateSimpleRoutePrices($_place, $booking->getNumpeople()));
+                    $response=json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret="
+                                            .$application_key."&response=".$captcha.
+                                            "&remoteip=".$_SERVER['REMOTE_ADDR']),
+                                        true);
+                        if($response['success'] != true)
+                            return $this->redirectToRoute('home', [
+                                '_locale'=>$_locale
+                            ]);
 
-                            $booking->setAccepted(true);
+                }
 
-                        }
-                        $em->persist($booking);
-                        $em->flush();
+                if ($booking->getPlacesCollection())
+                    $booking->setPlacesCollection(Utils::placesJasonParse($booking->getPlacesCollection()));
 
-                        $this->sendEmailNotifications($booking);
+                //validacion para enviar correo a lester o no.
+                if(Utils::isSimpleBooking($booking))
+                {
+                    $_place = $em->getRepository('AppBundle:Place')->find($booking->getPlace());
+                    $booking->setPrice(Utils::calculateSimpleRoutePrices($_place, $booking->getNumpeople()));
 
-                        return $this->redirectToRoute('purchase_details', [
-                            '_token'=>$booking->getToken(),
-                            '_locale'=>$_locale
-                        ]);
+                    $booking->setAccepted(true);
+                }
+                $em->persist($booking);
+                $em->flush();
 
+                //todo: mover a la Action correcta, luego del pago
+                $this->sendEmailNotifications($booking);
 
-
-                 //   }
-                    //TODO: enviar mensaje flash de que no se lleno el formulario correctamentes
-
-                //}
-
+                return $this->redirectToRoute('purchase_details', [
+                    '_token'=>$booking->getToken(),
+                    '_locale'=>$_locale
+                ]);
 
             }
 
@@ -92,13 +95,13 @@ class BookingController extends Controller
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
 
            return $this->render('AppBundle:Front:booking.html.twig', [
-                    'booking_form'=>$booking_form->createView(),
-                    'locale'=>$_locale,
-                    'content'=>$content[0],
-                    'socialNetworks'=>$socialNetworks,
-                    'hashtags'=>$hashtags,
-                    'places'=>$places,
-                    ]);
+                'booking_form'=>$booking_form->createView(),
+                'locale'=>$_locale,
+                'content'=>$content[0],
+                'socialNetworks'=>$socialNetworks,
+                'hashtags'=>$hashtags,
+                'places'=>$places,
+            ]);
         }
         else
             throw new Exception("No hay entradas de lugares");
@@ -107,12 +110,12 @@ class BookingController extends Controller
 
     /**
     * @Route("/booking/{_id}", defaults={"_locale": "en"}, requirements={"_id":"\d+"})
-     * @Route("/{_locale}/booking/{_id}/{_name}", requirements={"_id":"\d+"}, defaults={"_locale": "en"},
-     * name="booking_place")
-     */
+    * @Route("/{_locale}/booking/{_id}/{_name}", requirements={"_id":"\d+"}, defaults={"_locale": "en"},
+    * name="booking_place")
+    */
     public function bookingPlaceAction(Request $request, $_locale, $_id)
     {
-
+        Utils::setRequestLocaleLang($_locale);
         $em = $this->getDoctrine()->getManager();
         $places = $em->getRepository('AppBundle:Place')->findAll();
         $place = $em->getRepository('AppBundle:Place')->find($_id);
@@ -152,6 +155,7 @@ class BookingController extends Controller
      */
     public function bookingOwnTourAction(Request $request, $_locale='en')
     {
+        Utils::setRequestLocaleLang($_locale);
         $em = $this->getDoctrine()->getManager();
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
         $places = $em->getRepository('AppBundle:Place')->findAll();
@@ -189,6 +193,9 @@ class BookingController extends Controller
      */
     public function purchaseDetailsAction(Request $request, $_locale='en', $_token, $_paypalCallback=null)
     {
+
+        Utils::setRequestLocaleLang($_locale);
+
         if(isset($_REQUEST['tx'])){
             echo "<!-- ";
             echo $_REQUEST['item_number']." ID del producto\n";
