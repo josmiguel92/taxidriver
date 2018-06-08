@@ -211,3 +211,7 @@ h2{
     cursor: not-allowed;
     color: lightgrey !important;
 }
+
+.logo{
+    height: 2em !important;
+}
