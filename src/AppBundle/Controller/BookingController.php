@@ -210,7 +210,7 @@ class BookingController extends Controller
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
             $place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
-
+            $places = $em->getRepository('AppBundle:Place')->findAll();
 
             /*TODO: proccess Paypal POST headers and push it on DB*/
 
@@ -221,6 +221,7 @@ class BookingController extends Controller
                 'hashtags'=>$hashtags,
                 'place'=>$place,
                 'purchase'=>$purchase,
+                'places'=>$places,
                 'paypalCallback'=>$_paypalCallback
                 ]);
         }
