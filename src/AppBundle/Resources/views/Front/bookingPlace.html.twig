@@ -74,6 +74,14 @@
             if ((!isTour || !$('.toggle')[1].classList.contains('off')) && numberPeople <= 2)
                 priceContent = wrapperPrice(price);
 
+            //vinnales hard-coded
+            {% if "viñales" in place.nameLocale|lower or "vinales" in place.nameLocale|lower %}
+                if (!$('.toggle')[1].classList.contains('off') && numberPeople <=3 )
+                    priceContent = wrapperPrice(135);
+                if (!$('.toggle')[1].classList.contains('off') && numberPeople >=4 && numberPeople <= 5)
+                    priceContent = wrapperPrice(160);
+
+            {% endif %}
 
             if (numberPeople > 5)
                 priceContent = wrapperPrice("");

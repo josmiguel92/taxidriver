@@ -19,12 +19,13 @@
                         <button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
                         <!-- RD Navbar Brand-->
                         <div class="rd-navbar-brand veil reveal-md-block veil-tablet-md">
-                            <a href="{{ path("home") }}" class="brand-name"><img width="auto" src="{{ logo_dark }}" alt="Logo Taxi Drivers Cuba">
+                            <a href="{{ path("home") }}" class="brand-name">
+                                <img class="logo" width="auto" src="{{ logo_wide }}" alt="Logo Taxi Drivers Cuba">
                             </a>
                         </div>
                         <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block">
                             <a href="{{ path("home") }}" class="brand-name">
-                                <img style="margin-top: -7px;" width="182" height="34" src="{{ logo_dark }}" alt="logo Taxi Drivers Cuba">
+                                <img style="margin-top: -7px;" width="182" height="34" src="{{ logo_wide }}" alt="logo Taxi Drivers Cuba">
                             </a>
                         </div>
                         <!-- RD Navbar Toggle-->
@@ -319,7 +320,7 @@
                                     <div class="offset-top-30 offset-md-top-60">
                                         <a href="{{ path("bookingOwnTour") }}" style="min-width:240px;" class="btn btn-calypso">
                                             <i class="fa fa-heart"></i>
-                                            {% trans %}Make your own Tour!{% endtrans %}
+                                            {% trans %}Make your own Way!{% endtrans %}
                                         </a>
                                     </div>
                                 </div>
@@ -537,7 +538,10 @@
                                         <img src="{{ testimony.getAvatar }}" width="169" height="169" alt="{{ testimony.getName }}" class="img-circle img-responsive center-block">
                                         <div class="offset-top-15 offset-md-top-30">
                                             <p >
-                                                {{ testimony.getTextLocale|striptags|slice(0,250) }}
+                                                {{ testimony.getTextLocale|striptags|slice(0, 250) }}
+                                                {% if testimony.getTextLocale|striptags|length > 250 %}
+                                                    ...
+                                                {% endif %}
                                             </p>
                                         </div>
                                         <div class="offset-top-10 offset-md-top-25">
