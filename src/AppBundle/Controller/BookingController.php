@@ -66,8 +66,8 @@ class BookingController extends Controller
 
                 }
 
-                if ($booking->getPlacesCollection())
-                    $booking->setPlacesCollection(Utils::placesJasonParse($booking->getPlacesCollection()));
+//                if ($booking->getPlacesCollection())
+//                    $booking->setPlacesCollection(Utils::placesJasonParse($booking->getPlacesCollection()));
 
                 //validacion para enviar correo a lester o no.
                 if(Utils::isSimpleBooking($booking))
