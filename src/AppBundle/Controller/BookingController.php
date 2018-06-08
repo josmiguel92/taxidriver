@@ -209,9 +209,8 @@ class BookingController extends Controller
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
-            $_places = $em->getRepository('AppBundle:Place')->findBy(['id'=>$purchase->getPlacesCollection()]);
             $place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
-            $places = $em->getRepository('AppBundle:Place')->findAll();
+
 
             /*TODO: proccess Paypal POST headers and push it on DB*/
 
@@ -220,10 +219,8 @@ class BookingController extends Controller
                 'content'=>$content[0],
                 'socialNetworks'=>$socialNetworks,
                 'hashtags'=>$hashtags,
-                'selectedPlaces'=>$_places,
                 'place'=>$place,
                 'purchase'=>$purchase,
-                'places'=>$places,
                 'paypalCallback'=>$_paypalCallback
                 ]);
         }
