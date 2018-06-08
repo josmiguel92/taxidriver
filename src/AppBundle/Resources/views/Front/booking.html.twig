@@ -204,7 +204,6 @@
                     parent.removeClass('selected-place');
                     this.innerHTML = _addText;
 
-                    console.log('deselected')
                     $('#appbundle_booking_place')[0].value = 'null';
 
                     //hide the tour button if it visible and the tour description
@@ -230,9 +229,7 @@
                     //logic
                     place_id = this.getAttribute("data-parent").replace("parent_","");
                     place_id = parseInt(place_id);
-
                     $('#appbundle_booking_place')[0].value = place_id;
-
 
                     //show the tour button
                     if(isTour){
@@ -253,11 +250,4 @@
 
     </script>
 
-{% endblock %}
-{% block onsubmitBookingForm %}
-    if($('#appbundle_booking_place')[0].value == 'null')
-    {
-        e.preventDefault();
-        $('#submitBookingPlaceAlert').fadeIn();
-    }
 {% endblock %}

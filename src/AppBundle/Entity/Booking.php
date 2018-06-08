@@ -441,7 +441,9 @@ class Booking
      */
     public function setReturnpickuptime($returnpickuptime)
     {
-        $this->returnpickuptime = $returnpickuptime;
+        $this->returnpickuptime  = \DateTime::createFromFormat('l d M Y - H:i',$returnpickuptime);
+
+        return $this;;
     }
 
     /**
@@ -548,7 +550,15 @@ class Booking
     }
 
     public function getPickuptimeFormated($format = 'd-M-Y'){
-        return $this->pickuptime->format($format);
+        if(gettype($this->pickuptime)=='objectt')
+            return $this->pickuptime->format($format);
+        return null;
+    }
+
+    public function getReturnPickuptimeFormated($format = 'd-M-Y'){
+        if(gettype($this->returnpickuptime)=='objectt')
+            return $this->returnpickuptime->format($format);
+        return null;
     }
 }
 
