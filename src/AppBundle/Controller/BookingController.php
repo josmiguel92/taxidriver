@@ -280,7 +280,6 @@ class BookingController extends Controller
             ->setSubject($subject)
             ->setReplyTo($senderEmail)
             ->setTo($booking->getEmail())
-            ->set
             ->setFrom("Taxidriverscuba <noreply@taxidriverscuba.com>")
             ->setBody(
                 $this->renderView(
