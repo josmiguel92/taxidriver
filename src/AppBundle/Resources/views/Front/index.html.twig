@@ -590,12 +590,14 @@
                             'data-form-type':'contact',
                             'data-form-output':'form-output-global'}}) }}
                             <div class="form-group">
+
                                 <label for="{{ messageForm.name.vars.id }}" class="form-label">Name</label>
                                 <input id="{{ messageForm.name.vars.id }}" type="text" name="{{ messageForm.name.vars.full_name }}" data-constraints="@Required" class="form-control">
                             </div>
                             <div class="form-group offse-top-5">
                                 <label for="{{ messageForm.message.vars.id }}" class="form-label">Message</label>
                                 <textarea id="{{ messageForm.message.vars.id }}" name="{{ messageForm.message.vars.full_name }}" data-constraints="@Required" style="height: 140px;" class="form-control"></textarea>
+
                             </div>
                             <div class="form-group offse-top-5">
                                 <label for="{{ messageForm.email.vars.id }}" class="form-label">Email</label>

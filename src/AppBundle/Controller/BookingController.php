@@ -193,7 +193,9 @@ class BookingController extends Controller
      */
     public function purchaseDetailsAction(Request $request, $_locale='en', $_token, $_paypalCallback=null)
     {
+
         Utils::setRequestLocaleLang($_locale);
+
         if(isset($_REQUEST['tx'])){
             echo "<!-- ";
             echo $_REQUEST['item_number']." ID del producto\n";

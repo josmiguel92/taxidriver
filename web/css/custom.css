@@ -200,3 +200,14 @@ h2{
 .place-description a {
     text-transform: none;
 }
+
+.rd-parallax h2,
+.title-over-image {
+    text-shadow: 3px 3px 6px #000000b3;
+}
+
+.disabled-link
+{
+    cursor: not-allowed;
+    color: lightgrey !important;
+}
