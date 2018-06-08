@@ -50,7 +50,7 @@ class BookingController extends Controller
                 $captcha = '';
 
                 //Si se ejecuta env. PROD, validar catpcha... y si no es success, ir a home!
-                if($_SERVER['APP_FRONT_CONTROLLER']!= 'app_dev.php') {
+                if(isset($_SERVER['APP_FRONT_CONTROLLER'])) {
                     if (isset($_POST['g-recaptcha-response'])) {
                         $captcha = $_POST['g-recaptcha-response'];
                     }
