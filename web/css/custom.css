@@ -147,12 +147,12 @@ div.toggle{
 .blog-post .rd-parallax .rd-parallax-inner,
 .blog-post.rd-parallax,
 .blog-post.rd-parallax .rd-parallax-inner{
-    height: 80vh !important;
+    height: 100vh !important;
 }
 
 .booking-place .rd-parallax,
 .booking-place .rd-parallax .rd-parallax-inner{
-    height: 80vh !important;
+    height: 100vh !important;
 }
 
 .well-place{
@@ -203,7 +203,7 @@ h2{
 
 .rd-parallax h2,
 .title-over-image {
-    text-shadow: 3px 3px 6px #000000b3;
+    text-shadow: 4px 4px 8px #000000b3;
 }
 
 .disabled-link

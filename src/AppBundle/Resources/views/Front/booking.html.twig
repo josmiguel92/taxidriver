@@ -148,8 +148,8 @@
             if ((!isTour || !$('.toggle')[1].classList.contains('off')) && numberPeople > 2 && numberPeople <= 5)
                 wrapperPrice(price + (numberPeople-2)*10);
 
-            if ((!isTour) && numberPeople > 2 && numberPeople <= 5)
-                wrapperPrice(price);
+            if ((!isTour || !$('.toggle')[1].classList.contains('off')) && numberPeople <= 2)
+                priceContent = wrapperPrice(price);
 
             if (numberPeople > 5)
                 wrapperPrice("");
@@ -227,11 +227,15 @@
                     selected_places.push(this.getAttribute("data-place"));
 
                     //show the tour button
-                    if(isTour)
+                    if(isTour){
                         $("#tourToggle").fadeIn(500);
-                    else
+                        if (!$('.toggle')[1].classList.contains('off'))
+                            $('#tourDescription').fadeIn(500);
+                    }
+                    else{
                         $("#tourToggle").fadeOut(500);
-
+                        $('#tourDescription').fadeOut(500);
+                    }
                     computeUpdatePrice();
                 }
 

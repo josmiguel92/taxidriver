@@ -64,14 +64,14 @@
 
 
             {#todo: we shoul use a better identificator of the toggle botton not the element in [1]#}
-
+            {#la idea de tour es hacer cortocircuito#}
             if ((!isTour || $('.toggle')[1].classList.contains('off')) && numberPeople <= 5)
                 priceContent = wrapperPrice(price);
 
             if ((!isTour || !$('.toggle')[1].classList.contains('off')) && numberPeople > 2 && numberPeople <= 5)
                 priceContent = wrapperPrice(price + (numberPeople-2)*10);
 
-            if ((!isTour) && numberPeople > 2 && numberPeople <= 5)
+            if ((!isTour || !$('.toggle')[1].classList.contains('off')) && numberPeople <= 2)
                 priceContent = wrapperPrice(price);
 
 
