@@ -69,11 +69,6 @@ class Booking
 
     /**
      * @var string
-     * @ORM\Column(name="telephone", type="string", length=255)
-     */
-    private $telephone;
-    /**
-     * @var string
      *
      * @ORM\Column(name="flynumber", type="string", length=255, nullable=true)
      */
@@ -92,6 +87,20 @@ class Booking
      * @ORM\Column(name="pickuptime", type="datetime")
      */
     private $pickuptime;
+
+    /**
+     * @var \DateTime
+     * @Assert\DateTime()
+     * @ORM\Column(name="returnpickuptime", type="datetime", nullable=true)
+     */
+    private $returnpickuptime;
+
+    /**
+     * @var \DateTime
+     * @Assert\DateTime()
+     * @ORM\Column(name="returnpickupplacce", type="string", length=600, nullable=true)
+     */
+    private $returnpickupplacce;
 
 
     /**
@@ -143,11 +152,6 @@ class Booking
      */
     private $token;
 
-    /**
-     * @var string
-     * @ORM\Column(name="placescolection", type="simple_array", nullable=true)
-     */
-    private $places_collection;
     
     public function getBookingLocale()
     {
@@ -157,7 +161,6 @@ class Booking
     function __construct()
     {
         $this->token = Utils::getRequestLocaleLang().uniqid("bk".date("Ymd"));
-        $this->places_collection = new ArrayCollection();
         $this->ownroute = new ArrayCollection();
         $this->setAccepted(0);
         $this->setConfirmed(0);
@@ -205,21 +208,6 @@ class Booking
         return $this->tour;
     }
 
-    /**
-     * @return string
-     */
-    public function getPlacesCollection()
-    {
-        return $this->places_collection;
-    }
-
-    /**
-     * @param string $places_collection
-     */
-    public function setPlacesCollection($places_collection)
-    {
-        $this->places_collection = $places_collection;
-    }
 
 
     /**
@@ -230,21 +218,6 @@ class Booking
         $this->tour = $tour;
     }
 
-    /**
-     * @return string
-     */
-    public function getTelephone()
-    {
-        return $this->telephone;
-    }
-
-    /**
-     * @param string $telephone
-     */
-    public function setTelephone($telephone)
-    {
-        $this->telephone = $telephone;
-    }
 
     /**
      * @return string
@@ -454,6 +427,39 @@ class Booking
 
         return $this;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getReturnpickuptime()
+    {
+        return $this->returnpickuptime;
+    }
+
+    /**
+     * @param \DateTime $returnpickuptime
+     */
+    public function setReturnpickuptime($returnpickuptime)
+    {
+        $this->returnpickuptime = $returnpickuptime;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getReturnpickupplacce()
+    {
+        return $this->returnpickupplacce;
+    }
+
+    /**
+     * @param \DateTime $returnpickupplacce
+     */
+    public function setReturnpickupplacce($returnpickupplacce)
+    {
+        $this->returnpickupplacce = $returnpickupplacce;
+    }
+
 
     /**
      * Get numpeople

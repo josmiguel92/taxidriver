@@ -193,12 +193,19 @@
                                                                 {% endif %}
 
                                                     </p>
-                                                     <br>
+                                                     <br><h4>Sobre la recogida</h4>
                                                      <p>Hora y fecha:<br>
                                                      {{ booking.pickuptime | date("l d/m/Y H:i") }}</p>
                                                     <p>Detalles de recogida:<br>
                                                         {{ booking.details}}
                                                     </p>
+
+													<h4>Sobre el regreso</h4>
+													<p>Hora y fecha:<br>
+                                                        {{ booking.returnpickuptime | date("l d/m/Y H:i") }}</p>
+													<p>Detalles de recogida:<br>
+                                                        {{ booking.returnpickupplacce}}
+													</p>
 
                                                     <br>
                                                     {% if booking.idpaypal %}
