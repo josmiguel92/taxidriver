@@ -50,7 +50,7 @@ class BookingController extends Controller
                 $captcha = '';
 
                 //Si se ejecuta env. PROD, validar catpcha... y si no es success, ir a home!
-                if($_SERVER['APP_FRONT_CONTROLLER']!= 'app_dev.php') {
+                if($_SERVER['SCRIPT_NAME']!= '/app_dev.php') {
                     if (isset($_POST['g-recaptcha-response'])) {
                         $captcha = $_POST['g-recaptcha-response'];
                     }
@@ -65,9 +65,6 @@ class BookingController extends Controller
                             ]);
 
                 }
-
-                if ($booking->getPlacesCollection())
-                    $booking->setPlacesCollection(Utils::placesJasonParse($booking->getPlacesCollection()));
 
                 //validacion para enviar correo a lester o no.
                 if(Utils::isSimpleBooking($booking))
@@ -194,6 +191,7 @@ class BookingController extends Controller
     public function purchaseDetailsAction(Request $request, $_locale='en', $_token, $_paypalCallback=null)
     {
         Utils::setRequestLocaleLang($_locale);
+
         if(isset($_REQUEST['tx'])){
             echo "<!-- ";
             echo $_REQUEST['item_number']." ID del producto\n";

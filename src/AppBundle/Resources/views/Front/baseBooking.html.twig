@@ -105,10 +105,10 @@
                                             <label class="custom-label text-gray-dark">{% trans %}Date and time{% endtrans %}</label>
                                             <div style="max-width: 400px; width: 350%;" class="form-group">
 
-
                                                 <input data-constraints="@Required" required placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="" type="text" style="text-align: left; padding: 10px 12px;" class="form-control" id="{{ booking_form.pickuptime.vars.id }}" name="{{ booking_form.pickuptime.vars.full_name }}">
                                                 <span class="form-validation"></span>
                                                 {{ form_errors(booking_form.pickuptime, {'class':'danger'}) }}
+
                                             </div>
                                         </div>
                                     </div>
@@ -220,6 +220,7 @@
         {
 
             $('#booking_submit').click(function(e){
+               //  e.preventDefault();
 
                //  e.preventDefault();
                 {% block onsubmitBookingForm %}
@@ -228,6 +229,7 @@
                 {% endblock %}
 
                  //$('form.booking')[0].submit();
+
             });
 
             $("#{{ booking_form.airport.vars.id }}").change(function() {
