@@ -22,14 +22,7 @@
             <div class="well-row">
                 <div id="placesList" class="range range-xs-center range-md-middle">
 
-                    <div id="selectPlace_1" style="max-width: 400px; width: 350%;" class="form-group selectPlace">
-                        <label for="place_1" class="form-label rd-input-label"></label>
-                        <input class="placepicker form-control form-control-has-validation"
-                               id="place_1"
-                               name="place_1" type="text" style="padding: 10px 12px;"
-                              >
-                        <span class="form-validation"></span>
-                    </div>
+
 
                 </div>
             </div>
@@ -38,7 +31,7 @@
             <div class="well-row">
                 <div class="range range-xs-center range-md-left">
                     <div>
-                        <a href="#" class="" id="removePlaceInput">
+                        <a href="#" class="disabled-link" id="removePlaceInput">
                             <i class=" fa fa-2x fa-minus-square-o"></i>
                         </a>
                         <a href="#" class="" id="addPlaceInput">
@@ -63,9 +56,14 @@
         var inputsNumber = 1;
         var item = "<div id='selectPlace_x' style='max-width: 400px; width: 350%;' class='form-group selectPlace'><label for='place_1' class='form-label rd-input-label'></label><input class='placepicker form-control form-control-has-validation' id='place_1' name='place_1' type='text' style='padding: 10px 12px;'><span class='form-validation'></span></div>";
 
-        $("#addPlaceInput").on('click', function(e) {
-            e.preventDefault();
-            inputsNumber++;
+        markers = [];
+
+        function newInputPlace (e, click) {
+            if (click){
+                e.preventDefault();
+                $("#removePlaceInput")[0].classList.remove("disabled-link");
+            }
+
             var parent = $('#placesList');
             parent.append(item);
             var _idParent = 'selectPlace_'+inputsNumber;
@@ -75,20 +73,45 @@
             parent.children[0].setAttribute('for', _id);
             parent.children[1].setAttribute('id', _id);
             parent.children[1].setAttribute('name', _id);
-            $('#'+_id).placepicker();
-        });
-        $("#removePlaceInput").on('click', function(e) {
-            e.preventDefault();
-            if (inputsNumber > 1){
+
+            $('#'+_id).placepicker({
+                    placeChanged: function(place) {
+                        if (typeof(markers[_id.replace("place_","")])!="undefined"){
+                            markers[parseInt(_id.replace("place_",""))].setMap(null)
+                        }
+                        $('#'+_id)[0].dataset['latlog'] = this.getLocation().latitude + ', '+this.getLocation().longitude;
+                        var point = new google.maps.LatLng(this.getLocation().latitude, this.getLocation().longitude);
+                        markers[parseInt(_id.replace("place_",""))] = new google.maps.Marker({
+                            position: point,
+                            map: map
+                        });
+
+                    }
+                });
+            inputsNumber++;
+        }
+
+        function removeinputPlace(e, click){
+            if (click)
+                e.preventDefault();
+            if (inputsNumber > 2){
                 inputsNumber--;
                 var parent = $('#placesList');
                 var lastChild = parent[0].children.length-1;
                 parent[0].children[lastChild].remove()
+                markers[inputsNumber].setMap(null)
             }
             else{
-                $("#removePlaceInput").setAttribute()
+                $("#removePlaceInput")[0].classList.add("disabled-link");
             }
+        }
 
+        $("#addPlaceInput").on('click', function(e) {
+          newInputPlace(e, true);
+        } );
+
+        $("#removePlaceInput").on('click', function(e) {
+            removeinputPlace(e, true);
         });
 
         function init() {
@@ -114,25 +137,30 @@
             var mapElement = document.getElementById('map');
 
             // Create the Google Map using out element and options defined above
-            var map = new google.maps.Map(mapElement, mapOptions);
-            owntourPlaces = [];
+            map = new google.maps.Map(mapElement, mapOptions);
         }
 
       //  function addPlace
         google.maps.event.addDomListener(window, 'load', init);
 
-        $("#place_1").placepicker({
-                    placeChanged: function(place) {
-                        $("#appbundle_place_name")[0].value = place.name;
-                        $("#appbundle_place_latlong")[0].value = this.getLocation().latitude + ', '+this.getLocation().longitude;
-                        $("#appbundle_place_googlename")[0].value = place.formatted_address;
-                    }
-                });
     </script>
 
     <script>
         $("#document").ready(function (){
-            $("#labelPrice")[0].innerHTML = "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
+            $("#labelPrice")[0].innerHTML = "{% trans %}We need to negotiate{% endtrans %} <span class=\"text-extra-small\">*</span>";
+            newInputPlace(null, false);
         });
     </script>
+
+{% endblock %}
+
+{% block stringfy %}
+        _places = "";
+        for(var i = 1; i< inputsNumber; i++)
+        {
+            var _id = 'place_'+i;
+            _places += $("#"+_id)[0].value+" | ";
+        }
+
+        $("#{{ booking_form.ownroute.vars.id}}")[0].value = _places;
 {% endblock %}

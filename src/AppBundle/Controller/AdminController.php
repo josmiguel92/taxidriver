@@ -693,9 +693,16 @@ class AdminController extends Controller
         $place = $em->getRepository("AppBundle:Place")
             ->find($booking->getId());
 
+        $content = $em->getRepository('AppBundle:SiteContent')->findAll();
+        $senderEmail = $content[0]->getContactemail();
+        $address = $content[0]->getContactaddressLocale();
+        $telephone = $content[0]->getContacttelephone();
+
+
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
-            ->setFrom('taxidriverscuba@gmail.com') //TODO: obtenerlo dinamicamente
+            ->setFrom("noreply@taxidriverscuba.com")
+            ->setReplyTo($senderEmail)
             ->setTo($booking->getEmail())
             ->setBody(
                 $this->renderView(
@@ -703,11 +710,9 @@ class AdminController extends Controller
                     [
                         'subject'=>$subject,
                         '_locale'=>$booking->getBookingLocale(),
-                        'address' => 'Hotel Nacional, La Habana, Cuba', //TODO: obtener dinamicamente
-                        'telephone'=> '+53 5 5864523',
-
+                        'address' => $address,
+                        'telephone'=> $telephone,
                         'place'=>$place,
-
                         'booking'=>$booking,
                     ]
                 ),

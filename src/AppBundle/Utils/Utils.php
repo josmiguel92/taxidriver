@@ -139,11 +139,8 @@ class Utils
     //retorna falso si tiene multiples lugares o es un  owntour
     static function isSimpleBooking(\AppBundle\Entity\Booking $booking){
         $ownroute = false;
-        $manyplaces = false;
 
         if($booking->getOwnroute() != null)
-            return false;
-        if($booking->getPlacesCollection() != null)
             return false;
 
         return $booking->getNumpeople() <= 5;
@@ -160,9 +157,24 @@ class Utils
     }
 
     static function calculateSimpleRoutePrices(\AppBundle\Entity\Place $place, $persons){
-        if($persons<=2) //TODO: vinales specific data price
+        if(strtolower($place->getName()) == 'viñales')
+        {
+            if($persons <= 3)
+                return 135;
+            if($persons <= 5)
+                return 160;
+        }
+        if($persons<=2)
             return $place->getPrice();
         return $place->getPrice()+($persons-2)*10;
 
+    }
+
+    static function buildProductName(\AppBundle\Entity\Booking $booking, \AppBundle\Entity\Place $place){
+        $str = $booking->isTour() ? "Tour to " : "Transfer to ";
+        $str .= $place->getNameLocale();
+        $str .= " for ".$booking->getNumpeople()." persons";
+        $str .= "on ".$booking->getPickuptimeFormated();
+        return $str;
     }
 }

@@ -13,22 +13,46 @@
                 {%  if place %}
                     <h5>{{ place.name }}</h5>
                 {% else %}
-                    <h5>Ruta personalllizada</h5>
+                    <h5>Ruta personalizada</h5>
 
                 {%  endif %}
 
 
                 <p>Nombre: {{ booking.fullname }}. <small>( {{ booking.numpeople }} personas)</small></p>
-                {% if booking.airport %}
-                    <p>Recogida al aereopuerto o crucero ({{ booking.flynumber }})</p>
-                {% endif %}
-                <p>{{ booking.pickuptime | date("l, d F Y - H:i") }}</p>
                 <p>Su correo: <a href="mailto:{{ booking.email }}">{{ booking.email }}</a>
                 </p>
 
+                {% if booking.airport %}
+                    <p>Recogida al aereopuerto o crucero ({{ booking.flynumber }})</p>
+                {% endif %}
+
+
+                <h4>Sobre la recogida</h4>
+                <p>Hora y fecha:<br>
+                    {{ booking.pickuptime | date("l d/m/Y H:i") }}</p>
+                <p>Detalles de recogida:<br>
+                    {{ booking.details}}
+                </p>
+
+
+                <h4>Sobre el regreso</h4>
+                <p>Hora y fecha:<br>
+                    {{ booking.returnpickuptime | date("l d/m/Y H:i") }}</p>
+                <p>Detalles de recogida:<br>
+                    {{ booking.returnpickupplacce}}
+                </p>
+
+
                 {% if not place %}
                     <hr>
-                    {{ booking.ownrouteFormated }}
+                    {% if booking.ownroute %}
+                        <h4 class="modal-title">Lugares</h4>
+                        <ul>
+                            {% for _place in booking.ownrouteFormated %}
+                                <li>{{_place}}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
                 {% endif %}
                 {% if booking.accepted %}
                     (Ya este precio se acept&oacute; por ambas partes).

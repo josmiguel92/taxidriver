@@ -23,13 +23,13 @@ class BookingType extends AbstractType
             ->add('tour')
             ->add('fullname')
             ->add('email', EmailType::class)
-            ->add('telephone')
             ->add('flynumber')
             ->add('details')
             ->add('pickuptime', TextType::class)
             ->add('numpeople',IntegerType::class)
             ->add('comment')
-            ->add('places_collection', HiddenType::class)
+            ->add('returnpickupplacce')
+            ->add('returnpickuptime')
             ;
     }/**
      * {@inheritdoc}

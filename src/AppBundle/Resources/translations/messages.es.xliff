@@ -20,9 +20,9 @@
 </trans-unit>
 
 
-<trans-unit id="add">
-	<source>Add</source>
-	<target>agregar</target>
+<trans-unit id="select">
+	<source>Select</source>
+	<target>Eligir</target>
 </trans-unit>
 
 
@@ -212,8 +212,8 @@
 </trans-unit>
 
 
-<trans-unit id="get.in.touch">
-	<source>Get in touch</source>
+<trans-unit id="contact">
+	<source>Contact</source>
 	<target>Contáctanos</target>
 </trans-unit>
 
@@ -319,6 +319,17 @@
 	<target>Hacer mi propia ruta</target>
 </trans-unit>
 
+
+<trans-unit id="we.need.to.negotiate">
+	<source>We need to negotiate</source>
+	<target>Es necesario consultar el precio</target>
+</trans-unit>
+
+
+<trans-unit id="the.selected.place,.admits.a.tour..do.you.want.to.activate.it">
+	<source>The selected place, admits a tour. Do you want to activate it?</source>
+	<target>El lugar seleccionado admite un tour. ¿Quieres activarlo?</target>
+</trans-unit>
 
 
 

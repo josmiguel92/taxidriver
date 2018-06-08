@@ -107,22 +107,18 @@
                                     </p>
                                 </div>
                             {% elseif not (selectedPlaces or purchase.ownroute) or purchase.accepted %}
-                                {% set discountPrice = purchase.price - purchase.price*0.1 %}
                                 <!-- simple purchase -->
                                 <div class="row">
                                     <div class="col-md-6">
                                         <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-lg btn-primary">
                                             <i class="fa fa-paypal"></i>
-                                            {% trans %}Pay with PayPal{% endtrans %} - {{ discountPrice }} USD
+                                            {% trans %}Pay with PayPal{% endtrans %} - {{ purchase.price }} USD
                                         </a>
-                                        <p class="offset-top-15 text-extra-small">
-                                            <strong>{% trans %}If you pay using PayPal you have access to a 10% discount.{% endtrans %}</strong>
-                                        </p>
                                     </div>
                                     <div class="col-md-6">
                                         <a href="{{ path('purchase_details_paypal', {'_token': purchase.token, '_paypalCallback':'cash'}) }}" class="btn btn-border">
                                             <i class="fa fa-dollar"></i>
-                                            {% trans %}Pay with cash{% endtrans %} - {{ purchase.price }} usd
+                                            {% trans %}Pay with cash{% endtrans %} - {{ purchase.price }} CUC
                                         </a>
                                         <p class="offset-top-15 text-extra-small">
                                             {% trans %}You can always pay in Cuba with cash.{% endtrans %}

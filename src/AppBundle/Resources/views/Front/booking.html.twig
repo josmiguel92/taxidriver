@@ -35,30 +35,30 @@
                 {% for place in places %}
                     {% if not place.istour %}
                         <div id="parent_{{ loop.index }}" data-type="taxi" data-price="{{ place.getPrice }}" style="padding: 1em 0; margin: 1em 1em" class="cell-sm-10 cell-md-7 cell-lg-5 offset-top-60 item-place">
-                        <div style="max-width: 100%;" class="">
-                            <!-- Unit-->
-                            <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
-                                <div class="unit-left">
-                                    <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
-                                </div>
-                                <div class="unit-body">
-                                    <div>
-                                        <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}</a></h5>
+                            <div style="max-width: 100%;" class="">
+                                <!-- Unit-->
+                                <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
+                                    <div class="unit-left">
+                                        <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
+                                    </div>
+                                    <div class="unit-body">
+                                        <div>
+                                            <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} - {{ place.getNameLocale }}</a></h5>
 
-                                        <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km </p>
-                                        <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} h </p>
-                                        <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 USD <br/></p>
+                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km </p>
+                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} {% trans %}hours{% endtrans %} </p>
+                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 CUC <br/></p>
 
-                                        <div class="offset-top-40">
-                                            <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">
-                                                {% trans %}Add{% endtrans %}
-                                            </a>
+                                            <div class="offset-top-40">
+                                                <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">
+                                                    {% trans %}Select{% endtrans %}
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     {% endif %}
                 {% endfor %}
             </div>
@@ -76,6 +76,9 @@
                 {% for place in places %}
                     {% if place.istour %}
                         <div id="parent_{{ loop.index }}" data-type="tour" data-price="{{ place.getPrice }}" style="padding: 1em 0; margin: 1em 1em" class="cell-sm-10 cell-md-7 cell-lg-5 offset-top-60 item-place">
+                            <p id="tourDescription_{{ loop.index }}" class="hidden">
+                                {{ place.getPlaceDescLocale }}
+                            </p>
                             <div style="max-width: 100%;" class="">
                                 <!-- Unit-->
                                 <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
@@ -84,15 +87,15 @@
                                     </div>
                                     <div class="unit-body">
                                         <div>
-                                            <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} & {{ place.getNameLocale }}</a></h5>
+                                            <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} - {{ place.getNameLocale }}</a></h5>
 
                                             <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km </p>
-                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} h </p>
-                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 USD <br/></p>
+                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} {% trans %}hours{% endtrans %} </p>
+                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 CUC <br/></p>
 
                                             <div class="offset-top-40">
                                                 <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">
-                                                    {% trans %}Add{% endtrans %}
+                                                    {% trans %}Select{% endtrans %}
                                                 </a>
                                             </div>
                                         </div>
@@ -106,15 +109,22 @@
         </div>
     </div>
 {% endblock %}
-
+{% block submitAlert %}
+    <div class="alert alert-warning fade in" id="submitBookingPlaceAlert" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <strong>{{ "Are you done?" | trans }}</strong> {{ "You haven't selected any place!" | trans }}
+    </div>
+{% endblock submitAlert %}
 {% block javascript %}
 {{ parent() }}
     <script>
-        _addText = '{% trans %}Add{% endtrans %}';
+
+        _addText = '{% trans %}Select{% endtrans %}';
         _removeText = '{% trans %}Remove{% endtrans %}';
 
         price = 0;
         isTour = false;
+        place_id = 0;
 
         function wrapperPrice(price)
         {
@@ -123,9 +133,9 @@
             if (price=="init")
                 priceContent = "{% trans %}Select a service first{% endtrans %}";
             else if (typeof(price)=="number")
-                priceContent = '<i class=\'fa fa-dollar color-sky\'></i> '+price+' USD';
+                priceContent = '<i class=\'fa fa-dollar color-sky\'></i> '+price+' CUC';
             else
-                priceContent = "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
+                priceContent = "{% trans %}We need to negotiate{% endtrans %} <span class=\"text-extra-small\"> *</span>";
 
             $("#labelPrice")[0].innerHTML = priceContent;
         }
@@ -154,16 +164,22 @@
         $(document).ready(function () {
 
             $("#activeTour").change(function() {
-                  computeUpdatePrice();
+                computeUpdatePrice();
+
+                if(!$('.toggle')[1].classList.contains('off')){
+                    var tour_description = $("#tourDescription_"+place_id)[0].innerHTML;
+                    $("#tourDescription")[0].innerHTML = tour_description;
+                    $("#tourDescription").fadeIn(500);
+                }
+                else{
+                    $("#tourDescription").fadeOut(500);
+                }
+
             });
 
             $("#{{ booking_form.numpeople.vars.id }}").change(function() {
               computeUpdatePrice();
             });
-
-            var selected_places ={ {% spaceless %}
-                {% for place in places %}{{ place.id }} : false{% if not loop.last %},{% endif %}{% endfor %}
-                {% endspaceless %} };
 
             selected_bottons = $('a[data-role="booking-btn"]');
 
@@ -185,11 +201,13 @@
                     this.classList.remove('selected-place');
                     parent.removeClass('selected-place');
                     this.innerHTML = _addText;
-                    //logic
-                    selected_places[this.dataset['place']] = false;
 
-                    //hide the tour button if it visible
+                    console.log('deselected')
+                    $('#appbundle_booking_place')[0].value = 'null';
+
+                    //hide the tour button if it visible and the tour description
                     $("#tourToggle").fadeOut(500);
+                    $("#tourDescription").fadeOut(500);
 
                     wrapperPrice("init");
 
@@ -208,7 +226,10 @@
                     this.classList.add('selected-place');
 
                     //logic
-                    selected_places[this.dataset['place']] = true;
+                    place_id = this.getAttribute("data-parent").replace("parent_","");
+                    place_id = parseInt(place_id);
+                    console.log(place_id)
+                    $('#appbundle_booking_place')[0].value = place_id;
 
                     //show the tour button
                     if(isTour)
@@ -219,9 +240,17 @@
                     computeUpdatePrice();
                 }
 
-                $('#appbundle_booking_places_collection')[0].value =JSON.stringify(selected_places);
+                //$('#appbundle_booking_places_collection')[0].value =JSON.stringify(selected_places);
             })
     });
+
     </script>
 
+{% endblock %}
+{% block onsubmitBookingForm %}
+    if($('#appbundle_booking_place')[0].value == 'null')
+    {
+        e.preventDefault();
+        $('#submitBookingPlaceAlert').fadeIn();
+    }
 {% endblock %}
