@@ -283,7 +283,8 @@ class BookingController extends Controller
             ->setSubject($subject)
             ->setReplyTo($senderEmail)
             ->setTo($booking->getEmail())
-            ->setFrom("noreply@taxidriverscuba.com")
+            ->set
+            ->setFrom("Taxidriverscuba <noreply@taxidriverscuba.com>")
             ->setBody(
                 $this->renderView(
                     'AppBundle:Email:clientNotification.html.twig',
@@ -303,7 +304,7 @@ class BookingController extends Controller
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setTo($senderEmail)
-            ->setFrom("noreply@taxidriverscuba.com")
+            ->setFrom("Taxidriverscuba <noreply@taxidriverscuba.com>")
             ->setBody(
                 $this->renderView(
                     'AppBundle:Email:booking-email.html.twig',
