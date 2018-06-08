@@ -29,7 +29,7 @@ class BookingType extends AbstractType
             ->add('numpeople',IntegerType::class)
             ->add('comment')
             ->add('returnpickupplacce')
-            ->add('returnpickuptime')
+            ->add('returnpickuptime',TextType::class)
             ;
     }/**
      * {@inheritdoc}
