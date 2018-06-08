@@ -110,7 +110,7 @@
     y anadir la descripcion del lugar.#}
         <script>
             $("#tourToggle").fadeIn(500);
-            $("#tourDescription")[0].innerHTML = "{{ place.getPlaceDescLocale | nl2br    }}";
+            $("#tourDescription")[0].innerHTML = "{{ place.getPlaceDescLocale | replace({"\n":"<br>", '\r':''}) | raw }}";
         </script>
     {% endif %}
 
