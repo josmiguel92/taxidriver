@@ -167,15 +167,13 @@
 													<p >Reservaci&oacute;n para
                                                      {% if place %}
                                                      ir a <b>{{place.Name}}</b>
-                                                     {% else %}
-                                                     una ruta personalizada.
                                                      {% endif %}
                                                     </p>
 													<br>
 
                                                     {% if booking.ownroute %}
                                                     <ul>
-                                                        {% for _place in booking.ownroute %}
+                                                        {% for _place in booking.ownrouteFormated %}
                                                         <li>{{_place}}</li>
                                                         {% endfor %}
                                                     </ul>
