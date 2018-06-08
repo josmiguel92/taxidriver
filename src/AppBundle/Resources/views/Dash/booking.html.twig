@@ -7,23 +7,18 @@
                 <div class="content">
                     <div class="row">
                         <div class="col-xs-5">
-                            <div class="icon-big icon-warning text-center">
-                                <i class="ti-server"></i>
+                            <div class="icon-big icon-success text-center">
+                                <i class="ti-book"></i>
                             </div>
                         </div>
                         <div class="col-xs-7">
                             <div class="numbers">
-                                <p>Pendientes</p>
-                                {{ nextmonth|length }}
+                                <p>Esta semana</p>
+                                {{ nextweek|length }}
                             </div>
                         </div>
                     </div>
-                    <div class="footer">
-                        <hr />
-                        <div class="stats">
-                            <i class="ti-timer"></i> En los pr&oacute;ximos 30 d&iacute;as
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -32,26 +27,22 @@
                 <div class="content">
                     <div class="row">
                         <div class="col-xs-5">
-                            <div class="icon-big icon-success text-center">
-                                <i class="ti-book"></i>
+                            <div class="icon-big icon-warning text-center">
+                                <i class="fa fa-calendar"></i>
                             </div>
                         </div>
                         <div class="col-xs-7">
                             <div class="numbers">
-                                <p>Pr&oacute;ximas</p>
-                                {{ nextweek|length }}
+                                <p>Este mes</p>
+                                {{ nextmonth|length }}
                             </div>
                         </div>
                     </div>
-                    <div class="footer">
-                        <hr />
-                        <div class="stats">
-                            <i class="ti-calendar"></i> Esta semana
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
+
         <div class="col-lg-3 col-sm-6">
             <div class="card">
                 <div class="content">
@@ -68,13 +59,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="footer">
-                        <hr />
-                        <div class="stats">
-                            <i class="ti-reload"></i> Actualizado ahora
 
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -94,12 +79,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="footer">
-                        <hr />
-                        <div class="stats">
-                            <i class="ti-rocket"></i> Desde Mayo, 2018
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
