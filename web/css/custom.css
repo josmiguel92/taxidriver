@@ -190,7 +190,7 @@ h2{
 
 .two-columns{
     column-count: 2;
-    text-align: justify;
+    text-align: left;
     column-gap: 4em;
     column-rule-width: 1px;
     column-rule-style: dashed;
@@ -214,4 +214,16 @@ h2{
 
 .logo{
     height: 2em !important;
+}
+
+.gallery-thumbs .swiper-wrapper{
+    margin-top: 0.2em !important;
+}
+
+.gallery-thumbs .swiper-slide{
+    margin-right: 0.2em;
+}
+
+.gallery-thumbs .swiper-slide:last-child{
+    margin-right: 0;
 }
