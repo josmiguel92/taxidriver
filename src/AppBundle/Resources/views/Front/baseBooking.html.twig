@@ -205,7 +205,7 @@
                 {% if place is defined %}
                     {{ form_widget(booking_form.place, {'value':place.id, 'type':'hidden'}) }}
                 {% else %}
-                    {{ form_widget(booking_form.place, {'value':'null', 'type':'hidden'}) }}
+                    {{ form_widget(booking_form.place, {'value':'', 'type':'hidden'}) }}
                 {% endif %}
                 </form>
             </div>
