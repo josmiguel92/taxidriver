@@ -305,7 +305,7 @@ class BookingController extends Controller
         $this->get('mailer')->send($message);
 
         $message = \Swift_Message::newInstance()
-            ->setSubject($subject. "(".$booking->getId().")")
+            ->setSubject($subject. " (".$booking->getId().")")
             ->setTo($senderEmail)
             ->setFrom("noreply@taxidriverscuba.com")
             ->setBody(
