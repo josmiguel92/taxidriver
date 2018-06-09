@@ -209,7 +209,9 @@ class BookingController extends Controller
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
-            $place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
+            if($purchase->getPlace())
+                $place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
+            else $place = null;
             $places = $em->getRepository('AppBundle:Place')->findAll();
 
             /*TODO: proccess Paypal POST headers and push it on DB*/
