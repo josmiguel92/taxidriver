@@ -21,10 +21,29 @@
                         </p>
                     </div>
                 <div class="row section-md-top-20 section-md-bottom-20">
+                    <div class="well-row">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary active">
+                                <input checked type="radio" name="options" id="none"> No
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="options" id="fly"> Avi&oacute;n
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="options" id="ship"> Crucero
+                            </label>
+                        </div>
+
+
+                    </div>
                     <div class="col-md-4 col-md-offset-2">
                         <div class="well-row">
                             <div class="range range-xs-middle">
                                 <div>
+
+
+
+
                                     <input data-toggle="toggle" type="checkbox" id="{{ booking_form.airport.vars.id }}" name="{{ booking_form.airport.vars.full_name }}">
                                 </div>
                             </div>

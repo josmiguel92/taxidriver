@@ -298,7 +298,7 @@
         <section class="context-dark offset-top-0" style="margin-top: -8px;">
             <!-- RD Parallax-->
             <div data-on="false" data-md-on="true" class="rd-parallax">
-                <div data-speed="0.25" data-type="media" data-url="{{ asset(content.getOwnrouteimage.getWebPath) }}" class="rd-parallax-layer"></div>
+                <div data-speed="0.25" data-type="media" data-url="{{ asset(random(content.ownRoutePathImages)) }}" class="rd-parallax-layer"></div>
                 <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
                     <div class="shell section-75 section-md-top-103 section-md-bottom-110">
                         <div class="range range-xs-center">
@@ -343,7 +343,9 @@
                                 <div class="inset-lg-left-30 inset-lg-right-10">
                                     <div class="h2 text-spacing-inverse-50 color-sky">
                                         {% if 'horse' in infography.getIcon %}
-                                            <img src="{{ asset("images/custom-icons/horse.svg") }}" style="height: 2em;">
+                                            <a href="https://www.horseridinginvinales.com/"  target="_blank">
+                                                <img src="{{ asset("images/custom-icons/horse.svg") }}" style="height: 2em;">
+                                            </a>
                                         {% elseif  'diving' in infography.getIcon %}
                                             <img src="{{ asset("images/custom-icons/diving.svg") }}" style="height: 2em;">
                                         {% else %}

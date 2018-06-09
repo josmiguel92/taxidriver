@@ -44,7 +44,10 @@ class SiteContentType extends AbstractType
             ->add('servicestaxitourstext', TextareaType::class, ["label"=>"Texto sobre el servicio de Tour"])
             ->add('servicestaxitourstexten', TextareaType::class, ["label"=>"Texto sobre el servicio de Tour, en ingles"])
             
-            ->add('ownrouteimage',null, ["label"=> "Banner para Ruta perzonalizada."])
+            ->add('ownrouteimage',null, ["label"=> "Banner para Ruta personalizada."])
+            ->add('ownrouteimage1',null, ["label"=> "Banner para Ruta personalizada."])
+            ->add('ownrouteimage2',null, ["label"=> "Banner para Ruta personalizada."])
+
             ->add('servicesmakeroutetext', TextareaType::class, ["label"=>"Texto para rutas personalizadas"])
             ->add('servicesmakeroutetexten', TextareaType::class, ["label"=>"Texto para rutas personalizadas, en ingles"])
 

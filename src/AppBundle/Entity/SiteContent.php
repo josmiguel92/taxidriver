@@ -359,6 +359,62 @@ class SiteContent
 
     /**
      * @ORM\OneToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="ownrouteimage1_id", referencedColumnName="id")
+     */
+    private $ownrouteimage1;
+
+    /**
+     * @return mixed
+     */
+    public function getOwnrouteimage1()
+    {
+        return $this->ownrouteimage1;
+    }
+
+    /**
+     * @param mixed $ownrouteimage1
+     */
+    public function setOwnrouteimage1($ownrouteimage1)
+    {
+        $this->ownrouteimage1 = $ownrouteimage1;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOwnrouteimage2()
+    {
+        return $this->ownrouteimage2;
+    }
+
+    /**
+     * @param mixed $ownrouteimage2
+     */
+    public function setOwnrouteimage2($ownrouteimage2)
+    {
+        $this->ownrouteimage2 = $ownrouteimage2;
+    }
+
+    public function getOwnRoutePathImages(){
+        $result = [];
+        if($this->ownrouteimage)
+            $result[] = $this->ownrouteimage->getWebPath();
+        if($this->ownrouteimage1)
+            $result[] = $this->ownrouteimage1->getWebPath();
+        if($this->ownrouteimage2)
+            $result[] = $this->ownrouteimage2->getWebPath();
+
+        return $result;
+    }
+
+    /**
+     * @ORM\OneToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="ownrouteimage2_id", referencedColumnName="id")
+     */
+    private $ownrouteimage2;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Image")
      * @ORM\JoinColumn(name="aboutusimage_id", referencedColumnName="id")
      */
     private $aboutusimage;

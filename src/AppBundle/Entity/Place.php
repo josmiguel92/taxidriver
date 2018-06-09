@@ -73,6 +73,13 @@ class Place extends ImageField
     private $price;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="transferprice", type="float")
+     */
+    private $trasferprice;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="istour", type="boolean")
@@ -211,6 +218,23 @@ class Place extends ImageField
     {
         $this->price = $price;
     }
+
+    /**
+     * @return float
+     */
+    public function getTrasferprice()
+    {
+        return $this->trasferprice;
+    }
+
+    /**
+     * @param float $trasferprice
+     */
+    public function setTrasferprice($trasferprice)
+    {
+        $this->trasferprice = $trasferprice;
+    }
+
 
     /**
      * @return bool

@@ -25,7 +25,9 @@
 .btn-calypso:hover,
 .btn-calypso:active,
 .btn-calypso:focus,
-.btn-border:hover
+.btn-border:hover,
+.btn-border:active,
+.btn-border:focus
 {
     color: #fff;
     background-color: #50b4ea;

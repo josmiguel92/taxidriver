@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class PlaceType extends AbstractType
@@ -22,11 +22,11 @@ class PlaceType extends AbstractType
             ->add('file', null, ['label'=>"Imágen representativa"])
 
             ->add('time', null, ["label"=> "Tiempo de recorrido, (horas:minutos)"])
-            ->add('price')
+            ->add('price', MoneyType::class, ["label"=>"Precio minimo del Tour",'currency'=>"CUC"])
+            ->add('trasferprice', MoneyType::class, ["label"=>"Precio minimo del Transfer",'currency'=>"CUC"])
             ->add('istour', null, ['label'=>"¿Es un Tour?"])
             ->add('placedesc', null, ['label'=>"Describa el Tour"])
             ->add('placedescen', null, ['label'=>"Describa el Tour, en ingles"])
-
 
             //->add('services')
             ->add('latlong',HiddenType::class)
