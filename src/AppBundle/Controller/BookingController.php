@@ -270,8 +270,11 @@ class BookingController extends Controller
 
         $subject = "Taxidriverscuba Notification";
         $em = $this->getDoctrine()->getManager();
-        $place = $em->getRepository("AppBundle:Place")
-            ->find($booking->getPlace());
+        if($booking->getPlace())
+            $place = $em->getRepository("AppBundle:Place")
+                ->find($booking->getPlace());
+        else $place = null;
+
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
         $senderEmail = $content[0]->getContactemail();
         $address = $content[0]->getContactaddressLocale();
