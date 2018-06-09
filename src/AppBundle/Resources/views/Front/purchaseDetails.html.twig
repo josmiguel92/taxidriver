@@ -93,7 +93,7 @@
 
                     {% if paypalCallback is empty %}
                         <div class="row section-bottom-40">
-                            {% if purchase.ownroute or purchase.getNumpeople > 5 %}
+                            {% if not purchase.accepted %}
                                 <div class="cell-md-6 col-md-6 col-md-offset-3">
                                     <i class="fa fa-clock-o fa-5x color-sky"></i>
                                     <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">
@@ -102,7 +102,7 @@
                                         usually this take less than a day.{% endtrans %}
                                     </p>
                                 </div>
-                            {% elseif not purchase.ownroute or purchase.accepted %}
+                            {% else %}
                                 <!-- simple purchase -->
                                 <div class="row">
                                     <div class="col-md-6">
