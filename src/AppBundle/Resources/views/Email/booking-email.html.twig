@@ -193,11 +193,14 @@
                                                     {{ booking.details}}
                                                 </p>
 
+                                                {% if  booking.returnpickuptime or booking.returnpickupplacce %}
                                                 <h4>Sobre el regreso</h4>
                                                 <p>Hora y fecha: {{ booking.returnpickuptime | date("l d/m/Y H:i") }}</p>
                                                 <p>Detalles de recogida:<br>
                                                     {{ booking.returnpickupplacce}}
                                                 </p>
+
+                                                {% endif %}
 
                                                 <hr>
                                                 {% if booking.idpaypal %}

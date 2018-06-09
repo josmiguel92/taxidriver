@@ -55,6 +55,9 @@
     {% else %}
         {{ form_row(form.price)}}
     {% endif %}
+    {% if not booking.drivermsg %}
+        {{ form_row(form.drivermsg) }}
+    {% endif %}
 
 
  {{ form_widget(form._token)}}
@@ -63,8 +66,9 @@
 
 
 <div class="modal-footer">
-  <button type="submit" class="btn btn-primary">Aceptar</button>
+    <button type="submit" class="btn btn-primary">Aceptar</button>
     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    <a href="{{ path('dash_booking_delete', {'id': booking.id}) }}" class="btn btn-default">Eliminar</a>
 
 </div>
 </form>

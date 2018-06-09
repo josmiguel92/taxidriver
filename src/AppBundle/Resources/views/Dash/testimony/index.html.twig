@@ -1,9 +1,4 @@
-{% extends 'AppBundle:Dash:base.html.twig' %}
-
-{% set pagename = 'testimonies' %}
-
-{% block content %}
-    <h1>Lista de Testimonios
+<h1>Lista de Testimonios
         <a href="{{ path('dash_testimonies_new') }}" class="btn-primary btn" style="float: right">Agregar testimonio</a>
     </h1>
 
@@ -32,4 +27,3 @@
     </div>
     {% endfor %}
 
-{% endblock %}

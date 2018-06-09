@@ -10,9 +10,9 @@ use AppBundle\Utils\Utils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse as RedirectResponse;
 use Symfony\Component\Validator\Tests\Fixtures\Entity;
 use AppBundle\Entity\Image;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
@@ -480,11 +480,14 @@ class AdminController extends Controller
                 WHERE b.pickuptime > :today AND b.pickuptime < :nextmonth'
                         )
             ->setParameter("today", new \DateTime('today'))
-            ->setParameter("nextmonth", new \DateTime('today + 1 month'));
+            ->setParameter("nextmonth", new \DateTime('next month'))
+            ->getResult();
 
-        $booking_pend = $em->getRepository("AppBundle:Booking")->findBy(
-            ['accepted'=>false]
-        );
+        $booking_pend = $em->getRepository("AppBundle:Booking")
+            ->createQueryBuilder("b")
+            ->where("b.accepted = false AND b.pickuptime >= :today")
+            ->setParameter("today", new \DateTime('today'))
+            ->getQuery()->getResult();
 
         foreach ($_places as $value) {
             $places[$value['id']]=$value['name'];
@@ -514,8 +517,24 @@ class AdminController extends Controller
      * @Method("GET")
      */
     public function configAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+
+        $configValues = $em->getRepository('AppBundle:ConfigValue')->findAll();
+        if(!$configValues)
+        {
+            $config = new \AppBundle\Entity\ConfigValue("tasa.usd",0.88);
+            $em->persist($config);
+
+            $config1 = new \AppBundle\Entity\ConfigValue("price.increment",10);
+            $em->persist($config1);
+
+            $em->flush();
+            $configValues = $em->getRepository('AppBundle:ConfigValue')->findAll();
+        }
+
         return $this->render('AppBundle:Dash:config.html.twig', [
             'pagename'=>'config',
+            'configValues' => $configValues
         ]);
     }
 
@@ -624,6 +643,25 @@ class AdminController extends Controller
         return $this->redirectToRoute('dash_sitecontent_edit');
     }
 
+    /**
+     * Deletes a BookingItem entity.
+     *
+     * @Route("/booking/{id}/delete", name="dash_booking_delete")
+     * @Method("GET")
+     */
+    public function deleteBookingAction(Request $request, \AppBundle\Entity\Booking $item)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($item);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'El elemento fue eliminada! >> success >> ti-trash'
+        );
+        return $this->redirectToRoute('dash_booking');
+    }
+
     public function notificationsAction(){
         $em =  $this->getDoctrine()->getManager();
         $booking_pend = $em->getRepository("AppBundle:Booking")->findBy(
@@ -638,6 +676,34 @@ class AdminController extends Controller
             'notify'=>$notify,
             'booking'=>$booking_pend,
         ]);
+    }
+    /**
+     * Shows a Messages list
+     * @Route("/messages", name="dash_messages_list")
+     * @Method({"GET", "POST"})
+     **/
+    public function messageListAction(){
+        $em =  $this->getDoctrine()->getManager();
+        $messages = $em->getRepository("AppBundle:ContactMsgs")
+            ->createQueryBuilder("c")->orderBy("c.insertDate", "DESC")
+            ->getQuery()->getResult();
+
+        return $this->render("AppBundle:Dash:messageList.html.twig", [
+            'messages' => $messages
+        ]);
+    }
+
+    /**
+     * Delete a Messages item
+     * @Route("/messages/delete/{id}", name="dash_message_delete")
+     * @Method("GET")
+     **/
+    public function messageDeleteAction(\AppBundle\Entity\ContactMsgs $item){
+        $em =  $this->getDoctrine()->getManager();
+        $em->remove($item);
+        $em->flush();
+
+        return $this->redirectToRoute('dash_messages_list');
     }
 
     /**

@@ -42,6 +42,13 @@ class ContactMsgs
      */
     private $message;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="insertDate", type="datetime")
+     */
+    private $insertDate;
+
 
     /**
      * Get id
@@ -124,5 +131,28 @@ class ContactMsgs
     {
         return $this->message;
     }
+
+    /**
+     * @return string
+     */
+    public function getInsertDate()
+    {
+        return $this->insertDate;
+    }
+
+    /**
+     * @param string $insertDate
+     */
+    public function setInsertDate($insertDate)
+    {
+        $this->insertDate = $insertDate;
+    }
+
+    public function __construct()
+    {
+        $this->setInsertDate(new \DateTime('now'));
+    }
+
+
 }
 

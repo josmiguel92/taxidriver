@@ -229,3 +229,7 @@ h2{
 .gallery-thumbs .swiper-slide:last-child{
     margin-right: 0;
 }
+.help-block{
+    margin-left: 1em;
+    color: red;
+}

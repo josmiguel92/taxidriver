@@ -81,11 +81,18 @@
                         <div class="well-row well-row-bg">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
                                 {% trans %}We will pickup you in{% endtrans %}: {{ purchase.getDetails }}
+                                {% if purchase.airport %}
+                                    {{ "Fly" | trans }}:
+                                    {{ purchase.flynumber }}
+                                {% endif %}
                             </p>
                         </div>
                         <div class="well-row">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
                                 {% trans %}At{% endtrans %}: {{ purchase.getPickuptime|date("l, d F Y - H:i")  }}
+                            </p>
+                            <p class="text-bold text-spacing-25 font-accent text-gray-dark">
+                               {{ purchase.details  }}
                             </p>
                         </div>
 
@@ -108,7 +115,7 @@
                                     <div class="col-md-6">
                                         <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-lg btn-primary">
                                             <i class="fa fa-paypal"></i>
-                                            {% trans %}Pay with PayPal{% endtrans %} - {{ purchase.price }} USD
+                                            {% trans %}Pay with PayPal{% endtrans %} - {{ (purchase.price / config['tasa.usd']) |number_format(2,'.') }} USD
                                         </a>
                                     </div>
                                     <div class="col-md-6">

@@ -59,6 +59,12 @@
                         <p>Reservaciones</p>
                     </a>
                 </li>
+                <li {% if pagename == 'message' %} class="active" {% endif %}>
+                    <a href="{{ path('dash_messages_list') }}">
+                        <i class="fa fa-comments-o"></i>
+                        <p>Mensajes</p>
+                    </a>
+                </li>
                 <li {% if pagename == 'services' %} class="active" {% endif %}>
                     <a href="{{ path('dash_services_edit') }}">
                         <i class="ti-car"></i>
@@ -96,12 +102,7 @@
                         <p>Redes Sociales</p>
                     </a>
                 </li>
-                <li {% if pagename == 'testimonies' %} class="active" {% endif %}>
-                    <a href="{{ path('dash_testimonies_index') }}">
-                        <i class="fa fa-comments-o"></i>
-                        <p>Testimonios</p>
-                    </a>
-                </li>
+
                 <li {% if pagename == 'drivers' %} class="active" {% endif %}>
                     <a href="{{ path('dash_drivers_index') }}">
                         <i class="fa fa-user"></i>

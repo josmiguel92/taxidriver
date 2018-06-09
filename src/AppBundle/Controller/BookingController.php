@@ -44,7 +44,9 @@ class BookingController extends Controller
 
             $booking_form->handleRequest($request);
 
-
+            $noPlaceSelected = true;
+            if($booking->getPlace()>0)
+                $noPlaceSelected = false;
             if ($booking_form->isSubmitted() && $booking_form->isValid()) {
 
                 $captcha = '';
@@ -87,6 +89,7 @@ class BookingController extends Controller
 
             }
 
+
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
@@ -98,6 +101,7 @@ class BookingController extends Controller
                 'socialNetworks'=>$socialNetworks,
                 'hashtags'=>$hashtags,
                 'places'=>$places,
+                'noPlaceSelected' => $noPlaceSelected
             ]);
         }
         else
@@ -115,6 +119,7 @@ class BookingController extends Controller
         Utils::setRequestLocaleLang($_locale);
         $em = $this->getDoctrine()->getManager();
         $places = $em->getRepository('AppBundle:Place')->findAll();
+        $config = $em->getRepository('AppBundle:ConfigValue')->findAll();
         $place = $em->getRepository('AppBundle:Place')->find($_id);
 
         if ($place)
@@ -139,6 +144,7 @@ class BookingController extends Controller
                     'hashtags'=>$hashtags,
                     'place'=>$place,
                     'places'=>$places,
+                    'config'=>$config
                     ]);
         }
         else
@@ -192,17 +198,13 @@ class BookingController extends Controller
     {
         Utils::setRequestLocaleLang($_locale);
 
-        if(isset($_REQUEST['tx'])){
-            echo "<!-- ";
-            echo $_REQUEST['item_number']." ID del producto\n";
-            echo $_REQUEST['tx']." ID de transacción Paypal\n";
-            echo $_REQUEST['amt']." Monto recibido Paypal\n";
-            echo $_REQUEST['cc']."  Moneda recibida de Paypal\n";
-            echo $_REQUEST['st']." Estado del producto Paypal\n";
-            echo "-->";
-        }
         $em = $this->getDoctrine()->getManager();
         $purchase = $em->getRepository('AppBundle:Booking')->findOneBy(['token'=>$_token]);
+        $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+        $config = [];;
+        foreach ($_config as $item){
+            $config[$item->getName()]=$item->getValue();
+        }
 
         if ($purchase) {
 
@@ -215,6 +217,25 @@ class BookingController extends Controller
             $places = $em->getRepository('AppBundle:Place')->findAll();
 
             /*TODO: proccess Paypal POST headers and push it on DB*/
+            if($_paypalCallback == 'success')
+                if(isset($_REQUEST['tx'])){
+                    echo "<!-- ";
+                    echo $_REQUEST['item_number']." ID del producto\n";
+                    echo $_REQUEST['tx']." ID de transacción Paypal\n";
+                    echo $_REQUEST['amt']." Monto recibido Paypal\n";
+                    echo $_REQUEST['cc']."  Moneda recibida de Paypal\n";
+                    echo $_REQUEST['st']." Estado del producto Paypal\n";
+                    echo "-->";
+
+                    if($_REQUEST['amt'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
+                    {
+                        $purchase->setConfirmed(true);
+                        $purchase->setIdpaypal($_REQUEST['tx']);
+                        $em->persist($purchase);
+                        $em->flush();
+                    }
+                }
+
 
             return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
                 'locale'=>$_locale,
@@ -224,7 +245,8 @@ class BookingController extends Controller
                 'place'=>$place,
                 'purchase'=>$purchase,
                 'places'=>$places,
-                'paypalCallback'=>$_paypalCallback
+                'paypalCallback'=>$_paypalCallback,
+                'config'=>$config
                 ]);
         }
         else

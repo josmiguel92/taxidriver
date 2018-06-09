@@ -76,7 +76,8 @@ class Booking
 
     /**
      * @var string
-     *
+     * Lugar de recogida
+     * @Assert\NotBlank(message="Indique el lugar con detalle")
      * @ORM\Column(name="details", type="text")
      */
     private $details;
@@ -84,6 +85,7 @@ class Booking
     /**
      * @var \DateTime
      * @Assert\DateTime()
+     * @Assert\NotBlank()
      * @ORM\Column(name="pickuptime", type="datetime")
      */
     private $pickuptime;
@@ -132,6 +134,8 @@ class Booking
      */
     private $accepted;
 
+    //TODO: por ahora, nunca se conffirman las reservaciones por parte de los clientes
+
     /**
      * @var boolean
      * @ORM\Column(name="confirmed", type="boolean", nullable=true)
@@ -152,7 +156,13 @@ class Booking
      */
     private $token;
 
-    
+    /**
+     * @var string
+     * @ORM\Column(name="drivermsg", type="string", length=1000, nullable=true)
+     */
+    private $drivermsg;
+
+
     public function getBookingLocale()
     {
         return substr($this->token, 0, 2);
@@ -181,6 +191,22 @@ class Booking
     public function setOwnroute($ownroute)
     {
         $this->ownroute = $ownroute;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDrivermsg()
+    {
+        return $this->drivermsg;
+    }
+
+    /**
+     * @param string $drivermsg
+     */
+    public function setDrivermsg($drivermsg)
+    {
+        $this->drivermsg = $drivermsg;
     }
 
     
@@ -559,6 +585,17 @@ class Booking
         if(gettype($this->returnpickuptime)=='objectt')
             return $this->returnpickuptime->format($format);
         return null;
+    }
+
+    /**
+     * @Assert\IsTrue(message="La fecha debe ser al menos 2 dias en el futuro")
+     */
+    public function isPickuptime(){
+        $now = new \DateTime('now');
+        $interval = $now->diff($this->pickuptime);
+        if( $interval->days >= 2 )
+            return true;
+        return false;
     }
 }
 
