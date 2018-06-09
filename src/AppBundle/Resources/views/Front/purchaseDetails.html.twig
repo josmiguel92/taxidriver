@@ -61,7 +61,9 @@
                             <!-- List-->
                             <ul class="p">
                                 {% if purchase.ownroute is not empty %}
-                                    {#own route#}
+                                    {% for _place in purchase.ownroute %}
+                                        <li>{{ _place }}</li>
+                                    {% endfor %}
                                 {% else %}
                                     <li class="offset-top-10">
                                         <p class="text-gray-dark">{{ place.getNameLocale }}</p>
