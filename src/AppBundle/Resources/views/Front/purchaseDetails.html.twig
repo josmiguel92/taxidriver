@@ -60,19 +60,13 @@
                             </p>
                             <!-- List-->
                             <ul class="p">
-                                {% for place in selectedPlaces %}
-                                <li class="offset-top-10">
-                                    <p class="text-gray-dark">{{ place.getNameLocale }}</p>
-                                </li>
+                                {% if purchase.ownroute is not empty %}
+                                    {#own route#}
                                 {% else %}
-                                    {% if purchase.ownroute is not empty %}
-                                        {#own route#}
-                                    {% else %}
-                                        <li class="offset-top-10">
-                                            <p class="text-gray-dark">{{ place.getNameLocale }}</p>
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
+                                    <li class="offset-top-10">
+                                        <p class="text-gray-dark">{{ place.getNameLocale }}</p>
+                                    </li>
+                                {% endif %}
                             </ul>
 
                         </div>
@@ -106,7 +100,7 @@
                                         usually this take less than a day.{% endtrans %}
                                     </p>
                                 </div>
-                            {% elseif not (selectedPlaces or purchase.ownroute) or purchase.accepted %}
+                            {% elseif not purchase.ownroute or purchase.accepted %}
                                 <!-- simple purchase -->
                                 <div class="row">
                                     <div class="col-md-6">

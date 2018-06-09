@@ -209,7 +209,6 @@ class BookingController extends Controller
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
-            $_places = $em->getRepository('AppBundle:Place')->findBy(['id'=>$purchase->getPlacesCollection()]);
             $place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
             $places = $em->getRepository('AppBundle:Place')->findAll();
 
@@ -220,7 +219,6 @@ class BookingController extends Controller
                 'content'=>$content[0],
                 'socialNetworks'=>$socialNetworks,
                 'hashtags'=>$hashtags,
-                'selectedPlaces'=>$_places,
                 'place'=>$place,
                 'purchase'=>$purchase,
                 'places'=>$places,
@@ -273,7 +271,7 @@ class BookingController extends Controller
         $subject = "Taxidriverscuba Notification";
         $em = $this->getDoctrine()->getManager();
         $place = $em->getRepository("AppBundle:Place")
-            ->find($booking->getId());
+            ->find($booking->getPlace());
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
         $senderEmail = $content[0]->getContactemail();
         $address = $content[0]->getContactaddressLocale();
@@ -283,7 +281,8 @@ class BookingController extends Controller
             ->setSubject($subject)
             ->setReplyTo($senderEmail)
             ->setTo($booking->getEmail())
-            ->setFrom("noreply@taxidriverscuba.com")
+            //TODO: get email from parameters
+            ->setFrom("taxidriverscuba-noreply@taxidriverscuba.com")
             ->setBody(
                 $this->renderView(
                     'AppBundle:Email:clientNotification.html.twig',
