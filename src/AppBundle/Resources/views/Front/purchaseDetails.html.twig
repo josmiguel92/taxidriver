@@ -61,7 +61,7 @@
                             <!-- List-->
                             <ul class="p">
                                 {% if purchase.ownroute is not empty %}
-                                    {% for _place in purchase.ownroute %}
+                                    {% for _place in purchase.ownrouteFormated %}
                                         <li>{{ _place }}</li>
                                     {% endfor %}
                                 {% else %}
