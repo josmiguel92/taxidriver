@@ -13,7 +13,7 @@
 {% else %}
     {% set title = "Your transaction was " %}
 {% endif %}
-{% if paypalCallback == 'success' %}
+{% if paypalCallback == 'success' or paypalCallback == 'cash' %}
     {% set title = title~"success" %}
 {% elseif paypalCallback == 'cancel' %}
     {% set title = title~"cancel" %}
