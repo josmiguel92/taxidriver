@@ -204,7 +204,7 @@
 
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km <p>
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} {% trans %}hours{% endtrans %} </p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 CUC <br/></p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getTrasferprice }}.00 CUC <br/></p>
 
                                                     <div class="offset-top-40">
                                                         <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="btn btn-calypso btn-icon btn-icon-left">
@@ -268,7 +268,7 @@
 
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km <p>
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} {% trans %}hours{% endtrans %} </p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 CUC <br/></p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getTrasferprice }}.00 CUC <br/></p>
 
                                                     <div class="offset-top-40">
                                                         <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="btn btn-calypso btn-icon btn-icon-left">
@@ -297,7 +297,7 @@
         <!-- Make your own Tour-->
         <section class="context-dark offset-top-0" style="margin-top: -8px;">
             <!-- RD Parallax-->
-            <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-on="false" data-md-on="true" class="own-route rd-parallax">
                 <div data-speed="0.25" data-type="media" data-url="{{ asset(random(content.ownRoutePathImages)) }}" class="rd-parallax-layer"></div>
                 <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
                     <div class="shell section-75 section-md-top-103 section-md-bottom-110">
@@ -584,11 +584,7 @@
                 <div class="range range-xs-center offset-top-50">
 
                     <div class="cell-sm-6 cell-lg-4">
-                        {% if sended_email %}
-                        <div class="alert alert-success">
-                            <a href="#" class="alert-link">{{ "Your message have been sended, thanks a lot!" | trans }}</a>
-                        </div>
-                        {% endif %}
+
                         {{ form_start(messageForm, {'attr':{'class':'text-left',
                             'data-form-type':'contact',
                             'data-form-output':'form-output-global'}}) }}
@@ -607,7 +603,14 @@
                                 <input id="{{ messageForm.email.vars.id }}" type="email" name="{{ messageForm.email.vars.full_name }}" data-constraints="@Email @Required" class="form-control">
                             </div>
                             <div class="text-center text-sm-right offse-top-5">
-                                <button type="submit" style="min-width: 210px;" class="btn btn-primary">send a message</button>
+                                {% if sended_email %}
+                                    <div class="alert alert-succes text-align: center;">
+                                        <a href="#" class="alert-link">{{ "Your message have been sended, thanks a lot!" | trans }}</a>
+                                    </div>
+                                    {% else %}
+                                        <button type="submit" style="min-width: 210px;" class="btn btn-primary">send a message</button>
+                                {% endif %}
+
                             </div>
                         {{ form_widget(messageForm._token)}}
                         </form>

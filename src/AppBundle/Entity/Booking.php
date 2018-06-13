@@ -588,12 +588,12 @@ class Booking
     }
 
     /**
-     * @Assert\IsTrue(message="La fecha debe ser al menos 2 dias en el futuro")
+     * @Assert\IsTrue(message="La reservación debe ser al menos con 12 horas de antelación")
      */
     public function isPickuptime(){
         $now = new \DateTime('now');
         $interval = $now->diff($this->pickuptime);
-        if( $interval->days >= 2 )
+       if( $interval->h >= 12 )
             return true;
         return false;
     }

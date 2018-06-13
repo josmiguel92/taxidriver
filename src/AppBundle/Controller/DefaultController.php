@@ -57,7 +57,7 @@ class DefaultController extends Controller
                     ->setSubject($subject)
                     ->setReplyTo($senderEmail)
                     ->setTo($senderEmail)
-                    ->setFrom("Taxidriverscuba <noreply@taxidriverscuba.com>")
+                    ->setFrom("taxidriverscuba-noreply@taxidriverscuba.com")
                     ->setBody(
                         $this->renderView(
                             'AppBundle:Email:contactNotification.html.twig',

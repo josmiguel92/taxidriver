@@ -148,13 +148,17 @@ div.toggle{
 .blog-post .rd-parallax,
 .blog-post .rd-parallax .rd-parallax-inner,
 .blog-post.rd-parallax,
-.blog-post.rd-parallax .rd-parallax-inner{
+.blog-post.rd-parallax .rd-parallax-inner,
+.booking-place .rd-parallax,
+.booking-place .rd-parallax .rd-parallax-inner,
+.own-route.rd-parallax,
+.own-route.rd-parallax .rd-parallax-inner{
     height: 100vh !important;
 }
 
-.booking-place .rd-parallax,
-.booking-place .rd-parallax .rd-parallax-inner{
-    height: 100vh !important;
+.breadcrumb-modern.rd-parallax,
+.breadcrumb-modern.rd-parallax .rd-parallax-inner{
+    height: 60vh !important;
 }
 
 .well-place{
@@ -232,4 +236,14 @@ h2{
 .help-block{
     margin-left: 1em;
     color: red;
+}
+.subtitle{
+    text-transform: none;
+    font-size: .8em;
+    color: gray;
+    font-family: "Quicksand";
+}
+
+.source-cuba label.btn{
+    min-width: 2em;
 }

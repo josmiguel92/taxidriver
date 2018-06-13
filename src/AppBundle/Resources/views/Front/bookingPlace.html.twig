@@ -15,7 +15,6 @@
 {% set english_page = path("booking_place", {"_locale":"en", "_id":place.getId, "_name":place.getNameEn}) %}
 
 {% block destination %}
-
 <!--- Parallax -->
     <div class="booking-place context-dark offset-top-0" style="margin-top: -8px;">
         <!-- RD Parallax-->
@@ -39,13 +38,13 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
 
 {% block javascript %}
 {{ parent() }}
 
     <script>
+        increment = {{ config['price.increment'] }};
 
         function wrapperPrice(price)
         {
@@ -58,30 +57,32 @@
 
         function updatePrice()
         {
-            var price = {{ place.getPrice }};
+            var tourPrice = {{ place.getPrice }};
+            var transferPrice = {{ place.getTrasferprice }};
             var isTour = {{ place.isTour? "true":"false" }};
-            var numberPeople = $('#{{ booking_form.numpeople.vars.id }}')[0].value;
 
-
-            {#todo: we shoul use a better identificator of the toggle botton not the element in [1]#}
-            {#la idea de tour es hacer cortocircuito#}
-            if ((!isTour || $('.toggle')[1].classList.contains('off')) && numberPeople <= 5)
-                priceContent = wrapperPrice(price);
-
-            if ((!isTour || !$('.toggle')[1].classList.contains('off')) && numberPeople > 2 && numberPeople <= 5)
-                priceContent = wrapperPrice(price + (numberPeople-2)*10);
-
-            if ((!isTour || !$('.toggle')[1].classList.contains('off')) && numberPeople <= 2)
-                priceContent = wrapperPrice(price);
+            if (isTour){
+                if (buttonTourOn && numberPeople <= 3)
+                    priceContent = wrapperPrice(tourPrice);
+                if (!buttonTourOn && numberPeople <= 3)
+                    priceContent = wrapperPrice(transferPrice);
+                if (buttonTourOn && numberPeople > 3)
+                    priceContent = wrapperPrice(tourPrice+increment*(numberPeople-3));
+                if (!buttonTourOn && numberPeople > 3)
+                    priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
+            }
+            else{
+                if (numberPeople <= 3)
+                    priceContent = wrapperPrice(transferPrice);
+                if (numberPeople > 3)
+                    priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
+            }
 
             //vinnales hard-coded
             {% if "viñales" in place.nameLocale|lower or "vinales" in place.nameLocale|lower %}
-                if (!$('.toggle')[1].classList.contains('off') && numberPeople <=3 )
-                    priceContent = wrapperPrice(135);
-                if (!$('.toggle')[1].classList.contains('off') && numberPeople >=4 && numberPeople <= 5)
-                    priceContent = wrapperPrice(160);
-
+                priceContent = "hard-code";
             {% endif %}
+
 
             if (numberPeople > 5)
                 priceContent = wrapperPrice("");
@@ -101,17 +102,15 @@
               updatePrice();
             });
 
+            {% if place.isTour %}
+                {#Como es un tour mostrar el toggle del tour
+                y anadir la descripcion del lugar.#}
+                $("#tourToggle").fadeIn(500);
+                $("#tourTitle")[0].innerHTML = "{{ place.nameLocale }}";
+                $("#tourDescription")[0].innerHTML = "{{ place.getPlaceDescLocale | replace({"\n":"<br>", '\r':''}) | raw }}";
+            {% endif %}
         });
 
     </script>
-
-    {% if place.isTour %}
-    {#Como es un tour mostrar el toggle del tour
-    y anadir la descripcion del lugar.#}
-        <script>
-            $("#tourToggle").fadeIn(500);
-            $("#tourDescription")[0].innerHTML = "{{ place.getPlaceDescLocale | replace({"\n":"<br>", '\r':''}) | raw }}";
-        </script>
-    {% endif %}
 
 {% endblock %}

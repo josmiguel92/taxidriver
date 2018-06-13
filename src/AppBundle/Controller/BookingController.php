@@ -89,7 +89,11 @@ class BookingController extends Controller
 
             }
 
-
+            $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+            $config = [];;
+            foreach ($_config as $item){
+                $config[$item->getName()]=$item->getValue();
+            }
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
@@ -101,6 +105,7 @@ class BookingController extends Controller
                 'socialNetworks'=>$socialNetworks,
                 'hashtags'=>$hashtags,
                 'places'=>$places,
+                'config'=>$config,
                 'noPlaceSelected' => $noPlaceSelected
             ]);
         }
@@ -119,8 +124,13 @@ class BookingController extends Controller
         Utils::setRequestLocaleLang($_locale);
         $em = $this->getDoctrine()->getManager();
         $places = $em->getRepository('AppBundle:Place')->findAll();
-        $config = $em->getRepository('AppBundle:ConfigValue')->findAll();
         $place = $em->getRepository('AppBundle:Place')->find($_id);
+
+        $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+        $config = [];;
+        foreach ($_config as $item){
+            $config[$item->getName()]=$item->getValue();
+        }
 
         if ($place)
         {

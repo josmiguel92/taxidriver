@@ -52,72 +52,9 @@
                 </a>
             </div>
 
-            <ul class="nav">
-                <li {% if pagename == 'booking' %} class="active" {% endif %}>
-                    <a href="{{ path('dash_booking') }}">
-                        <i class="ti-calendar"></i>
-                        <p>Reservaciones</p>
-                    </a>
-                </li>
-                <li {% if pagename == 'message' %} class="active" {% endif %}>
-                    <a href="{{ path('dash_messages_list') }}">
-                        <i class="fa fa-comments-o"></i>
-                        <p>Mensajes</p>
-                    </a>
-                </li>
-                <li {% if pagename == 'services' %} class="active" {% endif %}>
-                    <a href="{{ path('dash_services_edit') }}">
-                        <i class="ti-car"></i>
-                        <p>Servicios</p>
-                    </a>
-                </li>
-
-                <li {% if pagename == 'gallery' %} class="active" {% endif %}>
-                    <a href="{{ path('dash_gallery') }}">
-                        <i class="ti-gallery"></i>
-                        <p>Galer&iacute;a</p>
-                    </a>
-                </li>
-                <li {% if pagename == 'blog' %} class="active" {% endif %}>
-                    <a href="{{ path('dash_blog_index') }}">
-                        <i class="ti-pencil-alt"></i>
-                        <p>Blog</p>
-                    </a>
-                </li>
-            <!--    <li {% if pagename == 'paygateway' %} class="active" {% endif %}>
-                    <a href="{{ path('dash_paygateway') }}">
-                        <i class="ti-credit-card"></i>
-                        <p>Pasarela de Pagos</p>
-                    </a>
-                </li>
-            -->    <li {% if pagename == 'sitecontent' %} class="active" {% endif %}>
-                    <a href="{{ path('dash_sitecontent_edit') }}">
-                        <i class="ti-pin-alt"></i>
-                        <p>Contenido</p>
-                    </a>
-                </li>
-                <li {% if pagename == 'socialnet' %} class="active" {% endif %}>
-                    <a href="{{ path('dash_socialnet_edit') }}">
-                        <i class="ti-themify-favicon-alt"></i>
-                        <p>Redes Sociales</p>
-                    </a>
-                </li>
-
-                <li {% if pagename == 'drivers' %} class="active" {% endif %}>
-                    <a href="{{ path('dash_drivers_index') }}">
-                        <i class="fa fa-user"></i>
-                        <p>Choferes</p>
-                    </a>
-                </li>
-                <li {% if pagename == 'config' %} class="active" {% endif %}>
-                    <a href="{{ path('dash_config') }}">
-                        <i class="ti-settings"></i>
-                        <p>Configuraci&oacute;n</p>
-                    </a>
-                </li>
-
-
-            </ul>
+            {{ render(controller(
+                'AppBundle:Admin:sidebar', {'pagename': pagename}
+            ))   }}
     	</div>
     </div>
 

@@ -677,6 +677,27 @@ class AdminController extends Controller
             'booking'=>$booking_pend,
         ]);
     }
+
+    public function sidebarAction($pagename){
+        $em =  $this->getDoctrine()->getManager();
+        //todo: coseguir cantidades de todo, para los badges en los links de la sidebar
+        $messagesCount = $em->createQuery(
+            'SELECT count(c.id)
+             FROM AppBundle:ContactMsgs c'
+            )->getResult()[0][1];
+
+        $bookingCount = count($em->getRepository("AppBundle:Booking")
+            ->createQueryBuilder("b")
+            ->where("b.accepted = false AND b.pickuptime >= :today")
+            ->setParameter("today", new \DateTime('today'))
+            ->getQuery()->getResult());
+
+        return $this->render("AppBundle:Dash:sidebar.html.twig", [
+            'messagesCount' => $messagesCount,
+            'bookingCount'=>$bookingCount,
+            'pagename'=>$pagename
+        ]);
+    }
     /**
      * Shows a Messages list
      * @Route("/messages", name="dash_messages_list")
