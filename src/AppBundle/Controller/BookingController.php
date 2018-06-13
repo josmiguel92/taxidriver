@@ -272,6 +272,12 @@ class BookingController extends Controller
         $purchase = $em->getRepository('AppBundle:Booking')->findOneBy(['token'=>$_token]);
         $_locale = Utils::getRequestLocaleLang();
 
+        $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+        $config = [];;
+        foreach ($_config as $item){
+            $config[$item->getName()]=$item->getValue();
+        }
+
         if($purchase)
         {
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
@@ -283,7 +289,8 @@ class BookingController extends Controller
             $product_name = Utils::buildProductName($purchase, $_place);
 
             $price = Utils::calculateSimpleRoutePrices($_place, $_person_number);
-            $product_price = $price - 0.1*$price;
+            $cuc_usd_conversion = $config['tasa.usd'];
+            $product_price = $price/$cuc_usd_conversion;
 
             return $this->render('AppBundle:Front:dummyPaypalForm.html.twig', [
                 'account_email'=>$account_email,
