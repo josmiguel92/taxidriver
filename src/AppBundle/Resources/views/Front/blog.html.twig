@@ -62,7 +62,8 @@
                                                 <!-- List inline marked -->
                                                 <ul class="list-inline list-marked list-marked-type-2 list-marked-type-2-dot-1 list-silver-chalice list-marked-silver-chalice font-accent text-bold text-spacing-inverse-25 inset-sm-left-4">
                                                     {% for tag in blogEntry.getTags %}
-                                                        <li><a href="#" class="text-turquoise">{{ tag.getTagLocale }}</a></li>
+                                                        {#<li><a href="#" class="text-turquoise">{{ tag.getTagLocale }}</a></li>#}
+                                                        <li>{{ tag.getTagLocale }}</li>
                                                     {% endfor %}
 
                                                 </ul>
