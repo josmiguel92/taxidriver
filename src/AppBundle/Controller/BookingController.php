@@ -68,11 +68,17 @@ class BookingController extends Controller
 
                 }
 
+                $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+                $config = [];;
+                foreach ($_config as $item){
+                    $config[$item->getName()]=$item->getValue();
+                }
+
                 //validacion para enviar correo a lester o no.
                 if(Utils::isSimpleBooking($booking))
                 {
                     $_place = $em->getRepository('AppBundle:Place')->find($booking->getPlace());
-                    $booking->setPrice(Utils::calculateSimpleRoutePrices($_place, $booking->getNumpeople()));
+                    $booking->setPrice(Utils::calculateSimpleRoutePrices($_place, $booking, $config['price.increment']));
 
                     $booking->setAccepted(true);
                 }
@@ -288,7 +294,13 @@ class BookingController extends Controller
             //TODO:Escribir bien el nombre del producto
             $product_name = Utils::buildProductName($purchase, $_place);
 
-            $price = Utils::calculateSimpleRoutePrices($_place, $_person_number);
+            $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+            $config = [];;
+            foreach ($_config as $item){
+                $config[$item->getName()]=$item->getValue();
+            }
+
+            $price = Utils::calculateSimpleRoutePrices($_place, $purchase, $config['price.increment']);
             $cuc_usd_conversion = $config['tasa.usd'];
             $product_price = $price/$cuc_usd_conversion;
 
