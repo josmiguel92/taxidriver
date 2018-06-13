@@ -156,7 +156,9 @@ class Utils
         return $idPlaces;
     }
 
+    //todo: hay que ver si la reservacion hecha es tour o tranfer
     static function calculateSimpleRoutePrices(\AppBundle\Entity\Place $place, $persons){
+
         if(strtolower($place->getName()) == 'viñales')
         {
             if($persons <= 3)
@@ -166,8 +168,8 @@ class Utils
         }
         if($persons<=2)
             return $place->getPrice();
-        return $place->getPrice()+($persons-2)*10;
 
+        return $place->getPrice()+($persons-2)*10;
     }
 
     static function buildProductName(\AppBundle\Entity\Booking $booking, \AppBundle\Entity\Place $place){

@@ -119,7 +119,10 @@
                                     <ul class="list-inline list-tags font-accent text-bold text-spacing-inverse-25 text-left">
 
                                         {% for tag in tags %}
-                                            <li><a href="{{ path('blog') }}{{ tag.getTagLocale|replace({'% %': '-' }) }}" class="color-sky">{{ tag.getTagLocale }}</a></li>
+                                            <li>
+                                                {#<a href="{{ path('blog') }}/{{ tag.getTagLocale|replace({'% %': '-' }) }}" class="color-sky">{{ tag.getTagLocale }}</a>#}
+                                                {{ tag.getTagLocale }}
+                                            </li>
                                         {% endfor %}
 
                                     </ul>
