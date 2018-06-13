@@ -171,7 +171,7 @@ class Utils
         if($booking->getNumpeople()<=3)
             return $_price;
 
-        return $_price+($booking->getNumpeople()-2)*$increment;
+        return $_price+($booking->getNumpeople()-3)*$increment;
     }
 
     static function buildProductName(\AppBundle\Entity\Booking $booking, \AppBundle\Entity\Place $place){
