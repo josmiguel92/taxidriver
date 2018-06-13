@@ -355,7 +355,13 @@
                                     </div>
                                     <div class="offset-top-10">
                                         <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">
-                                            {{ infography.getTitleLocale }}
+                                            {% if 'horse' in infography.getIcon %}
+                                                <a href="https://www.horseridinginvinales.com/"  target="_blank">
+                                                {{ infography.getTitleLocale }}
+                                                </a>
+                                            {% else %}
+                                                {{ infography.getTitleLocale }}
+                                            {% endif %}
                                         </p>
                                     </div>
                                     <div class="offset-top-20">
@@ -559,7 +565,7 @@
                         </div>
                     </div>
 
-                    <div id="TA_cdsratingsonlynarrow928" class="TA_cdsratingsonlynarrow"><ul id="YPw5Zqh5chZ" class="TA_links nDDQ73HI"><li id="8T0FWuA5qa" class="0zhfthpPY5g"><a target="_blank" href="https://www.tripadvisor.es/"><img src="https://www.tripadvisor.es/img/cdsi/img2/branding/tripadvisor_logo_transp_340x80-18034-2.png" alt="TripAdvisor"/></a></li></ul></div><script async src="https://www.jscache.com/wejs?wtype=cdsratingsonlynarrow&amp;uniq=928&amp;locationId=13554747&amp;lang=es&amp;border=true&amp;shadow=true&amp;backgroundColor=white&amp;display_version=2"></script>
+                    <div id="TA_selfserveprop933" class="TA_selfserveprop"><ul id="EpKfuzYl" class="TA_links rVR3wREK"><li id="hTomamWenY" class="LmGhOpG"><a target="_blank" href="https://www.tripadvisor.es/"><img src="https://www.tripadvisor.es/img/cdsi/img2/branding/150_logo-11900-2.png" alt="TripAdvisor"/></a></li></ul></div><script async src="https://www.jscache.com/wejs?wtype=selfserveprop&amp;uniq=933&amp;locationId=13554747&amp;lang={{ locale }}&amp;rating=true&amp;nreviews=0&amp;writereviewlink=true&amp;popIdx=true&amp;iswide=false&amp;border=false&amp;display_version=2"></script>
 
                 </div>
 
