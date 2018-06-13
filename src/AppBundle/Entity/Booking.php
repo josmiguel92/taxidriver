@@ -576,13 +576,13 @@ class Booking
     }
 
     public function getPickuptimeFormated($format = 'd-M-Y'){
-        if(gettype($this->pickuptime)=='objectt')
+        if(gettype($this->pickuptime)=='object')
             return $this->pickuptime->format($format);
         return null;
     }
 
     public function getReturnPickuptimeFormated($format = 'd-M-Y'){
-        if(gettype($this->returnpickuptime)=='objectt')
+        if(gettype($this->returnpickuptime)=='object')
             return $this->returnpickuptime->format($format);
         return null;
     }
