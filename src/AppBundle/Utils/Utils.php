@@ -174,7 +174,7 @@ class Utils
         $str = $booking->isTour() ? "Tour to " : "Transfer to ";
         $str .= $place->getNameLocale();
         $str .= " for ".$booking->getNumpeople()." persons";
-        $str .= "on ".$booking->getPickuptimeFormated();
+        $str .= " on ".$booking->getPickuptimeFormated();
         return $str;
     }
 }
