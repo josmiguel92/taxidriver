@@ -421,6 +421,23 @@
 	<target>¡No haz seleccionado ningún lugar!</target>
 </trans-unit>
 
+
+<trans-unit id="please,.if.you.need.to.cancel.your.reservation,.you.must.notify.us.at.least.2.days.in.advance">
+	<source>Please, if you need to cancel your reservation, you must notify us at least 2 days in advance</source>
+	<target>Por favor si desea cancelar su reserva, debe de notificarnos con dos dias de antelación</target>
+</trans-unit>
+
+
+<trans-unit id="flight.number.or.cruiser.name">
+	<source>Flight number or cruiser name</source>
+	<target>Número de vuelo o nombre del crucero</target>
+</trans-unit>
+
+
+<trans-unit id="are.you.done">
+	<source>Are you done?</source>
+	<target>¿Estás listo?</target>
+</trans-unit>
         </body>
     </file>
 </xliff>
