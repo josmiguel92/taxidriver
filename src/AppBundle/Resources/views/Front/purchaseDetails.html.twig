@@ -20,8 +20,13 @@
 {% endif %}
 
 {% if locale == 'es' %}
-    {% set title = "Su transaccion esta casi lista" %}
-    {% if paypalCallback == 'success' %}
+    {% if paypalCallback is empty %}
+        {% set title = "Su transaccion esta casi lista" %}
+    {% else %}
+        {% set title = "Su transaccion fue " %}
+    {% endif %}
+
+    {% if paypalCallback == 'success' or paypalCallback == 'cash' %}
         {% set title = title~"exitosa" %}
     {% elseif paypalCallback == 'cancel' %}
         {% set title = title~"cancelada" %}
