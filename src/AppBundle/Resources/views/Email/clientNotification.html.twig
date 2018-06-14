@@ -198,8 +198,8 @@
 																<p>Hi! {{ booking.fullname }}, we will be waiting for you the day <strong>{{ booking.pickuptime | date("l d/m/Y H:i") }}</strong>.
 																	The price of your taxi is <strong>{{ booking.price }} CUC</strong> (or <strong>{{ (booking.price / config['tasa.usd']) }} USD</strong> ) for visiting:</p>
 																	<ul class="p">
-                                                                        {% if purchase.ownroute is not empty %}
-																			{% for _place in purchase.ownrouteFormated %}
+                                                                        {% if booking.ownroute is not empty %}
+																			{% for _place in booking.ownrouteFormated %}
 																				<li>{{ _place }}</li>
 																			{% endfor %}
                                                                         {% else %}
