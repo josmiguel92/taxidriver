@@ -21,9 +21,9 @@
 
 {% if locale == 'es' %}
     {% if paypalCallback is empty %}
-        {% set title = "Su transaccion esta casi lista" %}
+        {% set title = "Su transacción esta casi lista" %}
     {% else %}
-        {% set title = "Su transaccion fue " %}
+        {% set title = "Su transacción fue " %}
     {% endif %}
 
     {% if paypalCallback == 'success' or paypalCallback == 'cash' %}
@@ -123,7 +123,7 @@
                                     <div class="col-md-6">
                                         <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-lg btn-primary">
                                             <i class="fa fa-paypal"></i>
-                                            {% trans %}Pay with PayPal{% endtrans %} - {{ (purchase.price / config['tasa.usd']) |number_format(2,'.') }} USD
+                                            {% trans %}Pay with PayPal{% endtrans %} - {{ (purchase.price / config['tasa.usd']) | number_format(2,'.') }} USD
                                         </a>
                                         <p class="offset-top-15 text-extra-small">
                                             {% trans %}The exchange rate in Cuba is 1 CUC{% endtrans %}  = {{ config['tasa.usd'] }} USD
