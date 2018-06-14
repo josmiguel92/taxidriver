@@ -88,7 +88,7 @@
                                 {% trans %}We will pickup you in{% endtrans %}
 
                                 {% if purchase.airport %}
-                                    : {{ "airport or cruise loking for " | trans }}: {{ purchase.flynumber }}
+                                    {% trans %}airport or cruise looking for{% endtrans %}: {{ purchase.flynumber }}
                                 {% else %}
                                     : {{ purchase.getDetails }}
                                 {% endif %}

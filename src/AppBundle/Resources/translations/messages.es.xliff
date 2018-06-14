@@ -438,6 +438,15 @@
 	<source>Are you done?</source>
 	<target>¿Estás listo?</target>
 </trans-unit>
+
+
+<trans-unit id="airport.or.cruise.looking.for">
+	<source>airport or cruise looking for</source>
+	<target>aeropuerto o crucero, atendiendo a</target>
+</trans-unit>
+
+
+
         </body>
     </file>
 </xliff>
