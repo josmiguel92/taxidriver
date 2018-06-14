@@ -328,6 +328,11 @@ class BookingController extends Controller
             $place = $em->getRepository("AppBundle:Place")
                 ->find($booking->getPlace());
         else $place = null;
+        $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+        $config = [];;
+        foreach ($_config as $item){
+            $config[$item->getName()]=$item->getValue();
+        }
 
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
         $senderEmail = $content[0]->getContactemail();
@@ -350,6 +355,7 @@ class BookingController extends Controller
                         'telephone'=> $telephone,
                         'place'=>$place,
                         'booking'=>$booking,
+                        'config' => $config,
                     ]
                 ),
                 'text/html'

@@ -19,7 +19,8 @@
                     <div class="well-row well-row-bg">
                         <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
                             {% trans %}Pickup from airport or cruise?{% endtrans %}<br>
-                            <small class="subtitle"> {% trans %}If you arrive to Cuba by the international Jose Marti airport or havana cruise terminal, we can pickup you!{% endtrans %}</small>
+                            <small class="subtitle">
+                                {% trans %}If you arrive to Cuba through some airport or cruise terminal, we can pick you up!{% endtrans %}</small>
                         </p>
                     </div>
 
@@ -35,7 +36,7 @@
                                         <input type="radio" name="{{ booking_form.airport.vars.full_name }}" id="{{ booking_form.airport.vars.id }}" value="avion"> {% trans %}Airport{% endtrans %}
                                     </label>
                                     <label id="pickup_cruise" class="btn btn-primary">
-                                        <input type="radio" name="{{ booking_form.airport.vars.full_name }}" id="{{ booking_form.airport.vars.id }}" value="crucero"> {% trans %}cruise{% endtrans %}
+                                        <input type="radio" name="{{ booking_form.airport.vars.full_name }}" id="{{ booking_form.airport.vars.id }}" value="crucero"> {% trans %}Cruise{% endtrans %}
                                     </label>
                                 </label>
                             </div>
@@ -132,8 +133,8 @@
                             <div class="offset-top-15 cell-xs-12 cell-md-8 well-row-flex" style="margin-bottom: 10px;">
                                 <label class="custom-label text-gray-dark">
                                     {% trans %}
-                                        You can travel back with us.
-                                    {% endtrans %}
+                                        You can travel back with us
+                                    {% endtrans %}.
                                 </label>
                                 <div class="form-group">
                                     <input data-toggle="toggle" type="checkbox" id="activeReturn" name="{{ booking_form.returnpickup.vars.full_name }}">
@@ -227,8 +228,8 @@
 
                         <div>
                             <p class="text-extra-small offset-top-30 text-justify">*
-                                {% trans %}The price can vary in function of the amount of passengers and distance of the place.
-                                {% endtrans %}
+                                {% trans %}The price can vary in function of the amount of passengers and distance of the place
+                                {% endtrans %}.
                             </p>
                         </div>
                     </div>

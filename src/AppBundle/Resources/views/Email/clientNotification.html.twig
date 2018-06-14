@@ -164,7 +164,7 @@
 										<td width="400" align="center" style="padding-bottom:5px;">
 											<div class="contentEditableContainer contentTextEditable">
 												<div class="contentEditable" >
-													<p >{{ "Gracias por escogernos para descubrir Cuba" | trans }}</p>
+													<p>Thanks for chosing us, for discover Cuba!</p>
 													<br>
 													<p>You have booking a Taxidriverscuba's service and you can check the details and status by clicking this link: </p>
 												</div>
@@ -195,11 +195,21 @@
                                                     <td width="400" align="center" style="padding-bottom:5px;">
                                                         <div class="contentEditableContainer contentTextEditable">
                                                             <div class="contentEditable" >
-                                                                <p ><b>{{ booking.fullname }}</b></p>
-                                                                <p >{{ booking.numpeople }} persons</p>
+																<p>Hi! {{ booking.fullname }}, we will be waiting for you the day <strong>{{ booking.pickuptime | date("l d/m/Y H:i") }}</strong>.
+																	The price of your taxi is <strong>{{ booking.price }} CUC</strong> (or <strong>{{ (booking.price / config['tasa.usd']) }} USD</strong> ) for visiting:</p>
+																	<ul class="p">
+                                                                        {% if purchase.ownroute is not empty %}
+																			{% for _place in purchase.ownrouteFormated %}
+																				<li>{{ _place }}</li>
+																			{% endfor %}
+                                                                        {% else %}
+																			<li class="offset-top-10">
+																				<p class="text-gray-dark">{{ place.name }}</p>
+																			</li>
+																		{% endif %}
+																	</ul>
+																<p>Please, if you need to cancel your reservation, you must notify us at least 2 days in advance.</p>
 
-                                                                <p >Pickup Time and date: {{ booking.pickuptime | date("l d/m/Y H:i") }}</p>
-                                                                <p >{{ booking.details }}</p>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -234,6 +244,39 @@
 								</table>
 							</div>
 
+                            {% if place %}
+								<div class='movableContent' align='center' style='text-align:center;'>
+									<table cellpadding="0" cellspacing="0" border="0" align="center" width="100%">
+										<tr>
+											<td width="100%" colspan="3" align="center" style="padding-bottom:10px;padding-top:25px;">
+												<div class="contentEditableContainer contentTextEditable">
+													<div class="contentEditable" >
+														<h2 >{{ place.nameLocale }}</h2>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td style="color:#fff;">
+												<!-- Hey! Nice to see you there. Did you know? You can actually have the image extend as a tiled background image; just replace the above td's style to: style="background-color:#181818;background-image:url(location/YourImageName.filetype);background-repeat:repeat-x;background-size:600px 400px;background-position:center center;color:#fff;" -->
+												<table cellpadding="0" style="border-collapse:collapse;" cellspacing="0" border="0" align="center" width="600">
+													<tr>
+														<td width="600" valign="top">
+															<div style="text-align:center;margin-bottom:-3px;">
+																<div class="contentEditableContainer contentImageEditable">
+																	<div class="contentEditable" >
+																		<img src="{{ absolute_url(asset(place.getWebPath)) }}" width="600" alt='design images'  data-default="placeholder" data-max-width="600" />
+																	</div>
+																</div>
+															</div>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</tr>
+									</table>
+								</div>
+                            {% endif %}
 
 							<div class='movableContent'>
 								<table cellpadding="0" cellspacing="0" border="0" align="center" width="100%" style="border-collapse:collapse;">
@@ -275,39 +318,7 @@
 									</tr>
 								</table>
 							</div>
-{% if place %}
-							<div class='movableContent' align='center' style='text-align:center;'>
-								<table cellpadding="0" cellspacing="0" border="0" align="center" width="100%">
-									<tr>
-										<td width="100%" colspan="3" align="center" style="padding-bottom:10px;padding-top:25px;">
-											<div class="contentEditableContainer contentTextEditable">
-												<div class="contentEditable" >
-													<h2 >{{ place.nameLocale }}</h2>
-												</div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td style="color:#fff;">
-											<!-- Hey! Nice to see you there. Did you know? You can actually have the image extend as a tiled background image; just replace the above td's style to: style="background-color:#181818;background-image:url(location/YourImageName.filetype);background-repeat:repeat-x;background-size:600px 400px;background-position:center center;color:#fff;" -->
-											<table cellpadding="0" style="border-collapse:collapse;" cellspacing="0" border="0" align="center" width="600">
-												<tr>
-													<td width="600" valign="top">
-														<div style="text-align:center;margin-bottom:-3px;">
-															<div class="contentEditableContainer contentImageEditable">
-																<div class="contentEditable" >
-																	<img src="{{ absolute_url(asset(place.getWebPath)) }}" width="600" alt='design images'  data-default="placeholder" data-max-width="600" />
-																</div>
-															</div>
-														</div>
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
-							</div>
-{% endif %}
+
 							<div class='movableContent'>
 								<table cellpadding="0" cellspacing="0" border="0" align="center" width="600">
 									<tr>

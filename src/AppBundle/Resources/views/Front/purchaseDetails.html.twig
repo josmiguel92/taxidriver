@@ -80,12 +80,12 @@
                         </div>
                         <div class="well-row well-row-bg">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
-                                {% trans %}We will pickup you in{% endtrans %}:
+                                {% trans %}We will pickup you in{% endtrans %}
 
                                 {% if purchase.airport %}
-                                    {{ "airport or cruise loking for " | trans }}: {{ purchase.flynumber }}
+                                    : {{ "airport or cruise loking for " | trans }}: {{ purchase.flynumber }}
                                 {% else %}
-                                    {{ purchase.getDetails }}
+                                    : {{ purchase.getDetails }}
                                 {% endif %}
                             </p>
                         </div>
@@ -114,14 +114,14 @@
                             {% else %}
                                 <!-- simple purchase -->
                                 <div class="row">
-                                    <p>{% trans %}Por favor, si usted necesita realizar algún cambio o cancelar su reserva, debe de avisarnos al menos con 2 dias de antelación.{% endtrans %}</p>
+                                    <p>{% trans %}Please, if you need to cancel your reservation, you must notify us at least 2 days in advance{% endtrans %}.</p>
                                     <div class="col-md-6">
                                         <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-lg btn-primary">
                                             <i class="fa fa-paypal"></i>
                                             {% trans %}Pay with PayPal{% endtrans %} - {{ (purchase.price / config['tasa.usd']) |number_format(2,'.') }} USD
                                         </a>
                                         <p class="offset-top-15 text-extra-small">
-                                            {% trans %}La tasa de cambio en Cuba es 1 CUC{% endtrans %}  = {{ config['tasa.usd'] }} USD
+                                            {% trans %}The exchange rate in Cuba is 1 CUC{% endtrans %}  = {{ config['tasa.usd'] }} USD
                                         </p>
                                     </div>
                                     <div class="col-md-6">
