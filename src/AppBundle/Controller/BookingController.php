@@ -85,8 +85,6 @@ class BookingController extends Controller
                 $em->persist($booking);
                 $em->flush();
 
-                //todo: mover a la Action correcta, luego del pago
-                $this->sendEmailNotifications($booking);
 
                 return $this->redirectToRoute('purchase_details', [
                     '_token'=>$booking->getToken(),
@@ -232,18 +230,21 @@ class BookingController extends Controller
             else $place = null;
             $places = $em->getRepository('AppBundle:Place')->findAll();
 
+            if($_paypalCallback == 'success' OR $_paypalCallback == 'cash')
+            $this->sendEmailNotifications($purchase);
+
             /*TODO: proccess Paypal POST headers and push it on DB*/
             if($_paypalCallback == 'success')
-                if(isset($_REQUEST['tx'])){
+                if(isset($_POST['tx'])){
                     echo "<!-- ";
-                    echo $_REQUEST['item_number']." ID del producto\n";
-                    echo $_REQUEST['tx']." ID de transacción Paypal\n";
-                    echo $_REQUEST['amt']." Monto recibido Paypal\n";
-                    echo $_REQUEST['cc']."  Moneda recibida de Paypal\n";
-                    echo $_REQUEST['st']." Estado del producto Paypal\n";
+                    echo $_POST['item_number']." ID del producto\n";
+                    echo $_POST['tx']." ID de transacción Paypal\n";
+                    echo $_POST['amt']." Monto recibido Paypal\n";
+                    echo $_POST['cc']."  Moneda recibida de Paypal\n";
+                    echo $_POST['st']." Estado del producto Paypal\n";
                     echo "-->";
 
-                    if($_REQUEST['amt'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
+                    if($_POST['amt'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
                     {
                         $purchase->setConfirmed(true);
                         $purchase->setIdpaypal($_REQUEST['tx']);

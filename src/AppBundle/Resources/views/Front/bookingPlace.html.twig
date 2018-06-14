@@ -70,6 +70,19 @@
                     priceContent = wrapperPrice(tourPrice+increment*(numberPeople-3));
                 if (!buttonTourOn && numberPeople > 3)
                     priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
+
+                if (!buttonTourOn && buttonReturnOn){
+                    if (numberPeople <= 3)
+                        priceContent = wrapperPrice(2*transferPrice);
+                    if (numberPeople > 3)
+                        priceContent = wrapperPrice(2*(transferPrice+increment*(numberPeople-3)));
+                }
+            }
+            else if (buttonReturnOn){
+                if (numberPeople <= 3)
+                    priceContent = wrapperPrice(2*transferPrice);
+                if (numberPeople > 3)
+                    priceContent = wrapperPrice(2*(transferPrice+increment*(numberPeople-3)));
             }
             else{
                 if (numberPeople <= 3)
@@ -80,7 +93,10 @@
 
             //vinnales hard-coded
             {% if "viñales" in place.nameLocale|lower or "vinales" in place.nameLocale|lower %}
-                priceContent = "hard-code";
+                if (buttonTourOn && numberPeople <= 3)
+                    priceContent = wrapperPrice(135);
+                if (buttonTourOn && numberPeople > 3)
+                    priceContent = wrapperPrice(160);
             {% endif %}
 
 
@@ -95,7 +111,11 @@
             updatePrice();
 
             $("#activeTour").change(function() {
-              updatePrice();
+                updatePrice();
+            });
+
+            $("#activeReturn").change(function() {
+                updatePrice();
             });
 
             $("#{{ booking_form.numpeople.vars.id }}").change(function() {
@@ -109,6 +129,12 @@
                 $("#tourTitle")[0].innerHTML = "{{ place.nameLocale }}";
                 $("#tourDescription")[0].innerHTML = "{{ place.getPlaceDescLocale | replace({"\n":"<br>", '\r':''}) | raw }}";
             {% endif %}
+
+            activeOrDeactiveReturn();
+            $("#returnLine").fadeIn(500);
+            $("#returnToggle").fadeIn(500);
+            $("#returnPlace").fadeIn(500);
+            $("#returnTime").fadeIn(500);
         });
 
     </script>

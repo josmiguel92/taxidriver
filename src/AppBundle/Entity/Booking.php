@@ -91,6 +91,28 @@ class Booking
     private $pickuptime;
 
     /**
+     * @var boolean
+     * @ORM\Column(name="returnpickup", type="boolean")
+     */
+    private $returnpickup;
+
+    /**
+     * @return bool
+     */
+    public function isReturnpickup()
+    {
+        return $this->returnpickup;
+    }
+
+    /**
+     * @param bool $returnpickup
+     */
+    public function setReturnpickup($returnpickup)
+    {
+        $this->returnpickup = $returnpickup;
+    }
+
+    /**
      * @var \DateTime
      * @Assert\DateTime()
      * @ORM\Column(name="returnpickuptime", type="datetime", nullable=true)
@@ -99,7 +121,6 @@ class Booking
 
     /**
      * @var \DateTime
-     * @Assert\DateTime()
      * @ORM\Column(name="returnpickupplacce", type="string", length=600, nullable=true)
      */
     private $returnpickupplacce;
@@ -560,7 +581,10 @@ class Booking
      */
     public function setPrice($price)
     {
-        $this->price = $price;
+        if($this->returnpickup)
+            $this->price = $price * 2;
+        else
+            $this->price = $price;
     }
 
 

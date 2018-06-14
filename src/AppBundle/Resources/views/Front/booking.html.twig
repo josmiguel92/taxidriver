@@ -55,7 +55,7 @@
                                             <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getTrasferprice }}.00 CUC <br/></p>
 
                                             <div class="offset-top-40">
-                                                <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">
+                                                <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place-name="{{ place.getNameLocale }}" data-place="{{ place.id }}">
                                                     <i class="fa fa-shopping-cart"></i>
                                                     {% trans %}Select{% endtrans %}
                                                 </a>
@@ -104,7 +104,7 @@
                                             <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getTrasferprice }}.00 CUC <br/></p>
 
                                             <div class="offset-top-40">
-                                                <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">
+                                                <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place-name="{{ place.getNameLocale }}" data-place="{{ place.id }}">
                                                     <i class="fa fa-shopping-cart"></i>
                                                     {% trans %}Select{% endtrans %}
                                                 </a>
@@ -138,11 +138,13 @@
         transferPrice = 0;
         tourPrice = 0;
         isTour = false;
-        place_id = 0;
+        place_id = -1;
+        place_name = "";
 
         function wrapperPrice(price)
         {
-            if (price=="init")
+            console.log(place_id);
+            if (price=="init" || place_id == -1)
                 return $("#labelPrice")[0].innerHTML = "{% trans %}Select a service first{% endtrans %}";
             else if (typeof(price)=="number")
                 return '<i class=\'fa fa-dollar color-sky\'></i> '+price+' CUC';
@@ -163,6 +165,19 @@
                     priceContent = wrapperPrice(tourPrice+increment*(numberPeople-3));
                 if (!buttonTourOn && numberPeople > 3)
                     priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
+
+                if (!buttonTourOn && buttonReturnOn){
+                    if (numberPeople <= 3)
+                        priceContent = wrapperPrice(2*transferPrice);
+                    if (numberPeople > 3)
+                        priceContent = wrapperPrice(2*(transferPrice+increment*(numberPeople-3)));
+                }
+            }
+            else if (buttonReturnOn){
+                if (numberPeople <= 3)
+                    priceContent = wrapperPrice(2*transferPrice);
+                if (numberPeople > 3)
+                    priceContent = wrapperPrice(2*(transferPrice+increment*(numberPeople-3)));
             }
             else{
                 if (numberPeople <= 3)
@@ -171,7 +186,13 @@
                     priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
             }
 
-            {#todo: vinnales hard-code#}
+            //vinnales hard-coded
+            if (place_name == "Viñales" || place_name == "Vinales"){
+                if (buttonTourOn && numberPeople <= 3)
+                    priceContent = wrapperPrice(135);
+                if (buttonTourOn && numberPeople > 3)
+                    priceContent = wrapperPrice(160);
+            }
 
             if (numberPeople > 5)
                 priceContent = wrapperPrice("");
@@ -180,6 +201,7 @@
         }
 
         $(document).ready(function () {
+
             selected_bottons = $('a[data-role="booking-btn"]');
             wrapperPrice("init");
 
@@ -187,8 +209,11 @@
                 updatePrice();
             });
 
+            $("#activeReturn").change(function() {
+                updatePrice();
+            });
+
             $("#{{ booking_form.numpeople.vars.id }}").change(function() {
-                //if the number of people change, then update price
                 updatePrice();
             });
 
@@ -196,6 +221,8 @@
                 e.preventDefault();
 
                 var parent_id = this.attributes['data-parent'].value;
+                place_name = this.attributes['data-place-name'].value;
+
                 var parent = $('#'+parent_id);
                 isTour = parent[0].attributes['data-type'].value=="tour";
                 transferPrice = parent[0].attributes['data-price-transfer'].value;
@@ -208,7 +235,7 @@
 
                 //si contiene la clase selecciona, entonces se le quita
                 if (this.classList.contains('selected-place')) {
-
+                    place_id = -1;
                     this.classList.remove('selected-place');
                     parent.removeClass('selected-place');
                     this.innerHTML = _addText;
@@ -253,6 +280,12 @@
                 }
 
             })
+
+            activeOrDeactiveReturn();
+            $("#returnLine").fadeIn(500);
+            $("#returnToggle").fadeIn(500);
+            $("#returnPlace").fadeIn(500);
+            $("#returnTime").fadeIn(500);
     });
 
     </script>
