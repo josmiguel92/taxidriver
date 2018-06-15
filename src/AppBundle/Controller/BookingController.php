@@ -52,7 +52,7 @@ class BookingController extends Controller
                 $captcha = '';
 
                 //Si se ejecuta env. PROD, validar catpcha... y si no es success, ir a home!
-                /*if(substr_count($_SERVER['SERVER_NAME'],'taxidriverscuba.com')) {
+                if(substr_count($_SERVER['SERVER_NAME'],'taxidriverscuba.com')) {
                     if (isset($_POST['g-recaptcha-response'])) {
                         $captcha = $_POST['g-recaptcha-response'];
                     }
@@ -66,7 +66,7 @@ class BookingController extends Controller
                                 '_locale'=>$_locale
                             ]);
 
-                }*/
+                }
 
                 $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
                 $config = [];;
@@ -234,7 +234,7 @@ class BookingController extends Controller
             $this->sendEmailNotifications($purchase);
 
             /*TODO: proccess Paypal POST headers and push it on DB*/
-            if($_paypalCallback == 'success') {
+            /*if($_paypalCallback == 'success') {
                 if (isset($_GET['tx'])) {
                     $paypalTransactionID = $_GET['tx'];
                     /*echo "-->";
@@ -243,22 +243,22 @@ class BookingController extends Controller
                     echo $_POST['mc_gross']." Monto recibido Paypal\n";
                     echo $_POST['mc_currency']."  Moneda recibida de Paypal\n";
                     //echo $_POST['st']." Estado del producto Paypal\n";
-                    echo "-->";*/
+                    echo "-->";
 
                     //todo: esta verificacion debe de hacerse luego de completar paypal
-                    /*if($_POST['amt'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
+                    if($_POST['amt'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
                     {
                         $purchase->setConfirmed(true);
                         $purchase->setIdpaypal($_REQUEST['tx']);
                         $em->persist($purchase);
                         $em->flush();
-                    }*/
+                    }
 
                     return $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
                         'paypalTransactionID' => $paypalTransactionID,
                     ]);
                 }
-            }
+            }*/
 
             return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
                 'locale'=>$_locale,
