@@ -168,6 +168,7 @@ class Utils
         }
 
         $_price = $booking->isTour() ? $place->getPrice() : $place->getTrasferprice();
+
         if($booking->getNumpeople() <= 3)
             return $_price;
 

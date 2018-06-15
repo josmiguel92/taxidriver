@@ -296,7 +296,6 @@ class BookingController extends Controller
             $account_email = 'karlita.garcia.l0v3@gmail.com';
             $_place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
             $_person_number = $purchase->getNumpeople();
-            //TODO:Escribir bien el nombre del producto
             $product_name = Utils::buildProductName($purchase, $_place);
 
             $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
@@ -306,6 +305,7 @@ class BookingController extends Controller
             }
 
             $price = Utils::calculateSimpleRoutePrices($_place, $purchase, $config['price.increment']);
+            //$price = $purchase->getPrice();
             $cuc_usd_conversion = $config['tasa.usd'];
             $product_price = $price/$cuc_usd_conversion;
 
