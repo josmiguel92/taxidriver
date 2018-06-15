@@ -260,7 +260,7 @@ class BookingController extends Controller
                 }
 
 
-            return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
+            /*return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
                 'locale'=>$_locale,
                 'content'=>$content[0],
                 'socialNetworks'=>$socialNetworks,
@@ -270,7 +270,7 @@ class BookingController extends Controller
                 'places'=>$places,
                 'paypalCallback'=>$_paypalCallback,
                 'config'=>$config
-                ]);
+                ]);*/
         }
         else
             throw new \HttpRequestException(
