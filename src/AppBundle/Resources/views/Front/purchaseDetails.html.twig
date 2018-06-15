@@ -120,7 +120,7 @@
                                 <!-- simple purchase -->
                                 <div class="row">
                                     <p>{% trans %}Please, if you need to cancel your reservation, you must notify us at least 2 days in advance{% endtrans %}.</p>
-                                    {#<div class="col-md-6">
+                                    <div class="col-md-6">
                                         <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-lg btn-primary">
                                             <i class="fa fa-paypal"></i>
                                             {% trans %}Pay with PayPal{% endtrans %} - {{ (purchase.price / config['tasa.usd']) | number_format(2,'.') }} USD
@@ -128,7 +128,7 @@
                                         <p class="offset-top-15 text-extra-small">
                                             {% trans %}The exchange rate in Cuba is 1 CUC{% endtrans %}  = {{ config['tasa.usd'] }} USD
                                         </p>
-                                    </div>#}
+                                    </div>
                                     <div class="col-md-6">
                                         <a href="{{ path('purchase_details_paypal', {'_token': purchase.token, '_paypalCallback':'cash'}) }}" class="btn btn-border">
                                             <i class="fa fa-dollar"></i>
