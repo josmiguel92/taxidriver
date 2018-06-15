@@ -253,15 +253,15 @@ class BookingController extends Controller
                         $em->persist($purchase);
                         $em->flush();
                     }
+                    exit();
 
 
-                    return $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
+                    /*return $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
                         'paypalTransactionID'=>$paypalTransactionID,
-                    ]);
+                    ]);*/
                 }
 
-            exit();
-            /*return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
+            return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
                 'locale'=>$_locale,
                 'content'=>$content[0],
                 'socialNetworks'=>$socialNetworks,
@@ -271,7 +271,7 @@ class BookingController extends Controller
                 'places'=>$places,
                 'paypalCallback'=>$_paypalCallback,
                 'config'=>$config
-                ]);*/
+                ]);
         }
         else
             throw new \HttpRequestException(
