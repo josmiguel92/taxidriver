@@ -235,10 +235,10 @@ class BookingController extends Controller
 
             /*TODO: proccess Paypal POST headers and push it on DB*/
             if($_paypalCallback == 'success')
-                if(isset($_POST['tx_id'])){
+                if(isset($_POST['txn_id'])){
                     echo "-->";
                     echo $_POST['item_number']." ID del producto\n";
-                    $paypalTransactionID =  $_POST['tx_id'];
+                    $paypalTransactionID =  $_POST['txn_id'];
                     echo $paypalTransactionID;
                     echo $_POST['mc_gross']." Monto recibido Paypal\n";
                     echo $_POST['mc_currency']."  Moneda recibida de Paypal\n";
