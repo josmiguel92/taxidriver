@@ -234,7 +234,7 @@ class BookingController extends Controller
             $this->sendEmailNotifications($purchase);
 
             /*TODO: proccess Paypal POST headers and push it on DB*/
-            if($_paypalCallback == 'success') {
+            /*if($_paypalCallback == 'success') {
                 if (isset($_GET['tx'])) {
                     $paypalTransactionID = $_GET['tx'];
                     /*echo "-->";
@@ -243,7 +243,7 @@ class BookingController extends Controller
                     echo $_POST['mc_gross']." Monto recibido Paypal\n";
                     echo $_POST['mc_currency']."  Moneda recibida de Paypal\n";
                     //echo $_POST['st']." Estado del producto Paypal\n";
-                    echo "-->";*/
+                    echo "-->";
 
                     //todo: esta verificacion debe de hacerse luego de completar paypal
                     if($_POST['amt'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
@@ -258,7 +258,7 @@ class BookingController extends Controller
                         'paypalTransactionID' => $paypalTransactionID,
                     ]);
                 }
-            }
+            }*/
 
             return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
                 'locale'=>$_locale,

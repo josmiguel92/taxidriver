@@ -6,7 +6,7 @@
 </head>
 <body>
 {#TODO: change paypal url outside from sandbox#}
-    <form name="myform" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+    <form name="myform" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
         <input type="hidden" name="cmd" value="_xclick">
         <input type="hidden" name="cancel_return" value="{{ absolute_url(path("purchase_details_paypal",
             {'_paypalCallback':'cancel', '_token':_token, '_locale':_locale})) }}">
