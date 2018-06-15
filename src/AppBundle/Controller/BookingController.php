@@ -254,8 +254,6 @@ class BookingController extends Controller
                         $em->flush();
                     }*/
 
-
-
                     return $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
                         'paypalTransactionID'=>$paypalTransactionID,
                     ]);
