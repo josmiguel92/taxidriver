@@ -246,19 +246,19 @@ class BookingController extends Controller
                     echo "-->";
 
                     //todo: esta verificacion debe de hacerse luego de completar paypal
-                    if($_POST['amt'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
+                    /*if($_POST['mc_gross'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
                     {
                         $purchase->setConfirmed(true);
                         $purchase->setIdpaypal($_REQUEST['tx']);
                         $em->persist($purchase);
                         $em->flush();
-                    }
-                    exit();
+                    }*/
 
 
-                    /*return $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
+
+                    return $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
                         'paypalTransactionID'=>$paypalTransactionID,
-                    ]);*/
+                    ]);
                 }
 
             return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
