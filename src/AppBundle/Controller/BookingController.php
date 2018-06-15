@@ -253,14 +253,14 @@ class BookingController extends Controller
                         $em->persist($purchase);
                         $em->flush();
                     }
-                    exit();
 
-                    //return $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
-                    //    'paypalTransactionID'=>$paypalTransactionID,
-                    //]);
+
+                    return $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
+                        'paypalTransactionID'=>$paypalTransactionID,
+                    ]);
                 }
 
-
+            exit();
             /*return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
                 'locale'=>$_locale,
                 'content'=>$content[0],
