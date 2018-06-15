@@ -236,14 +236,14 @@ class BookingController extends Controller
             /*TODO: proccess Paypal POST headers and push it on DB*/
             if($_paypalCallback == 'success')
                 if(isset($_POST['tx'])){
-                    echo "<!-- ";
-                    echo $_POST['item_number']." ID del producto\n";
-                    echo $_POST['tx']." ID de transacción Paypal\n";
-                    echo $_POST['amt']." Monto recibido Paypal\n";
-                    echo $_POST['cc']."  Moneda recibida de Paypal\n";
-                    echo $_POST['st']." Estado del producto Paypal\n";
-                    echo "-->";
+                    //echo $_POST['item_number']." ID del producto\n";
+                    $paypalTransactionID =  $_POST['tx'];
+                    //echo $_POST['amt']." Monto recibido Paypal\n";
+                    //echo $_POST['cc']."  Moneda recibida de Paypal\n";
+                    //echo $_POST['st']." Estado del producto Paypal\n";
+                    //echo "-->";
 
+                    //todo: esta verificacion debe de hacerse luego de completar paypal
                     if($_POST['amt'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
                     {
                         $purchase->setConfirmed(true);
@@ -251,6 +251,10 @@ class BookingController extends Controller
                         $em->persist($purchase);
                         $em->flush();
                     }
+
+                    return $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
+                        'paypalTransactionID'=>$paypalTransactionID,
+                    ]);
                 }
 
 
@@ -305,7 +309,7 @@ class BookingController extends Controller
             $cuc_usd_conversion = $config['tasa.usd'];
             $product_price = $price/$cuc_usd_conversion;
 
-            return $this->render('AppBundle:Front:dummyPaypalForm.html.twig', [
+            return $this->render('AppBundle:Front:makePaypalTransfer.html.twig', [
                 'account_email'=>$account_email,
                 'product_name'=>$product_name,
                 '_token'=>$_token,
