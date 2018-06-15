@@ -52,7 +52,7 @@ class BookingController extends Controller
                 $captcha = '';
 
                 //Si se ejecuta env. PROD, validar catpcha... y si no es success, ir a home!
-                if(substr_count($_SERVER['SERVER_NAME'],'taxidriverscuba.com')) {
+                /*if(substr_count($_SERVER['SERVER_NAME'],'taxidriverscuba.com')) {
                     if (isset($_POST['g-recaptcha-response'])) {
                         $captcha = $_POST['g-recaptcha-response'];
                     }
@@ -66,7 +66,7 @@ class BookingController extends Controller
                                 '_locale'=>$_locale
                             ]);
 
-                }
+                }*/
 
                 $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
                 $config = [];;
@@ -234,9 +234,9 @@ class BookingController extends Controller
             $this->sendEmailNotifications($purchase);
 
             /*TODO: proccess Paypal POST headers and push it on DB*/
-            if($_paypalCallback == 'success')
-                if(isset($_POST['txn_id'])){
-                    $paypalTransactionID =  $_POST['txn_id'];
+            if($_paypalCallback == 'success') {
+                if (isset($_POST['tx'])) {
+                    $paypalTransactionID = $_POST['tx'];
                     /*echo "-->";
                     echo $_POST['item_number']." ID del producto\n";
                     echo $paypalTransactionID;
@@ -246,7 +246,7 @@ class BookingController extends Controller
                     echo "-->";*/
 
                     //todo: esta verificacion debe de hacerse luego de completar paypal
-                    /*if($_POST['mc_gross'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
+                    /*if($_POST['amt'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
                     {
                         $purchase->setConfirmed(true);
                         $purchase->setIdpaypal($_REQUEST['tx']);
@@ -255,9 +255,10 @@ class BookingController extends Controller
                     }*/
 
                     return $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
-                        'paypalTransactionID'=>$paypalTransactionID,
+                        'paypalTransactionID' => $paypalTransactionID,
                     ]);
                 }
+            }
 
             return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
                 'locale'=>$_locale,
@@ -306,10 +307,9 @@ class BookingController extends Controller
                 $config[$item->getName()]=$item->getValue();
             }
 
-            $price = Utils::calculateSimpleRoutePrices($_place, $purchase, $config['price.increment']);
-            //$price = $purchase->getPrice();
+            $price = $purchase->getPrice();
             $cuc_usd_conversion = $config['tasa.usd'];
-            $product_price = $price/$cuc_usd_conversion;
+            $product_price = round($purchase->getPrice() / $cuc_usd_conversion, 2);
 
             return $this->render('AppBundle:Front:makePaypalTransfer.html.twig', [
                 'account_email'=>$account_email,

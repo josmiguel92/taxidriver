@@ -581,10 +581,7 @@ class Booking
      */
     public function setPrice($price)
     {
-        if($this->returnpickup)
-            $this->price = $price * 2;
-        else
-            $this->price = $price;
+        $this->price = $price;
     }
 
 
@@ -617,7 +614,8 @@ class Booking
     public function isPickuptime(){
         $now = new \DateTime('now');
         $interval = $now->diff($this->pickuptime);
-       if( $interval->h >= 12 )
+        $differenceHours = $interval->y*365*24+$interval->m*30*24+$interval->d*24+$interval->h;
+        if($differenceHours >= 12 )
             return true;
         return false;
     }

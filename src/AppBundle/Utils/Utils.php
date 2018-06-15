@@ -159,20 +159,26 @@ class Utils
     //todo: hay que ver si la reservacion hecha es tour o tranfer
     static function calculateSimpleRoutePrices(\AppBundle\Entity\Place $place, \AppBundle\Entity\Booking $booking, $increment){
 
+        $price = 0;
         if(strtolower($place->getName()) == 'viñales' && $booking->isTour())
         {
             if($booking->getNumpeople() <= 3)
-                return 135;
+                $price = 135;
             if($booking->getNumpeople() <= 5)
-                return 160;
+                $price = 160;
         }
+        else {
+            $_price = $booking->isTour() ? $place->getPrice() : $place->getTrasferprice();
+            if ($booking->getNumpeople() <= 3)
+                $price = $_price;
+            else
+                $price = $_price + ($booking->getNumpeople()-3)*$increment;
 
-        $_price = $booking->isTour() ? $place->getPrice() : $place->getTrasferprice();
+        }
+        if($booking->isReturnpickup())
+            $price *= 2;
 
-        if($booking->getNumpeople() <= 3)
-            return $_price;
-
-        return $_price + ($booking->getNumpeople()-3)*$increment;
+        return $price;
     }
 
     static function buildProductName(\AppBundle\Entity\Booking $booking, \AppBundle\Entity\Place $place){
