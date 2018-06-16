@@ -296,7 +296,7 @@ class BookingController extends Controller
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             //$email = $content[0]->getEmail();
             //TODO: change to karlita.garcia.l0v3@gmail.com
-            $account_email = 'karlita.garcia.l0v3-facilitator@gmail.com';
+            $account_email = 'karlita.garcia.l0v3@gmail.com';
             $_place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
             $_person_number = $purchase->getNumpeople();
             $product_name = Utils::buildProductName($purchase, $_place);
