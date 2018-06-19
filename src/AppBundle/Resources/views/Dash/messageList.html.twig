@@ -1,0 +1,24 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+
+{% set pagename = 'message' %}
+
+{% block content %}
+<h1>Lista de Mensajes</h1>
+
+    {% for item in messages %}
+    <div class="media card">
+        <a class="pull-left" href="#">
+            {{ item.insertDate | date('Y m d - H:i') }}
+        </a>
+        <div class="media-body">
+            <h4 class="media-heading">{{ item.Name }} <{{ item.email }}>
+            <a href="{{ path('dash_message_delete', {'id':item.id }) }}" class="btn btn-danger btn-sm" style="float: right;">
+                <i class="ti-trash"></i>
+            </a>
+            </h4>
+            {{ item.message }}
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}
+

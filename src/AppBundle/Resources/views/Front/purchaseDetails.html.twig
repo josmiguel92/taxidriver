@@ -13,15 +13,20 @@
 {% else %}
     {% set title = "Your transaction was " %}
 {% endif %}
-{% if paypalCallback == 'success' %}
+{% if paypalCallback == 'success' or paypalCallback == 'cash' %}
     {% set title = title~"success" %}
 {% elseif paypalCallback == 'cancel' %}
     {% set title = title~"cancel" %}
 {% endif %}
 
 {% if locale == 'es' %}
-    {% set title = "Su transaccion esta casi lista" %}
-    {% if paypalCallback == 'success' %}
+    {% if paypalCallback is empty %}
+        {% set title = "Su transacción esta casi lista" %}
+    {% else %}
+        {% set title = "Su transacción fue " %}
+    {% endif %}
+
+    {% if paypalCallback == 'success' or paypalCallback == 'cash' %}
         {% set title = title~"exitosa" %}
     {% elseif paypalCallback == 'cancel' %}
         {% set title = title~"cancelada" %}
@@ -60,19 +65,15 @@
                             </p>
                             <!-- List-->
                             <ul class="p">
-                                {% for place in selectedPlaces %}
-                                <li class="offset-top-10">
-                                    <p class="text-gray-dark">{{ place.getNameLocale }}</p>
-                                </li>
+                                {% if purchase.ownroute is not empty %}
+                                    {% for _place in purchase.ownrouteFormated %}
+                                        <li>{{ _place }}</li>
+                                    {% endfor %}
                                 {% else %}
-                                    {% if purchase.ownroute is not empty %}
-                                        {#own route#}
-                                    {% else %}
-                                        <li class="offset-top-10">
-                                            <p class="text-gray-dark">{{ place.getNameLocale }}</p>
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
+                                    <li class="offset-top-10">
+                                        <p class="text-gray-dark">{{ place.getNameLocale }}</p>
+                                    </li>
+                                {% endif %}
                             </ul>
 
                         </div>
@@ -84,12 +85,21 @@
                         </div>
                         <div class="well-row well-row-bg">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
-                                {% trans %}We will pickup you in{% endtrans %}: {{ purchase.getDetails }}
+                                {% trans %}We will pickup you in{% endtrans %}
+
+                                {% if purchase.airport %}
+                                    {% trans %}airport or cruise looking for{% endtrans %}: {{ purchase.flynumber }}
+                                {% else %}
+                                    : {{ purchase.getDetails }}
+                                {% endif %}
                             </p>
                         </div>
                         <div class="well-row">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
                                 {% trans %}At{% endtrans %}: {{ purchase.getPickuptime|date("l, d F Y - H:i")  }}
+                            </p>
+                            <p class="text-bold text-spacing-25 font-accent text-gray-dark">
+                               {{ purchase.details  }}
                             </p>
                         </div>
 
@@ -97,7 +107,7 @@
 
                     {% if paypalCallback is empty %}
                         <div class="row section-bottom-40">
-                            {% if purchase.ownroute or purchase.getNumpeople > 5 %}
+                            {% if not purchase.accepted %}
                                 <div class="cell-md-6 col-md-6 col-md-offset-3">
                                     <i class="fa fa-clock-o fa-5x color-sky"></i>
                                     <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">
@@ -106,14 +116,18 @@
                                         usually this take less than a day.{% endtrans %}
                                     </p>
                                 </div>
-                            {% elseif not (selectedPlaces or purchase.ownroute) or purchase.accepted %}
+                            {% else %}
                                 <!-- simple purchase -->
                                 <div class="row">
+                                    <p>{% trans %}Please, if you need to cancel your reservation, you must notify us at least 2 days in advance{% endtrans %}.</p>
                                     <div class="col-md-6">
                                         <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-lg btn-primary">
                                             <i class="fa fa-paypal"></i>
-                                            {% trans %}Pay with PayPal{% endtrans %} - {{ purchase.price }} USD
+                                            {% trans %}Pay with PayPal{% endtrans %} - {{ (purchase.price / config['tasa.usd']) | number_format(2,'.') }} USD
                                         </a>
+                                        <p class="offset-top-15 text-extra-small">
+                                            {% trans %}The exchange rate in Cuba is 1 CUC{% endtrans %}  = {{ config['tasa.usd'] }} USD
+                                        </p>
                                     </div>
                                     <div class="col-md-6">
                                         <a href="{{ path('purchase_details_paypal', {'_token': purchase.token, '_paypalCallback':'cash'}) }}" class="btn btn-border">

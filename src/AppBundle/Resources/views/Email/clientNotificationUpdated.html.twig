@@ -44,7 +44,7 @@
 		}
 
 		.mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {
-			text-decoration: default;
+			text-decoration: initial;
 			color: orange !important; /* or whatever your want */
 			pointer-events: auto;
 			cursor: default;
@@ -61,7 +61,7 @@
 		}
 
 		.mobile_link a[href^="tel"], .mobile_link a[href^="sms"] {
-			text-decoration: default;
+			text-decoration: initial;
 			color: orange !important;
 			pointer-events: auto;
 			cursor: default;
@@ -198,6 +198,36 @@
 								</table>
 							</div>
 
+                            {% if booking.drivermsg %}
+                            <div class='movableContent'>
+                                <table cellpadding="0" cellspacing="0" border="0" align="center" width="100%" style="border-collapse:collapse;">
+                                    <tr>
+                                        <td style="color:#fff; background: #18acfB;" class='bgItem'>
+                                            <table cellpadding="0" style="border-collapse:collapse;" cellspacing="0" border="0" align="center" width="600">
+                                                <tr>
+
+                                                    <td width="600" valign="top" style="padding-top:40px;padding-bottom:20px;">
+                                                        <br/>
+                                                        <div class="contentEditableContainer contentTextEditable">
+                                                            <div class="contentEditable" >
+                                                                <div style="font-size:23px;font-family:Heveltica, Arial, sans-serif;color:#fff;">Message from your driver:</div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="contentEditableContainer contentTextEditable">
+                                                            <div class="contentEditable"  style="padding:20px 10px 0 0;margin:0;font-family:Helvetica, Arial, sans-serif;font-size:15px;line-height:150%;">
+                                                                <p style='color:#FFEECE;'>{{ booking.drivermsg }}</p>
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            {% endif %}
 							<div class='movableContent'>
 								<table cellpadding="0" cellspacing="0" border="0" align="center" width="600">
 									<tr>
@@ -251,7 +281,7 @@
 																<p style='color:#FFEECE;'>
 
 																	It is very easy to travel to <b>Cuba</b> with us. Our team provides <b>taxi services and tours</b> through several routes that go to the most <b>amazing places</b> on the island.
-																</strong></p>
+																</p>
 															</div>
 														</div>
 
@@ -300,7 +330,7 @@
 												<div class="contentEditable" >
 													<span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">Sent to <b>{{ booking.email }}</b> by <a href="{{ absolute_url(path('home')) }}" target="_blank">Taxidriverscuba.com</a></span>
 													<br/>
-													<span style="font-size:11px;color:#555;font-family:Helvetica, Arial, sans-serif;line-height:200%;">{{ address }} | {{ telephone }}</span>
+													<span style="font-size:11px;color:#555;font-family:Helvetica, Arial, sans-serif;line-height:200%;">{{ address }} | Phone: {{ telephone }}</span>
 													<br/>
 
 													<span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">
@@ -315,9 +345,9 @@
 														<td valign="top" width='34'>
 															<div class="contentEditableContainer contentFacebookEditable" style='display:inline;'>
 																<div class="contentEditable" >
-																	<a href="http://www.facebook.com/Taxidriverscuba">
-																		<img src="{{ absolute_url(asset("img/facebook.png")) }}" data-default="placeholder" data-max-width="30" width='30' height='30' alt='facebook' style='margin-right:40x;' data-customIcon="true" >
-																	</a>
+																	Follow Us: <a href="https://www.facebook.com/taxidriverscuba/">Facebook</a> |
+																	<a href="https://www.tripadvisor.com/Attraction_Review-g2198348-d13554747-Reviews-Taxi_Drivers_Cuba-Ciudad_de_la_Habana_Province_Cuba.html">TripAdvisor</a>
+																	<a href="https://www.instagram.com/taxidriverscuba">Instagram</a>
 																</div>
 															</div>
 														</td>

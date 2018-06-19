@@ -242,9 +242,9 @@
 </trans-unit>
 
 
-<trans-unit id="the.prices.can.vary.in.function.of.the.amount.of.passengers.and.customs.places..also.we.offer.discount.if.paypal.payment.method.is.used.">
-	<source>The prices can vary in function of the amount of passengers and customs places. Also we offer discount if paypal payment method is used.</source>
-	<target>Los precios pueden variar en funcion de la cantidad de pasajeros y de la particularidad de los lugares. Ofrecemos descuentos si los metodos de pagos online son usados.</target>
+<trans-unit id="the.price.can.vary.in.function.of.the.amount.of.passengers.and.distance.of.the.place">
+	<source>The price can vary in function of the amount of passengers and distance of the place</source>
+	<target>Los precios pueden variar en funcion de la cantidad de pasajeros y la distancia del lugar</target>
 </trans-unit>
 
 
@@ -329,6 +329,120 @@
 <trans-unit id="the.selected.place,.admits.a.tour..do.you.want.to.activate.it">
 	<source>The selected place, admits a tour. Do you want to activate it?</source>
 	<target>El lugar seleccionado admite un tour. ¿Quieres activarlo?</target>
+</trans-unit>
+
+
+<trans-unit id="hours">
+	<source>hours</source>
+	<target>horas</target>
+</trans-unit>
+
+
+<trans-unit id="make.your.own.way">
+	<source>Make your own way!</source>
+	<target>¡haz tu propio camino!</target>
+</trans-unit>
+
+
+<trans-unit id="your.private.info.always.will.be.private,.we.don't.share.any.information.with.third.party">
+	<source>Your private info always will be private, we don't share any information with third party</source>
+	<target>Tu información privada siempre sera privada, nosotros no compartimos ninguna información con terceras partes.</target>
+</trans-unit>
+
+
+<trans-unit id="if.you.arrive.to.cuba.through.some.airport.or.cruise.terminal,.we.can.pick.you.up">
+	<source>If you arrive to Cuba through some airport or cruise terminal, we can pick you up!</source>
+	<target>¡Si arribas a a Cuba a través de algun aeropuerto o terminal de crucero, nosotros podemos recogerte!</target>
+</trans-unit>
+
+
+<trans-unit id="airport">
+	<source>Airport</source>
+	<target>Aeropuerto</target>
+</trans-unit>
+
+
+<trans-unit id="cruise">
+	<source>Cruise</source>
+	<target>Crucero</target>
+</trans-unit>
+
+
+<trans-unit id="the.selected.place,.admits.a.tour.">
+	<source>The selected place, admits a tour.</source>
+	<target>El lugar que haz seleccionado, admite un tour.</target>
+</trans-unit>
+
+
+<trans-unit id="see.tour.description">
+	<source>See tour description</source>
+	<target>Ver descripción del tour</target>
+</trans-unit>
+
+
+<trans-unit id="do.you.want.to.activate.it">
+	<source>Do you want to activate it?</source>
+	<target>¿Quieres activarlo?</target>
+</trans-unit>
+
+
+<trans-unit id="you.can.travel.back.with.us">
+	<source>You can travel back with us</source>
+	<target>Puedes viajar de vuelta con nosotros</target>
+</trans-unit>
+
+
+<trans-unit id="place.for.pickup.you.on.return">
+	<source>Place for pickup you on return</source>
+	<target>Lugar donde te recogeremos al volver</target>
+</trans-unit>
+
+
+<trans-unit id="date.and.time.for.pickup.you.on.return">
+	<source>Date and time for pickup you on return</source>
+	<target>Fecha y hora para recogerte de vuelta</target>
+</trans-unit>
+
+
+<trans-unit id="flight.number">
+	<source>Flight number</source>
+	<target>Número de vuelo</target>
+</trans-unit>
+
+
+<trans-unit id="cruise.name">
+	<source>Cruise name</source>
+	<target>Nombre del crucero</target>
+</trans-unit>
+
+
+<trans-unit id="you.haven't.selected.any.place">
+	<source>You haven't selected any place!</source>
+	<target>¡No haz seleccionado ningún lugar!</target>
+</trans-unit>
+
+
+<trans-unit id="please,.if.you.need.to.cancel.your.reservation,.you.must.notify.us.at.least.2.days.in.advance">
+	<source>Please, if you need to cancel your reservation, you must notify us at least 2 days in advance</source>
+	<target>Por favor si desea cancelar su reserva, debe de notificarnos con dos dias de antelación</target>
+</trans-unit>
+
+
+<trans-unit id="flight.number.or.cruiser.name">
+	<source>Flight number or cruiser name</source>
+	<target>Número de vuelo o nombre del crucero</target>
+</trans-unit>
+
+
+<trans-unit id="are.you.done">
+	<source>Are you done?</source>
+	<target>¿Estás listo?</target>
+</trans-unit>
+
+
+<trans-unit id="airport.or.cruise.looking.for">
+	<source>airport or cruise looking for</source>
+	<target>aeropuerto o crucero, atendiendo a</target>
 </trans-unit>
 
 

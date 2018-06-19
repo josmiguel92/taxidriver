@@ -10,9 +10,9 @@ use AppBundle\Utils\Utils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RedirectResponse as RedirectResponse;
 use Symfony\Component\Validator\Tests\Fixtures\Entity;
 use AppBundle\Entity\Image;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
@@ -460,7 +460,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $booking = $em->getRepository("AppBundle:Booking")
         ->createQueryBuilder("b")
-            ->where("b.pickuptime > :yesterday")
+            ->where("b.pickuptime > :yesterday AND b.confirmed = true")
             ->setParameter("yesterday", new \DateTime('yesterday'))
             ->orderBy("b.pickuptime", "DESC")
             ->getQuery()->getResult();
@@ -469,7 +469,7 @@ class AdminController extends Controller
 
         $next_week = $em->getRepository("AppBundle:Booking")
             ->createQueryBuilder("b")->orderBy("b.id", "DESC")
-            ->where("b.pickuptime > :today AND b.pickuptime < :nextweek")
+            ->where("b.pickuptime > :today AND b.pickuptime < :nextweek  AND b.confirmed = true")
             ->setParameter("today", new \DateTime('today'))
             ->setParameter("nextweek", new \DateTime('today + 1 week'))
             ->getQuery()->getResult();
@@ -477,14 +477,17 @@ class AdminController extends Controller
         $pendientes_month = $em->createQuery(
                             'SELECT b.id
                 FROM AppBundle:Booking b
-                WHERE b.pickuptime > :today AND b.pickuptime < :nextmonth'
+                WHERE b.pickuptime > :today AND b.pickuptime < :nextmonth  AND b.confirmed = true'
                         )
             ->setParameter("today", new \DateTime('today'))
-            ->setParameter("nextmonth", new \DateTime('today + 1 month'));
+            ->setParameter("nextmonth", new \DateTime('next month'))
+            ->getResult();
 
-        $booking_pend = $em->getRepository("AppBundle:Booking")->findBy(
-            ['accepted'=>false]
-        );
+        $booking_pend = $em->getRepository("AppBundle:Booking")
+            ->createQueryBuilder("b")
+            ->where("b.accepted = false AND b.pickuptime >= :today  AND b.confirmed = true")
+            ->setParameter("today", new \DateTime('today'))
+            ->getQuery()->getResult();
 
         foreach ($_places as $value) {
             $places[$value['id']]=$value['name'];
@@ -514,8 +517,37 @@ class AdminController extends Controller
      * @Method("GET")
      */
     public function configAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+
+        $configValues = $em->getRepository('AppBundle:ConfigValue')->findAll();
+
+        $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+        $config = [];
+        foreach ($_config as $item){
+            $config[$item->getName()]=$item->getValue();
+        }
+
+       if(!isset($config['tasa.usd']))
+           $em->persist(new \AppBundle\Entity\ConfigValue("tasa.usd",0.88));
+
+
+        if(!isset($config['price.increment']))
+            $em->persist(new \AppBundle\Entity\ConfigValue("price.increment",10));
+
+        if(!isset($config['paypal.email']))
+            $em->persist(new \AppBundle\Entity\ConfigValue("paypal.email","taxidriverscuba@gmail.com"));
+
+        if(!isset($config['paypal.token']))
+            $em->persist(new \AppBundle\Entity\ConfigValue("paypal.token",'xxxxxxxxx'));
+
+
+        $em->flush();
+            $configValues = $em->getRepository('AppBundle:ConfigValue')->findAll();
+
+
         return $this->render('AppBundle:Dash:config.html.twig', [
             'pagename'=>'config',
+            'configValues' => $configValues
         ]);
     }
 
@@ -624,6 +656,25 @@ class AdminController extends Controller
         return $this->redirectToRoute('dash_sitecontent_edit');
     }
 
+    /**
+     * Deletes a BookingItem entity.
+     *
+     * @Route("/booking/{id}/delete", name="dash_booking_delete")
+     * @Method("GET")
+     */
+    public function deleteBookingAction(Request $request, \AppBundle\Entity\Booking $item)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($item);
+        $em->flush();
+
+        $this->addFlash(
+            'notice',
+            'El elemento fue eliminada! >> success >> ti-trash'
+        );
+        return $this->redirectToRoute('dash_booking');
+    }
+
     public function notificationsAction(){
         $em =  $this->getDoctrine()->getManager();
         $booking_pend = $em->getRepository("AppBundle:Booking")->findBy(
@@ -638,6 +689,54 @@ class AdminController extends Controller
             'notify'=>$notify,
             'booking'=>$booking_pend,
         ]);
+    }
+
+    public function sidebarAction($pagename){
+        $em =  $this->getDoctrine()->getManager();
+        $messagesCount = $em->createQuery(
+            'SELECT count(c.id)
+             FROM AppBundle:ContactMsgs c'
+            )->getResult()[0][1];
+
+        $bookingCount = count($em->getRepository("AppBundle:Booking")
+            ->createQueryBuilder("b")
+            ->where("b.accepted = false AND b.pickuptime >= :today")//todo: revisar que se muestren solo los que no se han confirmado
+            ->setParameter("today", new \DateTime('today'))
+            ->getQuery()->getResult());
+
+        return $this->render("AppBundle:Dash:sidebar.html.twig", [
+            'messagesCount' => $messagesCount,
+            'bookingCount'=>$bookingCount,
+            'pagename'=>$pagename
+        ]);
+    }
+    /**
+     * Shows a Messages list
+     * @Route("/messages", name="dash_messages_list")
+     * @Method({"GET", "POST"})
+     **/
+    public function messageListAction(){
+        $em =  $this->getDoctrine()->getManager();
+        $messages = $em->getRepository("AppBundle:ContactMsgs")
+            ->createQueryBuilder("c")->orderBy("c.insertDate", "DESC")
+            ->getQuery()->getResult();
+
+        return $this->render("AppBundle:Dash:messageList.html.twig", [
+            'messages' => $messages
+        ]);
+    }
+
+    /**
+     * Delete a Messages item
+     * @Route("/messages/delete/{id}", name="dash_message_delete")
+     * @Method("GET")
+     **/
+    public function messageDeleteAction(\AppBundle\Entity\ContactMsgs $item){
+        $em =  $this->getDoctrine()->getManager();
+        $em->remove($item);
+        $em->flush();
+
+        return $this->redirectToRoute('dash_messages_list');
     }
 
     /**
@@ -701,7 +800,8 @@ class AdminController extends Controller
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
-            ->setFrom("noreply@taxidriverscuba.com")
+            //TODO: get email from parameters
+            ->setFrom("taxidriverscuba-noreply@taxidriverscuba.com")
             ->setReplyTo($senderEmail)
             ->setTo($booking->getEmail())
             ->setBody(

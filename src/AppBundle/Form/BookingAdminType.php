@@ -3,13 +3,10 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 class BookingAdminType extends AbstractType
 {
     /**
@@ -18,8 +15,9 @@ class BookingAdminType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('numpeople',IntegerType::class)
-            ->add('price', MoneyType::class, ['attr'=>['required'=>'true'], 'currency'=>"USD"])
+            ->add('price', MoneyType::class, ['attr'=>['required'=>'true'], 'currency'=>"CUC"])
+            ->add('drivermsg', TextareaType::class, ['label'=>'Mensaje al cliente','required'=>false]   )
+
             ;
     }/**
      * {@inheritdoc}

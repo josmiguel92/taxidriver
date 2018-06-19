@@ -19,12 +19,13 @@
                         <button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
                         <!-- RD Navbar Brand-->
                         <div class="rd-navbar-brand veil reveal-md-block veil-tablet-md">
-                            <a href="{{ path("home") }}" class="brand-name"><img width="auto" src="{{ logo_dark }}" alt="Logo Taxi Drivers Cuba">
+                            <a href="{{ path("home") }}" class="brand-name">
+                                <img class="logo" width="auto" src="{{ logo_wide }}" alt="Logo Taxi Drivers Cuba">
                             </a>
                         </div>
                         <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block">
                             <a href="{{ path("home") }}" class="brand-name">
-                                <img style="margin-top: -7px;" width="182" height="34" src="{{ logo_dark }}" alt="logo Taxi Drivers Cuba">
+                                <img style="margin-top: -7px;" width="182" height="34" src="{{ logo_wide }}" alt="logo Taxi Drivers Cuba">
                             </a>
                         </div>
                         <!-- RD Navbar Toggle-->
@@ -122,9 +123,6 @@
 
             </div>
 
-            <!-- Add Arrows-->
-            <div class="swiper-button-next swiper-button-white color-sky"></div>
-            <div class="swiper-button-prev swiper-button-white color-sky"></div>
         </div>
 
         <div class="swiper-container gallery-thumbs">
@@ -146,7 +144,7 @@
     <main class="page-content">
 
         <!-- Routes-->
-        <section id="services" style="padding-top: 1%;">
+        <section id="services">
             <div class="shell offset-top-100">
 
                 <div class="offset-top-100">
@@ -198,15 +196,15 @@
                                             </div>
                                             <div class="unit-body">
                                                 <div class="place-description">
-                                                    <p class="p h5 text-capitalize text-spacing-inverse-25">
+                                                    <p class="p h5 text-capitalize text-spacing-inverse-25" style="height: 3em">
                                                         <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
                                                             {% trans %}Havana{% endtrans %} - {{ place.getNameLocale }}
                                                         </a>
                                                     </p>
 
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km <p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} {% trans %}hours{% endtrans %} </p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 CUC <br/></p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('H:i') }} {% trans %}hours{% endtrans %} </p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getTrasferprice }}.00 CUC <br/></p>
 
                                                     <div class="offset-top-40">
                                                         <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="btn btn-calypso btn-icon btn-icon-left">
@@ -262,15 +260,15 @@
                                             </div>
                                             <div class="unit-body">
                                                 <div class="place-description">
-                                                    <h3 class="p h5 text-capitalize text-spacing-inverse-25">
+                                                    <h3 class="p h5 text-capitalize text-spacing-inverse-25" style="height: 3em">
                                                         <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
                                                             {% trans %}Havana{% endtrans %} - {{ place.getNameLocale }}
                                                         </a>
                                                     </h3>
 
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km <p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} {% trans %}hours{% endtrans %} </p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 CUC <br/></p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('H:i') }} {% trans %}hours{% endtrans %} </p>
+                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getTrasferprice }}.00 CUC <br/></p>
 
                                                     <div class="offset-top-40">
                                                         <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="btn btn-calypso btn-icon btn-icon-left">
@@ -299,8 +297,8 @@
         <!-- Make your own Tour-->
         <section class="context-dark offset-top-0" style="margin-top: -8px;">
             <!-- RD Parallax-->
-            <div data-on="false" data-md-on="true" class="rd-parallax">
-                <div data-speed="0.25" data-type="media" data-url="{{ asset(content.getOwnrouteimage.getWebPath) }}" class="rd-parallax-layer"></div>
+            <div data-on="false" data-md-on="true" class="own-route rd-parallax">
+                <div data-speed="0.25" data-type="media" data-url="{{ asset(random(content.ownRoutePathImages)) }}" class="rd-parallax-layer"></div>
                 <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
                     <div class="shell section-75 section-md-top-103 section-md-bottom-110">
                         <div class="range range-xs-center">
@@ -319,7 +317,7 @@
                                     <div class="offset-top-30 offset-md-top-60">
                                         <a href="{{ path("bookingOwnTour") }}" style="min-width:240px;" class="btn btn-calypso">
                                             <i class="fa fa-heart"></i>
-                                            {% trans %}Make your own Tour!{% endtrans %}
+                                            {% trans %}Make your own way!{% endtrans %}
                                         </a>
                                     </div>
                                 </div>
@@ -345,7 +343,9 @@
                                 <div class="inset-lg-left-30 inset-lg-right-10">
                                     <div class="h2 text-spacing-inverse-50 color-sky">
                                         {% if 'horse' in infography.getIcon %}
-                                            <img src="{{ asset("images/custom-icons/horse.svg") }}" style="height: 2em;">
+                                            <a href="https://www.horseridinginvinales.com/"  target="_blank">
+                                                <img src="{{ asset("images/custom-icons/horse.svg") }}" style="height: 2em;">
+                                            </a>
                                         {% elseif  'diving' in infography.getIcon %}
                                             <img src="{{ asset("images/custom-icons/diving.svg") }}" style="height: 2em;">
                                         {% else %}
@@ -355,7 +355,13 @@
                                     </div>
                                     <div class="offset-top-10">
                                         <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">
-                                            {{ infography.getTitleLocale }}
+                                            {% if 'horse' in infography.getIcon %}
+                                                <a href="https://www.horseridinginvinales.com/"  target="_blank">
+                                                {{ infography.getTitleLocale }}
+                                                </a>
+                                            {% else %}
+                                                {{ infography.getTitleLocale }}
+                                            {% endif %}
                                         </p>
                                     </div>
                                     <div class="offset-top-20">
@@ -537,7 +543,10 @@
                                         <img src="{{ testimony.getAvatar }}" width="169" height="169" alt="{{ testimony.getName }}" class="img-circle img-responsive center-block">
                                         <div class="offset-top-15 offset-md-top-30">
                                             <p >
-                                                {{ testimony.getTextLocale|striptags|slice(0,250) }}
+                                                {{ testimony.getTextLocale|striptags|slice(0, 250) }}
+                                                {% if testimony.getTextLocale|striptags|length > 250 %}
+                                                    ...
+                                                {% endif %}
                                             </p>
                                         </div>
                                         <div class="offset-top-10 offset-md-top-25">
@@ -556,7 +565,7 @@
                         </div>
                     </div>
 
-                    <div id="TA_cdsratingsonlynarrow928" class="TA_cdsratingsonlynarrow"><ul id="YPw5Zqh5chZ" class="TA_links nDDQ73HI"><li id="8T0FWuA5qa" class="0zhfthpPY5g"><a target="_blank" href="https://www.tripadvisor.es/"><img src="https://www.tripadvisor.es/img/cdsi/img2/branding/tripadvisor_logo_transp_340x80-18034-2.png" alt="TripAdvisor"/></a></li></ul></div><script async src="https://www.jscache.com/wejs?wtype=cdsratingsonlynarrow&amp;uniq=928&amp;locationId=13554747&amp;lang=es&amp;border=true&amp;shadow=true&amp;backgroundColor=white&amp;display_version=2"></script>
+                    <div id="TA_selfserveprop933" class="TA_selfserveprop"><ul id="EpKfuzYl" class="TA_links rVR3wREK"><li id="hTomamWenY" class="LmGhOpG"><a target="_blank" href="https://www.tripadvisor.es/"><img src="https://www.tripadvisor.es/img/cdsi/img2/branding/150_logo-11900-2.png" alt="TripAdvisor"/></a></li></ul></div><script async src="https://www.jscache.com/wejs?wtype=selfserveprop&amp;uniq=933&amp;locationId=13554747&amp;lang={{ locale }}&amp;rating=true&amp;nreviews=0&amp;writereviewlink=true&amp;popIdx=true&amp;iswide=false&amp;border=false&amp;display_version=2"></script>
 
                 </div>
 
@@ -581,11 +590,7 @@
                 <div class="range range-xs-center offset-top-50">
 
                     <div class="cell-sm-6 cell-lg-4">
-                        {% if sended_email %}
-                        <div class="alert alert-success">
-                            <a href="#" class="alert-link">{{ "Your message have been sended, thanks a lot!" | trans }}</a>
-                        </div>
-                        {% endif %}
+
                         {{ form_start(messageForm, {'attr':{'class':'text-left',
                             'data-form-type':'contact',
                             'data-form-output':'form-output-global'}}) }}
@@ -604,7 +609,14 @@
                                 <input id="{{ messageForm.email.vars.id }}" type="email" name="{{ messageForm.email.vars.full_name }}" data-constraints="@Email @Required" class="form-control">
                             </div>
                             <div class="text-center text-sm-right offse-top-5">
-                                <button type="submit" style="min-width: 210px;" class="btn btn-primary">send a message</button>
+                                {% if sended_email %}
+                                    <div class="alert alert-succes text-align: center;">
+                                        <a href="#" class="alert-link">{{ "Your message have been sended, thanks a lot!" | trans }}</a>
+                                    </div>
+                                    {% else %}
+                                        <button type="submit" style="min-width: 210px;" class="btn btn-primary">send a message</button>
+                                {% endif %}
+
                             </div>
                         {{ form_widget(messageForm._token)}}
                         </form>

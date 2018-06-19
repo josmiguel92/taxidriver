@@ -11,9 +11,15 @@
   <p>Nombre: {{ booking.fullname }} <small>( {{ booking.numpeople }} personas)</small></p>
 <p>Su correo: <a href="mailto:{{ booking.email }}">{{ booking.email }}</a>
 </p>
-  {% if booking.airport %}
-  <p>Recogida al aereopuerto o crucero ({{ booking.flynumber }})</p>
-  {% endif %}
+
+{% if booking.isAnAirport %}
+    <p>Recogida al aereopuerto,<br/>
+        numero de vuelo: <strong>{{ booking.flynumber }}</strong>
+    </p>
+{% elseif booking.aCruise %}
+    <p>Recogida en la terminal de crucero,<br/>
+        nombre del crucero: <strong>{{ booking.flynumber }}</strong></p>
+{% endif %}
 
 <h4>Sobre la recogida</h4>
 <p>Hora y fecha:<br>
@@ -23,12 +29,16 @@
 </p>
 
 
-<h4>Sobre el regreso</h4>
-<p>Hora y fecha:<br>
-    {{ booking.returnpickuptime | date("l d/m/Y H:i") }}</p>
-<p>Detalles de recogida:<br>
-    {{ booking.returnpickupplacce}}
-</p>
+{% if booking.returnpickup %}
+    <h4>Sobre el regreso</h4>
+    <p>Hora y fecha:<br>
+        {{ booking.returnpickuptime | date("l d/m/Y H:i") }}</p>
+    <p>Detalles de recogida:<br>
+        {{ booking.returnpickupplacce}}
+    </p>
+{% endif %}
+<h4>Mensaje del cliente</h4>
+<p>{{ booking.comment }}</p>
 
     {% if not place %}
         <hr>
@@ -55,16 +65,20 @@
     {% else %}
         {{ form_row(form.price)}}
     {% endif %}
+    {% if not booking.drivermsg and not booking.accepted %}
+        {{ form_row(form.drivermsg) }}
+    {% endif %}
 
 
  {{ form_widget(form._token)}}
 
-<p>{{ booking.comment }}</p>
+
 
 
 <div class="modal-footer">
-  <button type="submit" class="btn btn-primary">Aceptar</button>
+    <button type="submit" class="btn btn-primary">Aceptar</button>
     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    <a href="{{ path('dash_booking_delete', {'id': booking.id}) }}" class="btn btn-default">Eliminar</a>
 
 </div>
 </form>

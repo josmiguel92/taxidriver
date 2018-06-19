@@ -43,14 +43,15 @@ class BookingController extends Controller
             ));
 
             $booking_form->handleRequest($request);
-
-
+            $noPlaceSelected = true;
+            if($booking->getPlace()>0)
+                $noPlaceSelected = false;
             if ($booking_form->isSubmitted() && $booking_form->isValid()) {
 
                 $captcha = '';
 
                 //Si se ejecuta env. PROD, validar catpcha... y si no es success, ir a home!
-                if($_SERVER['APP_FRONT_CONTROLLER']!= 'app_dev.php') {
+                if(substr_count($_SERVER['SERVER_NAME'],'taxidriverscuba.com')) {
                     if (isset($_POST['g-recaptcha-response'])) {
                         $captcha = $_POST['g-recaptcha-response'];
                     }
@@ -66,22 +67,25 @@ class BookingController extends Controller
 
                 }
 
-                if ($booking->getPlacesCollection())
-                    $booking->setPlacesCollection(Utils::placesJasonParse($booking->getPlacesCollection()));
+                $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+                $config = [];;
+                foreach ($_config as $item){
+                    $config[$item->getName()]=$item->getValue();
+                }
 
                 //validacion para enviar correo a lester o no.
                 if(Utils::isSimpleBooking($booking))
                 {
                     $_place = $em->getRepository('AppBundle:Place')->find($booking->getPlace());
-                    $booking->setPrice(Utils::calculateSimpleRoutePrices($_place, $booking->getNumpeople()));
+                    $booking->setPrice(Utils::calculateSimpleRoutePrices($_place, $booking, $config['price.increment']));
 
                     $booking->setAccepted(true);
                 }
+
+
                 $em->persist($booking);
                 $em->flush();
 
-                //todo: mover a la Action correcta, luego del pago
-                $this->sendEmailNotifications($booking);
 
                 return $this->redirectToRoute('purchase_details', [
                     '_token'=>$booking->getToken(),
@@ -90,6 +94,11 @@ class BookingController extends Controller
 
             }
 
+            $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+            $config = [];;
+            foreach ($_config as $item){
+                $config[$item->getName()]=$item->getValue();
+            }
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
@@ -101,6 +110,8 @@ class BookingController extends Controller
                 'socialNetworks'=>$socialNetworks,
                 'hashtags'=>$hashtags,
                 'places'=>$places,
+                'config'=>$config,
+                'noPlaceSelected' => $noPlaceSelected
             ]);
         }
         else
@@ -119,6 +130,12 @@ class BookingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $places = $em->getRepository('AppBundle:Place')->findAll();
         $place = $em->getRepository('AppBundle:Place')->find($_id);
+
+        $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+        $config = [];;
+        foreach ($_config as $item){
+            $config[$item->getName()]=$item->getValue();
+        }
 
         if ($place)
         {
@@ -142,6 +159,7 @@ class BookingController extends Controller
                     'hashtags'=>$hashtags,
                     'place'=>$place,
                     'places'=>$places,
+                    'config'=>$config
                     ]);
         }
         else
@@ -193,42 +211,75 @@ class BookingController extends Controller
      */
     public function purchaseDetailsAction(Request $request, $_locale='en', $_token, $_paypalCallback=null)
     {
-
         Utils::setRequestLocaleLang($_locale);
 
-        if(isset($_REQUEST['tx'])){
-            echo "<!-- ";
-            echo $_REQUEST['item_number']." ID del producto\n";
-            echo $_REQUEST['tx']." ID de transacción Paypal\n";
-            echo $_REQUEST['amt']." Monto recibido Paypal\n";
-            echo $_REQUEST['cc']."  Moneda recibida de Paypal\n";
-            echo $_REQUEST['st']." Estado del producto Paypal\n";
-            echo "-->";
-        }
         $em = $this->getDoctrine()->getManager();
         $purchase = $em->getRepository('AppBundle:Booking')->findOneBy(['token'=>$_token]);
+        $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+        $config = [];
+        foreach ($_config as $item){
+            $config[$item->getName()]=$item->getValue();
+        }
 
         if ($purchase) {
 
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
-            $_places = $em->getRepository('AppBundle:Place')->findBy(['id'=>$purchase->getPlacesCollection()]);
-            $place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
+            if($purchase->getPlace())
+                $place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
+            else $place = null;
             $places = $em->getRepository('AppBundle:Place')->findAll();
 
+            if($_paypalCallback == 'success' OR $_paypalCallback == 'cash' OR !Utils::isSimpleBooking($purchase)){
+                $this->sendEmailNotifications($purchase);
+                $purchase->setConfirmed(true);
+
+                if (isset($_GET['tx']))
+                    $purchase->setIdpaypal($_GET['tx']);
+
+                $em->persist($purchase);
+                $em->flush();
+            }
+
+
             /*TODO: proccess Paypal POST headers and push it on DB*/
+            /*if($_paypalCallback == 'success') {
+                if (isset($_GET['tx'])) {
+                    $paypalTransactionID = $_GET['tx'];
+                    /*echo "-->";
+                    echo $_POST['item_number']." ID del producto\n";
+                    echo $paypalTransactionID;
+                    echo $_POST['mc_gross']." Monto recibido Paypal\n";
+                    echo $_POST['mc_currency']."  Moneda recibida de Paypal\n";
+                    //echo $_POST['st']." Estado del producto Paypal\n";
+                    echo "-->";
+
+                    //todo: esta verificacion debe de hacerse luego de completar paypal
+                    if($_POST['amt'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
+                    {
+                        $purchase->setConfirmed(true);
+                        $purchase->setIdpaypal($_REQUEST['tx']);
+                        $em->persist($purchase);
+                        $em->flush();
+                    }
+
+                    return $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
+                        'paypalTransactionID' => $paypalTransactionID,
+                    ]);
+                }
+            }*/
 
             return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
                 'locale'=>$_locale,
                 'content'=>$content[0],
                 'socialNetworks'=>$socialNetworks,
                 'hashtags'=>$hashtags,
-                'selectedPlaces'=>$_places,
                 'place'=>$place,
                 'purchase'=>$purchase,
                 'places'=>$places,
-                'paypalCallback'=>$_paypalCallback
+                'paypalCallback'=>$_paypalCallback,
+                'config'=>$config
                 ]);
         }
         else
@@ -244,20 +295,33 @@ class BookingController extends Controller
         $purchase = $em->getRepository('AppBundle:Booking')->findOneBy(['token'=>$_token]);
         $_locale = Utils::getRequestLocaleLang();
 
+        $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+        $config = [];;
+        foreach ($_config as $item){
+            $config[$item->getName()]=$item->getValue();
+        }
+
         if($purchase)
         {
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             //$email = $content[0]->getEmail();
+            //TODO: change to karlita.garcia.l0v3@gmail.com
             $account_email = 'karlita.garcia.l0v3@gmail.com';
             $_place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
             $_person_number = $purchase->getNumpeople();
-            //TODO:Escribir bien el nombre del producto
             $product_name = Utils::buildProductName($purchase, $_place);
 
-            $price = Utils::calculateSimpleRoutePrices($_place, $_person_number);
-            $product_price = $price - 0.1*$price;
+            $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+            $config = [];;
+            foreach ($_config as $item){
+                $config[$item->getName()]=$item->getValue();
+            }
 
-            return $this->render('AppBundle:Front:dummyPaypalForm.html.twig', [
+            $price = $purchase->getPrice();
+            $cuc_usd_conversion = $config['tasa.usd'];
+            $product_price = round($purchase->getPrice() / $cuc_usd_conversion, 2);
+
+            return $this->render('AppBundle:Front:makePaypalTransfer.html.twig', [
                 'account_email'=>$account_email,
                 'product_name'=>$product_name,
                 '_token'=>$_token,
@@ -276,8 +340,16 @@ class BookingController extends Controller
 
         $subject = "Taxidriverscuba Notification";
         $em = $this->getDoctrine()->getManager();
-        $place = $em->getRepository("AppBundle:Place")
-            ->find($booking->getId());
+        if($booking->getPlace())
+            $place = $em->getRepository("AppBundle:Place")
+                ->find($booking->getPlace());
+        else $place = null;
+        $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+        $config = [];;
+        foreach ($_config as $item){
+            $config[$item->getName()]=$item->getValue();
+        }
+
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
         $senderEmail = $content[0]->getContactemail();
         $address = $content[0]->getContactaddressLocale();
@@ -287,7 +359,8 @@ class BookingController extends Controller
             ->setSubject($subject)
             ->setReplyTo($senderEmail)
             ->setTo($booking->getEmail())
-            ->setFrom("noreply@taxidriverscuba.com")
+            //TODO: get email from parameters
+            ->setFrom("taxidriverscuba-noreply@taxidriverscuba.com")
             ->setBody(
                 $this->renderView(
                     'AppBundle:Email:clientNotification.html.twig',
@@ -298,6 +371,7 @@ class BookingController extends Controller
                         'telephone'=> $telephone,
                         'place'=>$place,
                         'booking'=>$booking,
+                        'config' => $config,
                     ]
                 ),
                 'text/html'
@@ -305,7 +379,7 @@ class BookingController extends Controller
         $this->get('mailer')->send($message);
 
         $message = \Swift_Message::newInstance()
-            ->setSubject($subject)
+            ->setSubject($subject. " (".$booking->getId().")")
             ->setTo($senderEmail)
             ->setFrom("noreply@taxidriverscuba.com")
             ->setBody(
@@ -318,6 +392,7 @@ class BookingController extends Controller
                         'telephone'=> $telephone,
                         'place'=>$place,
                         'booking'=>$booking,
+                        'config' => $config,
                     ]
                 ),
                 'text/html'

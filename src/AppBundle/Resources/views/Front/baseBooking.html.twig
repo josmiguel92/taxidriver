@@ -6,44 +6,53 @@
 {% block content %}
     <!-- Page Content-->
     <main class="page-content">
-
         <section class="section-75 section-md-top-90 section-md-bottom-110">
             <div class="shell">
                 <h2>{% trans %}Reservation form{% endtrans %}</h2>
+                {% block tour_explication %}
+                {% endblock %}
                 {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
                                                      'data-form-type':'order',
                                                      'data-form-output':'form-output-global'}}) }}
 
-                    <!-- airport data -->
+                    <!-- airport or cruise data -->
                     <div class="well-row well-row-bg">
                         <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
-                            {% trans %}Pickup from airport or cruise?{% endtrans %}
+                            {% trans %}Pickup from airport or cruise?{% endtrans %}<br>
+                            <small class="subtitle">
+                                {% trans %}If you arrive to Cuba through some airport or cruise terminal, we can pick you up!{% endtrans %}</small>
                         </p>
                     </div>
-                <div class="row section-md-top-20 section-md-bottom-20">
-                    <div class="col-md-4 col-md-offset-2">
-                        <div class="well-row">
-                            <div class="range range-xs-middle">
-                                <div>
-                                    <input data-toggle="toggle" type="checkbox" id="{{ booking_form.airport.vars.id }}" name="{{ booking_form.airport.vars.full_name }}">
+
+                    <div class="row well-row section-md-top-20 section-md-bottom-20">
+
+                        <div class="col-md-6 col-xs-12">
+                            <div class="btn-group source-cuba" data-toggle="buttons">
+                                <label class="btn btn-primary">
+                                    <label id="pickup_no" class="btn btn-primary active">
+                                        <input checked type="radio" name="{{ booking_form.airport.vars.full_name }}" id="{{ booking_form.airport.vars.id }}" value="no"> No
+                                    </label>
+                                    <label id="pickup_airport" class="btn btn-primary">
+                                        <input type="radio" name="{{ booking_form.airport.vars.full_name }}" id="{{ booking_form.airport.vars.id }}" value="airport"> {% trans %}Airport{% endtrans %}
+                                    </label>
+                                    <label id="pickup_cruise" class="btn btn-primary">
+                                        <input type="radio" name="{{ booking_form.airport.vars.full_name }}" id="{{ booking_form.airport.vars.id }}" value="cruise"> {% trans %}Cruise{% endtrans %}
+                                    </label>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 col-md-push-1 col-xs-12 offset-xs-top-15">
+                            <div id="flynumber">
+                                <div class="form-group">
+                                    <label for="{{ booking_form.flynumber.vars.id }}" class="form-label rd-input-label">{% trans %}Flight number or cruiser name{% endtrans %}</label>
+                                    <input id="{{ booking_form.flynumber.vars.id }}" name="{{ booking_form.flynumber.vars.full_name }}"  class="form-control form-control-has-validation form-control-last-child" type="text" required disabled>
+                                    <span class="form-validation"></span>
                                 </div>
                             </div>
                         </div>
+
                     </div>
-                    <div class="col-md-4">
-                        <div class="well-row">
-                            <div class="range range-xs-middle">
-                                <div id="flynumber">
-                                    <div class="form-group">
-                                        <label for="{{ booking_form.flynumber.vars.id }}" class="form-label rd-input-label">{% trans %}Flight or cruiser number{% endtrans %}</label>
-                                        <input id="{{ booking_form.flynumber.vars.id }}" name="{{ booking_form.flynumber.vars.full_name }}"  class="form-control form-control-has-validation form-control-last-child" type="text" required disabled>
-                                        <span class="form-validation"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
 
                     <!--- Where are you going --->
@@ -61,71 +70,100 @@
                             {% trans %}Pickup time and Price{% endtrans %}
                         </p>
                     </div>
+
                     <div class="well-row">
 
-                        <div class="">
-
-                            <div class="row">
-
-                                <div class="row">
-                                        <div id="tourToggle" class="offset-top-15 cell-sm-6 cell-md-8 well-row-flex" style="margin-bottom: 25px; display: none;">
-                                            <label class="custom-label text-gray-dark">
-                                                {% trans %}
-                                                    The selected place, admits a tour. Do you want to activate it?
-                                                {% endtrans %}
-                                            </label>
-                                            <div style="max-width: 200px; width: 350%;" class="form-group">
-                                                <input data-toggle="toggle" type="checkbox" id="activeTour" name="{{ booking_form.tour.vars.full_name }}">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="cell-md-8">
-                                            <p id="tourDescription" style="margin-bottom: 25px; display: none;">
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class=" cell-sm-5 cell-md-12 well-row-flex form-inline">
-                                            <label class="custom-label text-gray-dark">{% trans %}No. of passengers{% endtrans %}</label>
-                                            <div class="form-group">
-                                                <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.numpeople.vars.id }}" name="{{ booking_form.numpeople.vars.full_name }}">
-                                            </div>
-                                            <label style="margin: 0 2em;" class="custom-label text-gray-dark text-right">
-                                                {% trans %}Price{% endtrans %}: <span id="labelPrice"></span>
-                                            </label>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="offset-top-15 cell-sm-5 cell-md-8 well-row-flex">
-                                            <label class="custom-label text-gray-dark">{% trans %}Date and time{% endtrans %}</label>
-                                            <div style="max-width: 400px; width: 350%;" class="form-group">
-
-                                                <input data-constraints="@Required" required placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="" type="text" style="text-align: left; padding: 10px 12px;" class="form-control" id="{{ booking_form.pickuptime.vars.id }}" name="{{ booking_form.pickuptime.vars.full_name }}">
-                                                <span class="form-validation"></span>
-                                                {{ form_errors(booking_form.pickuptime, {'class':'danger'}) }}
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="offset-top-15 cell-sm-5 cell-md-8 well-row-flex">
-                                            <label for="{{ booking_form.details.vars.id }}"  class="custom-label text-gray-dark">{% trans %}Place{% endtrans %}</label>
-                                            <div style="max-width: 400px; width: 350%;" class="form-group">
-                                                <input placeholder="Address" type="text" style="padding: 10px 12px;" class="form-control" id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}">
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-
+                        <div class="row">
+                            <div id="tourToggle" class="offset-top-15 cell-xs-12 cell-md-8 well-row-flex" style="margin-bottom: 25px; display: none;">
+                                <label class="custom-label text-gray-dark">
+                                    {% trans %}
+                                        The selected place, admits a tour.
+                                    {% endtrans %}
+                                    <a href="#" data-toggle="modal" data-target="#myModal">
+                                       {% trans %} See tour description{% endtrans %}.
+                                    </a>
+                                    <br/>
+                                    {% trans %}
+                                        Do you want to activate it?
+                                    {% endtrans %}
+                                </label>
+                                <div class="form-group">
+                                    <input data-toggle="toggle" type="checkbox" id="activeTour" name="{{ booking_form.tour.vars.full_name }}">
+                                </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="cell-xs-12 cell-md-8 well-row-flex">
+                                <label class="custom-label text-gray-dark">{% trans %}No. of passengers{% endtrans %}</label>
+                                <div class="form-group">
+                                    <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.numpeople.vars.id }}" name="{{ booking_form.numpeople.vars.full_name }}">
+                                </div>
+                                <label style="margin: 0 2em;" class="custom-label text-gray-dark text-right">
+                                    {% trans %}Price{% endtrans %}: <span id="labelPrice"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="offset-top-15 cell-sm-5 cell-md-8 well-row-flex">
+                                <label class="custom-label text-gray-dark">{% trans %}Date and time{% endtrans %}
+                                </label>
+                                <div style="max-width: 400px; width: 350%;" class="form-group">
+                                    <input data-constraints="@Required" required placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="" type="text" style="text-align: left; padding: 10px 12px;" class="form-control" id="{{ booking_form.pickuptime.vars.id }}" name="{{ booking_form.pickuptime.vars.full_name }}">
+                                    <span class="form-validation"></span>
+                                    {{ form_errors(booking_form.pickuptime, {'class':'danger'}) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="offset-top-15 cell-sm-5 cell-md-8 well-row-flex">
+                                <label for="{{ booking_form.details.vars.id }}"  class="custom-label text-gray-dark">{% trans %}Place{% endtrans %}</label>
+                                <div style="max-width: 400px; width: 350%;" class="form-group">
+                                    <input placeholder="Address" type="text" style="padding: 10px 12px;" class="form-control" id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}">
+                                </div>
+                                {{ form_errors(booking_form.details, {'class':'danger'}) }}
+                            </div>
+                        </div>
+
+
+                        <div id="returnLine" class="row" style="margin-top: 2em; border-top: 1px #e3e3e3 solid; display: none;"></div>
+
+                        <div id="returnToggle"  class="row" style="display: none;">
+                            <div class="offset-top-15 cell-xs-12 cell-md-8 well-row-flex" style="margin-bottom: 10px;">
+                                <label class="custom-label text-gray-dark">
+                                    {% trans %}
+                                        You can travel back with us
+                                    {% endtrans %}.
+                                </label>
+                                <div class="form-group">
+                                    <input data-toggle="toggle" type="checkbox" id="activeReturn" name="{{ booking_form.returnpickup.vars.full_name }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="returnPlace" class="row" style="display: none;">
+                            <div class="offset-top-15 cell-sm-5 cell-md-8 well-row-flex">
+                                <label for="{{ booking_form.returnpickupplacce.vars.id }}"  class="custom-label text-gray-dark">{% trans %}Place for pickup you on return{% endtrans %}</label>
+                                <div style="max-width: 400px; width: 350%;" class="form-group">
+                                    <input placeholder="Address" type="text" style="padding: 10px 12px;" class="form-control" id="{{ booking_form.returnpickupplacce.vars.id }}" name="{{ booking_form.returnpickupplacce.vars.full_name }}">
+                                </div>
+                                {{ form_errors(booking_form.returnpickupplacce, {'class':'danger'}) }}
+                            </div>
+                        </div>
+
+                        <div id="returnTime" class="row" style="display: none;">
+                            <div class="offset-top-15 cell-sm-5 cell-md-8 well-row-flex">
+                                <label class="custom-label text-gray-dark">{% trans %}Date and time for pickup you on return{% endtrans %}</label>
+                                <div style="max-width: 400px; width: 350%;" class="form-group">
+                                    <input data-constraints="@Required" required placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="" type="text" style="text-align: left; padding: 10px 12px;" class="form-control" id="{{ booking_form.returnpickuptime.vars.id }}" name="{{ booking_form.returnpickuptime.vars.full_name }}">
+                                    <span class="form-validation"></span>
+                                    {{ form_errors(booking_form.returnpickuptime, {'class':'danger'}) }}
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
 
@@ -191,8 +229,8 @@
 
                         <div>
                             <p class="text-extra-small offset-top-30 text-justify">*
-                                {% trans %}The prices can vary in function of the amount of passengers and customs places.
-                                {% endtrans %}
+                                {% trans %}The price can vary in function of the amount of passengers and distance of the place
+                                {% endtrans %}.
                             </p>
                         </div>
                     </div>
@@ -205,49 +243,125 @@
                 {% if place is defined %}
                     {{ form_widget(booking_form.place, {'value':place.id, 'type':'hidden'}) }}
                 {% else %}
-                    {{ form_widget(booking_form.place, {'value':'null', 'type':'hidden'}) }}
+                    {{ form_widget(booking_form.place, {'value':'', 'type':'hidden'}) }}
                 {% endif %}
                 </form>
             </div>
         </section>
+
+        <div class="modal fade" id="myModal" style="margin-top: 5em">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h2 id="tourTitle" class="modal-title"></h2>
+                    </div>
+                    <div class="modal-body text-left">
+                        <p id="tourDescription" style="margin-bottom: 25px;">
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary text-capitalize" data-dismiss="modal">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
     </main>
 
 {% endblock %}
 {% block javascript %}
 {{ parent() }}
     <script>
+    numberPeople = 1;
+    buttonTourOn = false;
+    buttonReturnOn = false;
+
+        function hideOrShowReturn(){
+            if (buttonTourOn){
+                $("#returnLine").fadeOut(500);
+                $("#returnToggle").fadeOut(500);
+                $("#returnPlace").fadeOut(500);
+                $("#returnTime").fadeOut(500);
+            }
+            else {
+                $("#returnLine").fadeIn(500);
+                $("#returnToggle").fadeIn(500);
+                $("#returnPlace").fadeIn(500);
+                $("#returnTime").fadeIn(500);
+            }
+        }
+
+        function activeOrDeactiveReturn(){
+            var returnPlaceInput = $('#{{ booking_form.returnpickupplacce.vars.id }}')[0];
+            var returnTimeInput = $('#{{ booking_form.returnpickuptime.vars.id }}')[0];
+
+            if (buttonReturnOn){
+                returnPlaceInput.removeAttribute('disabled');
+                returnPlaceInput.setAttribute('data-constraints','@Required');
+                returnTimeInput.removeAttribute('disabled');
+                returnTimeInput.setAttribute('data-constraints','@Required');
+            }
+            else{
+                returnPlaceInput.setAttribute('disabled','true');
+                returnPlaceInput.removeAttribute('data-constraints');
+                returnTimeInput.setAttribute('disabled','true');
+                returnTimeInput.removeAttribute('data-constraints');
+            }
+        }
+
     $(document).ready(function()
         {
 
             $('#booking_submit').click(function(e){
 
-               //  e.preventDefault();
                 {% block onsubmitBookingForm %}
                 {% endblock %}
                 {% block stringfy %}
                 {% endblock %}
+            });
 
-                 //$('form.booking')[0].submit();
+            //button to pickup from airport or cruise
+            $(".source-cuba").change(function() {
+
+                var source_input = $('#{{ booking_form.flynumber.vars.id }}')[0];
+                var source_label_input = $('label[for="{{ booking_form.flynumber.vars.id }}"]')[0];
+
+                var pickup_from_airport = $("#pickup_airport")[0].classList.contains('active');
+                var pickup_from_cruise = $("#pickup_cruise")[0].classList.contains('active');
+
+                source_label_input.innerHTML = "{% trans %}Flight number or cruiser name{% endtrans %}";
+                if (pickup_from_airport)
+                    source_label_input.innerHTML = "{% trans %}Flight number{% endtrans %}";
+                if (pickup_from_cruise)
+                    source_label_input.innerHTML = "{% trans %}Cruise name{% endtrans %}";
+
+                var pickup = pickup_from_airport || pickup_from_cruise;
+
+                pickup ? (source_input.removeAttribute('disabled') ||
+                    source_input.setAttribute('data-constraints','@Required')) :
+                    (source_input.setAttribute('disabled','true') ||
+                    source_input.removeAttribute('data-constraints'));
 
             });
 
-            $("#{{ booking_form.airport.vars.id }}").change(function() {
-                var item = $('#{{ booking_form.flynumber.vars.id }}')[0];
-                $('.toggle')[0].classList.contains('off') ?
-                    (item.setAttribute('disabled','true') ||
-                    item.removeAttribute('data-constraints')):
-                    (item.removeAttribute('disabled') ||
-                    item.setAttribute('data-constraints','@Required'));
-            });
-
-            //Si active tour cambia entonces mostrar la descripcion del tour
+            //Button of active Tour
             $("#activeTour").change(function() {
-                  if (!$('.toggle')[1].classList.contains('off'))
-                      $('#tourDescription').fadeIn(500);
-                  else
-                      $('#tourDescription').fadeOut(500);
+                buttonTourOn = !$('.toggle')[0].classList.contains('off');
+                hideOrShowReturn();
+            });
+
+            //Button of active return
+            $("#activeReturn").change(function() {
+                buttonReturnOn = !$('.toggle')[1].classList.contains('off');
+                activeOrDeactiveReturn();
+            });
+
+            $("#{{ booking_form.numpeople.vars.id }}").change(function() {
+                numberPeople = $('#{{ booking_form.numpeople.vars.id }}')[0].value;
             });
 
         });
+
     </script>
 {% endblock %}

@@ -27,9 +27,9 @@ class Booking
     private $id;
 
     /**
-     * @var bool
+     * @var string
      *
-     * @ORM\Column(name="airport", type="boolean", nullable=true)
+     * @ORM\Column(name="airport", type="string", length=255, nullable=true)
      */
     private $airport;
 
@@ -76,7 +76,8 @@ class Booking
 
     /**
      * @var string
-     *
+     * Lugar de recogida
+     * @Assert\NotBlank(message="Indique el lugar con detalle")
      * @ORM\Column(name="details", type="text")
      */
     private $details;
@@ -84,9 +85,32 @@ class Booking
     /**
      * @var \DateTime
      * @Assert\DateTime()
+     * @Assert\NotBlank()
      * @ORM\Column(name="pickuptime", type="datetime")
      */
     private $pickuptime;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="returnpickup", type="boolean")
+     */
+    private $returnpickup;
+
+    /**
+     * @return bool
+     */
+    public function isReturnpickup()
+    {
+        return $this->returnpickup;
+    }
+
+    /**
+     * @param bool $returnpickup
+     */
+    public function setReturnpickup($returnpickup)
+    {
+        $this->returnpickup = $returnpickup;
+    }
 
     /**
      * @var \DateTime
@@ -97,7 +121,6 @@ class Booking
 
     /**
      * @var \DateTime
-     * @Assert\DateTime()
      * @ORM\Column(name="returnpickupplacce", type="string", length=600, nullable=true)
      */
     private $returnpickupplacce;
@@ -132,6 +155,8 @@ class Booking
      */
     private $accepted;
 
+    //TODO: por ahora, nunca se conffirman las reservaciones por parte de los clientes
+
     /**
      * @var boolean
      * @ORM\Column(name="confirmed", type="boolean", nullable=true)
@@ -152,7 +177,13 @@ class Booking
      */
     private $token;
 
-    
+    /**
+     * @var string
+     * @ORM\Column(name="drivermsg", type="string", length=1000, nullable=true)
+     */
+    private $drivermsg;
+
+
     public function getBookingLocale()
     {
         return substr($this->token, 0, 2);
@@ -181,6 +212,22 @@ class Booking
     public function setOwnroute($ownroute)
     {
         $this->ownroute = $ownroute;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDrivermsg()
+    {
+        return $this->drivermsg;
+    }
+
+    /**
+     * @param string $drivermsg
+     */
+    public function setDrivermsg($drivermsg)
+    {
+        $this->drivermsg = $drivermsg;
     }
 
     
@@ -441,7 +488,9 @@ class Booking
      */
     public function setReturnpickuptime($returnpickuptime)
     {
-        $this->returnpickuptime = $returnpickuptime;
+        $this->returnpickuptime  = \DateTime::createFromFormat('l d M Y - H:i',$returnpickuptime);
+
+        return $this;;
     }
 
     /**
@@ -548,7 +597,39 @@ class Booking
     }
 
     public function getPickuptimeFormated($format = 'd-M-Y'){
-        return $this->pickuptime->format($format);
+        if(gettype($this->pickuptime)=='object')
+            return $this->pickuptime->format($format);
+        return null;
+    }
+
+    public function getReturnPickuptimeFormated($format = 'd-M-Y'){
+        if(gettype($this->returnpickuptime)=='object')
+            return $this->returnpickuptime->format($format);
+        return null;
+    }
+
+    public function isAnAirport(){
+        if ($this->airport=='airport')
+            return true;
+        return false;
+    }
+
+    public function isACruise(){
+        if ($this->airport=='cruise')
+            return true;
+        return false;
+    }
+
+    /**
+     * @Assert\IsTrue(message="La reservación debe ser al menos con 12 horas de antelación")
+     */
+    public function isPickuptime(){
+        $now = new \DateTime('now');
+        $interval = $now->diff($this->pickuptime);
+        $differenceHours = $interval->y*365*24+$interval->m*30*24+$interval->d*24+$interval->h;
+        if($differenceHours >= 12 )
+            return true;
+        return false;
     }
 }
 

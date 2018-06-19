@@ -55,14 +55,15 @@
                                             <!-- Post Body-->
                                             <div class="post-body offset-top-15 offset-md-top-25">
                                                 <p class="text-spacing-0">
-                                                    {{ blogEntry.getTeaserLocale|striptags|slice(0, 500)|nl2br }} ...<a href="" class="text-extra-small text-bold text-turquoise text-uppercase text-spacing-50">{% trans %}Read More{% endtrans %}</a>
+                                                    {{ blogEntry.getTeaserLocale|striptags|slice(0, 500)|nl2br }} ...<a href="{{ url }}" class="text-extra-small text-bold text-turquoise text-capitalize text-spacing-50">{% trans %}Read More{% endtrans %}</a>
                                                 </p>
                                             </div>
                                             <div class="offset-top-20 offset-md-top-30">
                                                 <!-- List inline marked -->
                                                 <ul class="list-inline list-marked list-marked-type-2 list-marked-type-2-dot-1 list-silver-chalice list-marked-silver-chalice font-accent text-bold text-spacing-inverse-25 inset-sm-left-4">
                                                     {% for tag in blogEntry.getTags %}
-                                                        <li><a href="#" class="text-turquoise">{{ tag.getTagLocale }}</a></li>
+                                                        {#<li><a href="#" class="text-turquoise">{{ tag.getTagLocale }}</a></li>#}
+                                                        <li>{{ tag.getTagLocale }}</li>
                                                     {% endfor %}
 
                                                 </ul>
@@ -119,7 +120,10 @@
                                     <ul class="list-inline list-tags font-accent text-bold text-spacing-inverse-25 text-left">
 
                                         {% for tag in tags %}
-                                            <li><a href="{{ path('blog') }}{{ tag.getTagLocale|replace({'% %': '-' }) }}" class="color-sky">{{ tag.getTagLocale }}</a></li>
+                                            <li>
+                                                {#<a href="{{ path('blog') }}/{{ tag.getTagLocale|replace({'% %': '-' }) }}" class="color-sky">{{ tag.getTagLocale }}</a>#}
+                                                {{ tag.getTagLocale }}
+                                            </li>
                                         {% endfor %}
 
                                     </ul>

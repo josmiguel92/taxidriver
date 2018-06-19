@@ -168,9 +168,51 @@ class Blogentrie  extends ImageField
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts", cascade={"persist"})
+     * @ORM\JoinTable(name="post_has_tags",
+     * joinColumns={
+     * @ORM\JoinColumn(name="posts_id",
+    referencedColumnName="id")
+     * },
+     * inverseJoinColumns={
+     * @ORM\JoinColumn(name="tags_id",
+    referencedColumnName="id")
+     * }
+     * )
      */
     protected $tags;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="likes", type="integer")
+     */
+    private $likes;
+
+    /**
+     * @return int
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * @param int $likes
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+    }
+
+    /**
+     * @param int $likes
+     */
+    public function AddLike()
+    {
+        $this->likes++;
+    }
+
 
 
     /**

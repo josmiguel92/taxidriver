@@ -56,11 +56,11 @@
     <div class="col-lg-4 col-md-5">
         <div class="card card-user">
             <div class="image">
-                <img src="{{ asset('img/background.jpg') }}" alt="..."/>
+                <img src="{{ asset('images/background.jpg') }}" alt="..."/>
             </div>
             <div class="content">
                 <div class="author">
-                    <img class="avatar border-white" src="{{ asset('img/faces/face-1.jpg') }}" alt="..."/>
+                    <img class="avatar border-white" src="{{ asset('images/faces/face-1.jpg') }}" alt="..."/>
                     <h4 class="title">Taxi Drivers Cuba<br />
                         <a href="#"><small>{{ content_form.vars.value.contactemail }}</small></a>
                     </h4>
@@ -180,16 +180,16 @@
 
                     <div class="col-md-6">
                         {{ form_row(content_form.aboutusimage) }}
+                        {{ form_row(content_form.blogimage) }}
 
                     </div>
                     <div class="col-md-6">
                         {{ form_row(content_form.ownrouteimage) }}
+                        {{ form_row(content_form.ownrouteimage1) }}
+                        {{ form_row(content_form.ownrouteimage2) }}
 
                     </div>
-                    <div class="col-md-6">
-                        {{ form_row(content_form.blogimage) }}
 
-                    </div>
 
                     <div class="col-md-6">
                     <div class="text-center">

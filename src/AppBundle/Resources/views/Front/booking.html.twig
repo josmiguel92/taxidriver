@@ -16,6 +16,7 @@
 {% set spanish_page = path("add_booking", {"_locale":"es"}) %}
 {% set english_page = path("add_booking", {"_locale":"en"}) %}
 
+{% set description =  content.getBlogDescriptionLocale %}
 
 {% block destination %}
     <div class="well-row">
@@ -34,23 +35,28 @@
             <div class="range range-xs-center offset-top-44 offset-md-top-53 text-sm-left">
                 {% for place in places %}
                     {% if not place.istour %}
-                        <div id="parent_{{ loop.index }}" data-type="taxi" data-price="{{ place.getPrice }}" style="padding: 1em 0; margin: 1em 1em" class="cell-sm-10 cell-md-7 cell-lg-5 offset-top-60 item-place">
+                        <div id="parent_{{ loop.index }}" data-type="taxi" data-price-transfer="{{ place.getTrasferprice }}"
+                             style="/*padding: 1em 0; margin: 1em 1em*/"
+                             class="cell-sm-10 cell-md-7 cell-lg-6 offset-top-60 item-place">
                             <div style="max-width: 100%;" class="">
                                 <!-- Unit-->
-                                <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
+                                <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left" style="padding: 1em 0;">
                                     <div class="unit-left">
                                         <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
                                     </div>
                                     <div class="unit-body">
                                         <div>
-                                            <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} - {{ place.getNameLocale }}</a></h5>
+                                            <h5 class="p text-capitalize text-spacing-inverse-25" style="height: 3em;">
+                                                <a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} - {{ place.getNameLocale }}</a>
+                                             </h5>
 
                                             <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km </p>
-                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} {% trans %}hours{% endtrans %} </p>
-                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 CUC <br/></p>
+                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('H:i') }} {% trans %}hours{% endtrans %} </p>
+                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getTrasferprice }}.00 CUC <br/></p>
 
                                             <div class="offset-top-40">
-                                                <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">
+                                                <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place-name="{{ place.getNameLocale }}" data-place="{{ place.id }}">
+                                                    <i class="fa fa-shopping-cart"></i>
                                                     {% trans %}Select{% endtrans %}
                                                 </a>
                                             </div>
@@ -64,7 +70,7 @@
             </div>
 
             <!-- Taxi-Tours subsection -->
-            <div class="offset-top-25 text-center">
+            <div class="offset-top-25 text-center offset-top-100">
                 <i class="fa fa-binoculars fa-3x color-sky"></i>
                 <h2 class="text-spacing-25">
                     {% trans %}Taxi-Tours{% endtrans %}
@@ -72,29 +78,34 @@
             </div>
 
             <!--List of Tours -->
-            <div class="range range-xs-center offset-top-44 offset-md-top-53 text-sm-left">
+            <div class="range range-xs-center offset-top-44 text-sm-left">
                 {% for place in places %}
                     {% if place.istour %}
-                        <div id="parent_{{ loop.index }}" data-type="tour" data-price="{{ place.getPrice }}" style="padding: 1em 0; margin: 1em 1em" class="cell-sm-10 cell-md-7 cell-lg-5 offset-top-60 item-place">
+                        <div id="parent_{{ loop.index }}" data-type="tour" data-price-transfer="{{ place.getTrasferprice }}" data-price-tour="{{ place.getPrice }}"
+                             style="/*padding: 1em 0; margin: 1em 1em*/"
+                             class="cell-sm-10 cell-md-7 cell-lg-6 offset-top-60 item-place">
                             <p id="tourDescription_{{ loop.index }}" class="hidden">
-                                {{ place.getPlaceDescLocale }}
+                                {{ place.getPlaceDescLocale | replace({"\n":"<br>", '\r':''}) | raw }}
                             </p>
                             <div style="max-width: 100%;" class="">
                                 <!-- Unit-->
-                                <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
+                                <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left" style="padding: 1em 0;">
                                     <div class="unit-left">
                                         <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
                                     </div>
                                     <div class="unit-body">
                                         <div>
-                                            <h5 class="p text-capitalize text-spacing-inverse-25"><a href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} - {{ place.getNameLocale }}</a></h5>
+                                            <h5 class="p text-capitalize text-spacing-inverse-25" style="height: 3em;">
+                                                <a id="place_name_{{ loop.index }}" href="#" class="text-mine-shaft">{% trans %}Havana{% endtrans %} - {{ place.getNameLocale }}</a>
+                                            </h5>
 
                                             <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km </p>
-                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('h:i') }} {% trans %}hours{% endtrans %} </p>
-                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getPrice }}.00 CUC <br/></p>
+                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('H:i') }} {% trans %}hours{% endtrans %} </p>
+                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getTrasferprice }}.00 CUC <br/></p>
 
                                             <div class="offset-top-40">
-                                                <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place="{{ place.id }}">
+                                                <a href="#" class="btn btn-calypso" data-role="booking-btn" data-parent="parent_{{ loop.index }}" data-place-name="{{ place.getNameLocale }}" data-place="{{ place.id }}">
+                                                    <i class="fa fa-shopping-cart"></i>
                                                     {% trans %}Select{% endtrans %}
                                                 </a>
                                             </div>
@@ -109,108 +120,132 @@
         </div>
     </div>
 {% endblock %}
+
 {% block submitAlert %}
-    <div class="alert alert-warning fade in" id="submitBookingPlaceAlert" style="display: none;">
+    <div class="alert alert-warning fade in" id="submitBookingPlaceAlert" {% if not noPlaceSelected %}style="display: none;"{% endif %}>
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <strong>{{ "Are you done?" | trans }}</strong> {{ "You haven't selected any place!" | trans }}
     </div>
 {% endblock submitAlert %}
+
 {% block javascript %}
 {{ parent() }}
     <script>
-
-        _addText = '{% trans %}Select{% endtrans %}';
+        increment = {{ config['price.increment'] }};
+        _addText = '<i class="fa fa-shopping-cart"></i> {% trans %}Select{% endtrans %}';
         _removeText = '{% trans %}Remove{% endtrans %}';
 
-        price = 0;
+        transferPrice = 0;
+        tourPrice = 0;
         isTour = false;
-        place_id = 0;
+        place_id = -1;
+        place_name = "";
 
         function wrapperPrice(price)
         {
-            priceContent = "";
-
-            if (price=="init")
-                priceContent = "{% trans %}Select a service first{% endtrans %}";
+            console.log(place_id);
+            if (price=="init" || place_id == -1)
+                return $("#labelPrice")[0].innerHTML = "{% trans %}Select a service first{% endtrans %}";
             else if (typeof(price)=="number")
-                priceContent = '<i class=\'fa fa-dollar color-sky\'></i> '+price+' CUC';
+                return '<i class=\'fa fa-dollar color-sky\'></i> '+price+' CUC';
             else
-                priceContent = "{% trans %}We need to negotiate{% endtrans %} <span class=\"text-extra-small\"> *</span>";
+                return "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
+            return price;
+        }
+
+
+        function updatePrice()
+        {
+            if (isTour){
+                if (buttonTourOn && numberPeople <= 3)
+                    priceContent = wrapperPrice(tourPrice);
+                if (!buttonTourOn && numberPeople <= 3)
+                    priceContent = wrapperPrice(transferPrice);
+                if (buttonTourOn && numberPeople > 3)
+                    priceContent = wrapperPrice(tourPrice+increment*(numberPeople-3));
+                if (!buttonTourOn && numberPeople > 3)
+                    priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
+
+                if (!buttonTourOn && buttonReturnOn){
+                    if (numberPeople <= 3)
+                        priceContent = wrapperPrice(2*transferPrice);
+                    if (numberPeople > 3)
+                        priceContent = wrapperPrice(2*(transferPrice+increment*(numberPeople-3)));
+                }
+            }
+            else if (buttonReturnOn){
+                if (numberPeople <= 3)
+                    priceContent = wrapperPrice(2*transferPrice);
+                if (numberPeople > 3)
+                    priceContent = wrapperPrice(2*(transferPrice+increment*(numberPeople-3)));
+            }
+            else{
+                if (numberPeople <= 3)
+                    priceContent = wrapperPrice(transferPrice);
+                if (numberPeople > 3)
+                    priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
+            }
+
+            //vinnales hard-coded
+            if (place_name == "Viñales" || place_name == "Vinales"){
+                if (buttonTourOn && numberPeople <= 3)
+                    priceContent = wrapperPrice(135);
+                if (buttonTourOn && numberPeople > 3)
+                    priceContent = wrapperPrice(160);
+            }
+
+            if (numberPeople > 5)
+                priceContent = wrapperPrice("");
 
             $("#labelPrice")[0].innerHTML = priceContent;
         }
 
-
-        function computeUpdatePrice()
-        {
-            var numberPeople = $('#{{ booking_form.numpeople.vars.id }}')[0].value;
-
-            {#todo: we shoul use a better identificator of the toggle botton not the element in [1]#}
-
-            if ((!isTour || $('.toggle')[1].classList.contains('off')) && numberPeople <= 5)
-                wrapperPrice(price);
-
-            if ((!isTour || !$('.toggle')[1].classList.contains('off')) && numberPeople > 2 && numberPeople <= 5)
-                wrapperPrice(price + (numberPeople-2)*10);
-
-            if ((!isTour) && numberPeople > 2 && numberPeople <= 5)
-                wrapperPrice(price);
-
-            if (numberPeople > 5)
-                wrapperPrice("");
-
-        }
-
         $(document).ready(function () {
 
+            selected_bottons = $('a[data-role="booking-btn"]');
+            wrapperPrice("init");
+
             $("#activeTour").change(function() {
-                computeUpdatePrice();
+                updatePrice();
+            });
 
-                if(!$('.toggle')[1].classList.contains('off')){
-                    var tour_description = $("#tourDescription_"+place_id)[0].innerHTML;
-                    $("#tourDescription")[0].innerHTML = tour_description;
-                    $("#tourDescription").fadeIn(500);
-                }
-                else{
-                    $("#tourDescription").fadeOut(500);
-                }
-
+            $("#activeReturn").change(function() {
+                updatePrice();
             });
 
             $("#{{ booking_form.numpeople.vars.id }}").change(function() {
-              computeUpdatePrice();
+                updatePrice();
             });
 
-            selected_bottons = $('a[data-role="booking-btn"]');
-
-            wrapperPrice("init");
-
             selected_bottons.click(function (e) {
-
                 e.preventDefault();
 
                 var parent_id = this.attributes['data-parent'].value;
+                place_name = this.attributes['data-place-name'].value;
+
                 var parent = $('#'+parent_id);
                 isTour = parent[0].attributes['data-type'].value=="tour";
-                price = parent[0].attributes['data-price'].value;
-                price = parseInt(price);
+                transferPrice = parent[0].attributes['data-price-transfer'].value;
+                transferPrice = parseInt(transferPrice);
+
+                if (isTour){
+                    tourPrice = parent[0].attributes['data-price-tour'].value;
+                    tourPrice = parseInt(tourPrice);
+                }
 
                 //si contiene la clase selecciona, entonces se le quita
                 if (this.classList.contains('selected-place')) {
-
+                    place_id = -1;
                     this.classList.remove('selected-place');
                     parent.removeClass('selected-place');
                     this.innerHTML = _addText;
 
-                    console.log('deselected')
-                    $('#appbundle_booking_place')[0].value = 'null';
+                    $('#appbundle_booking_place')[0].value = '';
 
                     //hide the tour button if it visible and the tour description
                     $("#tourToggle").fadeOut(500);
-                    $("#tourDescription").fadeOut(500);
 
                     wrapperPrice("init");
-
                 }
                 //si no contiene la clase seleccionada, entonces agregarla
                 else{
@@ -228,30 +263,31 @@
                     //logic
                     place_id = this.getAttribute("data-parent").replace("parent_","");
                     place_id = parseInt(place_id);
-
                     $('#appbundle_booking_place')[0].value = place_id;
 
-
                     //show the tour button
-                    if(isTour)
+                    if(isTour){
                         $("#tourToggle").fadeIn(500);
-                    else
+                        var tour_description = $("#tourDescription_"+place_id)[0].innerHTML;
+                        $("#tourTitle")[0].innerHTML = $("#place_name_"+place_id)[0].innerHTML;
+                        $("#tourDescription")[0].innerHTML = tour_description;
+                    }
+                    else{
                         $("#tourToggle").fadeOut(500);
+                    }
 
-                    computeUpdatePrice();
+                    updatePrice();
                 }
 
-                //$('#appbundle_booking_places_collection')[0].value =JSON.stringify(selected_places);
             })
+
+            activeOrDeactiveReturn();
+            $("#returnLine").fadeIn(500);
+            $("#returnToggle").fadeIn(500);
+            $("#returnPlace").fadeIn(500);
+            $("#returnTime").fadeIn(500);
     });
 
     </script>
 
-{% endblock %}
-{% block onsubmitBookingForm %}
-    if($('#appbundle_booking_place')[0].value == 'null')
-    {
-        e.preventDefault();
-        $('#submitBookingPlaceAlert').fadeIn();
-    }
 {% endblock %}

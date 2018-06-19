@@ -156,25 +156,36 @@ class Utils
         return $idPlaces;
     }
 
-    static function calculateSimpleRoutePrices(\AppBundle\Entity\Place $place, $persons){
-        if(strtolower($place->getName()) == 'viñales')
-        {
-            if($persons <= 3)
-                return 135;
-            if($persons <= 5)
-                return 160;
-        }
-        if($persons<=2)
-            return $place->getPrice();
-        return $place->getPrice()+($persons-2)*10;
+    //todo: hay que ver si la reservacion hecha es tour o tranfer
+    static function calculateSimpleRoutePrices(\AppBundle\Entity\Place $place, \AppBundle\Entity\Booking $booking, $increment){
 
+        $price = 0;
+        if(strtolower($place->getName()) == 'viñales' && $booking->isTour())
+        {
+            if($booking->getNumpeople() <= 3)
+                $price = 135;
+            if($booking->getNumpeople() <= 5)
+                $price = 160;
+        }
+        else {
+            $_price = $booking->isTour() ? $place->getPrice() : $place->getTrasferprice();
+            if ($booking->getNumpeople() <= 3)
+                $price = $_price;
+            else
+                $price = $_price + ($booking->getNumpeople()-3)*$increment;
+
+        }
+        if($booking->isReturnpickup())
+            $price *= 2;
+
+        return $price;
     }
 
     static function buildProductName(\AppBundle\Entity\Booking $booking, \AppBundle\Entity\Place $place){
         $str = $booking->isTour() ? "Tour to " : "Transfer to ";
         $str .= $place->getNameLocale();
         $str .= " for ".$booking->getNumpeople()." persons";
-        $str .= "on ".$booking->getPickuptimeFormated();
+        $str .= " on ".$booking->getPickuptimeFormated();
         return $str;
     }
 }

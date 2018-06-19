@@ -8,6 +8,7 @@ use AppBundle\Utils\Utils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse as RedirectResponse;
@@ -57,7 +58,7 @@ class DefaultController extends Controller
                     ->setSubject($subject)
                     ->setReplyTo($senderEmail)
                     ->setTo($senderEmail)
-                    ->setFrom("noreply@taxidriverscuba.com")
+                    ->setFrom("taxidriverscuba-noreply@taxidriverscuba.com")
                     ->setBody(
                         $this->renderView(
                             'AppBundle:Email:contactNotification.html.twig',
@@ -175,15 +176,14 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/{_locale}/blog/{_tag}/{_page}", defaults={"_locale": "en", "_page":1}, requirements={
+     * @Route("/{_locale}/blog/{_tag}/", defaults={"_locale": "en"}, requirements={
      * "_locale": "en|es|fr",
-     * "_page":"\d+",
      * }, name="tag_posts")
      */
     public function tagPostsAction(Request $request, $_locale='en', $_page=1, $_tag){
         $em = $this->getDoctrine()->getManager();
 
-        $tag = null;;
+        $tag = [];
         if($_locale == 'es')
             $tag = $em->getRepository("AppBundle:Tag")->findBy(['tag'=>$_tag]);
 
@@ -197,9 +197,7 @@ class DefaultController extends Controller
         foreach ($tag as $item)
             $tags_id[] = $item->getId();
 
-//TODO: write query to get blogentries from tag's ids
-        $blogEntries = $em->getRepository("AppBundle:Blogentrie")->findBy(['tags'=>$tags_id]);
-
+        $blogEntries = $em->getRepository("AppBundle:Tag")->findPostByTags($tags_id);
 
         if ($blogEntries) {
 
@@ -224,7 +222,7 @@ class DefaultController extends Controller
                     'blogEntries'=>$blogEntries,
                     'countEntries' => $countEntries,
                     'pageNumber' => $_page,
-                    'currentTag' =>$tag
+                    'currentTag' =>$tag[0]
                 ]);
         }
         else
@@ -232,4 +230,21 @@ class DefaultController extends Controller
 
     }
 
+    /**
+     * @Route("/bloglike/{_id}", requirements={
+     * "_id":"\d+",
+     * }, name="bloglikeEntry")
+     */
+    public function blogLikeEntryAction(Request $request, \AppBundle\Entity\Blogentrie $_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if($request->isXmlHttpRequest())
+        {
+            $_id->addLike();
+            $em->persist($_id);
+            $em->flush();
+        }
+
+        return new JsonResponse(['status'=>'ok']);
+    }
 }
