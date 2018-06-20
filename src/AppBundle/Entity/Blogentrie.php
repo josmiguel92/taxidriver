@@ -168,7 +168,17 @@ class Blogentrie  extends ImageField
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tag", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts", cascade={"persist"})
+     * @ORM\JoinTable(name="post_has_tags",
+     * joinColumns={
+     * @ORM\JoinColumn(name="posts_id",
+    referencedColumnName="id")
+     * },
+     * inverseJoinColumns={
+     * @ORM\JoinColumn(name="tags_id",
+    referencedColumnName="id")
+     * }
+     * )
      */
     protected $tags;
 

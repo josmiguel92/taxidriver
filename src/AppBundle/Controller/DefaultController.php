@@ -176,15 +176,14 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/{_locale}/blog/{_tag}/{_page}", defaults={"_locale": "en", "_page":1}, requirements={
+     * @Route("/{_locale}/blog/{_tag}/", defaults={"_locale": "en"}, requirements={
      * "_locale": "en|es|fr",
-     * "_page":"\d+",
      * }, name="tag_posts")
      */
     public function tagPostsAction(Request $request, $_locale='en', $_page=1, $_tag){
         $em = $this->getDoctrine()->getManager();
 
-        $tag = null;;
+        $tag = [];
         if($_locale == 'es')
             $tag = $em->getRepository("AppBundle:Tag")->findBy(['tag'=>$_tag]);
 
@@ -198,9 +197,7 @@ class DefaultController extends Controller
         foreach ($tag as $item)
             $tags_id[] = $item->getId();
 
-//TODO: write query to get blogentries from tag's ids
-        $blogEntries = $em->getRepository("AppBundle:Blogentrie")->findBy(['tags'=>$tags_id]);
-
+        $blogEntries = $em->getRepository("AppBundle:Tag")->findPostByTags($tags_id);
 
         if ($blogEntries) {
 
@@ -225,7 +222,7 @@ class DefaultController extends Controller
                     'blogEntries'=>$blogEntries,
                     'countEntries' => $countEntries,
                     'pageNumber' => $_page,
-                    'currentTag' =>$tag
+                    'currentTag' =>$tag[0]
                 ]);
         }
         else

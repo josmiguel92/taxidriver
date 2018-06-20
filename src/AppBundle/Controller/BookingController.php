@@ -43,6 +43,7 @@ class BookingController extends Controller
             ));
 
             $booking_form->handleRequest($request);
+
             $noPlaceSelected = true;
             if($booking->getPlace()>0)
                 $noPlaceSelected = false;
@@ -216,7 +217,9 @@ class BookingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $purchase = $em->getRepository('AppBundle:Booking')->findOneBy(['token'=>$_token]);
         $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+
         $config = [];
+
         foreach ($_config as $item){
             $config[$item->getName()]=$item->getValue();
         }
@@ -231,6 +234,7 @@ class BookingController extends Controller
             else $place = null;
             $places = $em->getRepository('AppBundle:Place')->findAll();
 
+
             if($_paypalCallback == 'success' OR $_paypalCallback == 'cash' OR !Utils::isSimpleBooking($purchase)){
                 $this->sendEmailNotifications($purchase);
                 $purchase->setConfirmed(true);
@@ -241,6 +245,7 @@ class BookingController extends Controller
                 $em->persist($purchase);
                 $em->flush();
             }
+
 
 
             /*TODO: proccess Paypal POST headers and push it on DB*/

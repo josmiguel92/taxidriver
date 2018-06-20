@@ -10,4 +10,24 @@ namespace AppBundle\Repository;
  */
 class TagRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function findPostByTags($tags)
+    {
+        if(count($tags)<1)
+            return;
+        $qString = 'SELECT p, t FROM AppBundle:Blogentrie p LEFT JOIN p.tags t WHERE ';
+        $i = 0;
+        foreach ($tags as $c)
+        {
+            $qString .= ' ?' . $i. ' MEMBER OF p.tags';
+            if ($i < (count($tags)-1))
+            {
+                $qString .= ' OR';
+            }
+            $i++;
+        }
+        $query = $this->_em->createQuery($qString);
+        $query->setParameters($tags);
+        return $query->getResult();
+    }
 }

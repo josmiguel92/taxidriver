@@ -37,7 +37,9 @@ class Tag
      */
     private $tagEn;
 
-
+    /**
+     * @ORM\ManyToMany(targetEntity="Blogentrie", mappedBy="tags")
+     */
     private $posts;
 
 

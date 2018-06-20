@@ -485,7 +485,9 @@ class AdminController extends Controller
 
         $booking_pend = $em->getRepository("AppBundle:Booking")
             ->createQueryBuilder("b")
+
             ->where("b.accepted = false AND b.pickuptime >= :today  AND b.confirmed = true")
+
             ->setParameter("today", new \DateTime('today'))
             ->getQuery()->getResult();
 
@@ -693,6 +695,7 @@ class AdminController extends Controller
 
     public function sidebarAction($pagename){
         $em =  $this->getDoctrine()->getManager();
+
         $messagesCount = $em->createQuery(
             'SELECT count(c.id)
              FROM AppBundle:ContactMsgs c'
@@ -700,7 +703,9 @@ class AdminController extends Controller
 
         $bookingCount = count($em->getRepository("AppBundle:Booking")
             ->createQueryBuilder("b")
-            ->where("b.accepted = false AND b.pickuptime >= :today")//todo: revisar que se muestren solo los que no se han confirmado
+
+            ->where("b.accepted = false AND b.pickuptime >= :today")
+
             ->setParameter("today", new \DateTime('today'))
             ->getQuery()->getResult());
 
