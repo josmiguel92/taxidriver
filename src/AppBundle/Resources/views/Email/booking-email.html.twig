@@ -181,24 +181,28 @@
                                                 <p>Email: <a href="mailto:{{ booking.email }}">{{ booking.email }}</a></p>
                                                 <hr>
                                                 <p>
-                                                    {% if booking.airport %}
-                                                        Debe recogerlo en el puerto o aereopuerto,
-                                                        su vuelo (o crucero) es <b>{{booking.flynumber}}</b>
-
+                                                    {% if booking.isAnAirport %}
+                                                        Debe recogerlo en el aereopuerto,<br/>
+                                                        su numero de vuelo es: <b>{{booking.flynumber}}</b>
+                                                    {% elseif booking.aCruise %}
+                                                        Debe recogerlo en la terminal de crucero<br/>
+                                                        el nombre del crucero es: <b>{{booking.flynumber}}</b>
                                                     {% endif %}
                                                 </p>
-                                                <h4>Sobre la recogida</h4>
-                                                <p>Hora y fecha: {{ booking.pickuptime | date("l d/m/Y H:i") }}</p>
-                                                <p>Detalles de recogida:<br>
-                                                    {{ booking.details}}
-                                                </p>
 
-                                                {% if  booking.returnpickuptime or booking.returnpickupplacce %}
-                                                <h4>Sobre el regreso</h4>
-                                                <p>Hora y fecha: {{ booking.returnpickuptime | date("l d/m/Y H:i") }}</p>
-                                                <p>Detalles de recogida:<br>
-                                                    {{ booking.returnpickupplacce}}
-                                                </p>
+                                                {% if  booking.returnpickup %}
+                                                    <h4>Sobre la recogida</h4>
+                                                    <p>Hora y fecha: {{ booking.pickuptime | date("l d/m/Y H:i") }}</p>
+                                                    <p>Detalles de recogida:<br>
+                                                        {{ booking.details}}
+                                                    </p>
+
+
+                                                    <h4>Sobre el regreso</h4>
+                                                    <p>Hora y fecha: {{ booking.returnpickuptime | date("l d/m/Y H:i") }}</p>
+                                                    <p>Detalles de recogida:<br>
+                                                        {{ booking.returnpickupplacce}}
+                                                    </p>
 
                                                 {% endif %}
 
@@ -206,12 +210,12 @@
                                                 {% if booking.idpaypal %}
                                                     <p>El pago se realiz&oacute; por PayPal, la ID de transacci&oacute;n es:<br>
                                                         {{ booking.idpaypal }}<br>
-                                                        Se pagaron {{ booking.price }} USD<br>
+                                                        Se pagaron {{ (booking.price / config['tasa.usd']) | number_format(2,'.') }} USD<br>
                                                     </p>
                                                 {% else %}
                                                     <p>No se ha realizado el pago a&uacute;n.
                                                         {% if booking.price %}
-                                                            El precio es <b>{{ booking.price }} USD</b>.
+                                                            El precio es <b>{{ booking.price }} CUC</b>.
                                                         {% else %}
                                                             <b>Deber&aacute;s definir el precio en la administraci&oacute;n</b>
                                                         {% endif %}

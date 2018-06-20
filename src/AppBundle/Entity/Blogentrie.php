@@ -172,6 +172,38 @@ class Blogentrie  extends ImageField
      */
     protected $tags;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="likes", type="integer")
+     */
+    private $likes;
+
+    /**
+     * @return int
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * @param int $likes
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+    }
+
+    /**
+     * @param int $likes
+     */
+    public function AddLike()
+    {
+        $this->likes++;
+    }
+
+
 
     /**
      * Get id

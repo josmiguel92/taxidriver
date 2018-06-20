@@ -43,7 +43,6 @@ class BookingController extends Controller
             ));
 
             $booking_form->handleRequest($request);
-
             $noPlaceSelected = true;
             if($booking->getPlace()>0)
                 $noPlaceSelected = false;
@@ -82,6 +81,8 @@ class BookingController extends Controller
 
                     $booking->setAccepted(true);
                 }
+
+
                 $em->persist($booking);
                 $em->flush();
 
@@ -215,7 +216,7 @@ class BookingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $purchase = $em->getRepository('AppBundle:Booking')->findOneBy(['token'=>$_token]);
         $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
-        $config = [];;
+        $config = [];
         foreach ($_config as $item){
             $config[$item->getName()]=$item->getValue();
         }
@@ -230,8 +231,17 @@ class BookingController extends Controller
             else $place = null;
             $places = $em->getRepository('AppBundle:Place')->findAll();
 
-            if($_paypalCallback == 'success' OR $_paypalCallback == 'cash')
-            $this->sendEmailNotifications($purchase);
+            if($_paypalCallback == 'success' OR $_paypalCallback == 'cash' OR !Utils::isSimpleBooking($purchase)){
+                $this->sendEmailNotifications($purchase);
+                $purchase->setConfirmed(true);
+
+                if (isset($_GET['tx']))
+                    $purchase->setIdpaypal($_GET['tx']);
+
+                $em->persist($purchase);
+                $em->flush();
+            }
+
 
             /*TODO: proccess Paypal POST headers and push it on DB*/
             /*if($_paypalCallback == 'success') {
@@ -382,6 +392,7 @@ class BookingController extends Controller
                         'telephone'=> $telephone,
                         'place'=>$place,
                         'booking'=>$booking,
+                        'config' => $config,
                     ]
                 ),
                 'text/html'

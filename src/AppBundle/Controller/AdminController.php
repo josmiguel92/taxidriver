@@ -460,7 +460,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $booking = $em->getRepository("AppBundle:Booking")
         ->createQueryBuilder("b")
-            ->where("b.pickuptime > :yesterday")
+            ->where("b.pickuptime > :yesterday AND b.confirmed = true")
             ->setParameter("yesterday", new \DateTime('yesterday'))
             ->orderBy("b.pickuptime", "DESC")
             ->getQuery()->getResult();
@@ -469,7 +469,7 @@ class AdminController extends Controller
 
         $next_week = $em->getRepository("AppBundle:Booking")
             ->createQueryBuilder("b")->orderBy("b.id", "DESC")
-            ->where("b.pickuptime > :today AND b.pickuptime < :nextweek")
+            ->where("b.pickuptime > :today AND b.pickuptime < :nextweek  AND b.confirmed = true")
             ->setParameter("today", new \DateTime('today'))
             ->setParameter("nextweek", new \DateTime('today + 1 week'))
             ->getQuery()->getResult();
@@ -477,7 +477,7 @@ class AdminController extends Controller
         $pendientes_month = $em->createQuery(
                             'SELECT b.id
                 FROM AppBundle:Booking b
-                WHERE b.pickuptime > :today AND b.pickuptime < :nextmonth'
+                WHERE b.pickuptime > :today AND b.pickuptime < :nextmonth  AND b.confirmed = true'
                         )
             ->setParameter("today", new \DateTime('today'))
             ->setParameter("nextmonth", new \DateTime('next month'))
@@ -485,7 +485,7 @@ class AdminController extends Controller
 
         $booking_pend = $em->getRepository("AppBundle:Booking")
             ->createQueryBuilder("b")
-            ->where("b.accepted = false AND b.pickuptime >= :today")
+            ->where("b.accepted = false AND b.pickuptime >= :today  AND b.confirmed = true")
             ->setParameter("today", new \DateTime('today'))
             ->getQuery()->getResult();
 
@@ -520,17 +520,30 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $configValues = $em->getRepository('AppBundle:ConfigValue')->findAll();
-        if(!$configValues)
-        {
-            $config = new \AppBundle\Entity\ConfigValue("tasa.usd",0.88);
-            $em->persist($config);
 
-            $config1 = new \AppBundle\Entity\ConfigValue("price.increment",10);
-            $em->persist($config1);
-
-            $em->flush();
-            $configValues = $em->getRepository('AppBundle:ConfigValue')->findAll();
+        $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+        $config = [];
+        foreach ($_config as $item){
+            $config[$item->getName()]=$item->getValue();
         }
+
+       if(!isset($config['tasa.usd']))
+           $em->persist(new \AppBundle\Entity\ConfigValue("tasa.usd",0.88));
+
+
+        if(!isset($config['price.increment']))
+            $em->persist(new \AppBundle\Entity\ConfigValue("price.increment",10));
+
+        if(!isset($config['paypal.email']))
+            $em->persist(new \AppBundle\Entity\ConfigValue("paypal.email","taxidriverscuba@gmail.com"));
+
+        if(!isset($config['paypal.token']))
+            $em->persist(new \AppBundle\Entity\ConfigValue("paypal.token",'xxxxxxxxx'));
+
+
+        $em->flush();
+            $configValues = $em->getRepository('AppBundle:ConfigValue')->findAll();
+
 
         return $this->render('AppBundle:Dash:config.html.twig', [
             'pagename'=>'config',
@@ -680,7 +693,6 @@ class AdminController extends Controller
 
     public function sidebarAction($pagename){
         $em =  $this->getDoctrine()->getManager();
-        //todo: coseguir cantidades de todo, para los badges en los links de la sidebar
         $messagesCount = $em->createQuery(
             'SELECT count(c.id)
              FROM AppBundle:ContactMsgs c'
@@ -688,7 +700,7 @@ class AdminController extends Controller
 
         $bookingCount = count($em->getRepository("AppBundle:Booking")
             ->createQueryBuilder("b")
-            ->where("b.accepted = false AND b.pickuptime >= :today")
+            ->where("b.accepted = false AND b.pickuptime >= :today")//todo: revisar que se muestren solo los que no se han confirmado
             ->setParameter("today", new \DateTime('today'))
             ->getQuery()->getResult());
 

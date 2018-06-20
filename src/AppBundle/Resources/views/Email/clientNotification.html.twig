@@ -202,9 +202,22 @@
                                         <td width="600" align="justify" style="padding-bottom:5px;">
                                             <div class="contentEditableContainer contentTextEditable">
                                                 <div class="contentEditable" >
-                                                    <p>Hi! {{ booking.fullname }}, we will be waiting for you at <strong>{{ booking.pickuptime | date("l d/m/Y H:i") }}</strong>.
+                                                    <h2>Hi! {{ booking.fullname }}</h2>
+													<h3>Thanks for choose us to discover Cuba</h3>
+
+													<p>We will be waiting for you at <strong>{{ booking.pickuptime | date("l d/m/Y H:i") }}</strong>.
+														{% if booking.aCruise %}
+															Al frente de la salida de la terminar de cruceros en la plaza de San Francisco,
+															que se encuentra en cuanto usted cruce la calle por el paso peatonal estaremos
+															parado en la fuente de los leones con su nombre escrito en un papel ({{ booking.fullname }}).
+														{% elseif booking.isAnAirport %}
+															en la salida de la terminar internacional José Martí con su nombre escrito en un papel ({{ booking.fullname }}).
+														{% else %}
+															en {{ booking.details }}.
+														{% endif %}
+
                                                         The price of your taxi is <strong>{{ booking.price }} CUC</strong> (or <strong>{{ (booking.price / config['tasa.usd']) | number_format(2,'.') }} USD</strong> ) for visiting:
-                                                    </p>
+
                                                         <ul class="p">
                                                             {% if booking.ownroute is not empty %}
                                                                 {% for _place in booking.ownrouteFormated %}
@@ -248,7 +261,7 @@
 												</tr>
 											</table>
 										</td>
-										<td width="100">&nbsp;</td>
+										<td width="100"></td>
 									</tr>
 								</table>
 							</div>
@@ -314,7 +327,6 @@
 														<div class="contentEditableContainer contentTextEditable">
 															<div class="contentEditable"  style="padding:20px 10px 0 0;margin:0;font-family:Helvetica, Arial, sans-serif;font-size:15px;line-height:150%;">
 																<p style='color:#FFEECE;'>
-
 																	It is very easy to travel to <b>Cuba</b> with us. Our team provides <b>taxi services and tours</b> through several routes that go to the most <b>amazing places</b> on the island.
 																</p>
 															</div>

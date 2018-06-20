@@ -27,9 +27,9 @@ class Booking
     private $id;
 
     /**
-     * @var bool
+     * @var string
      *
-     * @ORM\Column(name="airport", type="boolean", nullable=true)
+     * @ORM\Column(name="airport", type="string", length=255, nullable=true)
      */
     private $airport;
 
@@ -606,6 +606,18 @@ class Booking
         if(gettype($this->returnpickuptime)=='object')
             return $this->returnpickuptime->format($format);
         return null;
+    }
+
+    public function isAnAirport(){
+        if ($this->airport=='airport')
+            return true;
+        return false;
+    }
+
+    public function isACruise(){
+        if ($this->airport=='cruise')
+            return true;
+        return false;
     }
 
     /**

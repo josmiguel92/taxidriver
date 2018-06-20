@@ -115,7 +115,12 @@
                             <td>{{ item.pickuptime | date("Y/M/d - H:i")}}</td>
                             <td>
                                 {% if item.price > 0 %}
-                                {{  item.price }} USD
+                                {{  item.price }}
+                                    {% if item.idpaypal %}
+                                        USD
+                                    {% else %}
+                                        CUC
+                                    {% endif %}
                                 {% else %}
                                     N/A
                                 {% endif %}
