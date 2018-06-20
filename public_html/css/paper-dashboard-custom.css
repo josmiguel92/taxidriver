@@ -121,7 +121,7 @@ list-style-type: none;
 
 }
 [name="appbundle_blogentries"] ul.tags div.form-group > input{
-  width: 8em;  
+  width: 100%;
 }
 [name="appbundle_blogentries"] ul.tags li:last-child{
 display: block;
