@@ -188,6 +188,10 @@
             	<target>Siguenos</target>
             </trans-unit>
 
+            <trans-unit id="close">
+            	<source>Close</source>
+            	<target>Cerrar</target>
+            </trans-unit>
 
 
 

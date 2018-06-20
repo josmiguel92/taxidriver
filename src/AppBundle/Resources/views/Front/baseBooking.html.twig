@@ -45,7 +45,7 @@
                         <div class="col-md-5 col-md-push-1 col-xs-12 offset-xs-top-15">
                             <div id="flynumber">
                                 <div class="form-group">
-                                    <label for="{{ booking_form.flynumber.vars.id }}" class="form-label rd-input-label">{% trans %}Flight number or cruiser name{% endtrans %}</label>
+                                    <label for="{{ booking_form.flynumber.vars.id }}" class="text-extra-small form-label rd-input-label">{% trans %}Flight number or cruiser name{% endtrans %}</label>
                                     <input id="{{ booking_form.flynumber.vars.id }}" name="{{ booking_form.flynumber.vars.full_name }}"  class="form-control form-control-has-validation form-control-last-child" type="text" required disabled>
                                     <span class="form-validation"></span>
                                 </div>
@@ -261,7 +261,7 @@
                         </p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary text-capitalize" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary text-capitalize" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->

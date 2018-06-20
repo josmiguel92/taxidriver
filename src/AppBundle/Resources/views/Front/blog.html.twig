@@ -55,7 +55,7 @@
                                             <!-- Post Body-->
                                             <div class="post-body offset-top-15 offset-md-top-25">
                                                 <p class="text-spacing-0">
-                                                    {{ blogEntry.getTeaserLocale|striptags|slice(0, 500)|nl2br }} ...<a href="{{ url }}" class="text-extra-small text-bold text-turquoise text-capitalize text-spacing-50">{% trans %}Read More{% endtrans %}</a>
+                                                    {{ blogEntry.getTeaserLocale|striptags|slice(0, 500)|nl2br }}... <a href="{{ url }}" >{% trans %}Read More{% endtrans %}</a>
                                                 </p>
                                             </div>
                                             <div class="offset-top-20 offset-md-top-30">
@@ -85,7 +85,7 @@
                                 <nav>
                                     <ul class="list-marked list-marked-type-2 list-marked-type-2-dot-1 list-marked-silver-chalice pagination-classic">
                                         <li class="text-regular">
-                                            <a href="#" class="icon icon-sm icon-primary material-icons-ico material-icons-chevron_left"></a>
+                                            <a href="#" class="fa fa-chevron-left"></a>
                                         </li>
 
                                         {% for page in range(1, pages) %}
@@ -101,7 +101,7 @@
                                         {% endfor %}
 
                                         <li class="text-regular">
-                                            <a href="#" class="icon icon-sm icon-primary material-icons-ico material-icons-chevron_right"></a>
+                                            <a href="#" class="fa fa-chevron-right"></a>
                                         </li>
                                     </ul>
                                 </nav>

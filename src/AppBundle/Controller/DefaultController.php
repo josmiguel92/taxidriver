@@ -103,7 +103,7 @@ class DefaultController extends Controller
      */
     public function blogAction(Request $request, $_locale='en', $_page=1)
     {
-        $entriesNumber = 4;
+        $entriesNumber = 3;
         $startEntry = $entriesNumber*($_page-1);
 
 

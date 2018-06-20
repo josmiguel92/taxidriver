@@ -31,11 +31,17 @@
     <meta property="og:description" content="{{ description }}" />
     <meta property="og:image" content="{{ absolute_url(asset(featureImage)) }}" />
 
-	<link rel="stylesheet" type="text/css" href="{{ asset("css/css.css") }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset("css/style2.css") }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset("css/custom.css") }}">
-    {#TODO: remove font-awsome local and use CDN, also boostrap too#}
-    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">-->
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700|Source+Sans+Pro" rel="stylesheet">
+    {#<link rel="stylesheet" type="text/css" href="{{ asset("css/css.css") }}">#}
+
+    <link rel="stylesheet" href="{{ asset("css/myBootstrap.css") }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset("css/style.css") }}">
+    {#<link rel="stylesheet" type="text/css" href="{{ asset("css/style2.css") }}">#}
+
+    <link rel="stylesheet" type="text/css" href="{{ asset("css/custom.css") }}">
+
+    <script src="https://use.fontawesome.com/f922c63c85.js"></script>
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
