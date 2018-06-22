@@ -5,7 +5,7 @@
     {% set title = "Detalles de la compra " %}
 {% endif %}
 
-{% set featureImage = asset(content.getHeaderimage.getWebPath) %}
+{% set featureImage = asset(content.getHeaderimage.getWideImageWebPath) %}
 {% set description =  ''%}
 
 {% if paypalCallback is empty %}

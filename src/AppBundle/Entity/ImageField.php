@@ -80,6 +80,20 @@ class ImageField
             : $this->getUploadDir().'/'.$this->path;
     }
 
+    public function getThumbnailWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path.'-thumb.jpg';
+    }
+
+    public function getWideImageWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path.'-wide.jpg';
+    }
+
     protected function getUploadRootDir()
     {
         // la ruta absoluta del directorio donde se deben
@@ -140,8 +154,7 @@ class ImageField
      {
         if ($file = $this->getAbsolutePath()) {
             @unlink($file);
-            @unlink($file.'-thumb.jpg');
-            @unlink($file.'-wide.jpg');
+            $this->removeThumbs();
         }
     }
     /**
@@ -176,7 +189,7 @@ class ImageField
         $thumb_width = 700;
         $thumb_height = 700;
 
-        $widefilename = this->getAbsolutePath().'-wide.jpg';
+        $widefilename = $this->getAbsolutePath().'-wide.jpg';
         $widethumb_width = 1350;
         $widethumb_height = 760;
 
@@ -237,4 +250,17 @@ class ImageField
         imagejpeg($widethumb, $widefilename, 80);
     }
 
+    public function removeThumbs()
+    {
+        if($file = $this->getAbsolutePath())
+        {
+            @unlink($file.'-thumb.jpg');
+            @unlink($file.'-wide.jpg');
+        }
+    }
+
+    public function updateThumbs(){
+        $this->removeThumbs();
+        $this->createThumb();
+    }
 }

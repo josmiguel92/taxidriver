@@ -2,11 +2,11 @@
 
 
 {% set title = blogEntry.getTitleLocale %}
-{% set featureImage = asset(blogEntry.getFullImageWebPath) %}
+{% set featureImage = asset(blogEntry.getWideImageWebPath) %}
 {% set description = blogEntry.getTeaserLocale|striptags|slice(0,200)~'...' %}
 
 {% block header_image %}
-    {{ asset(blogEntry.getFullImageWebPath) }}
+    {{ asset(blogEntry.getWideImageWebPath) }}
 {% endblock %}
 
 {% block class %}blog-post{% endblock %}
@@ -67,7 +67,7 @@
         <section class="blog-post context-dark offset-top-0" style="margin-top: -8px;">
             <!-- RD Parallax-->
             <div data-on="false" data-md-on="true" class="rd-parallax">
-                <div data-speed="0.25" data-type="media" data-url="{{ asset(blogEntry.getImageSecondary.getWebPath) }}" class="rd-parallax-layer"></div>
+                <div data-speed="0.25" data-type="media" data-url="{{ asset(blogEntry.getImageSecondary.getWideImageWebPath) }}" class="rd-parallax-layer"></div>
                 <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
                     <div class="shell section-75 section-md-top-103 section-md-bottom-110">
                         <div class="range range-xs-center">
