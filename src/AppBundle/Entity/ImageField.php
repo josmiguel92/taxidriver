@@ -98,7 +98,7 @@ class ImageField
     {
         // la ruta absoluta del directorio donde se deben
         // guardar los archivos cargados
-        return __DIR__ . '/../../../public_html/' .$this->getUploadDir();
+        return __DIR__ . '/../../../web/' .$this->getUploadDir();
     }
 
     protected function getUploadDir()
