@@ -246,8 +246,8 @@ class ImageField
             $new_width_wide, $new_height_wide,
             $width, $height);
 
-        @imagejpeg($thumb, $filename, 80);
-        @imagejpeg($widethumb, $widefilename, 80);
+        @imagejpeg($thumb, $filename, 85);
+        @imagejpeg($widethumb, $widefilename, 85);
     }
 
     public function removeThumbs()

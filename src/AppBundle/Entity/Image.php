@@ -32,12 +32,7 @@ class Image extends ImageField
      */
     private $title;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="active", type="boolean")
-     */
-    private $active;
+
 
     /**
      * @var string
@@ -96,23 +91,7 @@ class Image extends ImageField
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getActive()
-    {
-        return $this->active;
-    }
 
-    /**
-     * @param string $active
-     * @return Image
-     */
-    public function setActive($active)
-    {
-        $this->active = $active;
-        return $this;
-    }
 
 
     /**

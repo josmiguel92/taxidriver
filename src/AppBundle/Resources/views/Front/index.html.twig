@@ -3,6 +3,9 @@
 {% set title = 'Home' %}
 {% set description = content.getSiteDescriptionLocale %}
 
+{% block otherscripts %}
+    <script async src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}
 
 {% block header %}
 
@@ -487,11 +490,11 @@
                                 <div class="owl-item">
                                     <!-- Blockquote-->
                                     <blockquote class="quote">
-                                        <img src="{{ testimony.getAvatar }}" width="169" height="169" alt="{{ testimony.getName }}" class="img-circle img-responsive center-block">
+                                        <img src="{{ asset(testimony.getFullImageWebPath) }}" width="169" height="169" alt="{{ testimony.getName }}" class="img-circle img-responsive center-block">
                                         <div class="offset-top-15 offset-md-top-30">
                                             <p >
-                                                {{ testimony.getTextLocale|striptags|slice(0, 250) }}
-                                                {% if testimony.getTextLocale|striptags|length > 250 %}
+                                                {{ testimony.getTextLocale|striptags|slice(0, 190) }}
+                                                {% if testimony.getTextLocale|striptags|length > 190 %}
                                                     ...
                                                 {% endif %}
                                             </p>

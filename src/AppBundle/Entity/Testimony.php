@@ -4,14 +4,15 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Utils\Utils;
+use AppBundle\Entity\ImageField;
 
 /**
  * Testimony
- *
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="testimony")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TestimonyRepository")
  */
-class Testimony
+class Testimony extends ImageField
 {
     /**
      * @var int
@@ -43,13 +44,6 @@ class Testimony
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="avatar", type="string", length=255)
-     */
-    private $avatar;
 
 
     /**
@@ -108,30 +102,6 @@ class Testimony
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set avatar
-     *
-     * @param string $avatar
-     *
-     * @return Testimony
-     */
-    public function setAvatar($avatar)
-    {
-        $this->avatar = $avatar;
-
-        return $this;
-    }
-
-    /**
-     * Get avatar
-     *
-     * @return string
-     */
-    public function getAvatar()
-    {
-        return $this->avatar;
     }
 
     function getTextLocale(){

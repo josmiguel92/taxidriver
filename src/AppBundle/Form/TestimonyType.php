@@ -16,7 +16,7 @@ class TestimonyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name')
-            ->add('avatar', null, ['label'=>'URL del Avatar del usuario en Internet'])
+            ->add('file', null,['label'=>"Imagen del perfil"] )
             ->add('text', TextareaType::class, ['label'=>'Comentario'])
             ->add('texten', TextareaType::class, ['label'=>'Comentario, en ingles']);
     }/**

@@ -31,22 +31,24 @@
     <meta property="og:description" content="{{ description }}" />
     <meta property="og:image" content="{{ absolute_url(asset(featureImage)) }}" />
 
+    {#
     <link rel="stylesheet" href="{{ asset("css/myBootstrap.css") }}">
-
     <link rel="stylesheet" type="text/css" href="{{ asset("css/style.css") }}">
-    {#<link rel="stylesheet" type="text/css" href="{{ asset("css/style2.css") }}">#}
+    #}
+    <link rel="stylesheet" type="text/css" href="{{ asset("css/styles.min.css") }}">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset("css/custom.css") }}">
 
     {% if app.Environment == "dev" %}
         <link rel="stylesheet" type="text/css" href="{{ asset("css/css.css") }}">
         <link rel="stylesheet" type="text/css" href="{{ asset("css/font-awesome.css") }}">
     {% else %}
     <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700|Source+Sans+Pro" rel="stylesheet">
-        <script src="https://use.fontawesome.com/f922c63c85.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    {#<script async src="https://use.fontawesome.com/f922c63c85.js"></script>#}
     {% endif %}
 
-    <script src='https://www.google.com/recaptcha/api.js'></script>
+    {% block otherscript %}
+    {% endblock %}
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120939597-1"></script>
@@ -353,7 +355,7 @@
             <script src="{{ asset("js/bootstrap3.3.6.min.js") }}"></script>
         {% else %}
             <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
         {% endif %}
 
         <script src="{{ asset("js/core.min.js") }}"></script>
