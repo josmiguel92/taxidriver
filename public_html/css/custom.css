@@ -157,7 +157,9 @@ div.toggle{
 }
 
 .breadcrumb-modern.rd-parallax,
-.breadcrumb-modern.rd-parallax .rd-parallax-inner{
+.breadcrumb-modern.rd-parallax .rd-parallax-inner,
+.about-us .rd-parallax,
+.about-us .rd-parallax .rd-parallax-inner{
     height: 60vh !important;
 }
 
@@ -202,6 +204,14 @@ h2{
     column-rule-style: dashed;
     column-rule-color: rgba(128, 128, 128, 0.45);
 }
+
+@media screen and (max-width: 480px) {
+    .two-columns{
+        column-count: 1;
+    }
+}
+
+
 
 .place-description a {
     text-transform: none;

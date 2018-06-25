@@ -4,11 +4,12 @@
 
 {% block content %}
     {{ form_start(edit_form) }}
+    <div class="row">
     <h1>{{ edit_form.vars.value.title }} <small>Edici&oacute;n</small>
         <a href="#" class="btn btn-circle active" id="langEs">Español</a>
         <a href="#" class="btn btn-circle" id="langEn">Ingles</a>
     </h1>
-
+    </div>
     <div class="row card">
         <div class=" col-md-8">
             {{ form_row(edit_form.title) }}
@@ -31,6 +32,8 @@
 
             {{ form_row(edit_form.secondaryPicture) }}
             {{ form_row(edit_form.place) }}
+
+            {{ form_row(edit_form.weight) }}
 
             <h3>Etiquetas</h3>
             <ul class="tags" data-prototype="{{ form_widget(edit_form.tags.vars.prototype)|e }}">

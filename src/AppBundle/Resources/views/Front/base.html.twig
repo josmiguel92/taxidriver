@@ -31,9 +31,6 @@
     <meta property="og:description" content="{{ description }}" />
     <meta property="og:image" content="{{ absolute_url(asset(featureImage)) }}" />
 
-    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700|Source+Sans+Pro" rel="stylesheet">
-    {#<link rel="stylesheet" type="text/css" href="{{ asset("css/css.css") }}">#}
-
     <link rel="stylesheet" href="{{ asset("css/myBootstrap.css") }}">
 
     <link rel="stylesheet" type="text/css" href="{{ asset("css/style.css") }}">
@@ -41,7 +38,14 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset("css/custom.css") }}">
 
-    <script src="https://use.fontawesome.com/f922c63c85.js"></script>
+    {% if app.Environment == "dev" %}
+        <link rel="stylesheet" type="text/css" href="{{ asset("css/css.css") }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset("css/font-awesome.css") }}">
+    {% else %}
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700|Source+Sans+Pro" rel="stylesheet">
+        <script src="https://use.fontawesome.com/f922c63c85.js"></script>
+    {% endif %}
+
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
@@ -53,6 +57,7 @@
 
         gtag('config', 'UA-120939597-1');
     </script>
+
 </head>
 
 <div id="fb-root"></div>
@@ -166,7 +171,7 @@
                 <section class="{% block class %}{% endblock %} section-height-800 breadcrumb-modern rd-parallax context-dark">
                     <div data-speed="0.6" data-type="media" data-url="
                     {% block header_image %}
-                        {{ asset(content.getHeaderimage.getWebPath) }}
+                        {{ asset(content.getHeaderimage.getWideImageWebPath) }}
                     {% endblock %}
                     " class="rd-parallax-layer"></div>
                     <div data-speed="0" data-type="html" class="rd-parallax-layer">
@@ -227,7 +232,7 @@
                                 </dd>
                             </dl>
                             <dl>
-                                <dt class="text-gray-light text-regular reveal-inline-block">{% trans %}E-mail{% endtrans %}:</dt>
+                                <dt class="text-gray-light text-regular reveal-inline-block">{% trans %}Email{% endtrans %}:</dt>
                                 <dd class="text-gray-light p reveal-inline-block">
                                     <a href="mailto:{{ content.getContactemail() }}" class="color-sky">{{ content.getContactemail() }}</a>
                                 </dd>
@@ -246,7 +251,7 @@
                             <ul class="list-inline list-inline-0 list-social">
                                 {% for socialNetwork in socialNetworks %}
                                     <li class="text-center">
-                                        <a href="{{ socialNetwork.getProfilelink }}" class="text-gray-light">
+                                        <a href="{{ socialNetwork.getProfilelink }}" target="_blank" class="text-gray-light">
                                             <i class="fa fa-{{ socialNetwork.getName }} fa-2x"></i>
                                         </a>
                                     </li>
@@ -343,9 +348,16 @@
 
     {% block javascript %}
         <!-- Java script-->
+        {% if app.Environment == "dev" %}
+            <script src="{{ asset("js/jquery.min.js") }}"></script>
+            <script src="{{ asset("js/bootstrap3.3.6.min.js") }}"></script>
+        {% else %}
+            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        {% endif %}
+
         <script src="{{ asset("js/core.min.js") }}"></script>
         <script src="{{ asset("js/script.js") }}"></script>
-        <script src="{{ asset("js/custom.js") }}"></script>
         <!--  Google Maps Plugin    -->
         <script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&libraries=places"></script>
     {% endblock %}

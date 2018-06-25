@@ -15,7 +15,8 @@ class BlogentrieRepository extends \Doctrine\ORM\EntityRepository
 
         return $this->getEntityManager()
             ->createQuery(
-                'SELECT p FROM AppBundle:Blogentrie p ORDER BY p.publisheddate DESC '
+                '
+SELECT p FROM AppBundle:Blogentrie p ORDER BY p.weight DESC, p.publisheddate DESC '
             )
 
             ->setMaxResults($count)

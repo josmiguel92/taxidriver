@@ -11,7 +11,7 @@
     {% set title = "Voy a ir a..." %}
 {% endif %}
 
-{% set featureImage =  asset(content.getHeaderimage.getWebPath) %}
+{% set featureImage =  asset(content.getHeaderimage.getWideImageWebPath) %}
 
 {% set spanish_page = path("add_booking", {"_locale":"es"}) %}
 {% set english_page = path("add_booking", {"_locale":"en"}) %}
@@ -42,7 +42,7 @@
                                 <!-- Unit-->
                                 <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left" style="padding: 1em 0;">
                                     <div class="unit-left">
-                                        <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
+                                        <img src="{{ asset(place.getThumbnailWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
                                     </div>
                                     <div class="unit-body">
                                         <div>
@@ -91,7 +91,7 @@
                                 <!-- Unit-->
                                 <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left" style="padding: 1em 0;">
                                     <div class="unit-left">
-                                        <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
+                                        <img src="{{ asset(place.getThumbnailWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
                                     </div>
                                     <div class="unit-body">
                                         <div>
@@ -121,12 +121,14 @@
     </div>
 {% endblock %}
 
+{#
 {% block submitAlert %}
     <div class="alert alert-warning fade in" id="submitBookingPlaceAlert" {% if not noPlaceSelected %}style="display: none;"{% endif %}>
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <strong>{{ "Are you done?" | trans }}</strong> {{ "You haven't selected any place!" | trans }}
     </div>
 {% endblock submitAlert %}
+#}
 
 {% block javascript %}
 {{ parent() }}

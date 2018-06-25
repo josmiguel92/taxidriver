@@ -8,7 +8,7 @@
         {% set title = "Blog: "~currentTag.tagEn  %}
     {% endif %}
 {% endif %}
-{% set featureImage = asset(content.getHeaderimage.getWebPath) %}
+{% set featureImage = asset(content.getHeaderimage.getWideImageWebPath) %}
 {% set description =  content.getBlogDescriptionLocale %}
 
 {% set spanish_page = path("blog", {"_locale":"es"}) %}
@@ -34,7 +34,7 @@
                             <article class="post-classic text-left offset-top-30">
                                 <div class="post-classic-img-wrap">
                                     <a href="{{ url }}">
-                                        <img src="{{ asset(blogEntry.getFullImageWebPath) }}" width="770" height="381" alt="" class="img-responsive center-block">
+                                        <img src="{{ asset(blogEntry.getThumbnailWebPath) }}" width="770" height="381" alt="" class="img-responsive center-block">
                                     </a>
                                 </div>
                                 <div class="post-classic-body offset-top-30">
@@ -55,7 +55,7 @@
                                             <!-- Post Body-->
                                             <div class="post-body offset-top-15 offset-md-top-25">
                                                 <p class="text-spacing-0">
-                                                    {{ blogEntry.getTeaserLocale|striptags|slice(0, 500)|nl2br }}... <a href="{{ url }}" >{% trans %}Read More{% endtrans %}</a>
+                                                    {{ blogEntry.getTeaserLocale|striptags|slice(0, 500)|nl2br }}... <a href="{{ url }}" >{% trans %}Read more{% endtrans %}</a>
                                                 </p>
                                             </div>
                                             <div class="offset-top-20 offset-md-top-30">

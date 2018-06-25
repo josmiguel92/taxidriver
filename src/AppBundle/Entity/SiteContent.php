@@ -398,11 +398,11 @@ class SiteContent
     public function getOwnRoutePathImages(){
         $result = [];
         if($this->ownrouteimage)
-            $result[] = $this->ownrouteimage->getWebPath();
+            $result[] = $this->ownrouteimage->getWideImageWebPath();
         if($this->ownrouteimage1)
-            $result[] = $this->ownrouteimage1->getWebPath();
+            $result[] = $this->ownrouteimage1->getWideImageWebPath();
         if($this->ownrouteimage2)
-            $result[] = $this->ownrouteimage2->getWebPath();
+            $result[] = $this->ownrouteimage2->getWideImageWebPath();
 
         return $result;
     }

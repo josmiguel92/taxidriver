@@ -63,11 +63,14 @@ class ImageField
         : $this->getUploadRootDir().'/'.$this->path;
     }
 
-    public function getWebPath()
+    public function getWebPath($size = "thumb")
     {
-        return null === $this->path
-        ? null
-        : $this->getUploadDir().'/'.$this->path.'-thumb.jpg';
+        if($size == "thumb")
+            return $this->getUploadDir().'/'.$this->path.'-thumb.jpg';
+        if($size == "wide")
+            return $this->getUploadDir().'/'.$this->path.'-wide.jpg';
+        else
+            return $this->getUploadDir().'/'.$this->path;
     }
 
     public function getFullImageWebPath()
@@ -77,11 +80,25 @@ class ImageField
             : $this->getUploadDir().'/'.$this->path;
     }
 
+    public function getThumbnailWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path.'-thumb.jpg';
+    }
+
+    public function getWideImageWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir().'/'.$this->path.'-wide.jpg';
+    }
+
     protected function getUploadRootDir()
     {
         // la ruta absoluta del directorio donde se deben
         // guardar los archivos cargados
-        return __DIR__ . '/../../../public_html/' .$this->getUploadDir();
+        return __DIR__ . '/../../../web/' .$this->getUploadDir();
     }
 
     protected function getUploadDir()
@@ -137,7 +154,7 @@ class ImageField
      {
         if ($file = $this->getAbsolutePath()) {
             @unlink($file);
-            @unlink($file.'-thumb.jpg');
+            $this->removeThumbs();
         }
     }
     /**
@@ -166,17 +183,22 @@ class ImageField
 
     private function createThumb()
     {
-        $image = imagecreatefromjpeg($this->getAbsolutePath());
+        $image = @imagecreatefromjpeg($this->getAbsolutePath());
         $filename = $this->getAbsolutePath().'-thumb.jpg';
 
-        $thumb_width = 700;
-        $thumb_height = 700;
+        $thumb_width = 270;
+        $thumb_height = 270;
+
+        $widefilename = $this->getAbsolutePath().'-wide.jpg';
+        $widethumb_width = 1350;
+        $widethumb_height = 760;
 
         $width = imagesx($image);
         $height = imagesy($image);
 
         $original_aspect = $width / $height;
         $thumb_aspect = $thumb_width / $thumb_height;
+        $widethumb_aspect = $widethumb_width / $widethumb_height;
 
         if ( $original_aspect >= $thumb_aspect )
         {
@@ -191,7 +213,21 @@ class ImageField
             $new_height = $height / ($width / $thumb_width);
         }
 
+        if ( $original_aspect >= $widethumb_aspect )
+        {
+            // If image is wider than thumbnail (in aspect ratio sense)
+            $new_height_wide = $widethumb_width;
+            $new_width_wide = $width / ($height / $widethumb_height);
+        }
+        else
+        {
+            // If the thumbnail is wider than the image
+            $new_width_wide = $widethumb_width;
+            $new_height_wide = $height / ($width / $widethumb_width);
+        }
+
         $thumb = imagecreatetruecolor( $thumb_width, $thumb_height );
+        $widethumb = imagecreatetruecolor( $widethumb_width, $widethumb_height );
 
 // Resize and crop
         imagecopyresampled($thumb,
@@ -201,7 +237,30 @@ class ImageField
             0, 0,
             $new_width, $new_height,
             $width, $height);
-        imagejpeg($thumb, $filename, 80);
+
+        imagecopyresampled($widethumb,
+            $image,
+            0 - ($new_width_wide - $widethumb_width) / 2, // Center the image horizontally
+            0 - ($new_height_wide - $widethumb_height) / 2, // Center the image vertically
+            0, 0,
+            $new_width_wide, $new_height_wide,
+            $width, $height);
+
+        @imagejpeg($thumb, $filename, 80);
+        @imagejpeg($widethumb, $widefilename, 80);
     }
 
+    public function removeThumbs()
+    {
+        if($file = $this->getAbsolutePath())
+        {
+            @unlink($file.'-thumb.jpg');
+            @unlink($file.'-wide.jpg');
+        }
+    }
+
+    public function updateThumbs(){
+        $this->removeThumbs();
+        $this->createThumb();
+    }
 }

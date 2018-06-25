@@ -35,6 +35,9 @@
         {{ form_row(form.secondaryPicture) }}
         {{ form_row(form.place) }}
 
+
+        {{ form_row(edit_form.weight) }}
+
         <h3>Etiquetas</h3>
         <ul class="tags" data-prototype="{{ form_widget(form.tags.vars.prototype)|e }}">
             {# iterate over each existing tag and render its only field: name #}

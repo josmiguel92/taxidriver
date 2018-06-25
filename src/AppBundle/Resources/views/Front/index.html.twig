@@ -47,10 +47,10 @@
                         <div class="rd-navbar-nav-wrap reveal-md-inline-block">
                             <ul class="rd-navbar-nav">
                                 <!-- RD Navbar Nav-->
-                                <li><a href="{{ path("home") }}#home">{% trans %}home{% endtrans %}</a></li>
-                                <li><a href="{{ path("home") }}#services">{% trans %}services{% endtrans %}</a></li>
-                                <li><a href="{{ path("home") }}#about">{% trans %}about us{% endtrans %}</a></li>
-                                <li><a href="{{ path("home") }}#contact">{% trans %}contacts{% endtrans %}</a></li>
+                                <li><a href="#home">{% trans %}home{% endtrans %}</a></li>
+                                <li><a href="#services">{% trans %}services{% endtrans %}</a></li>
+                                <li><a href="#about">{% trans %}about us{% endtrans %}</a></li>
+                                <li><a href="#contact">{% trans %}contacts{% endtrans %}</a></li>
                                 <li><a href="{{ path("blog") }}">blog</a></li>
                             </ul>
                         </div>
@@ -111,7 +111,7 @@
                                     </h5>
                                     <div style="max-width:510px;" class="btn-both-lines offset-top-30 center-block">
                                         <a href="{{ path("blogEntry",{"_id":blogEntry.getId, "_name":blogEntry.getTitleLocale}) }}" style="min-width:240px;" class="btn btn-primary">
-                                            {% trans %}read more{% endtrans %}
+                                            {% trans %}Read more{% endtrans %}
                                         </a>
                                     </div>
                                 </div>
@@ -191,7 +191,7 @@
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                                             <div class="unit-left">
                                                 <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
-                                                    <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
+                                                    <img src="{{ asset(place.getWebPath) }}" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
                                                 </a>
                                             </div>
                                             <div class="unit-body">
@@ -255,7 +255,7 @@
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                                             <div class="unit-left">
                                                 <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
-                                                    <img src="{{ asset(place.getWebPath) }}" width="270" height="263" alt="{{ place.NameLocale }}" class="img-responsive center-block img-zoom">
+                                                    <img src="{{ asset(place.getWebPath) }}" width="270" alt="{{ place.NameLocale }}" class="img-responsive center-block img-zoom">
                                                 </a>
                                             </div>
                                             <div class="unit-body">
@@ -383,7 +383,7 @@
 
 
         <!-- About Us-->
-        <section id="about" style="padding-top: 1%;" class="context-dark">
+        <section id="about" style="padding-top: 1%;" class="about-us context-dark">
             <!-- RD Parallax-->
             <div data-on="false" data-md-on="true" class="rd-parallax offset-top-100">
                 <div data-speed="0.15" data-type="media" data-url="{{ asset("images/banners/about-us.jpg") }}" class="rd-parallax-layer"></div>
@@ -391,13 +391,6 @@
                     <div class="shell section-75 section-md-top-103 section-md-bottom-110">
                         <div class="range range-xs-center">
                             <div class="cell-sm-10">
-                                <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
-                                    <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block">
-                                </div>
-                                <div class="veil reveal-sm-inline-block"><span class="fa fa-taxi fa-3x text-white"></span></div>
-                                <div style="margin-bottom:17px;" class=" veil reveal-sm-inline-block text-bottom">
-                                    <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block">
-                                </div>
                                 <div class="offset-top-15 offset-md-top-30">
                                     <h1 class="text-spacing-0 text-uppercase">
                                         {{ content.getAbouttitleLocale }}
@@ -431,52 +424,6 @@
                         </p>
                     </div>
                 </div>
-
-                {#
-                <!-- Members-->
-                <div class="offset-top-64 offset-md-top-95">
-                    <h2 class="text-spacing-25 text-center">
-                        {% trans %}Our Team{% endtrans %}
-                    </h2>
-                </div>
-
-                <!-- Text about team -->
-                <div class="range range-xs-center offset-top-30 text-left">
-                    <div class="cell-sm-12 cell-md-10">
-                        <p class="text-spacing-0">
-                            {{ content.getAboutteamtextLocale() }}
-                        </p>
-                    </div>
-                </div>
-
-                <!-- list of team members -->
-                <div class="range range-condensed">
-                    {% for driver in drivers %}
-                        <div class="cell-xs-6 cell-md-4 {% if loop.index is odd %}col-md-offset-2{% endif %}">
-                            <!-- Box Member-->
-                            <div class="box-member">
-                                <div class="box-member-img-wrap">
-                                    <img src="{{ asset(driver.webPath) }}"
-                                         alt="{{ driver.fullname }} - {{ driver.enterprisetitle }}" width="480" height="492" class="img-responsive center-block">
-                                </div>
-                                <div class="box-member-caption">
-                                    <div>
-                                        <p class="h5 text-spacing-inverse-25 text-white text-capitalize">
-                                            {{ driver.fullname }}
-                                        </p>
-                                    </div>
-                                    <div class="offset-top-4">
-                                        <p class="font-accent text-bold text-white text-spacing-inverse-25">
-                                            ({{ driver.enterprisetitle }})
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                #}
-
             </div>
         </section>
 
@@ -596,25 +543,28 @@
                             'data-form-output':'form-output-global'}}) }}
                             <div class="form-group">
 
-                                <label for="{{ messageForm.name.vars.id }}" class="form-label">Name</label>
+                                <label for="{{ messageForm.name.vars.id }}" class="form-label">{% trans %}Name{% endtrans %}</label>
                                 <input id="{{ messageForm.name.vars.id }}" type="text" name="{{ messageForm.name.vars.full_name }}" data-constraints="@Required" class="form-control">
                             </div>
                             <div class="form-group offse-top-5">
-                                <label for="{{ messageForm.message.vars.id }}" class="form-label">Message</label>
+                                <label for="{{ messageForm.message.vars.id }}" class="form-label">{% trans %}Message{% endtrans %}</label>
                                 <textarea id="{{ messageForm.message.vars.id }}" name="{{ messageForm.message.vars.full_name }}" data-constraints="@Required" style="height: 140px;" class="form-control"></textarea>
 
                             </div>
                             <div class="form-group offse-top-5">
-                                <label for="{{ messageForm.email.vars.id }}" class="form-label">Email</label>
+                                <label for="{{ messageForm.email.vars.id }}" class="form-label">{% trans %}Email{% endtrans %}</label>
                                 <input id="{{ messageForm.email.vars.id }}" type="email" name="{{ messageForm.email.vars.full_name }}" data-constraints="@Email @Required" class="form-control">
                             </div>
                             <div class="text-center text-sm-right offse-top-5">
                                 {% if sended_email %}
                                     <div class="alert alert-succes text-align: center;">
-                                        <a href="#" class="alert-link">{{ "Your message have been sended, thanks a lot!" | trans }}</a>
+                                        <a href="#" class="alert-link">{% trans %}Your message have been sended, thanks a lot!{% endtrans %}</a>
                                     </div>
                                     {% else %}
-                                        <button type="submit" style="min-width: 210px;" class="btn btn-primary">send a message</button>
+                                        <button type="submit" style="min-width: 210px;" class="btn btn-primary">
+                                            <i class="fa fa-send"></i>
+                                            {% trans %}Send a message{% endtrans %}
+                                        </button>
                                 {% endif %}
 
                             </div>
@@ -626,20 +576,20 @@
                         <!-- Contact Info-->
                         <address class="contact-info">
                             <dl>
-                                <dt class="font-accent text-bold text-uppercase text-mine-shaft">address</dt>
-                                <dd class="offset-top-4">O street, Havana, Cuba</dd>
+                                <dt class="font-accent text-bold text-uppercase text-mine-shaft">{% trans %}Address{% endtrans %}</dt>
+                                <dd class="offset-top-4">{{ content.getContactaddressLocale }}</dd>
                             </dl>
                             <dl class="offset-top-25">
-                                <dt class="font-accent text-bold text-uppercase text-mine-shaft">OPENING HOURS</dt>
+                                <dt class="font-accent text-bold text-uppercase text-mine-shaft">{% trans %}Opening hours{% endtrans %}</dt>
                                 <dd>8.00-18.00 Mon-Sat</dd>
                             </dl>
                             <dl class="offset-top-30">
-                                <dt class="font-accent text-bold text-uppercase text-mine-shaft">phone</dt>
+                                <dt class="font-accent text-bold text-uppercase text-mine-shaft">{% trans %}Phone{% endtrans %}</dt>
                                 <dd><a href="tel://+53 55864523" class="text-silver-chalice">+53 55864523</a>
                                 </dd>
                             </dl>
                             <dl class="offset-top-30">
-                                <dt class="font-accent text-bold text-uppercase text-mine-shaft">email</dt>
+                                <dt class="font-accent text-bold text-uppercase text-mine-shaft">{% trans %}Email{% endtrans %}</dt>
                                 <dd class="offset-top-5">
                                     <a href="mailto:{{ content.getContactemail() }}" class="font-accent text-bold text-primary">{{ content.getContactemail() }}</a></dd>
                             </dl>
@@ -695,7 +645,6 @@
                 new google.maps.Marker({
                     position: {{ name }},
                     map: map
-                    //icon: 'images/loc.png'
                 });
 
             {% endfor %}

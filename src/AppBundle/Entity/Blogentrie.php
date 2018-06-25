@@ -190,6 +190,13 @@ class Blogentrie  extends ImageField
     private $likes;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="weight", type="integer")
+     */
+    private $weight;
+
+    /**
      * @return int
      */
     public function getLikes()
@@ -205,9 +212,23 @@ class Blogentrie  extends ImageField
         $this->likes = $likes;
     }
 
+
     /**
-     * @param int $likes
+     * @return int
      */
+    public function getWeight()
+    {
+        return $this->weight;
+    }
+
+    /**
+     * @param int $weigh
+     */
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+    }
+
     public function AddLike()
     {
         $this->likes++;
@@ -215,7 +236,7 @@ class Blogentrie  extends ImageField
 
 
 
-    /**
+    /**t
      * Get id
      *
      * @return int

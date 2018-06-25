@@ -26,6 +26,8 @@ class BlogentrieType extends AbstractType
             ->add('quote',null,['label'=>"Cita destacada",'attr'=>['reflang'=>'es']])
             ->add('quoteen',null,['label'=>"Cita destacada, en ingles",'attr'=>['reflang'=>'en']])
             ->add('place',null,['label'=>"Destino a reservar"])
+            ->add('likes')
+            ->add('weight',null,['label'=>"Peso del Post, mayores numeros apareceran primero"])
             ->add('tags', CollectionType::class, [
                 'entry_type'=>TagType::class ,
                 'allow_add'=> true,
