@@ -460,7 +460,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $booking = $em->getRepository("AppBundle:Booking")
         ->createQueryBuilder("b")
-            ->where("b.pickuptime > :yesterday AND b.confirmed = true")
+            ->where("b.pickuptime > :yesterday")
             ->setParameter("yesterday", new \DateTime('yesterday'))
             ->orderBy("b.pickuptime", "DESC")
             ->getQuery()->getResult();

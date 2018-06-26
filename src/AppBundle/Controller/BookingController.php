@@ -224,6 +224,7 @@ class BookingController extends Controller
             $config[$item->getName()]=$item->getValue();
         }
 
+
         if ($purchase) {
 
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
@@ -234,9 +235,10 @@ class BookingController extends Controller
             else $place = null;
             $places = $em->getRepository('AppBundle:Place')->findAll();
 
+            $this->sendEmailNotifications($purchase);
 
-            if($_paypalCallback == 'success' OR $_paypalCallback == 'cash' OR !Utils::isSimpleBooking($purchase)){
-                $this->sendEmailNotifications($purchase);
+            if($_paypalCallback == 'success' OR !Utils::isSimpleBooking($purchase)){
+
                 $purchase->setConfirmed(true);
 
                 if (isset($_GET['tx']))
