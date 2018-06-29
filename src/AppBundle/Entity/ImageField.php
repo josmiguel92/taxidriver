@@ -184,6 +184,8 @@ class ImageField
     private function createThumb()
     {
         $image = @imagecreatefromjpeg($this->getAbsolutePath());
+
+
         $filename = $this->getAbsolutePath().'-thumb.jpg';
 
         $thumb_width = 270;
@@ -195,6 +197,20 @@ class ImageField
 
         $width = imagesx($image);
         $height = imagesy($image);
+
+//        //1x1
+//        $size_1_1_filename = $this->getAbsolutePath().'-1x1.jpg';
+//        $size_1_1__width = min($width, $height);
+//        $size_1_1__height = min($width, $height);
+//        //4x3
+//        $size_4_3filename = $this->getAbsolutePath().'-4x3.jpg';
+//        $size_4_3_width = min($width, $height);
+//        $size_4_3_height = min($width, $height);
+//
+//        //16x9
+//        $size_16_9_filename = $this->getAbsolutePath().'-16x9.jpg';
+//        $size_16_9_width = min($width, $height);
+//        $size_16_9__height = min($width, $height);
 
         $original_aspect = $width / $height;
         $thumb_aspect = $thumb_width / $thumb_height;
@@ -228,6 +244,7 @@ class ImageField
 
         $thumb = imagecreatetruecolor( $thumb_width, $thumb_height );
         $widethumb = imagecreatetruecolor( $widethumb_width, $widethumb_height );
+        $size_1_1_image = imagecreatetruecolor($size_1_1__width, $size_1_1__height );
 
 // Resize and crop
 
@@ -255,8 +272,17 @@ class ImageField
             $new_width_wide, $new_height_wide,
             $width, $height);
 
+//        imagecopyresampled($size_1_1_image,
+//            $image,
+//            0 - ($size_1_1__width - $widethumb_width) / 2, // Center the image horizontally
+//            0 - ($size_1_1__height - $widethumb_height) / 2, // Center the image vertically
+//            0, 0,
+//            $size_1_1__width, $size_1_1__height,
+//            $width, $height);
+
         @imagejpeg($thumb, $filename, 85);
         @imagejpeg($widethumb, $widefilename, 85);
+//        @imagejpeg($size_1_1_image, $size_1_1_filename, 85);
     }
 
     public function removeThumbs()
@@ -265,6 +291,7 @@ class ImageField
         {
             @unlink($file.'-thumb.jpg');
             @unlink($file.'-wide.jpg');
+//            @unlink($file.'-1x1.jpg');
         }
     }
 
