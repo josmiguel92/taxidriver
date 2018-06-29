@@ -21,10 +21,11 @@
     }
     </script>
 
-<script type="application/ld+json">
+
 {#todo poner las imagenes en proporcion#}
     {% for place in places %}
         {% if not place.istour %}
+            <script type="application/ld+json">
             {
                 "@context": "http://schema.org/",
                 "@type": "Product",
@@ -53,9 +54,10 @@
                         }
                     }
             }
+            </script>
         {% endif %}
     {% endfor %}
-    </script>
+
 {% endblock %}
 
 {% block header %}
