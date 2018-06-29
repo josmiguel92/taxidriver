@@ -30,9 +30,9 @@
             "@type": "Product",
             "name": "{{ place.getNameLocale }}",
             "image": [
-            "{{ asset(place.getWideImageWebPath) }}",
-            "{{ asset(place.getWideImageWebPath) }}",
-            "{{ asset(place.getWideImageWebPath) }}"
+            "{{ absolute_url(asset(place.getWideImageWebPath)) }}",
+            "{{ absolute_url(asset(place.getWideImageWebPath)) }}",
+            "{{ absolute_url(asset(place.getWideImageWebPath)) }}"
             ],
 
             {% if not place.istour %}
