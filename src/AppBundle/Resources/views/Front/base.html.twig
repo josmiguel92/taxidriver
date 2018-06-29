@@ -60,6 +60,43 @@
         gtag('config', 'UA-120939597-1');
     </script>
 
+    {#Logo and customer Service Number#}
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "url": "https://www.taxidriverscuba.com",
+      "logo": "https://www.taxidriverscuba.com/images/logo.png",
+      "contactPoint": [
+        { "@type": "ContactPoint",
+          "telephone": "{{ content.getContacttelephone }}",
+          "contactType": "customer service",
+          "availableLanguage": [
+          "English",
+          "Spanish"
+           ]
+        }
+      ]
+    }
+    </script>
+
+    {#social profiles#}
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "name": "TaxiDriversCuba",
+      "url": "https://www.taxidriverscuba.com",
+      "sameAs": [
+        "http://www.facebook.com/taxidriverscuba",
+        "http://instagram.com/taxidriverscuba",
+        "http://plus.google.com/taxidriverscuba"
+      ]
+    }
+    </script>
+
+    {% block structure_data %}
+    {% endblock %}
 </head>
 
 <div id="fb-root"></div>
@@ -200,21 +237,6 @@
         <div class="shell">
 
             <div class="range range-xs-center range-lg-justify">
-                {#
-                <!-- about -->
-                <div class="cell-xs-12 cell-sm-6 cell-md-4">
-                    <div class="inset-lg-right-40">
-                        <div>
-                            <p class="text-uppercase text-bold font-accent text-spacing-25 text-white">{% trans %} about {% endtrans %}</p>
-                        </div>
-                        <div class="offset-top-25">
-                            <p class="text-gray-light text-spacing-0">
-                                {{ content.getAbouttextfooterLocale() }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                #}
                 <!-- contact -->
                 <div class="cell-xs-12 cell-sm-6 cell-md-3 offset-top-44 offset-sm-top-0">
                     <div class="inset-lg-right-40">

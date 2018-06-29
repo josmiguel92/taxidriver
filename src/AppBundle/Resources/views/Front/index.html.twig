@@ -3,23 +3,62 @@
 {% set title = 'Home' %}
 {% set description = content.getSiteDescriptionLocale %}
 
-{% block header %}
+{% block structure_data %}
+    {#breadcrumbs#}
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "https://www.taxidriverscuba.com/",
+          "name": "Home",
+          "image": "https://www.taxidriverscuba.com/images/favicon.png"
+        }
+      }]
+    }
+    </script>
 
 <script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-    "@type": "ListItem",
-    "position": 1,
-    "item": {
-      "@id": "https://www.taxidriverscuba.com/",
-      "name": "Home",
-      "image": "http://www.taxidriverscuba.com/images/favicon.png"
-    }
-  }]
-}
-</script>
+{#todo poner las imagenes en proporcion#}
+    {% for place in places %}
+        {% if not place.istour %}
+            {
+                "@context": "http://schema.org/",
+                "@type": "Product",
+                "name": "{{ place.getNameLocale }}",
+                "image": [
+                "{{ asset(place.getWideImageWebPath) }}",
+                "{{ asset(place.getWideImageWebPath) }}",
+                "{{ asset(place.getWideImageWebPath) }}"
+                ],
+                "description": "Taxi to {{ place.getNameLocale }}",
+                "mpn": "925872",
+                "brand": {
+                    "@type": "Thing",
+                    "name": "TaxiDriversCuba"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "priceCurrency": "USD",
+                    "price": "{{ place.getTrasferprice }}",
+                    "priceValidUntil": "2020-12-31",
+                    "itemCondition": "http://schema.org/UsedCondition",
+                    "availability": "http://schema.org/InStock",
+                    "seller": {
+                        "@type": "Organization",
+                        "name": "Taxi Drivers Cuba"
+                        }
+                    }
+            }
+        {% endif %}
+    {% endfor %}
+    </script>
+{% endblock %}
+
+{% block header %}
 
     <!-- Page Header-->
     <header class="page-header">
