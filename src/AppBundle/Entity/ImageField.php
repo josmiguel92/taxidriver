@@ -244,7 +244,7 @@ class ImageField
 
         $thumb = imagecreatetruecolor( $thumb_width, $thumb_height );
         $widethumb = imagecreatetruecolor( $widethumb_width, $widethumb_height );
-        $size_1_1_image = imagecreatetruecolor($size_1_1__width, $size_1_1__height );
+       // $size_1_1_image = imagecreatetruecolor($size_1_1__width, $size_1_1__height );
 
 // Resize and crop
 
