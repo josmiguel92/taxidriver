@@ -7,7 +7,13 @@
 {% endif %}
 
 
-{% set description = content.getReservationDescriptionLocale %}
+{% if locale=='es' %}
+    {% set description = 'Taxi o Tour desde cualquier punto de Cuba hacia cualquier otro punto de cuba, así de simple. '~content.getReservationDescriptionLocale %}
+{% else %}
+    {% set description = 'Taxi or Tour from any point of Cuba to any other point of Cuba, so simple! '~content.getReservationDescriptionLocale %}
+{% endif %}
+
+
 {% set featureImage = content.getOwnrouteimage.getWideImageWebPath %}
 
 {% set spanish_page = path("bookingOwnTour", {"_locale":"es"}) %}
