@@ -31,7 +31,7 @@ class DefaultController extends Controller
         if ($content) {
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
-            $places = $em->getRepository('AppBundle:Place')->findAll();
+            $places = $em->getRepository('AppBundle:Place')->findAllSorted();
             $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
             $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries(0, 4);
             $testimonials = $em->getRepository('AppBundle:Testimony')->findAll();

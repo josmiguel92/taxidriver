@@ -336,5 +336,27 @@ class Place extends ImageField
         return $this->name;
     }
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="weight", type="integer")
+     */
+    private $weight;
+
+    /**
+     * @return int
+     */
+    public function getWeight()
+    {
+        return $this->weight;
+    }
+
+    /**
+     * @param int $weigh
+     */
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+    }
 }
 

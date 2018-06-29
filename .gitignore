@@ -14,13 +14,11 @@
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 /vendor/
-/web/bundles/
 /var
-/web/uploads
 .idea
 web/app_dev.php
 app/config/security.yml
 /public_html/bundles/
 /public_html/app_dev.php
 app/config/security.yml
-public_html/uploads/*
+/public_html/uploads

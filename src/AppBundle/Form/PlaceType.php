@@ -27,6 +27,7 @@ class PlaceType extends AbstractType
             ->add('istour', null, ['label'=>"¿Es un Tour?"])
             ->add('placedesc', null, ['label'=>"Describa el Tour"])
             ->add('placedescen', null, ['label'=>"Describa el Tour, en ingles"])
+            ->add('weight',null,['label'=>"Peso del Servicio, mayores numeros apareceran primero"])
 
             //->add('services')
             ->add('latlong',HiddenType::class)
