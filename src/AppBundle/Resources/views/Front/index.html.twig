@@ -24,38 +24,42 @@
 
 {#todo poner las imagenes en proporcion#}
     {% for place in places %}
-        {% if not place.istour %}
-            <script type="application/ld+json">
-            {
-                "@context": "http://schema.org/",
-                "@type": "Product",
-                "name": "{{ place.getNameLocale }}",
-                "image": [
-                "{{ asset(place.getWideImageWebPath) }}",
-                "{{ asset(place.getWideImageWebPath) }}",
-                "{{ asset(place.getWideImageWebPath) }}"
-                ],
+        <script type="application/ld+json">
+        {
+            "@context": "http://schema.org/",
+            "@type": "Product",
+            "name": "{{ place.getNameLocale }}",
+            "image": [
+            "{{ asset(place.getWideImageWebPath) }}",
+            "{{ asset(place.getWideImageWebPath) }}",
+            "{{ asset(place.getWideImageWebPath) }}"
+            ],
+
+            {% if not place.istour %}
                 "description": "Taxi to {{ place.getNameLocale }}",
-                "mpn": "",
-                "brand": {
-                    "@type": "Thing",
+            {% else %}
+                "description": "Taxi to {{ place.getNameLocale }}",
+            {% endif %}
+
+            "mpn": "",
+            "brand": {
+                "@type": "Thing",
+                "name": "TaxiDriversCuba"
+            },
+            "offers": {
+                "@type": "Offer",
+                "priceCurrency": "USD",
+                "price": "{{ place.getTrasferprice / config['tasa.usd']) | number_format(2,'.') }}",
+                "priceValidUntil": "2020-12-31",
+                "itemCondition": "http://schema.org/UsedCondition",
+                "availability": "http://schema.org/InStock",
+                "seller": {
+                    "@type": "Organization",
                     "name": "TaxiDriversCuba"
-                },
-                "offers": {
-                    "@type": "Offer",
-                    "priceCurrency": "USD",
-                    "price": "{{ place.getTrasferprice / config['tasa.usd']) | number_format(2,'.') }}",
-                    "priceValidUntil": "2020-12-31",
-                    "itemCondition": "http://schema.org/UsedCondition",
-                    "availability": "http://schema.org/InStock",
-                    "seller": {
-                        "@type": "Organization",
-                        "name": "TaxiDriversCuba"
-                        }
                     }
-            }
-            </script>
-        {% endif %}
+                }
+        }
+        </script>
     {% endfor %}
 
 {% endblock %}
