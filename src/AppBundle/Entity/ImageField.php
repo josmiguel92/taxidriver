@@ -230,6 +230,15 @@ class ImageField
         $widethumb = imagecreatetruecolor( $widethumb_width, $widethumb_height );
 
 // Resize and crop
+
+        imagecopyresampled($thumb,
+            $image,
+            0 - ($new_width - $thumb_width) / 2, // Center the image horizontally
+            0 - ($new_height - $thumb_height) / 2, // Center the image vertically
+            0, 0,
+            $new_width, $new_height,
+            $width, $height);
+
         imagecopyresampled($thumb,
             $image,
             0 - ($new_width - $thumb_width) / 2, // Center the image horizontally

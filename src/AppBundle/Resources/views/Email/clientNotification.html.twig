@@ -154,7 +154,7 @@
 										<td width="100%" colspan="3" align="center" style="padding-bottom:10px;padding-top:25px;">
 											<div class="contentEditableContainer contentTextEditable">
 												<div class="contentEditable" >
-													<h2 >Welcome aboard!</h2>
+													<h2>{% trans %}Welcome aboard!{% endtrans %}</h2>
 												</div>
 											</div>
 										</td>
@@ -164,9 +164,9 @@
 										<td width="400" align="center" style="padding-bottom:5px;">
 											<div class="contentEditableContainer contentTextEditable">
 												<div class="contentEditable" >
-													<p>Thanks for chosing us, for discover Cuba!</p>
+													<p>{% trans %}Thanks for chosing us, for discover Cuba!{% endtrans %}</p>
 													<br>
-													<p>You have booking a Taxidriverscuba's service and you can check the details and status by clicking this link: </p>
+													<p>{% trans %}You have booking a Taxidriverscuba's service and you can check the details and status by clicking this link{% endtrans %}:</p>
 												</div>
 											</div>
 										</td>
@@ -184,7 +184,7 @@
                                         <td bgcolor="#18acfB" align="center" style="border-radius:4px;" width="200" height="50">
                                             <div class="contentEditableContainer contentTextEditable">
                                                 <div class="contentEditable" >
-                                                    <a target='_blank' href="{{ absolute_url(path('purchase_details_paypal', {'_token': booking.token}))}}" class='link2'>Check booking status</a>
+                                                    <a target='_blank' href="{{ absolute_url(path('purchase_details_paypal', {'_token': booking.token}))}}" class='link2'>{% trans %}Check booking status{% endtrans %}</a>
                                                 </div>
                                             </div>
 
@@ -202,21 +202,34 @@
                                         <td width="600" align="justify" style="padding-bottom:5px;">
                                             <div class="contentEditableContainer contentTextEditable">
                                                 <div class="contentEditable" >
-                                                    <h2>Hi! {{ booking.fullname }}</h2>
-													<h3>Thanks for choose us to discover Cuba</h3>
+                                                    <h2>{% trans %}Hi!{% endtrans %} {{ booking.fullname }}</h2>
+													<h3>{% trans %}Thanks for chosing us, for discover Cuba!{% endtrans %}</h3>
 
-													<p>We will be waiting for you at <strong>{{ booking.pickuptime | date("l d/m/Y H:i") }}</strong>.
+													<p>{% trans %}We will be waiting for you at{% endtrans %} <strong>{{ booking.pickuptime | date("l d/m/Y H:i") }}</strong>,
 														{% if booking.aCruise %}
-															Al frente de la salida de la terminar de cruceros en la plaza de San Francisco,
-															que se encuentra en cuanto usted cruce la calle por el paso peatonal estaremos
-															parado en la fuente de los leones con su nombre escrito en un papel ({{ booking.fullname }}).
+															{% trans %}in front of the departure of the cruisers in the "Plaza de San Francisco", which is located as soon as you cross the street by the pedestrian stationary step standing at the fountain of the lions with his name written on a paper{% endtrans %}
+															({{ booking.fullname }}).
 														{% elseif booking.isAnAirport %}
-															en la salida de la terminar internacional José Martí con su nombre escrito en un papel ({{ booking.fullname }}).
+															{% trans %}at the exit of the Jos&eacute; Mart&iacute; international terminal with his name written on a paper{% endtrans %} ({{ booking.fullname }}).
 														{% else %}
-															en {{ booking.details }}.
+															{% trans %}in{% endtrans %} {{ booking.details }}.
 														{% endif %}
 
-                                                        The price of your taxi is <strong>{{ booking.price }} CUC</strong> (or <strong>{{ (booking.price / config['tasa.usd']) | number_format(2,'.') }} USD</strong> ) for visiting:
+                                                        {% trans %}	The price of your{% endtrans %}
+                                                        {% if booking.isTour %}
+                                                            Taxi-Tour
+                                                        {% else %}
+                                                            Taxi
+                                                        {% endif %}
+                                                        {% trans %}is{% endtrans %} <strong>{{ booking.price }} CUC</strong> ({% endtrans %}or{% endtrans %} <strong>{{ (booking.price / config['tasa.usd']) | number_format(2,'.') }} USD</strong> )
+                                                        {% trans %}for{% endtrans %} {{ booking.numpeople }}
+                                                        {% if booking.numpeople == 1 %}
+                                                            {% trans %}people{% endtrans %}
+                                                        {% else %}
+                                                            {% trans %}peoples{% endtrans %}
+                                                        {% endif %}
+
+                                                        {% trans %}for visiting{% endtrans %}:
 
                                                         <ul class="p">
                                                             {% if booking.ownroute is not empty %}
@@ -225,12 +238,12 @@
                                                                 {% endfor %}
                                                             {% else %}
                                                                 <li class="offset-top-10">
-                                                                    <p class="text-gray-dark">{{ place.name }}</p>
+                                                                    <p class="text-gray-dark">{{ place.nameLocale }}</p>
                                                                 </li>
                                                             {% endif %}
                                                         </ul>
                                                     <p>
-                                                        Please, if you need to cancel your reservation, you must notify us at least 2 days in advance.
+														{% trans %}Please, if you need to cancel your reservation, you must notify us at least 2 days in advance{% endtrans %}.
                                                     </p>
 
                                                 </div>
@@ -253,7 +266,7 @@
 													<td bgcolor="#18acfB" align="center" style="border-radius:4px;" width="200" height="50">
 														<div class="contentEditableContainer contentTextEditable">
 															<div class="contentEditable" >
-																<a target='_blank' href="{{ absolute_url(path('home'))}}" class='link2'>Visit our Website</a>
+																<a target='_blank' href="{{ absolute_url(path('home'))}}" class='link2'>{% trans %}Visit our Website{% endtrans %}</a>
 															</div>
 														</div>
 
@@ -327,7 +340,7 @@
 														<div class="contentEditableContainer contentTextEditable">
 															<div class="contentEditable"  style="padding:20px 10px 0 0;margin:0;font-family:Helvetica, Arial, sans-serif;font-size:15px;line-height:150%;">
 																<p style='color:#FFEECE;'>
-																	It is very easy to travel to <b>Cuba</b> with us. Our team provides <b>taxi services and tours</b> through several routes that go to the most <b>amazing places</b> on the island.
+																	{% trans %}It is very easy to travel to{% endtrans %} <b>Cuba</b> {% trans %}with us. Our team provides{% endtrans %} <b>{% trans %}taxi services and tours{% endtrans %}</b> {% trans %}through several routes that go to the most amazing places on the islands{% endtrans %}.
 																</p>
 															</div>
 														</div>
@@ -351,7 +364,7 @@
 										<td width="60%" height="70" valign="middle" style="padding-bottom:20px;">
 											<div class="contentEditableContainer contentTextEditable">
 												<div class="contentEditable" >
-													<span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">Sent to <b>{{ booking.email }}</b> by <a href="{{ absolute_url(path('home')) }}" target="_blank">Taxidriverscuba.com</a></span>
+													<span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">{% trans %}Sent to{% endtrans %} <b>{{ booking.email }}</b> by <a href="{{ absolute_url(path('home')) }}" target="_blank">https://www.taxidriverscuba.com</a></span>
 													<br/>
 													<span style="font-size:11px;color:#555;font-family:Helvetica, Arial, sans-serif;line-height:200%;">{{ address }} | {{ telephone }}</span>
 													<br/>
@@ -368,7 +381,7 @@
 														<td valign="top" width='34'>
 															<div class="contentEditableContainer contentFacebookEditable" style='display:inline;'>
                                                                 <div class="contentEditable" >
-                                                                    Follow Us: <a href="https://www.facebook.com/taxidriverscuba/">Facebook</a> |
+                                                                    {% trans %}Follow us{% endtrans %}: <a href="https://www.facebook.com/taxidriverscuba/">Facebook</a> |
                                                                     <a href="https://www.tripadvisor.com/Attraction_Review-g2198348-d13554747-Reviews-Taxi_Drivers_Cuba-Ciudad_de_la_Habana_Province_Cuba.html">TripAdvisor</a>
                                                                     <a href="https://www.instagram.com/taxidriverscuba">Instagram</a>
                                                                 </div>
