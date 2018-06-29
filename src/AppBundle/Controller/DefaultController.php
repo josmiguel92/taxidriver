@@ -35,7 +35,13 @@ class DefaultController extends Controller
             $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
             $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries(0, 4);
             $testimonials = $em->getRepository('AppBundle:Testimony')->findAll();
-            $drivers = $em->getRepository('AppBundle:Drivers')->findAll();
+
+            $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+            $config = [];
+
+            foreach ($_config as $item){
+                $config[$item->getName()]=$item->getValue();
+            }
 
             $featureImage = '';
             if(count($blogEntries)>0)
@@ -76,6 +82,7 @@ class DefaultController extends Controller
             }
 
 
+
                 return $this->render('AppBundle:Front:index.html.twig',
             ['locale'=>$_locale,
             'content'=>$content[0],
@@ -86,7 +93,7 @@ class DefaultController extends Controller
             'places'=>$places,
             'infographys'=>$infographys,
             'testimonials'=>$testimonials,
-            'drivers'=>$drivers,
+            'config' => $config,
             'messageForm' => $messageForm->createView(),
             'sended_email'=>$sended_email
             ]);

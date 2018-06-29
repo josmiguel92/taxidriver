@@ -44,13 +44,13 @@
                 "offers": {
                     "@type": "Offer",
                     "priceCurrency": "USD",
-                    "price": "{{ place.getTrasferprice }}",
+                    "price": "{{ place.getTrasferprice / config['tasa.usd']) | number_format(2,'.') }}",
                     "priceValidUntil": "2020-12-31",
                     "itemCondition": "http://schema.org/UsedCondition",
                     "availability": "http://schema.org/InStock",
                     "seller": {
                         "@type": "Organization",
-                        "name": "Taxi Drivers Cuba"
+                        "name": "TaxiDriversCuba"
                         }
                     }
             }
