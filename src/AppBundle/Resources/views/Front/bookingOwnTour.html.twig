@@ -20,9 +20,37 @@
 {% set english_page = path("bookingOwnTour", {"_locale":"en"}) %}
 
 {% block hreflang %}
-    <link rel="alternate" hreflang="en" href="{{ english_page }}" />
-    <link rel="alternate" hreflang="es" href="{{ spanish_page }}" />
-    <link rel="alternate" hreflang="x-default" href="{{ english_page }}" />
+    <link rel="alternate" hreflang="en" href="{{ absolute_url(english_page) }}" />
+    <link rel="alternate" hreflang="es" href="{{ absolute_url(spanish_page) }}" />
+    <link rel="alternate" hreflang="x-default" href="{{ absolute_url(english_page) }}" />
+{% endblock %}
+
+{% block structure_data %}
+    {#breadcrumbs#}
+    <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@id": "https://www.taxidriverscuba.com/",
+              "name": "Home",
+              "image": "https://www.taxidriverscuba.com/images/favicon.png"
+            }
+          }
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@id": "{{ absolute_url(english_page) }}",
+              "name": "I will make my own tour ",
+              "image": "https://www.taxidriverscuba.com/images/favicon.png"
+            }
+          }]
+        }
+    </script>
 {% endblock %}
 
 {% block tour_explication %}
