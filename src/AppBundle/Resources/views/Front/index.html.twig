@@ -38,7 +38,11 @@
         {
             "@context": "http://schema.org/",
             "@type": "Product",
-            "name": "{{ place.getNameLocale }}",
+            {% if not place.istour %}
+                "name": "Taxi to {{ place.getNameLocale }}",
+            {% else %}
+                "name": "Taxi-Tour to {{ place.getNameLocale }}",
+            {% endif %}
             "image": [
             "{{ absolute_url(asset(place.getWideImageWebPath)) }}",
             "{{ absolute_url(asset(place.getWideImageWebPath)) }}",
