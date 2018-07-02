@@ -38,7 +38,11 @@
         {
             "@context": "http://schema.org/",
             "@type": "Product",
-            "name": "{{ place.getNameLocale }}",
+            {% if not place.istour %}
+                "name": "Taxi to {{ place.getNameEn }}",
+            {% else %}
+                "name": "Taxi-Tour to {{ place.getNameEn }}",
+            {% endif %}
             "image": [
             "{{ absolute_url(asset(place.getWideImageWebPath)) }}",
             "{{ absolute_url(asset(place.getWideImageWebPath)) }}",
@@ -46,9 +50,9 @@
             ],
 
             {% if not place.istour %}
-                "description": "Taxi to {{ place.getNameLocale }}",
+                "description": "Taxi to {{ place.getNameEn }}",
             {% else %}
-                "description": "Taxi-Tour to {{ place.getNameLocale }}",
+                "description": "Taxi-Tour to {{ place.getNameEn }}",
             {% endif %}
 
             "mpn": "",
