@@ -48,17 +48,15 @@
             "{{ absolute_url(asset(place.getWideImageWebPath)) }}",
             "{{ absolute_url(asset(place.getWideImageWebPath)) }}"
             ],
-
-            {% if not place.istour %}
-                "description": "Taxi to {{ place.getNameEn }}",
-            {% else %}
-                "description": "Taxi-Tour to {{ place.getNameEn }}",
-            {% endif %}
-
+        {% if not place.istour %}
+            "description": "Taxi to {{ place.getNameEn }}",
+        {% else %}
+            "description": "Taxi-Tour to {{ place.getNameEn }}",
+        {% endif %}
             "mpn": "",
             "brand": {
                 "@type": "Thing",
-                "name": "TaxiDriversCuba"
+                "name": "TaxiDriversCuba.com"
             },
             "offers": {
                 "@type": "Offer",
