@@ -20,7 +20,6 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
     exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
 }
 
-
 require __DIR__.'/../vendor/autoload.php';
 Debug::enable();
 

@@ -1,6 +1,10 @@
 {% extends 'AppBundle:Front:base.html.twig' %}
 
-{% set title = 'Home' %}
+{% if locale=='es' %}
+    {% set title = 'Taxi para Viñales, Varadero o cualquier otro lugar de Cuba' %}
+{% else %}
+    {% set title = 'Taxi to Vinales, Varadero or any other place in Cuba' %}
+{% endif %}
 {% set description = content.getSiteDescriptionLocale %}
 
 {% block structure_data %}
