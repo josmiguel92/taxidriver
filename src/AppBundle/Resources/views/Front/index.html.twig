@@ -418,6 +418,8 @@
                                             </a>
                                         {% elseif  'diving' in infography.getIcon %}
                                             <img src="{{ asset("images/custom-icons/diving.svg") }}" style="height: 2em;">
+                                        {% elseif  'food' in infography.getIcon %}
+                                            <img src="{{ asset("images/custom-icons/food.svg") }}" style="height: 2em;">
                                         {% else %}
                                             <i class="{{ infography.getIcon }} fa-2x"></i>
                                         {% endif %}
