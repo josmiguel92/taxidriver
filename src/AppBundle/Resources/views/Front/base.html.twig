@@ -12,6 +12,9 @@
     <link rel="icon" type="image/x-icon" href="{{ asset("/images/favicon.png") }}" />
 	<title>{{ title }} | Taxi Drivers Cuba</title>
 
+    {% block hreflang %}
+    {% endblock %}
+
     <!-- Meta tags -->
     <meta name="description" content="{{ description }}">
     <meta name="keywords" content="{{ content.getSitekeywordsLocale }}">
@@ -42,9 +45,9 @@
         <link rel="stylesheet" type="text/css" href="{{ asset("css/css.css") }}">
         <link rel="stylesheet" type="text/css" href="{{ asset("css/font-awesome.css") }}">
     {% else %}
-    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700|Source+Sans+Pro" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    {#<script async src="https://use.fontawesome.com/f922c63c85.js"></script>#}
+        <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700|Source+Sans+Pro" rel="stylesheet">
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        {#<script async src="https://use.fontawesome.com/f922c63c85.js"></script>#}
     {% endif %}
 
     <script src='https://www.google.com/recaptcha/api.js'></script>

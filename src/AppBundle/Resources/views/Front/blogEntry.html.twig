@@ -14,6 +14,12 @@
 {% set spanish_page = path("blogEntry", {"_locale":"es", "_id":blogEntry.getId, "_name":blogEntry.getTitle}) %}
 {% set english_page = path("blogEntry", {"_locale":"en", "_id":blogEntry.getId, "_name":blogEntry.getTitleen}) %}
 
+{% block hreflang %}
+    <link rel="alternate" hreflang="en" href="{{ absolute_url(english_page) }}" />
+    <link rel="alternate" hreflang="es" href="{{ absolute_url(spanish_page) }}" />
+    <link rel="alternate" hreflang="x-default" href="{{ absolute_url(english_page) }}" />
+{% endblock %}
+
 {% block content %}
     <!-- Page Content-->
     <main class="page-content">

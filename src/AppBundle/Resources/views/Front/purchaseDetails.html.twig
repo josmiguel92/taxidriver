@@ -36,6 +36,11 @@
 {% set spanish_page = path("purchase_details", {"_locale":"es", "_token":purchase.getToken}) %}
 {% set english_page = path("purchase_details", {"_locale":"en", "_token":purchase.getToken}) %}
 
+{% block hreflang %}
+    <link rel="alternate" hreflang="en" href="{{ absolute_url(english_page) }}" />
+    <link rel="alternate" hreflang="es" href="{{ absolute_url(spanish_page) }}" />
+    <link rel="alternate" hreflang="x-default" href="{{ absolute_url(english_page) }}" />
+{% endblock %}
 
 {% block content %}
 

@@ -16,6 +16,12 @@
 {% set spanish_page = path("add_booking", {"_locale":"es"}) %}
 {% set english_page = path("add_booking", {"_locale":"en"}) %}
 
+{% block hreflang %}
+    <link rel="alternate" hreflang="en" href="{{ absolute_url(english_page) }}" />
+    <link rel="alternate" hreflang="es" href="{{ absolute_url(spanish_page) }}" />
+    <link rel="alternate" hreflang="x-default" href="{{ english_page }}" />
+{% endblock %}
+
 {% set description =  content.getBlogDescriptionLocale %}
 
 {% block destination %}

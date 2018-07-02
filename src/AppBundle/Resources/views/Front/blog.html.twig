@@ -14,6 +14,11 @@
 {% set spanish_page = path("blog", {"_locale":"es"}) %}
 {% set english_page = path("blog", {"_locale":"en"}) %}
 
+{% block hreflang %}
+    <link rel="alternate" hreflang="en" href="{{ absolute_url(english_page) }}" />
+    <link rel="alternate" hreflang="es" href="{{ absolute_url(spanish_page) }}" />
+    <link rel="alternate" hreflang="x-default" href="{{ absolute_url(english_page) }}" />
+{% endblock %}
 
 {% block content %}
 
