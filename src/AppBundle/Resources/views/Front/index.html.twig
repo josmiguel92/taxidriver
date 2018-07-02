@@ -41,7 +41,7 @@
             {% if not place.istour %}
                 "name": "Taxi to {{ place.getNameEn }}",
             {% else %}
-                "name": "Taxi-Tour to {{ place.getNameEn }}",
+                "name": "Tour or Taxi to {{ place.getNameEn }}",
             {% endif %}
             "image": [
             "{{ absolute_url(asset(place.getWideImageWebPath)) }}",
