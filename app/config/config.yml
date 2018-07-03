@@ -21,6 +21,18 @@ framework:
     templating:
         engines: ['twig']
         #assets_version: SomeVersionScheme
+    assets:
+        version: 'v1'
+        version_format: '%%s?ver=%%s'
+        base_path: ~
+        base_url: ['https://static.taxidriverscuba.com']
+        packages: 
+            app: 
+                base_path: /images/
+            img: 
+                base_url: 'https://static.taxidriverscuba.com'
+
+
     default_locale:  "es"
     trusted_hosts:   ~
     session:
