@@ -18,6 +18,7 @@
 .idea
 web/app_dev.php
 app/config/security.yml
+app/bootstrap.php.cache
 /public_html/bundles/
 /public_html/app_dev.php
 app/config/security.yml
