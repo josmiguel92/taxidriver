@@ -142,7 +142,7 @@ class ImageField
     {
         if (null !== $this->getFile()) {
             // haz lo que quieras para generar un nombre único
-            $filename = sha1(uniqid(mt_rand(), true));
+            $filename = substr(sha1(uniqid(mt_rand(), true)),0,10);
             $this->path = $filename.'.'.$this->getFile()->guessExtension();
         }
     }
