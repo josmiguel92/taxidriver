@@ -63,14 +63,14 @@ class ImageField
         : $this->getUploadRootDir().'/'.$this->path;
     }
 
-    public function getWebPath($size = "thumb")
+    public function getWebPath($size = "1x1")
     {
-        if($size == "thumb")
-            return $this->getUploadDir().'/'.$this->path.'-thumb.jpg';
-        if($size == "wide")
-            return $this->getUploadDir().'/'.$this->path.'-wide.jpg';
+        if($size == "1x1")
+            return $this->getUploadDir().'/'.$this->path.'-1x1.jpg';
+        if($size == "4x3")
+            return $this->getUploadDir().'/'.$this->path.'-4x3.jpg';
         else
-            return $this->getUploadDir().'/'.$this->path;
+            return $this->getUploadDir().'/'.$this->path.'-16x9.jpg';
     }
 
     public function getFullImageWebPath()
@@ -84,14 +84,14 @@ class ImageField
     {
         return null === $this->path
             ? null
-            : $this->getUploadDir().'/'.$this->path.'-thumb.jpg';
+            : $this->getUploadDir().'/'.$this->path.'-1x1.jpg';
     }
 
     public function getWideImageWebPath()
     {
         return null === $this->path
             ? null
-            : $this->getUploadDir().'/'.$this->path.'-wide.jpg';
+            : $this->getUploadDir().'/'.$this->path.'-16x9.jpg';
     }
 
     protected function getUploadRootDir()
@@ -185,70 +185,35 @@ class ImageField
     {
         $image = @imagecreatefromjpeg($this->getAbsolutePath());
 
+		//[width, height]
+		$dimensions = [[300,300], [400,300], [1350, 760]];
+		$filenames = [$this->getAbsolutePath().'-1x1.jpg', $this->getAbsolutePath().'-4x3.jpg', $this->getAbsolutePath().'-16x9.jpg'];
+		
+		$width = imagesx($image);
+		$height = imagesy($image);
+		$original_aspect = $width / $height;
 
-        $filename = $this->getAbsolutePath().'-thumb.jpg';
-
-        $thumb_width = 270;
-        $thumb_height = 270;
-
-        $widefilename = $this->getAbsolutePath().'-wide.jpg';
-        $widethumb_width = 1350;
-        $widethumb_height = 760;
-
-        $width = imagesx($image);
-        $height = imagesy($image);
-
-//        //1x1
-//        $size_1_1_filename = $this->getAbsolutePath().'-1x1.jpg';
-//        $size_1_1__width = min($width, $height);
-//        $size_1_1__height = min($width, $height);
-//        //4x3
-//        $size_4_3filename = $this->getAbsolutePath().'-4x3.jpg';
-//        $size_4_3_width = min($width, $height);
-//        $size_4_3_height = min($width, $height);
-//
-//        //16x9
-//        $size_16_9_filename = $this->getAbsolutePath().'-16x9.jpg';
-//        $size_16_9_width = min($width, $height);
-//        $size_16_9__height = min($width, $height);
-
-        $original_aspect = $width / $height;
-        $thumb_aspect = $thumb_width / $thumb_height;
-        $widethumb_aspect = $widethumb_width / $widethumb_height;
-
-        if ( $original_aspect >= $thumb_aspect )
-        {
-            // If image is wider than thumbnail (in aspect ratio sense)
-            $new_height = $thumb_height;
-            $new_width = $width / ($height / $thumb_height);
-        }
-        else
-        {
-            // If the thumbnail is wider than the image
-            $new_width = $thumb_width;
-            $new_height = $height / ($width / $thumb_width);
-        }
-
-        if ( $original_aspect >= $widethumb_aspect )
-        {
-            // If image is wider than thumbnail (in aspect ratio sense)
-            $new_height_wide = $widethumb_width;
-            $new_width_wide = $width / ($height / $widethumb_height);
-        }
-        else
-        {
-            // If the thumbnail is wider than the image
-            $new_width_wide = $widethumb_width;
-            $new_height_wide = $height / ($width / $widethumb_width);
-        }
-
-        $thumb = imagecreatetruecolor( $thumb_width, $thumb_height );
-        $widethumb = imagecreatetruecolor( $widethumb_width, $widethumb_height );
-       // $size_1_1_image = imagecreatetruecolor($size_1_1__width, $size_1_1__height );
-
-// Resize and crop
-
-        imagecopyresampled($thumb,
+		for($i = 0; $i<count($dimensions); $i++)
+		{
+			$thumb_width = $dimensions[$i][0];
+			$thumb_height = $dimensions[$i][1];
+			$thumb_aspect = $thumb_width / $thumb_height;
+			
+			if ( $original_aspect >= $thumb_aspect )
+			{
+				// If image is wider than thumbnail (in aspect ratio sense)
+				$new_height = $thumb_height;
+				$new_width = $width / ($height / $thumb_height);
+			}
+			else
+			{
+				// If the thumbnail is wider than the image
+				$new_width = $thumb_width;
+				$new_height = $height / ($width / $thumb_width);
+			}
+			$thumb = imagecreatetruecolor( $thumb_width, $thumb_height );
+			
+			imagecopyresampled($thumb,
             $image,
             0 - ($new_width - $thumb_width) / 2, // Center the image horizontally
             0 - ($new_height - $thumb_height) / 2, // Center the image vertically
@@ -256,42 +221,24 @@ class ImageField
             $new_width, $new_height,
             $width, $height);
 
-        imagecopyresampled($thumb,
-            $image,
-            0 - ($new_width - $thumb_width) / 2, // Center the image horizontally
-            0 - ($new_height - $thumb_height) / 2, // Center the image vertically
-            0, 0,
-            $new_width, $new_height,
-            $width, $height);
+			@imagejpeg($thumb, $filenames[$i], 85);
 
-        imagecopyresampled($widethumb,
-            $image,
-            0 - ($new_width_wide - $widethumb_width) / 2, // Center the image horizontally
-            0 - ($new_height_wide - $widethumb_height) / 2, // Center the image vertically
-            0, 0,
-            $new_width_wide, $new_height_wide,
-            $width, $height);
 
-//        imagecopyresampled($size_1_1_image,
-//            $image,
-//            0 - ($size_1_1__width - $widethumb_width) / 2, // Center the image horizontally
-//            0 - ($size_1_1__height - $widethumb_height) / 2, // Center the image vertically
-//            0, 0,
-//            $size_1_1__width, $size_1_1__height,
-//            $width, $height);
-
-        @imagejpeg($thumb, $filename, 85);
-        @imagejpeg($widethumb, $widefilename, 85);
-//        @imagejpeg($size_1_1_image, $size_1_1_filename, 85);
+		}
     }
 
     public function removeThumbs()
     {
         if($file = $this->getAbsolutePath())
         {
-            @unlink($file.'-thumb.jpg');
+            @unlink($file.'-thumb.jpg');//TODO: eliminar estas 2 lineas luego de la migracion a este branch y la eliminacion de las antiguas thumbs
             @unlink($file.'-wide.jpg');
-//            @unlink($file.'-1x1.jpg');
+			
+			@unlink($file.'-1x1.jpg');
+			@unlink($file.'-4x3.jpg');
+			@unlink($file.'-16x9.jpg');
+			
+			
         }
     }
 
