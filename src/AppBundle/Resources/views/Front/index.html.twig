@@ -361,10 +361,12 @@
             </div>
         </section>
 
+        {#TODO: put map again
         <!-- Map-->
         <section class="section-md-top-40">
             <div id="map"></div>
         </section>
+        #}
 
         <!-- Make your own Tour-->
         <section class="context-dark offset-top-0" style="margin-top: -8px;">
@@ -677,6 +679,7 @@
 
 {% endblock %}
 
+{#
 {% block javascript %}
     {{ parent() }}
     <script>
@@ -726,3 +729,4 @@
         google.maps.event.addDomListener(window, 'load', init);
     </script>
 {% endblock %}
+#}
