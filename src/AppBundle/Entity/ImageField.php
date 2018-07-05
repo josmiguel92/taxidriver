@@ -192,6 +192,8 @@ class ImageField
 
     private function createThumb()
     {
+		if($this->getFile() == null)
+			return;
 		$image = null;
 		if($this->getFile()->guessExtension() == "png")
 			$image = @imagecreatefrompng($this->getAbsolutePath());
