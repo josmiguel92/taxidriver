@@ -20,3 +20,14 @@ monolog:
         console:
             type: console
             process_psr_3_messages: false
+framework:
+    assets:
+        #version: 'v1'
+        #version_format: '%%s?ver=%%s'
+        base_path: ~
+        base_url: ['https://static.taxidriverscuba.com']
+        packages: 
+            app: 
+                base_path: /images/
+            img: 
+                base_url: 'https://static.taxidriverscuba.com'

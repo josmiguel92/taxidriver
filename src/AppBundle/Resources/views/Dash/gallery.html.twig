@@ -91,7 +91,7 @@
                     <h4 class="title">Im&aacute;genes recientes</h4>
                 </div>
                 <div class="content" id="gallery">
-                    <div class="row view">
+                    <div class="row card" style="margin-bottom: 3em;">
                         <div class="col-md-8">
                             <img src="{{ asset('images/faces/face-0.jpg') }}" class="img-responsive img-rounded" id="img-preview">
                         </div>
@@ -101,7 +101,7 @@
                         </div>
 
                     </div>
-                    <div class="row">
+                    <div class="row card" style="padding-top: 30px;">
                         {% for image in image_list %}
                             <div class="col-md-2 col-xs-6">
                                 <div class="card">
