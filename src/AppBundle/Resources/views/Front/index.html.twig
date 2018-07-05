@@ -44,9 +44,9 @@
                 "name": "Tour or Taxi to {{ place.getNameEn }}",
             {% endif %}
             "image": [
-            "{{ absolute_url(asset(place.getWideImageWebPath)) }}",
-            "{{ absolute_url(asset(place.getWideImageWebPath)) }}",
-            "{{ absolute_url(asset(place.getWideImageWebPath)) }}"
+            "{{ absolute_url(asset(place.getWebPath("full-1x1"))) }}",
+            "{{ absolute_url(asset(place.getWebPath("full-4x3"))) }}",
+            "{{ absolute_url(asset(place.getWebPath("full-16x9"))) }}"
             ],
         {% if not place.istour %}
             "description": "Taxi to {{ place.getNameEn }}",
