@@ -20,10 +20,9 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-        #assets_version: SomeVersionScheme
     assets:
-        version: 'v1'
-        version_format: '%%s?ver=%%s'
+        #version: 'v1'
+        #version_format: '%%s?ver=%%s'
         base_path: ~
         base_url: ['https://static.taxidriverscuba.com']
         packages: 
