@@ -98,7 +98,9 @@ class ImageField
     {
         // la ruta absoluta del directorio donde se deben
         // guardar los archivos cargados
-        return __DIR__ . '/../../public_html/static/' .$this->getUploadDir();
+        return "/home/taxidriverscuba/public_html/static/" .$this->getUploadDir();
+		//TODO: usar un parche para el modo dev.local, pues esta ruta solo existe en el servidor
+		//__DIR__ . '/../../public_html/static/' .$this->getUploadDir();
     }
 
     protected function getUploadDir()
