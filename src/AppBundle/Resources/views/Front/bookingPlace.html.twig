@@ -1,9 +1,9 @@
 {% extends 'AppBundle:Front:baseBooking.html.twig' %}
 
 
-{% set title = "I'm going to "%}
+{% set title = "Book a Taxi to "%}
 {% if locale=='es' %}
-    {% set title = "Voy a ir a " %}
+    {% set title = "Reservar un Taxi para " %}
 {% endif %}
 
 {% set title = title~place.getNameLocale %}
@@ -32,7 +32,7 @@
             "item": {
               "@id": "https://www.taxidriverscuba.com/",
               "name": "Home",
-              "image": "https://www.taxidriverscuba.com/images/favicon.png"
+              "image": "{{ asset("/images/favicon.png") }}"
             }
           }
           {
@@ -41,7 +41,7 @@
             "item": {
               "@id": "{{ absolute_url(english_page) }}",
               "name": "{{ place.getNameEn }}",
-              "image": "https://www.taxidriverscuba.com/images/favicon.png"
+              "image": "{{ asset("/images/favicon.png") }}"
             }
           }]
         }

@@ -1,9 +1,9 @@
 {% extends 'AppBundle:Front:base.html.twig' %}
 
 {% if locale=='es' %}
-    {% set title = 'Taxi y tours para Viñales, Varadero o cualquier otro lugar de Cuba' %}
+    {% set title = 'Taxi y Tours para Viñales, Varadero o cualquier otro lugar de Cuba' %}
 {% else %}
-    {% set title = 'Taxi and tours to Vinales, Varadero or any other place in Cuba' %}
+    {% set title = 'Taxi and Tours to Vinales, Varadero or any other place in Cuba' %}
 {% endif %}
 {% set description = content.getSiteDescriptionLocale %}
 
@@ -23,18 +23,43 @@
         "@type": "ListItem",
         "position": 1,
         "item": {
-          "@id": "https://www.taxidriverscuba.com/",
+          "@id": "{{ absolute_url(path("home")) }}",
           "name": "Home",
-          "image": "https://www.taxidriverscuba.com/images/favicon.png"
+          "image": "{{ asset("/images/favicon.png") }}"
         }
       }]
     }
     </script>
 
+    {#Logo and customer Service Number#}
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "name": "TaxiDriversCuba",
+      "url": "https://www.taxidriverscuba.com",
+      "logo": "https://www.taxidriverscuba.com/images/logo.png",
+      "contactPoint": [
+        { "@type": "ContactPoint",
+          "telephone": "{{ content.getContacttelephone }}",
+          "contactType": "customer service",
+          "availableLanguage": [
+          "English",
+          "Spanish"
+           ]
+        }
+      ],
+      "sameAs": [
+        "http://www.facebook.com/taxidriverscuba",
+        "http://instagram.com/taxidriverscuba",
+        "http://plus.google.com/taxidriverscuba"
+      ]
+    }
+    </script>
 
-{#todo poner las imagenes en proporcion#}
-	<script type="application/ld+json">   
-		{% for place in places %}
+    {#Product#}
+    {% for place in places %}
+        <script type="application/ld+json">
         {
             "@context": "http://schema.org/",
             "@type": "Product",
@@ -51,34 +76,33 @@
         {% if not place.istour %}
             "description": "Taxi to {{ place.getNameEn }}",
         {% else %}
-            "description": "Taxi-Tour to {{ place.getNameEn }}",
+            "description": "Taxi Tour to {{ place.getNameEn }}",
         {% endif %}
             "mpn": "",
             "brand": {
                 "@type": "Thing",
-                "name": "TaxiDriversCuba"
+                "name": "Taxi Drivers Cuba"
             },
             "offers": {
                 "@type": "Offer",
                 "priceCurrency": "USD",
                 "price": "{{ (place.getTrasferprice / config['tasa.usd']) | number_format(2,'.') }}",
-                "priceValidUntil": "2020-12-31",
+                "priceValidUntil": "2018-12-31",
                 "itemCondition": "http://schema.org/UsedCondition",
                 "availability": "http://schema.org/InStock",
                 "seller": {
                     "@type": "Organization",
-                    "name": "TaxiDriversCuba"
+                    "name": "Taxi Drivers Cuba"
                     }
                 }
         }
+        </script>
     {% endfor %}
-</script>
 
 {% endblock %}
 
 {% block header %}
-
-    <!-- Page Header-->facebook.com
+    <!-- Page Header-->
     <header class="page-header">
 
         <!-- RD Navbar-->
@@ -129,28 +153,24 @@
 
                         <div class="pull-md-right">
 
-                            <!-- Social Network --->
+                            <!-- Social Network and flags --->
                             <div class="rd-navbar-collapse-wrap reveal-md-inline-block">
+
                                 <ul class="list-inline list-inline-0 list-social">
                                     {% for socialNetwork in socialNetworks %}
                                         <li class="text-center">
-                                            <a href="{{ socialNetwork.getProfilelink }}" target="_blank" class="text-white">
+                                            <a target="_blank" href="{{ socialNetwork.getProfilelink }}" class="text-white">
                                                 <i class="fa fa-{{ socialNetwork.getName }}"></i>
                                             </a>
                                         </li>
                                     {% endfor %}
-                                </ul>
-                            </div>
 
-                            <div class="rd-navbar-collapse-wrap reveal-md-inline-block">
-
-                                <ul class="list-inline list-inline-2 flags">
-                                    <li class="text-center">
+                                    <li class="text-center flags">
                                         <a href="{{ path("home", {"_locale":"en"}) }}">
                                             <img src="{{ asset('images/flags/uk-flags.svg') }}" alt="{% trans %}change language to english{% endtrans %}">
                                         </a>
                                     </li>
-                                    <li class="text-center">
+                                    <li class="text-center flags">
                                         <a href="{{ path("home", {"_locale":"es"}) }}">
                                             <img src="{{ asset('images/flags/spana-flags.svg') }}" alt="{% trans %}change languaje to spanish{% endtrans %}">
                                         </a>
@@ -237,8 +257,8 @@
 
                     <!-- Taxi subsection -->
                     <div class="offset-top-25">
-                        <!--<i class="fa fa-cab fa-3x color-sky"></i>-->
-                        <img src="{{ asset("images/custom-icons/taxi-sign.svg") }}">
+                        {% set alt = locale=='en'?"Taxi sign":"señal de Taxi" %}
+                        <img alt="{{ alt }}" src="{{ asset("images/custom-icons/taxi-sign.svg") }}">
                         <h2 class="text-spacing-25">
                             {% trans %}Taxi{% endtrans %}
                         </h2>
@@ -378,12 +398,12 @@
                         <div class="range range-xs-center">
                             <div class="cell-sm-10">
                                 <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
-                                    <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block"></div>
+                                    <img src="{{ divider }}" width="135" height="2" alt="divider" style="opacity: .5;" class="img-responsive center-block"></div>
                                 <div class="veil reveal-sm-inline-block">
                                     <span class="fa fa-map-o fa-3x text-white"></span>
                                 </div>
                                 <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
-                                    <img src="{{ divider }}" width="135" height="2" alt="" style="opacity: .5;" class="img-responsive center-block"></div>
+                                    <img src="{{ divider }}" width="135" height="2" alt="divider" style="opacity: .5;" class="img-responsive center-block"></div>
                                 <div class="offset-top-15 offset-md-top-30">
                                     <h2 class="text-spacing-0">
                                         {{ content.getServicesmakeroutetextLocale }}
@@ -418,12 +438,12 @@
                                     <div class="h2 text-spacing-inverse-50 color-sky">
                                         {% if 'horse' in infography.getIcon %}
                                             <a href="https://www.horseridinginvinales.com/"  target="_blank">
-                                                <img src="{{ asset("images/custom-icons/horse.svg") }}" style="height: 2em;">
+                                                <img alt="{{ infography.getTitleLocale }}" src="{{ asset("images/custom-icons/horse.svg") }}" style="height: 2em;">
                                             </a>
                                         {% elseif  'diving' in infography.getIcon %}
-                                            <img src="{{ asset("images/custom-icons/diving.svg") }}" style="height: 2em;">
+                                            <img alt="{{ infography.getTitleLocale }}" src="{{ asset("images/custom-icons/diving.svg") }}" style="height: 2em;">
                                         {% elseif  'food' in infography.getIcon %}
-                                            <img src="{{ asset("images/custom-icons/food.svg") }}" style="height: 2em;">
+                                            <img alt="{{ infography.getTitleLocale }}" src="{{ asset("images/custom-icons/food.svg") }}" style="height: 2em;">
                                         {% else %}
                                             <i class="{{ infography.getIcon }} fa-2x"></i>
                                         {% endif %}
@@ -563,7 +583,8 @@
                                 <div class="owl-item">
                                     <!-- Blockquote-->
                                     <blockquote class="quote">
-                                        <img src="{{ asset(testimony.getFullImageWebPath) }}" width="169" height="169" alt="{{ testimony.getName }}" class="img-circle img-responsive center-block">
+                                        {% set alt = locale=='en'? "TripAdvisor Testimony by" : "Testimonio de TripAdvisor por" %}
+                                        <img alt="{{ alt }} {{ testimony.getName }}" src="{{ asset(testimony.getFullImageWebPath) }}" width="169" height="169" class="img-circle img-responsive center-block">
                                         <div class="offset-top-15 offset-md-top-30">
                                             <p >
                                                 {{ testimony.getTextLocale|striptags|slice(0, 190) }}

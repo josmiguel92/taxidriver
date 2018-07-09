@@ -118,7 +118,7 @@
                             <div class="offset-top-15 cell-sm-5 cell-md-8 well-row-flex">
                                 <label for="{{ booking_form.details.vars.id }}"  class="custom-label text-gray-dark">{% trans %}Place{% endtrans %}</label>
                                 <div style="max-width: 400px; width: 350%;" class="form-group">
-                                    <input placeholder="Address" type="text" style="padding: 10px 12px;" class="form-control" id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}">
+                                    <input placeholder="{% trans %}Address{% endtrans %}" type="text" style="padding: 10px 12px;" class="form-control" id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}">
                                 </div>
                                 {{ form_errors(booking_form.details, {'class':'danger'}) }}
                             </div>
@@ -274,6 +274,8 @@
     numberPeople = 1;
     buttonTourOn = false;
     buttonReturnOn = false;
+    pickup_from_airport = false;
+    pickup_from_cruise = false;
 
         function hideOrShowReturn(){
             if (buttonTourOn){
@@ -308,6 +310,25 @@
             }
         }
 
+        function activeOrDeactivePickupPlace(){
+
+            var pickup_place = $('#{{ booking_form.details.vars.id }}')[0];
+            var pickup = pickup_from_airport || pickup_from_cruise;
+
+            if (pickup){
+                var origin = pickup_from_airport? "airport": "cruise";
+                var place = '{% trans %}we will pick up you in{% endtrans %} ' + (pickup_from_airport? "{% trans %}Airport{% endtrans %}" : "{% trans %}Cruise{% endtrans %}");
+                pickup_place.setAttribute('disabled','true');
+                pickup_place.setAttribute('placeholder', place);
+                pickup_place.setAttribute('value', place);
+            }
+            else{
+                pickup_place.removeAttribute('disabled');
+                pickup_place.removeAttribute('value');
+                pickup_place.setAttribute('placeholder', '{% trans %}Address{% endtrans %}');
+            }
+        }
+
     $(document).ready(function()
         {
 
@@ -325,8 +346,8 @@
                 var source_input = $('#{{ booking_form.flynumber.vars.id }}')[0];
                 var source_label_input = $('label[for="{{ booking_form.flynumber.vars.id }}"]')[0];
 
-                var pickup_from_airport = $("#pickup_airport")[0].classList.contains('active');
-                var pickup_from_cruise = $("#pickup_cruise")[0].classList.contains('active');
+                pickup_from_airport = $("#pickup_airport")[0].classList.contains('active');
+                pickup_from_cruise = $("#pickup_cruise")[0].classList.contains('active');
 
                 source_label_input.innerHTML = "{% trans %}Flight number or cruiser name{% endtrans %}";
                 if (pickup_from_airport)
@@ -341,6 +362,7 @@
                     (source_input.setAttribute('disabled','true') ||
                     source_input.removeAttribute('data-constraints'));
 
+                activeOrDeactivePickupPlace();
             });
 
             //Button of active Tour

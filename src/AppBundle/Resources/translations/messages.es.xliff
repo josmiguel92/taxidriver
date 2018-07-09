@@ -2,6 +2,12 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="es" datatype="plaintext" original="file.ext">
         <body>
+<trans-unit id="welcome.aboard">
+	<source>Welcome aboard!</source>
+	<target>¡Bienvenido a bordo!</target>
+</trans-unit>
+
+
 <trans-unit id="distance">
 	<source>Distance</source>
 	<target>Distancia</target>
@@ -26,15 +32,9 @@
 </trans-unit>
 
 
-<trans-unit id="no..of.passengers">
-	<source>No. of passengers</source>
-	<target>No. de pasajeros</target>
-</trans-unit>
-
-
-<trans-unit id="no..of.luggage">
-	<source>No. of luggage</source>
-	<target>No. de equipaje</target>
+<trans-unit id="the.number.of.passengers.is">
+	<source>The number of passengers is</source>
+	<target>El número de pasajeros es</target>
 </trans-unit>
 
 
@@ -70,13 +70,7 @@
 
 <trans-unit id="phone">
 	<source>Phone</source>
-	<target>Telefono</target>
-</trans-unit>
-
-
-<trans-unit id="e.mail">
-	<source>E-mail</source>
-	<target>E-mail</target>
+	<target>Teléfono</target>
 </trans-unit>
 
 
@@ -202,7 +196,7 @@
 
 <trans-unit id="where.are.you.going">
 	<source>Where are you going?</source>
-	<target>¿Hacia donde vas?</target>
+	<target>¿Hacia dónde vas?</target>
 </trans-unit>
 
 
@@ -225,7 +219,7 @@
 
 
 <trans-unit id="read.more">
-	<source>Read More</source>
+	<source>Read more</source>
 	<target>Leer más</target>
 </trans-unit>
 
@@ -244,13 +238,7 @@
 
 <trans-unit id="the.price.can.vary.in.function.of.the.amount.of.passengers.and.distance.of.the.place">
 	<source>The price can vary in function of the amount of passengers and distance of the place</source>
-	<target>Los precios pueden variar en funcion de la cantidad de pasajeros y la distancia del lugar</target>
-</trans-unit>
-
-
-<trans-unit id="hi">
-	<source>Hi</source>
-	<target>Hola</target>
+	<target>Los precios pueden variar en función de la cantidad de pasajeros y la distancia del lugar</target>
 </trans-unit>
 
 
@@ -287,12 +275,6 @@
 <trans-unit id="pay.with.cash">
 	<source>Pay with cash</source>
 	<target>Pagar en efectivo</target>
-</trans-unit>
-
-
-<trans-unit id="if.you.pay.using.paypal.you.have.access.to.a.10%.discount.">
-	<source>If you pay using PayPal you have access to a 10% discount.</source>
-	<target>Si pagas usando Paypal posees un descuento del 10%.</target>
 </trans-unit>
 
 
@@ -340,13 +322,13 @@
 
 <trans-unit id="make.your.own.way">
 	<source>Make your own way!</source>
-	<target>¡haz tu propio camino!</target>
+	<target>¡Haz tu propio camino!</target>
 </trans-unit>
 
 
 <trans-unit id="your.private.info.always.will.be.private,.we.don't.share.any.information.with.third.party">
 	<source>Your private info always will be private, we don't share any information with third party</source>
-	<target>Tu información privada siempre sera privada, nosotros no compartimos ninguna información con terceras partes.</target>
+	<target>Tu información privada siempre sera privada, nosotros no compartimos ninguna información con terceras partes</target>
 </trans-unit>
 
 
@@ -422,12 +404,6 @@
 </trans-unit>
 
 
-<trans-unit id="please,.if.you.need.to.cancel.your.reservation,.you.must.notify.us.at.least.2.days.in.advance">
-	<source>Please, if you need to cancel your reservation, you must notify us at least 2 days in advance</source>
-	<target>Por favor si desea cancelar su reserva, debe de notificarnos con dos dias de antelación</target>
-</trans-unit>
-
-
 <trans-unit id="flight.number.or.cruiser.name">
 	<source>Flight number or cruiser name</source>
 	<target>Número de vuelo o nombre del crucero</target>
@@ -444,6 +420,211 @@
 	<source>airport or cruise looking for</source>
 	<target>aeropuerto o crucero, atendiendo a</target>
 </trans-unit>
+
+
+<trans-unit id="send.a.message">
+	<source>Send a message</source>
+	<target>Enviar mensaje</target>
+</trans-unit>
+
+
+<trans-unit id="address">
+	<source>Address</source>
+	<target>Dirección</target>
+</trans-unit>
+
+
+<trans-unit id="email">
+	<source>Email</source>
+	<target>Correo electrónico</target>
+</trans-unit>
+
+
+<trans-unit id="opening.hours">
+	<source>Opening hours</source>
+	<target>Horario</target>
+</trans-unit>
+
+
+<trans-unit id="name">
+	<source>Name</source>
+	<target>Nombre</target>
+</trans-unit>
+
+
+<trans-unit id="message">
+	<source>Message</source>
+	<target>Mensaje</target>
+</trans-unit>
+
+
+<trans-unit id="thanks.for.chosing.us,.for.discover.cuba">
+	<source>Thanks for chosing us, for discover Cuba!</source>
+	<target>¡Gracias por escogernos para descubir Cuba!</target>
+</trans-unit>
+
+
+<trans-unit id="you.have.booking.a.taxidriverscuba's.service.and.you.can.check.the.details.and.status.by.clicking.this.link">
+	<source>You have booking a Taxidriverscuba's service and you can check the details and status by clicking this link</source>
+	<target>Haz reservado un servicio de Taxi Drivers Cuba y puedes revisar el estado y los detalles a través de este enlace</target>
+</trans-unit>
+
+
+<trans-unit id="check.booking.status">
+	<source>Check booking status</source>
+	<target>Revisar estado de la reservación</target>
+</trans-unit>
+
+
+<trans-unit id="hi">
+	<source>Hi!</source>
+	<target>¡Hola!</target>
+</trans-unit>
+
+
+<trans-unit id="we.will.be.waiting.for.you.at">
+	<source>We will be waiting for you at</source>
+	<target>Estaremos esperando por ti el</target>
+</trans-unit>
+
+
+<trans-unit id="in.front.of.the.departure.of.the.cruisers.in.the.plaza.de.san.francisco,.which.is.located.as.soon.as.you.cross.the.street.by.the.pedestrian.stationary.step.standing.at.the.fountain.of.the.lions.with.his.name.written.on.a.paper">
+	<source>in front of the departure of the cruisers in the Plaza de San Francisco, which is located as soon as you cross the street by the pedestrian stationary step standing at the fountain of the lions with his name written on a paper</source>
+	<target>al frente de la salida de la terminar de cruceros en la plaza de San Francisco, que se encuentra en cuanto usted cruce la calle por el paso peatonal estaremos parado en la fuente de los leones con su nombre escrito en un papel</target>
+</trans-unit>
+
+
+<trans-unit id="at.the.exit.of.the.jose.marti.international.terminal.with.his.name.written.on.a.paper">
+	<source>at the exit of the Jose Marti international terminal with his name written on a paper</source>
+	<target>en la salida de la terminal del aeropuerto internacional José Martí, con su nombre escrito en un papel</target>
+</trans-unit>
+
+
+<trans-unit id="in">
+	<source>in</source>
+	<target>en</target>
+</trans-unit>
+
+
+<trans-unit id="the.price.of.your">
+	<source>The price of your</source>
+	<target>El precio de su</target>
+</trans-unit>
+
+
+<trans-unit id="is">
+	<source>is</source>
+	<target>es</target>
+</trans-unit>
+
+
+<trans-unit id="or">
+	<source>or</source>
+	<target>o</target>
+</trans-unit>
+
+
+<trans-unit id="for">
+	<source>for</source>
+	<target>para</target>
+</trans-unit>
+
+
+<trans-unit id="people">
+	<source>people</source>
+	<target>persona</target>
+</trans-unit>
+
+
+<trans-unit id="peoples">
+	<source>peoples</source>
+	<target>personas</target>
+</trans-unit>
+
+
+<trans-unit id="for.visiting">
+	<source>for visiting</source>
+	<target>para visitar</target>
+</trans-unit>
+
+
+<trans-unit id="please,.if.you.need.to.cancel.your.reservation,.you.must.notify.us.at.least.2.days.in.advance">
+	<source>Please, if you need to cancel your reservation, you must notify us at least 2 days in advance</source>
+	<target>Por favor, si necesita cancelar la reservación, debe notificarnos con dos dias de antelación</target>
+</trans-unit>
+
+
+<trans-unit id="a.little.bit.about.us">
+	<source>A little bit about us</source>
+	<target>Un poco acerca de nosotros</target>
+</trans-unit>
+
+
+<trans-unit id="it.is.very.easy.to.travel.to">
+	<source>It is very easy to travel to</source>
+	<target>Es muy fácil viajar con nosotros a</target>
+</trans-unit>
+
+
+<trans-unit id="with.us..our.team.provides">
+	<source>with us. Our team provides</source>
+	<target>con nosotros. Nuestro equipo provee</target>
+</trans-unit>
+
+
+<trans-unit id="taxi.services.and.tours">
+	<source>taxi services and tours</source>
+	<target>servicios de taxi y de tours</target>
+</trans-unit>
+
+
+<trans-unit id="through.several.routes.that.go.to.the.most.amazing.places.on.the.islands">
+	<source>through several routes that go to the most amazing places on the islands</source>
+	<target>a través de varias rutas que van por los lugares más increíbles de la isla</target>
+</trans-unit>
+
+
+<trans-unit id="sent.to">
+	<source>Sent to</source>
+	<target>Enviado a</target>
+</trans-unit>
+
+
+<trans-unit id="the.type.of.service.is">
+	<source>The type of service is</source>
+	<target>El tipo de servicio es</target>
+</trans-unit>
+
+
+<trans-unit id="the.price.of.the.service.is">
+	<source>The price of the service is</source>
+	<target>El precio del servicio es</target>
+</trans-unit>
+
+
+<trans-unit id="we.will.pick.it.up.for.the.return">
+	<source>We will pick it up for the return</source>
+	<target>Lo recogeremos para el regreso</target>
+</trans-unit>
+
+
+<trans-unit id="at.the.exit.of.the.jose.marti.international.terminal.with.his.name.written.on.a.paper,.looking.for.the.flight.with.number">
+	<source>at the exit of the Jose Marti international terminal with his name written on a paper, looking for the flight with number</source>
+	<target>a la salida de la terminal internacional José Martí con su nombre escrito en un papel, buscando el vuelo con número</target>
+</trans-unit>
+
+
+<trans-unit id="the.departure.of.the.cruisers.in.the.plaza.de.san.francisco.looking.for.the.cruise.with.name">
+	<source>the departure of the cruisers in the "Plaza de San Francisco" looking for the cruise with name</source>
+	<target>la salida de los cruceros en la "Plaza de San Francisco" buscando el crucero con nombre</target>
+</trans-unit>
+
+
+<trans-unit id="we.have.sent.you.an.email.with.these.details">
+	<source>We have sent you an email with these details</source>
+	<target>Le hemos enviado un correo con estos detalles</target>
+</trans-unit>
+
 
 
 

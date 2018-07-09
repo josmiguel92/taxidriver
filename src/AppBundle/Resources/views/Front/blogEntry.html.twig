@@ -32,7 +32,7 @@
             "item": {
               "@id": "https://www.taxidriverscuba.com/",
               "name": "Home",
-              "image": "https://www.taxidriverscuba.com/images/favicon.png"
+              "image": "{{ asset("/images/favicon.png") }}"
             }
           },
           {
@@ -41,7 +41,7 @@
             "item": {
               "@id": "https://www.taxidriverscuba.com/blog",
               "name": "Blog",
-              "image": "https://www.taxidriverscuba.com/images/favicon.png"
+              "image": "{{ asset("/images/favicon.png") }}"
             }
           },
           {
@@ -50,7 +50,7 @@
             "item": {
               "@id": "{{ absolute_url(english_page) }}",
               "name": "{{ blogEntry.getTitleen }}",
-              "image": "https://www.taxidriverscuba.com/images/favicon.png"
+              "image": "{{ asset("/images/favicon.png") }}"
             }
           }]
         }
@@ -177,6 +177,7 @@
                         <div class="offset-top-30">
                             <div class="hr gray-lighter"></div>
                         </div>
+                        {#Todo: Hacer los articulos relacionados#}
                         {#
                         <div class="offset-top-55">
                             <p class="font-accent text-bold text-uppercase text-mine-shaft text-spacing-25 text-center text-sm-left">Related Posts</p>

@@ -43,7 +43,7 @@
             "item": {
               "@id": "{{ absolute_url(english_page) }}",
               "name": "Booking",
-              "image": "https://www.taxidriverscuba.com/images/favicon.png"
+              "image": "{{ asset("/images/favicon.png") }}"
             }
           }]
         }
@@ -58,8 +58,8 @@
 
             <!-- Taxi subsection -->
             <div class="offset-top-25 text-center">
-                <!--<i class="fa fa-cab fa-3x color-sky"></i>-->
-                <img src="{{ asset("images/custom-icons/taxi-sign.svg") }}">
+                {% set alt = locale=='en'?"Taxi sign":"señal de Taxi" %}
+                <img alt="{{ alt }}" src="{{ asset("images/custom-icons/taxi-sign.svg") }}">
                 <h2 class="text-spacing-25">
                     {% trans %}Taxi{% endtrans %}
                 </h2>

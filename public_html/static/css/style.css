@@ -29,13 +29,13 @@
 *     2.22 Thin
 *     2.23 Dividers
 *     2.24 Tables Custom
-*     2.25 Box Pricing
+*     2.25 Box Pricing --erase
 *     2.26 Media Custom
 *     2.27 Posts
 *     2.28 Box Memeber
 *     2.29 Products
 *     2.30 Pagination Custom
-*     2.31 Material design icons
+*     2.31 Material design icons --erase
 *     2.32 Box Comment
 *     2.33 Pager Custom
 *     2.34 Box Icon
@@ -60,7 +60,7 @@
 *     3.17 Swiper Slider
 *     3.18 ToTop Button
 *     3.19 Responsive Tabs
-*     3.20 Progress Bars
+*     3.20 Progress Bars --erase
 *     3.21 Timecircles --erase
 *     3.22 Scrollspy
 *     3.23 Slick carousel
@@ -9027,95 +9027,6 @@ html .page .offset-top-115 {
   }
 }
 
-.box-pricing {
-  min-width: 270px;
-  display: block;
-}
-
-.box-pricing * {
-  color: #adadad;
-}
-
-.box-pricing-header, .box-pricing-body, .box-pricing-footer {
-  padding: 20px;
-}
-
-.box-pricing-header, .box-pricing-body {
-  transition: .3s all ease;
-}
-
-.box-pricing-header {
-  padding-bottom: 25px;
-  border-top-left-radius: 13px;
-  border-top-right-radius: 13px;
-  background: #f6f6f6;
-  border-bottom: 1px solid #f6f6f6;
-}
-
-.box-pricing-header h5 {
-  text-transform: capitalize;
-}
-
-.box-pricing-header, .box-pricing-header h5 {
-  color: #18acfb;
-}
-
-.box-pricing-body {
-  position: relative;
-  padding-top: 25px;
-  padding-bottom: 25px;
-  white-space: nowrap;
-  background: #fff;
-}
-
-.box-pricing-body:before {
-  content: '';
-  position: absolute;
-  top: 100px;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: #f6f6f6;
-}
-
-.box-pricing-body .bg-gray-lighter, .box-pricing-body:before {
-  transition: .3s all ease;
-}
-
-.box-pricing-footer {
-  padding-top: 5px;
-  padding-bottom: 10px;
-  border-bottom-left-radius: 13px;
-  border-bottom-right-radius: 13px;
-}
-
-.box-pricing-footer, .box-pricing-footer .btn-pricing {
-  color: #fff;
-  background: #18acfb;
-}
-
-.box-pricing-footer .btn-pricing {
-  transition: .3s all ease;
-}
-
-@media (min-width: 1200px) {
-  .box-pricing:hover .box-pricing-header, .box-pricing:hover .box-pricing-body {
-    background: #18acfb;
-  }
-  .box-pricing:hover .box-pricing-header *, .box-pricing:hover .box-pricing-header .text-mine-shaft, .box-pricing:hover .box-pricing-body *, .box-pricing:hover .box-pricing-body .text-mine-shaft {
-    color: #fff;
-  }
-  .box-pricing:hover .box-pricing-header {
-    border-bottom-color: #fff;
-  }
-  .box-pricing:hover .box-pricing-body .bg-gray-lighter, .box-pricing:hover .box-pricing-body:before {
-    background: #fff;
-  }
-  .box-pricing:hover .box-pricing-footer .btn-pricing {
-    color: #18acfb;
-    background: #fff;
-  }
-}
 
 .media-right,
 .media > .pull-right {
@@ -18695,43 +18606,6 @@ a.pswp__share--download:hover {
   background: none;
 }
 
-.progress-bar-circle {
-  display: inline-block;
-  position: relative;
-  text-align: center;
-  line-height: 1.2;
-}
-
-.progress-bar-circle:before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 74%;
-  height: 74%;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  border: 1px solid #9c9c9c;
-}
-
-.progress-bar-circle canvas {
-  vertical-align: middle;
-}
-
-.progress-bar-circle span {
-  position: absolute;
-  top: 48%;
-  left: 50%;
-  font-weight: 900;
-  font-size: 38px;
-  line-height: 38px;
-  transform: translate(-50%, -50%);
-}
-
-.progress-bar-circle span:after {
-  content: "%";
-}
-
 .select2 {
   width: 100% !important;
 }
@@ -19602,91 +19476,6 @@ a.pswp__share--download:hover {
   width: 100%;
 }
 
-.progress-linear {
-  position: relative;
-  height: 10px;
-}
-
-.progress-linear .progress-bar-linear-wrap, .progress-linear .progress-bar-linear {
-  height: 100%;
-  border-radius: 0;
-}
-
-.progress-linear .progress-bar-linear-wrap {
-  background: #e7e7e7;
-  border-radius: 30px;
-}
-
-.progress-linear .progress-bar-linear {
-  width: 0;
-  -webkit-transition: 0.5s all ease;
-  -o-transition: 0.5s all ease;
-  transition: 0.5s all ease;
-  border-radius: 30px;
-}
-
-.progress-linear .progress-value:after {
-  content: "%";
-}
-
-.progress-bar-circle {
-  display: inline-block;
-  position: relative;
-  text-align: center;
-  line-height: 1.2;
-}
-
-.progress-bar-circle:before {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 74%;
-  height: 74%;
-  content: '';
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  border: 1px solid #9c9c9c;
-}
-
-.progress-bar-circle canvas {
-  vertical-align: middle;
-}
-
-.progress-bar-circle span {
-  position: absolute;
-  top: 48%;
-  left: 50%;
-  font-weight: 900;
-  font-size: 38px;
-  line-height: 38px;
-  transform: translate(-50%, -50%);
-}
-
-.progress-bar-circle span:after {
-  content: "%";
-}
-
-.progress {
-  height: 20px;
-}
-
-.progress-bar {
-  font-weight: 700;
-  font-size: 13px;
-  line-height: 20px;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
-
-.progress-bar-dark {
-  background-color: #555;
-}
-
-.progress-striped .progress-bar-dark {
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-}
 
 /*! ========================================================================
  * Bootstrap Toggle: bootstrap-toggle.css v2.2.0
@@ -19963,13 +19752,14 @@ h2{
   font-size: 40px;
 }
 
-.flags{
-  margin-left: 2em;
-}
 
-.flags li img{
+li.flags img{
   height: 1.5em;
   margin: 0 0.25em;
+}
+
+.rd-navbar-fixed .rd-navbar-collapse-wrap, .rd-navbar-fullwidth .rd-navbar-collapse-wrap {
+  padding: 9px 0 12px;
 }
 
 .two-columns{
