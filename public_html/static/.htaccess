@@ -1,0 +1,12 @@
+DirectoryIndex index.html
+Options FollowSymlinks
+
+
+<IfModule mod_rewrite.c>
+    RewriteEngine Off
+
+</IfModule>
+
+<FilesMatch ".(eot|ttf|otf|woff)">
+	Header set Access-Control-Allow-Origin "*"
+</FilesMatch>

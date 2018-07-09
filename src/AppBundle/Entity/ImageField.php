@@ -65,12 +65,19 @@ class ImageField
 
     public function getWebPath($size = "1x1")
     {
-        if($size == "1x1")
-            return $this->getUploadDir().'/'.$this->path.'-1x1.jpg';
         if($size == "4x3")
             return $this->getUploadDir().'/'.$this->path.'-4x3.jpg';
-        else
+        if($size == "16x9")
             return $this->getUploadDir().'/'.$this->path.'-16x9.jpg';
+		if($size == "full-1x1")
+            return $this->getUploadDir().'/'.$this->path.'-full-1x1.jpg';
+        if($size == "full-4x3")
+            return $this->getUploadDir().'/'.$this->path.'-full-4x3.jpg';
+        if($size == "full-16x9")
+            return $this->getUploadDir().'/'.$this->path.'-full-16x9.jpg';
+		
+		return $this->getUploadDir().'/'.$this->path.'-1x1.jpg';
+        
     }
 
     public function getFullImageWebPath()
@@ -186,14 +193,20 @@ class ImageField
     private function createThumb()
     {
 		$image = null;
-		if($this->getFile()->guessExtension() == "png")
+		if(strpos($this->getAbsolutePath(),".png"))
 			$image = @imagecreatefrompng($this->getAbsolutePath());
 		else
         $image = @imagecreatefromjpeg($this->getAbsolutePath());
 
 		//[width, height]
-		$dimensions = [[300,300], [400,300], [1350, 760]];
-		$filenames = [$this->getAbsolutePath().'-1x1.jpg', $this->getAbsolutePath().'-4x3.jpg', $this->getAbsolutePath().'-16x9.jpg'];
+		$dimensions = [[300,300], [400,300], [1350, 760], [1800, 1800],[1800, 1350],[1800, 1014]];
+		$filenames = [$this->getAbsolutePath().'-1x1.jpg', 
+						$this->getAbsolutePath().'-4x3.jpg', 
+						$this->getAbsolutePath().'-16x9.jpg', 
+						$this->getAbsolutePath().'-full-1x1.jpg',
+						$this->getAbsolutePath().'-full-4x3.jpg',
+						$this->getAbsolutePath().'-full-16x9.jpg'
+						];
 		
 		$width = imagesx($image);
 		$height = imagesy($image);
@@ -244,6 +257,9 @@ class ImageField
 			@unlink($file.'-4x3.jpg');
 			@unlink($file.'-16x9.jpg');
 			
+			@unlink($file.'-full-1x1.jpg');
+			@unlink($file.'-full-4x3.jpg');
+			@unlink($file.'-full-16x9.jpg');			
 			
         }
     }
