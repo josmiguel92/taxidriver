@@ -30,7 +30,7 @@
             "@type": "ListItem",
             "position": 1,
             "item": {
-              "@id": "https://www.taxidriverscuba.com/",
+              "@id": "{{ absolute_url(path("home")) }}",
               "name": "Home",
               "image": "{{ asset("/images/favicon.png") }}"
             }
@@ -39,7 +39,7 @@
             "@type": "ListItem",
             "position": 2,
             "item": {
-              "@id": "https://www.taxidriverscuba.com/blog",
+              "@id": "{{ absolute_url(path("blog")) }}",
               "name": "Blog",
               "image": "{{ asset("/images/favicon.png") }}"
             }
