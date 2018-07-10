@@ -1,14 +1,9 @@
 {% extends 'AppBundle:Front:baseBooking.html.twig' %}
 
 
-{% set title = "I will go to..." %}
+{% set title = "Book a Taxi Trip to these popular destinations" %}
 {% if locale=='es' %}
-    {% set title = "Voy a ir a..." %}
-{% endif %}
-
-{% set formTitle =  "I will go to..."%}
-{% if locale=='es' %}
-    {% set title = "Voy a ir a..." %}
+    {% set title = "Reserve un viaje en taxi hacia estos destinos populares" %}
 {% endif %}
 
 {% set featureImage =  asset(content.getHeaderimage.getWideImageWebPath) %}
@@ -76,7 +71,7 @@
                                 <!-- Unit-->
                                 <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left" style="padding: 1em 0;">
                                     <div class="unit-left">
-                                        <img src="{{ asset(place.getThumbnailWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
+                                        <img data-src="{{ asset(place.getWebPath) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
                                     </div>
                                     <div class="unit-body">
                                         <div>
@@ -125,7 +120,7 @@
                                 <!-- Unit-->
                                 <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left" style="padding: 1em 0;">
                                     <div class="unit-left">
-                                        <img src="{{ asset(place.getThumbnailWebPath) }}" width="270" height="263" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
+                                        <img data-src="{{ asset(place.getWebPath) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
                                     </div>
                                     <div class="unit-body">
                                         <div>

@@ -9,7 +9,6 @@
 {% set title = title~place.getNameLocale %}
 
 {% set featureImage =  asset(place.getWideImageWebPath) %}
-{% set formTitle = place.getNameLocale %}
 
 {% set spanish_page = path("booking_place", {"_locale":"es", "_id":place.getId,  "_name":place.getName}) %}
 {% set english_page = path("booking_place", {"_locale":"en", "_id":place.getId, "_name":place.getNameEn}) %}
@@ -46,6 +45,45 @@
           }]
         }
     </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org/",
+            "@type": "Product",
+            {% if not place.istour %}
+                "name": "Taxi to {{ place.getNameEn }}",
+            {% else %}
+                "name": "Tour or Taxi to {{ place.getNameEn }}",
+            {% endif %}
+            "image": [
+            "{{ absolute_url(asset(place.getWebPath("full-1x1"))) }}",
+            "{{ absolute_url(asset(place.getWebPath("full-4x3"))) }}",
+            "{{ absolute_url(asset(place.getWebPath("full-16x9"))) }}"
+            ],
+        {% if not place.istour %}
+            "description": "Taxi to {{ place.getNameEn }}",
+        {% else %}
+            "description": "Taxi Tour to {{ place.getNameEn }}",
+        {% endif %}
+            "mpn": "",
+            "brand": {
+                "@type": "Thing",
+                "name": "Taxi Drivers Cuba"
+            },
+            "offers": {
+                "@type": "Offer",
+                "priceCurrency": "USD",
+                "price": "{{ (place.getTrasferprice / config['tasa.usd']) | number_format(2,'.') }}",
+                "priceValidUntil": "2018-12-31",
+                "itemCondition": "http://schema.org/UsedCondition",
+                "availability": "http://schema.org/InStock",
+                "seller": {
+                    "@type": "Organization",
+                    "name": "Taxi Drivers Cuba"
+                    }
+                }
+        }
+        </script>
 {% endblock %}
 
 {% if locale=='es' %}
