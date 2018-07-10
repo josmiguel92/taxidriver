@@ -340,7 +340,7 @@
             <script async src='https://www.google.com/recaptcha/api.js'></script>
 
         {# Global site tag (gtag.js) - Google Analytics #}
-        <script defer src="https://www.googletagmanager.com/gtag/js?id=UA-120939597-1"></script>
+        <script src="https://www.googletagmanager.com/gtag/js?id=UA-120939597-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -360,8 +360,8 @@
         });
         </script>
 
-        <script defer src="{{ asset("js/core.min.js") }}"></script>
-        <script defer src="{{ asset("js/script.js") }}"></script>
+        <script src="{{ asset("js/core.min.js") }}"></script>
+        <script src="{{ asset("js/script.js") }}"></script>
 
         {#  Google Maps Plugin #}
         <script defer src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&libraries=places"></script>
