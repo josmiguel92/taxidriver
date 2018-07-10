@@ -1,6 +1,11 @@
 {% extends 'AppBundle:Front:base.html.twig' %}
 
-{% set title = "Blog" %}
+{% if locale == 'es' %}
+    {% set title = "Nuestras historias en un blog" %}
+{% else %}
+    {% set title = "Our stories in a blog" %}
+{% endif %}
+
 {% if currentTag is defined %}
     {% if locale == 'es' %}
         {% set title = "Blog: "~currentTag.tag  %}
