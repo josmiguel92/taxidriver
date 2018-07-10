@@ -15,24 +15,27 @@
     {% block hreflang %}
     {% endblock %}
 
-    <!-- Meta tags -->
+    {# Meta tags #}
     <meta name="description" content="{{ description }}">
     <meta name="keywords" content="{{ content.getSitekeywordsLocale|replace({ '\r\n': ' ', '\n': ' ', '\r': ' ' }) }}">
     <meta name="author" content="Taxi Drivers Cuba">
 
-    <!-- Facebook Tags -->
+    {# Facebook Tags #}
     <meta property="og:type"               content="article" />
     <meta property="og:title"              content="{{ title }}" />
     <meta property="og:description"        content="{{ description }}" />
     <meta property="og:image"              content="{{ absolute_url(asset(featureImage)) }}" />
 
-    <!-- Twitter tags -->
+    {# Twitter tags #}
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@taxiDriverCuba" />
     <meta name="twitter:creator" content="@taxiDriverCuba" />
     <meta property="og:title" content="{{ title }}" />
     <meta property="og:description" content="{{ description }}" />
     <meta property="og:image" content="{{ absolute_url(asset(featureImage)) }}" />
+
+    {# Color chrome tab #}
+    <meta name="theme-color" content="#18acfb">
 
     {% if app.Environment == "dev" %}
         {#
