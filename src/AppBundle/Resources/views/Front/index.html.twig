@@ -283,7 +283,7 @@
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                                             <div class="unit-left">
                                                 <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
-                                                    <img src="{{ asset(place.getWebPath) }}" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom">
+                                                    <img data-src="{{ asset(place.getWebPath) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII=" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
                                                 </a>
                                             </div>
                                             <div class="unit-body">
@@ -347,7 +347,7 @@
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                                             <div class="unit-left">
                                                 <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
-                                                    <img src="{{ asset(place.getWebPath) }}" width="270" alt="{{ place.NameLocale }}" class="img-responsive center-block img-zoom">
+                                                    <img data-src="{{ asset(place.getWebPath) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII=" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
                                                 </a>
                                             </div>
                                             <div class="unit-body">
@@ -700,9 +700,11 @@
 
 {% endblock %}
 
-{#
+
 {% block javascript %}
     {{ parent() }}
+
+    {#
     <script>
         var google;
         function init() {
@@ -749,5 +751,5 @@
         }
         google.maps.event.addDomListener(window, 'load', init);
     </script>
+    #}
 {% endblock %}
-#}
