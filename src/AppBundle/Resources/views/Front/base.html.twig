@@ -46,7 +46,8 @@
     {% else %}
         <link rel="stylesheet" type="text/css" href="{{ asset("css/styles.min.css") }}">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700|Source+Sans+Pro" rel="stylesheet">
-        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        {#<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">#}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous" />
     {% endif %}
 
     {% block structure_data %}
@@ -324,12 +325,16 @@
         {% if app.Environment == "dev" %}
             <script src="{{ asset("js/jquery.min.js") }}"></script>
             <script src="{{ asset("js/bootstrap3.3.6.min.js") }}"></script>
+            <script defer src="{{ asset("js/jquery-migrate.min.js") }}"></script>
         {% else %}
-            <script defer src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-            <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+            <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+            <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo=" crossorigin="anonymous"></script>
+            <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js" integrity="sha256-rXnOfjTRp4iAm7hTAxEz3irkXzwZrElV2uRsdJAYjC4=" crossorigin="anonymous"></script>
+            <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.1/jquery-migrate.min.js" integrity="sha256-F0O1TmEa4I8N24nY0bya59eP6svWcshqX1uzwaWC4F4=" crossorigin="anonymous"></script>
+
             <script async src='https://www.google.com/recaptcha/api.js'></script>
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
+        {# Global site tag (gtag.js) - Google Analytics #}
         <script defer src="https://www.googletagmanager.com/gtag/js?id=UA-120939597-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -342,10 +347,9 @@
 
         <script defer src="{{ asset("js/core.min.js") }}"></script>
         <script defer src="{{ asset("js/script.js") }}"></script>
-        <!--  Google Maps Plugin    -->
 
+        {#  Google Maps Plugin #}
         <script defer src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&libraries=places"></script>
-
     {% endblock %}
 </body>
 </html>
