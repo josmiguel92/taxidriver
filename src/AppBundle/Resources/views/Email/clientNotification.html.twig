@@ -207,7 +207,7 @@
 
 													<p>{% trans %}We will be waiting for you at{% endtrans %} <strong>{{ booking.pickuptime | date("l d/m/Y H:i") }}</strong>,
 														{% if booking.aCruise %}
-															{% trans %}in front of the departure of the cruisers in the "Plaza de San Francisco", which is located as soon as you cross the street by the pedestrian stationary step standing at the fountain of the lions with his name written on a paper{% endtrans %}
+															{% trans %}in front of the departure of the cruisers in the Plaza de San Francisco, which is located as soon as you cross the street by the pedestrian stationary step standing at the fountain of the lions with his name written on a paper{% endtrans %}
 															({{ booking.fullname }}).
 														{% elseif booking.isAnAirport %}
 															{% trans %}at the exit of the Jose Marti international terminal with his name written on a paper{% endtrans %} ({{ booking.fullname }}).
@@ -333,7 +333,7 @@
 														<br/>
 														<div class="contentEditableContainer contentTextEditable">
 															<div class="contentEditable" >
-																<div style="font-size:23px;font-family:Heveltica, Arial, sans-serif;color:#fff;">A little bit about us</div>
+																<div style="font-size:23px;font-family:Heveltica, Arial, sans-serif;color:#fff;">{% trans %}A little bit about us{% endtrans %}</div>
 															</div>
 														</div>
 														
