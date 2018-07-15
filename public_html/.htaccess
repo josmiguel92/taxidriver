@@ -84,15 +84,15 @@ DirectoryIndex app.php
   ExpiresDefault                          "access plus 1 month"
 
 # cache.appcache needs re-requests in FF 3.6 (thx Remy ~Introducing HTML5)
-  ExpiresByType text/cache-manifest       "access plus 600 seconds"
+  ExpiresByType text/cache-manifest       "access plus 3600 seconds"
 
 # Your document html
-  ExpiresByType text/html                 "access plus 600 seconds"
+  ExpiresByType text/html                 "access plus 3600 seconds"
 
 # Data
-  ExpiresByType text/xml                  "access plus 0 seconds"
-  ExpiresByType application/xml           "access plus 0 seconds"
-  ExpiresByType application/json          "access plus 0 seconds"
+  ExpiresByType text/xml                  "access plus 60 seconds"
+  ExpiresByType application/xml           "access plus 60 seconds"
+  ExpiresByType application/json          "access plus 60 seconds"
 
 # RSS feed
   ExpiresByType application/rss+xml       "access plus 1 hour"
@@ -131,6 +131,6 @@ DirectoryIndex app.php
 
 </IfModule>
 
-<FilesMatch ".(eot|ttf|otf|woff)">
+<FilesMatch ".(eot|ttf|otf|woff|js|css)">
 	Header set Access-Control-Allow-Origin "*"
 </FilesMatch>

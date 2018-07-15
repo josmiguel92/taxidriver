@@ -7,6 +7,6 @@ Options FollowSymlinks
 
 </IfModule>
 
-<FilesMatch ".(eot|ttf|otf|woff)">
+<FilesMatch ".(eot|ttf|otf|woff|js|css)">
 	Header set Access-Control-Allow-Origin "*"
 </FilesMatch>

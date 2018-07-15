@@ -8,15 +8,12 @@ framework:
         strict_requirements: true
     profiler: { only_exceptions: false }
     assets:
-        #version: 'v1'
-        #version_format: '%%s?ver=%%s'
-        base_path: ~
-        base_url: ['http://static.taxi.test']
+        base_url: ['https://static.taxidriverscuba.com']
         packages: 
             app: 
                 base_path: /images/
             img: 
-                base_url: 'http://static.taxi.test'
+                base_url: 'https://static.taxidriverscuba.com'
 
 web_profiler:
     toolbar: true
