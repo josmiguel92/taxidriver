@@ -1,15 +1,14 @@
 {% extends 'AppBundle:Front:baseBooking.html.twig' %}
 
 
-{% set title = "I'm going to "%}
+{% set title = "Book a Taxi to "%}
 {% if locale=='es' %}
-    {% set title = "Voy a ir a " %}
+    {% set title = "Reservar un Taxi para " %}
 {% endif %}
 
 {% set title = title~place.getNameLocale %}
 
 {% set featureImage =  asset(place.getWideImageWebPath) %}
-{% set formTitle = place.getNameLocale %}
 
 {% set spanish_page = path("booking_place", {"_locale":"es", "_id":place.getId,  "_name":place.getName}) %}
 {% set english_page = path("booking_place", {"_locale":"en", "_id":place.getId, "_name":place.getNameEn}) %}
@@ -30,9 +29,9 @@
             "@type": "ListItem",
             "position": 1,
             "item": {
-              "@id": "https://www.taxidriverscuba.com/",
+              "@id": "{{ absolute_url(path("home")) }}",
               "name": "Home",
-              "image": "https://www.taxidriverscuba.com/images/favicon.png"
+              "image": "{{ asset("/images/favicon.png") }}"
             }
           }
           {
@@ -41,11 +40,50 @@
             "item": {
               "@id": "{{ absolute_url(english_page) }}",
               "name": "{{ place.getNameEn }}",
-              "image": "https://www.taxidriverscuba.com/images/favicon.png"
+              "image": "{{ asset("/images/favicon.png") }}"
             }
           }]
         }
     </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org/",
+            "@type": "Product",
+            {% if not place.istour %}
+                "name": "Taxi to {{ place.getNameEn }}",
+            {% else %}
+                "name": "Tour or Taxi to {{ place.getNameEn }}",
+            {% endif %}
+            "image": [
+            "{{ absolute_url(asset(place.getWebPath("full-1x1"))) }}",
+            "{{ absolute_url(asset(place.getWebPath("full-4x3"))) }}",
+            "{{ absolute_url(asset(place.getWebPath("full-16x9"))) }}"
+            ],
+        {% if not place.istour %}
+            "description": "Taxi to {{ place.getNameEn }}",
+        {% else %}
+            "description": "Taxi Tour to {{ place.getNameEn }}",
+        {% endif %}
+            "mpn": "",
+            "brand": {
+                "@type": "Thing",
+                "name": "Taxi Drivers Cuba"
+            },
+            "offers": {
+                "@type": "Offer",
+                "priceCurrency": "USD",
+                "price": "{{ (place.getTrasferprice / config['tasa.usd']) | number_format(2,'.') }}",
+                "priceValidUntil": "2018-12-31",
+                "itemCondition": "http://schema.org/UsedCondition",
+                "availability": "http://schema.org/InStock",
+                "seller": {
+                    "@type": "Organization",
+                    "name": "Taxi Drivers Cuba"
+                    }
+                }
+        }
+        </script>
 {% endblock %}
 
 {% if locale=='es' %}

@@ -1425,8 +1425,8 @@ class SiteContent
     public function getReservationDescriptionLocale()
     {
         if(Utils::getRequestLocaleLang()=="es")
-            return $this->blogdescription;
-        else return $this->blogdescriptionen;
+            return $this->reservationdescription;
+        else return $this->reservationdescriptionen;
     }
 
     public function getSitekeywordsLocale()

@@ -9,10 +9,11 @@
 {% set description =  ''%}
 
 {% if paypalCallback is empty %}
-    {% set title = "Your transaction is almost done" %}
+    {% set title = "your booking is ready" %}
 {% else %}
     {% set title = "Your transaction was " %}
 {% endif %}
+
 {% if paypalCallback == 'success' or paypalCallback == 'cash' %}
     {% set title = title~"success" %}
 {% elseif paypalCallback == 'cancel' %}
@@ -21,7 +22,7 @@
 
 {% if locale == 'es' %}
     {% if paypalCallback is empty %}
-        {% set title = "Su transacción esta casi lista" %}
+        {% set title = "Su reserva está lista" %}
     {% else %}
         {% set title = "Su transacción fue " %}
     {% endif %}
@@ -44,6 +45,8 @@
 
 {% block content %}
 
+    {% set price_usd = (purchase.price / config['tasa.usd']) | number_format(2,'.') %}
+
     <!-- Page Content-->
     <main class="page-content">
 
@@ -56,7 +59,7 @@
                     <i class="fa fa-times-circle-o fa-5x color-sky"></i>
                 {% endif %}
                 <h2>
-                    {% trans %}Hi{% endtrans %} {{ purchase.fullname }}, {% trans %}these are yours purchase details{% endtrans %}
+                    {% trans %}Hi!{% endtrans %} {{ purchase.fullname }}, {% trans %}these are yours purchase details{% endtrans %}
                 </h2>
 
                 <div class="offset-top-50">
@@ -69,7 +72,7 @@
                                 {% trans %}You want to visit{% endtrans %}:
                             </p>
                             <!-- List-->
-                            <ul class="p">
+                            <ul class="p text-bold text-spacing-25 font-accent text-gray-dark">
                                 {% if purchase.ownroute is not empty %}
                                     {% for _place in purchase.ownrouteFormated %}
                                         <li>{{ _place }}</li>
@@ -85,20 +88,24 @@
 
                         <div class="well-row">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
-                                {% trans %}No. of passengers{% endtrans %}: {{ purchase.getNumpeople }}
+                                {% trans %}The number of passengers is{% endtrans %}: {{ purchase.getNumpeople }}
                             </p>
                         </div>
+
                         <div class="well-row well-row-bg">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
                                 {% trans %}We will pickup you in{% endtrans %}
 
-                                {% if purchase.airport %}
-                                    {% trans %}airport or cruise looking for{% endtrans %}: {{ purchase.flynumber }}
+                                {% if purchase.isAnAirport %}
+                                    {% trans %}at the exit of the José Martí international terminal with his name written on a paper, looking for the flight with number{% endtrans %}: {{ purchase.flynumber }}
+                                {% elseif purchase.isACruise %}
+                                    {% trans %}the departure of the cruisers in the "Plaza de San Francisco" looking for the cruise with name{% endtrans %}: {{ purchase.flynumber }}
                                 {% else %}
                                     : {{ purchase.getDetails }}
                                 {% endif %}
                             </p>
                         </div>
+
                         <div class="well-row">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
                                 {% trans %}At{% endtrans %}: {{ purchase.getPickuptime|date("l, d F Y - H:i")  }}
@@ -107,6 +114,36 @@
                                {{ purchase.details  }}
                             </p>
                         </div>
+
+                        <div class="well-row well-row-bg">
+                            <p class="text-bold text-spacing-25 font-accent text-gray-dark">
+                                {% trans %}The type of service is{% endtrans %}:
+                                {% if not purchase.isTour %}
+                                    Taxi
+                                {% else %}
+                                    Taxi Tour
+                                {% endif %}
+                            </p>
+
+                        </div>
+
+                        <div class="well-row">
+                            <p class="text-bold text-spacing-25 font-accent text-gray-dark">
+                                {% trans %}The price of the service is{% endtrans %}:
+                                {{ purchase.price }} CUC ({% trans %}or{% endtrans %} {{ price_usd }} USD)
+                            </p>
+
+                        </div>
+
+                        {% if purchase.returnpickup %}
+                        <div class="well-row well-row-bg">
+                            <p class="text-bold text-spacing-25 font-accent text-gray-dark">
+                                {% trans %}We will pick it up for the return{% endtrans %}:
+                                {% trans %}at{% endtrans %} {{ purchase.returnpickuptime|date("l, d F Y - H:i") }} {% trans %}in{% endtrans %} {{ purchase.returnpickupplacce }}
+                            </p>
+
+                        </div>
+                        {% endif %}
 
                     </div>
 
@@ -121,10 +158,8 @@
                                         usually this take less than a day.{% endtrans %}
                                     </p>
                                 </div>
-                            {% else %}
+                            {% endif %}
                                 <!-- simple purchase -->
-                                <div class="row">
-                                    <p>{% trans %}Please, if you need to cancel your reservation, you must notify us at least 2 days in advance{% endtrans %}.</p>
                                     {#todo: poner el botton de paypal luego#}
                                     {#<div class="col-md-6">
                                         <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-lg btn-primary">
@@ -144,10 +179,28 @@
                                             {% trans %}You can always pay in Cuba with cash.{% endtrans %}
                                         </p>
                                     </div>#}
-                                </div>
-                            {% endif %}
                         </div>
-                    {% else %}
+                    {% endif %}
+
+                    <div class="row section-bottom-40">
+
+                        <div class="col-md-6 col-md-offset-3">
+                            <p> <a href="http://westernunion.com/" target="_blank">
+                                    <img src="{{ asset('images/logo.wu.big.svg') }}" alt="wester union logo">
+                                </a>
+                                <br/>
+                                {% trans %}You can pay in advance, making a transfer of{% endtrans %} {{ price_usd }} USD
+                                {% trans %}through <a href="http://westernunion.com/" target="_blank">Western Union</a> to this bank account{% endtrans %} <strong>1500812414776</strong>.</p>
+                        </div>
+
+                        <div class="col-md-12 section-xs-top-40">
+                            <p>{% trans %}Please, if you need to cancel your reservation, you must notify us at least 2 days in advance{% endtrans %}.</p>
+                            <p>{% trans %}We have sent you an email with these details{% endtrans %}.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="row section-bottom-40">
                         <div class="col-md-4">
                             <a href="{{ path("home", {'locale':locale}) }}" class="btn btn-border">
                                 <i class="fa fa-arrow-circle-left"></i>
@@ -166,7 +219,7 @@
                                 {% trans %}Make my own tour{% endtrans %}
                             </a>
                         </div>
-                    {% endif %}
+                    </div>
 
                 </div>
             </div>

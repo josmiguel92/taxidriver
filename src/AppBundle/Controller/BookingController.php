@@ -32,7 +32,7 @@ class BookingController extends Controller
     {
         Utils::setRequestLocaleLang($_locale);
         $em = $this->getDoctrine()->getManager();
-        $places = $em->getRepository('AppBundle:Place')->findAll();
+        $places = $em->getRepository('AppBundle:Place')->findAllSorted();
 
         if ($places) {
 

@@ -77,8 +77,7 @@ class Booking
     /**
      * @var string
      * Lugar de recogida
-     * @Assert\NotBlank(message="Indique el lugar con detalle")
-     * @ORM\Column(name="details", type="text")
+     * @ORM\Column(name="details", type="text", nullable=true)
      */
     private $details;
 
@@ -585,7 +584,6 @@ class Booking
     }
 
 
-    //TODO: make a a array with explode
     public function ownrouteFormated(){
         $places = explode('|', $this->ownroute);
         array_pop($places);

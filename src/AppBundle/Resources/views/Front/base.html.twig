@@ -15,18 +15,18 @@
     {% block hreflang %}
     {% endblock %}
 
-    <!-- Meta tags -->
+    {# Meta tags #}
     <meta name="description" content="{{ description }}">
-    <meta name="keywords" content="{{ content.getSitekeywordsLocale }}">
+    <meta name="keywords" content="{{ content.getSitekeywordsLocale|replace({ '\r\n': ' ', '\n': ' ', '\r': ' ' }) }}">
     <meta name="author" content="Taxi Drivers Cuba">
 
-    <!-- Facebook Tags -->
+    {# Facebook Tags #}
     <meta property="og:type"               content="article" />
     <meta property="og:title"              content="{{ title }}" />
     <meta property="og:description"        content="{{ description }}" />
     <meta property="og:image"              content="{{ absolute_url(asset(featureImage)) }}" />
 
-    <!-- Twitter tags -->
+    {# Twitter tags #}
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@taxiDriverCuba" />
     <meta name="twitter:creator" content="@taxiDriverCuba" />
@@ -34,63 +34,32 @@
     <meta property="og:description" content="{{ description }}" />
     <meta property="og:image" content="{{ absolute_url(asset(featureImage)) }}" />
 
-    {#
-    <link rel="stylesheet" href="{{ asset("css/myBootstrap.css") }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset("css/style.css") }}">
-    #}
-    <link rel="stylesheet" type="text/css" href="{{ asset("css/styles.min.css") }}">
-
+    {# Color chrome tab #}
+    <meta name="theme-color" content="#18acfb">
 
     {% if app.Environment == "dev" %}
+        {#
+        <link rel="stylesheet" href="{{ asset("css/myBootstrap.css") }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset("css/style.css") }}">
+        #}
+        <link rel="stylesheet" type="text/css" href="{{ asset("css/styles.min.css") }}">
+
         <link rel="stylesheet" type="text/css" href="{{ asset("css/css.css") }}">
         <link rel="stylesheet" type="text/css" href="{{ asset("css/font-awesome.css") }}">
     {% else %}
+        <link rel="stylesheet" type="text/css" href="{{ asset("css/styles.min.css") }}">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700|Source+Sans+Pro" rel="stylesheet">
-        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        {#<script async src="https://use.fontawesome.com/f922c63c85.js"></script>#}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous" />
     {% endif %}
-
-    <script src='https://www.google.com/recaptcha/api.js' async defer></script>
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-120939597-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-120939597-1');
-    </script>
-
-    {#Logo and customer Service Number#}
-    <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
-      "@type": "Organization",
-      "name": "TaxiDriversCuba",
-      "url": "https://www.taxidriverscuba.com",
-      "logo": "https://www.taxidriverscuba.com/images/logo.png",
-      "contactPoint": [
-        { "@type": "ContactPoint",
-          "telephone": "{{ content.getContacttelephone }}",
-          "contactType": "customer service",
-          "availableLanguage": [
-          "English",
-          "Spanish"
-           ]
-        }
-      ],
-      "sameAs": [
-        "http://www.facebook.com/taxidriverscuba",
-        "http://instagram.com/taxidriverscuba",
-        "http://plus.google.com/taxidriverscuba"
-      ]
-    }
-    </script>
 
     {% block structure_data %}
     {% endblock %}
+
+    <style>
+        img.lazy {
+            display: block;
+        }
+    </style>
 </head>
 
 <div id="fb-root"></div>
@@ -165,7 +134,7 @@
                                     </ul>
                                 </div>
 
-                                <!-- Social Network --->
+                                <!-- Social Network and flags --->
                                 <div class="rd-navbar-collapse-wrap reveal-md-inline-block">
 
                                         <ul class="list-inline list-inline-0 list-social">
@@ -176,23 +145,18 @@
                                                     </a>
                                                 </li>
                                             {% endfor %}
+
+                                            <li class="text-center flags">
+                                                <a href="{{ english_page }}">
+                                                    <img src="{{ asset('images/flags/uk-flags.svg') }}" alt="{% trans %}change language to english{% endtrans %}">
+                                                </a>
+                                            </li>
+                                            <li class="text-center flags">
+                                                <a href="{{ spanish_page }}">
+                                                    <img src="{{ asset('images/flags/spana-flags.svg') }}" alt="{% trans %}change languaje to spanish{% endtrans %}">
+                                                </a>
+                                            </li>
                                         </ul>
-                                </div>
-
-                                <div class="rd-navbar-collapse-wrap reveal-md-inline-block">
-
-                                    <ul class="list-inline list-inline-2 flags">
-                                        <li class="text-center">
-                                            <a href="{{ english_page }}">
-                                                <img src="{{ asset('images/flags/uk-flags.svg') }}" alt="{% trans %}change language to english{% endtrans %}">
-                                            </a>
-                                        </li>
-                                        <li class="text-center">
-                                            <a href="{{ spanish_page }}">
-                                                <img src="{{ asset('images/flags/spana-flags.svg') }}" alt="{% trans %}change languaje to spanish{% endtrans %}">
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </div>
 
                             </div>
@@ -369,17 +333,41 @@
         {% if app.Environment == "dev" %}
             <script src="{{ asset("js/jquery.min.js") }}"></script>
             <script src="{{ asset("js/bootstrap3.3.6.min.js") }}"></script>
+            <script src="{{ asset("js/jquery.lazy.min.js") }}"></script>
         {% else %}
-            <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo=" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js" integrity="sha256-7PSmF2ojY04Z7YCwG5wwvH+bdUxV1PPCIORvvTYHo7M=" crossorigin="anonymous"></script>
+
+            <script async src='https://www.google.com/recaptcha/api.js'></script>
+
+        {# Global site tag (gtag.js) - Google Analytics #}
+        <script src="https://www.googletagmanager.com/gtag/js?id=UA-120939597-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-120939597-1');
+        </script>
         {% endif %}
+
+
+        <script>
+         $(function() {
+            $('.lazy').lazy({
+              effect: "fadeIn",
+              effectTime: 250,
+              threshold: 0
+            });
+        });
+        </script>
 
         <script src="{{ asset("js/core.min.js") }}"></script>
         <script src="{{ asset("js/script.js") }}"></script>
-        <!--  Google Maps Plugin    -->
 
+        {#  Google Maps Plugin #}
         <script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&libraries=places"></script>
-
     {% endblock %}
 </body>
 </html>
