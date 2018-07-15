@@ -1,6 +1,11 @@
 {% extends 'AppBundle:Front:base.html.twig' %}
 
-{% set title = "Blog" %}
+{% if locale == 'es' %}
+    {% set title = "Nuestras historias en un blog" %}
+{% else %}
+    {% set title = "Our stories in a blog" %}
+{% endif %}
+
 {% if currentTag is defined %}
     {% if locale == 'es' %}
         {% set title = "Blog: "~currentTag.tag  %}
@@ -30,18 +35,18 @@
             "@type": "ListItem",
             "position": 1,
             "item": {
-              "@id": "https://www.taxidriverscuba.com/",
+              "@id": "{{ absolute_url(path("home")) }}",
               "name": "Home",
-              "image": "https://www.taxidriverscuba.com/images/favicon.png"
+              "image": "{{ asset("/images/favicon.png") }}"
             }
           },
           {
             "@type": "ListItem",
             "position": 2,
             "item": {
-              "@id": "https://www.taxidriverscuba.com/blog",
-              "name": "Blog",
-              "image": "https://www.taxidriverscuba.com/images/favicon.png"
+              "@id": "{{ absolute_url(path("blog")) }}",
+              "name": "Our stories in a blog",
+              "image": "{{ asset("/images/favicon.png") }}"
             }
           }]
         }
@@ -67,7 +72,7 @@
                             <article class="post-classic text-left offset-top-30">
                                 <div class="post-classic-img-wrap">
                                     <a href="{{ url }}">
-                                        <img src="{{ asset(blogEntry.getWideImageWebPath) }}" alt="blogEntry.getTitleLocale" class="img-responsive center-block">
+                                        <img src="{{ asset(blogEntry.getWideImageWebPath) }}" alt="{{ blogEntry.getTitleLocale }}" class="img-responsive center-block">
                                     </a>
                                 </div>
                                 <div class="post-classic-body offset-top-30">
@@ -95,7 +100,7 @@
                                                 <!-- List inline marked -->
                                                 <ul class="list-inline list-marked list-marked-type-2 list-marked-type-2-dot-1 list-silver-chalice list-marked-silver-chalice font-accent text-bold text-spacing-inverse-25 inset-sm-left-4">
                                                     {% for tag in blogEntry.getTags %}
-                                                        {#<li><a href="#" class="text-turquoise">{{ tag.getTagLocale }}</a></li>#}
+                                                        {#Todo: poner enlaces de tags#}
                                                         <li>{{ tag.getTagLocale }}</li>
                                                     {% endfor %}
 
