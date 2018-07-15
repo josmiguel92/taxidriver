@@ -11,3 +11,7 @@ remove_trailing_slash:
     requirements:
       url: .*/$
     methods: [GET]
+    
+bienvenido_to_home:
+    path: /Bienvenido
+    defaults: { _controller: AppBundle:Redirecting:bienvenido_to_home }

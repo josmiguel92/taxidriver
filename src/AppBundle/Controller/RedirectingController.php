@@ -18,4 +18,9 @@ class RedirectingController extends Controller
         $url = str_replace($pathInfo, rtrim($pathInfo, ' /'), $requestUri);
         return $this->redirect($url, 301);
     }
+	
+	public function bienvenido_to_home(Request $request)
+	{
+		return $this->redirectToRoute('home', 301);
+	}
 }
