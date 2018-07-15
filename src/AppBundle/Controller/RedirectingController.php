@@ -19,7 +19,7 @@ class RedirectingController extends Controller
         return $this->redirect($url, 301);
     }
 	
-	public function bienvenido_to_home(Request $request)
+	public function bienvenido_to_homeAction(Request $request)
 	{
 		return $this->redirectToRoute('home', 301);
 	}
