@@ -1,5 +1,4 @@
 /.web-server-pid
-/app/config/*
 /build/
 /phpunit.xml
 /var/*
@@ -16,7 +15,6 @@
 /var
 .idea
 public_html/app_dev.php
-app/config/security.yml
 app/bootstrap.php.cache
 /public_html/bundles/
 public_html/.htaccess
