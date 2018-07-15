@@ -21,6 +21,6 @@ class RedirectingController extends Controller
 	
 	public function bienvenido_to_homeAction(Request $request)
 	{
-		return $this->redirectToRoute('home', 301);
+		return $this->redirectToRoute('home',array(), 301);
 	}
 }
