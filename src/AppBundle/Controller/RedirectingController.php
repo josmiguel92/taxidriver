@@ -24,6 +24,7 @@ class RedirectingController extends Controller
     /**
      * @Route("/index.php")
      * @Route("/Bienvenido")
+     * @Route("/Welcome")
      */
 	public function homeRedirectionAction(Request $request)
 	{
