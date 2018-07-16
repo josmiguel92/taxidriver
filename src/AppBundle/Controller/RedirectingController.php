@@ -8,6 +8,8 @@
 namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class RedirectingController extends Controller
 {
@@ -19,7 +21,11 @@ class RedirectingController extends Controller
         return $this->redirect($url, 301);
     }
 	
-	public function bienvenido_to_homeAction(Request $request)
+    /**
+     * @Route("/index.php")
+     * @Route("/Bienvenido")
+     */
+	public function homeRedirectionAction(Request $request)
 	{
 		return $this->redirectToRoute('home',array(), 301);
 	}
