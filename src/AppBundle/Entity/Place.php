@@ -27,7 +27,7 @@ class Place extends ImageField
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
@@ -38,7 +38,19 @@ class Place extends ImageField
      */
     private $nameEn;
 
+   /**
+     * @var string
+     *
+     * @ORM\Column(name="origin", type="string", length=255, nullable=true)
+     */
+    private $origin;
 
+   /**
+     * @var string
+     *
+     * @ORM\Column(name="originen", type="string", length=255, nullable=true)
+     */
+    private $originEn;
 
     /**
      * @return int
@@ -298,6 +310,19 @@ class Place extends ImageField
         return $this;
     }
 
+        public function setOrigin($name)
+    {
+        $this->origin = $name;
+
+        return $this;
+    }
+
+        public function setOriginEn($name)
+    {
+        $this->originEn = $name;
+
+        return $this;
+    }
     /**
      * Get name
      *
@@ -310,6 +335,12 @@ class Place extends ImageField
         return $this->nameEn;
     }
 
+    public function getOriginLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->origin;
+        return $this->originEn;
+    }
     /**
      * @return string
      */
@@ -334,6 +365,16 @@ class Place extends ImageField
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getOrigin()
+    {
+        return $this->origin;
+    }
+
+    public function getOriginEn()
+    {
+        return $this->originEn;
     }
 
     /**
