@@ -491,6 +491,7 @@ class Blogentrie  extends ImageField
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->likes = 1;
         return $this->publisheddate = new \DateTime();
     }
 
