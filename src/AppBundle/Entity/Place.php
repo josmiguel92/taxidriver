@@ -399,5 +399,10 @@ class Place extends ImageField
     {
         $this->weight = $weight;
     }
+
+        public function __construct()
+    {
+        $this->weight = 0;
+    }
 }
 
