@@ -8,6 +8,8 @@
 namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class RedirectingController extends Controller
 {
@@ -18,4 +20,14 @@ class RedirectingController extends Controller
         $url = str_replace($pathInfo, rtrim($pathInfo, ' /'), $requestUri);
         return $this->redirect($url, 301);
     }
+	
+    /**
+     * @Route("/index.php")
+     * @Route("/Bienvenido")
+     * @Route("/Welcome")
+     */
+	public function homeRedirectionAction(Request $request)
+	{
+		return $this->redirectToRoute('home',array(), 301);
+	}
 }

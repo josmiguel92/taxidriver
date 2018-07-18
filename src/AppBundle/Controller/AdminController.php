@@ -541,6 +541,9 @@ class AdminController extends Controller
 
         if(!isset($config['paypal.token']))
             $em->persist(new \AppBundle\Entity\ConfigValue("paypal.token",'xxxxxxxxx'));
+		
+		if(!isset($config['credit.card']))
+            $em->persist(new \AppBundle\Entity\ConfigValue("credit.card",'1234567890123456'));
 
 
         $em->flush();
