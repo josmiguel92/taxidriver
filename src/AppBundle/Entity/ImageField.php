@@ -242,7 +242,6 @@ class ImageField
 
 			@imagejpeg($thumb, $filenames[$i], 70);
 
-
 		}
     }
 
