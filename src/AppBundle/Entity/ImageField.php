@@ -240,7 +240,7 @@ class ImageField
             $new_width, $new_height,
             $width, $height);
 
-			@imagejpeg($thumb, $filenames[$i], 85);
+			@imagejpeg($thumb, $filenames[$i], 70);
 
 
 		}
