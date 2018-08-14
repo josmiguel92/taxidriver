@@ -198,6 +198,12 @@
                                                         {{ booking.details}}
                                                     {% endif %}
                                                 </p>
+                                                {% if booking.comment %}
+                                                    <hr>
+                                                        <p>Quiere que sepas que: </p>
+                                                        <p>{{ booking.comment }}</p>
+                                                    <hr>
+                                                {% endif %}
 
                                                 {% if  booking.returnpickup %}
 
