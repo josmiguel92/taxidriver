@@ -182,6 +182,7 @@
                                                 {% set language = 'Ingles' %}
                                                 {% if booking.bookingLocale == 'es' %}
                                                     {% set language = 'Español' %}
+                                                {% endif %}
                                                 <p>Idioma: {{ language }}</p>
                                                 <hr>
                                                 <p>Hora y fecha: {{ booking.pickuptime | date("l d/m/Y H:i") }}</p>
