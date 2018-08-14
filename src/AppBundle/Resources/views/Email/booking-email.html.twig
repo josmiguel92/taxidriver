@@ -179,7 +179,10 @@
                                                 <p>Nombre: <b>{{ booking.fullname }}</b></p>
                                                 <p>Cantidad de personas: {{ booking.numpeople }}</p>
                                                 <p>Email: <a href="mailto:{{ booking.email }}">{{ booking.email }}</a></p>
-                                                <p>Idioma: {{ booking.bookingLocale }}</p>
+                                                {% set language = 'Ingles' %}
+                                                {% if booking.bookingLocale == 'es' %}
+                                                    {% set language = 'Español' %}
+                                                <p>Idioma: {{ language }}</p>
                                                 <hr>
                                                 <p>Hora y fecha: {{ booking.pickuptime | date("l d/m/Y H:i") }}</p>
                                                 <p>
@@ -194,7 +197,7 @@
                                                         {{ booking.details}}
                                                     {% endif %}
                                                 </p>
-                                                
+
                                                 {% if  booking.returnpickup %}
 
                                                     <h4>Sobre el regreso</h4>
