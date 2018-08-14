@@ -19,3 +19,9 @@ app/bootstrap.php.cache
 /public_html/bundles/
 public_html/.htaccess
 !/app/config/security_dev.yml
+app/config/
+app/config/*
+public_html/static/uploads/*
+public_html/static/uploads/*
+trans/
+trans/*
