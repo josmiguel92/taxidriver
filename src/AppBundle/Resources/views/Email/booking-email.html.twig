@@ -179,7 +179,9 @@
                                                 <p>Nombre: <b>{{ booking.fullname }}</b></p>
                                                 <p>Cantidad de personas: {{ booking.numpeople }}</p>
                                                 <p>Email: <a href="mailto:{{ booking.email }}">{{ booking.email }}</a></p>
+                                                <p>Idioma: {{ booking.bookingLocale }}</p>
                                                 <hr>
+                                                <p>Hora y fecha: {{ booking.pickuptime | date("l d/m/Y H:i") }}</p>
                                                 <p>
                                                     {% if booking.isAnAirport %}
                                                         Debe recogerlo en el aereopuerto,<br/>
@@ -187,26 +189,19 @@
                                                     {% elseif booking.aCruise %}
                                                         Debe recogerlo en la terminal de crucero<br/>
                                                         el nombre del crucero es: <b>{{booking.flynumber}}</b>
+                                                    {% else %}
+                                                        Detalles de recogida:<br>
+                                                        {{ booking.details}}
                                                     {% endif %}
                                                 </p>
-
+                                                
                                                 {% if  booking.returnpickup %}
-                                                    <h4>Sobre la recogida</h4>
-                                                    <p>Hora y fecha: {{ booking.pickuptime | date("l d/m/Y H:i") }}</p>
-                                                    <p>Detalles de recogida:<br>
-                                                        {{ booking.details}}
-                                                    </p>
-
 
                                                     <h4>Sobre el regreso</h4>
                                                     <p>Hora y fecha: {{ booking.returnpickuptime | date("l d/m/Y H:i") }}</p>
                                                     <p>Detalles de recogida:<br>
                                                         {{ booking.returnpickupplacce}}
                                                     </p>
-
-                                                    <h4>Sobre el idioma</h4>
-                                                    <p>El usuario visito la versión en {{ booking.bookingLocale }}</p>
-
                                                 {% endif %}
 
                                                 <hr>
