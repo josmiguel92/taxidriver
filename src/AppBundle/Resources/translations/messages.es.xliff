@@ -2,6 +2,7 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="es" datatype="plaintext" original="file.ext">
         <body>
+
 <trans-unit id="welcome.aboard">
 	<source>Welcome aboard!</source>
 	<target>¡Bienvenido a bordo!</target>
@@ -624,6 +625,13 @@
 	<source>We have sent you an email with these details</source>
 	<target>Le hemos enviado un correo con estos detalles</target>
 </trans-unit>
+
+
+<trans-unit id="if.you.plan.to.return.the.same.day,.select.our.tour.option.that.is.cheaper">
+	<source>If you plan to return the same day, select our tour option that is cheaper!</source>
+	<target>¡Si planeas regresar el mismo dia, selecciona nuestra opción de tour que es mas barata!</target>
+</trans-unit>
+
 
 
 
