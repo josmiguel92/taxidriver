@@ -160,11 +160,11 @@ class Utils
     static function calculateSimpleRoutePrices(\AppBundle\Entity\Place $place, \AppBundle\Entity\Booking $booking, $increment){
 
         $price = 0;
-        if(strtolower($place->getName()) == 'viñales' && $booking->isTour())
+        if($place->getName() == 'Viñales' && $booking->isTour())
         {
             if($booking->getNumpeople() <= 3)
                 $price = 135;
-            if($booking->getNumpeople() <= 5)
+            elseif ($booking->getNumpeople() <= 5)
                 $price = 160;
         }
         else {

@@ -1,3 +1,6 @@
+app/config/security_dev.yml
+public_html/.htaccess
+app/config/parameters.yml
 /.web-server-pid
 /build/
 /phpunit.xml
@@ -17,5 +20,7 @@
 public_html/app_dev.php
 app/bootstrap.php.cache
 /public_html/bundles/
-public_html/.htaccess
-!/app/config/security_dev.yml
+
+public_html/static/uploads/*
+trans/
+trans/*

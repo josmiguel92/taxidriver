@@ -231,6 +231,21 @@
             $("#labelPrice")[0].innerHTML = priceContent;
         }
 
+        function vinalesShowReturnAdv(){
+            if (place_name == "Viñales" || place_name == "Vinales"){
+                if (buttonReturnOn){
+                    $("#vinalesTourText").css('display', 'block');
+                }
+                else{
+                    $("#vinalesTourText").css('display', 'none');
+                }
+            }
+            else{
+                $("#vinalesTourText").css('display', 'none');
+            }
+
+        }
+
         $(document).ready(function () {
 
             selected_bottons = $('a[data-role="booking-btn"]');
@@ -242,6 +257,7 @@
 
             $("#activeReturn").change(function() {
                 updatePrice();
+                vinalesShowReturnAdv();
             });
 
             $("#{{ booking_form.numpeople.vars.id }}").change(function() {
@@ -308,9 +324,10 @@
                     }
 
                     updatePrice();
+                    vinalesShowReturnAdv();
                 }
 
-            })
+            });
 
             activeOrDeactiveReturn();
             $("#returnLine").fadeIn(500);

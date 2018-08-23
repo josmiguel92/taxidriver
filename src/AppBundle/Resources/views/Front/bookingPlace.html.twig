@@ -185,6 +185,14 @@
             $("#labelPrice")[0].innerHTML = priceContent;
         }
 
+        function vinalesShowReturnAdv(){
+            if (buttonReturnOn){
+                $("#vinalesTourText").css('display', 'block');
+            }
+            else{
+                $("#vinalesTourText").css('display', 'none');
+            }
+        }
 
         $("#document").ready(function (){
             updatePrice();
@@ -195,6 +203,9 @@
 
             $("#activeReturn").change(function() {
                 updatePrice();
+                {% if "viñales" in place.nameLocale|lower or "vinales" in place.nameLocale|lower %}
+                    vinalesShowReturnAdv();
+                {% endif %}
             });
 
             $("#{{ booking_form.numpeople.vars.id }}").change(function() {

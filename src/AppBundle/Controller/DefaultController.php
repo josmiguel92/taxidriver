@@ -59,7 +59,7 @@ class DefaultController extends Controller
                 $senderEmail = $content[0]->getContactemail();
                 $address = $content[0]->getContactaddressLocale();
                 $telephone = $content[0]->getContacttelephone();
-                $subject = "Nuevo contacto a traves de la Web";
+                $subject = "Nuevo contacto a traves de la Web (".$message->getId().")";
                 $email = \Swift_Message::newInstance()
                     ->setSubject($subject)
                     ->setReplyTo($senderEmail)
