@@ -4,17 +4,28 @@
 <div class="content">
 
 {{ form_start(route_form) }}
-    <div class="col-md-8">
-        <div class="form-group">
-            <input class="placepicker form-control" data-map-container-id="collapsePlaceMap"/>
-        </div>
-        <div id="collapsePlaceMap" class="collapse">
-            <div class="placepicker-map thumbnail"></div>
-        </div>
+    <label>Seleccione el Origen</label>
+    <div class="form-group">
+        <input class="start-point placepicker form-control" data-map-container-id="collapseOriginPlaceMap"/>
     </div>
-    <div class="col-md-4">
-        <img src="{{ asset(route_form.vars.value.getWebPath) }}" class="thumbnail img-responsive">
+    <div id="collapseOriginPlaceMap" class="collapse">
+        <div class="placepicker-map thumbnail"></div>
     </div>
+
+
+    {{ form_row(route_form.origin) }}
+    {{ form_row(route_form.originEn) }}
+
+    <label>Seleccione el Destino</label>
+    <div class="form-group">
+        <input class="end-point placepicker form-control" data-map-container-id="collapseEndPlaceMap"/>
+    </div>
+    <div id="collapseEndPlaceMap" class="collapse">
+        <div class="placepicker-map thumbnail"></div>
+    </div>
+    {{ form_row(route_form.name) }}
+
+    {{ form_widget(route_form) }}
     <div class="col-md-12">
 
     {{ form_widget(route_form) }}

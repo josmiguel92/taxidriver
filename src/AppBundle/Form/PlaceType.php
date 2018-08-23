@@ -18,10 +18,10 @@ class PlaceType extends AbstractType
     {
         $builder
 
-        ->add('origin', null, ["label"=>"Origen que se mostrará, opcional"])
-            ->add('originEn', null, ["label"=>"Origen que se mostrará, en ingles, opcional"])
-            ->add('name', null, ["label"=>"Nombre que se mostrará"])
-            ->add('nameEn', null, ["label"=>"Nombre que se mostrará, en ingles"])
+        ->add('origin', null, ["label"=>"Origen, si no se establece, se mostrará La Habana"])
+            ->add('originEn', null, ["label"=>"Origen, en ingles, opcional"])
+            ->add('name', null, ["label"=>"Destino"])
+            ->add('nameEn', null, ["label"=>"Destino, en ingles"])
             ->add('distance', null, ["label"=>"Distancia, en km."])
             ->add('file', null, ['label'=>"Imágen representativa"])
 

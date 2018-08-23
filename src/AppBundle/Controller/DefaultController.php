@@ -33,7 +33,7 @@ class DefaultController extends Controller
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
             $places = $em->getRepository('AppBundle:Place')->findAllSorted();
             $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
-            $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries(0, 4);
+            $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries(0, 2);
             $testimonials = $em->getRepository('AppBundle:Testimony')->findAll();
 
             $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();

@@ -216,7 +216,7 @@
             </div>
 
         </div>
-
+{#
         <div class="swiper-container gallery-thumbs">
             <div class="swiper-wrapper">
                 {% for blogEntry in blogEntries %}
@@ -225,7 +225,7 @@
 
             </div>
         </div>
-
+#}
     </header>
 
 {% endblock %}
@@ -290,7 +290,12 @@
                                                 <div class="place-description">
                                                     <p class="p h5 text-capitalize text-spacing-inverse-25" style="height: 3em">
                                                         <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
-                                                            {% trans %}Havana{% endtrans %} - {{ place.getNameLocale }}
+                                                            {% if place.getOriginLocale is empty %}
+                                                                {% trans %}Havana{% endtrans %}
+                                                            {% else %}
+                                                                    {{ place.getOriginLocale }}
+                                                            {% endif %}
+                                                            - {{ place.getNameLocale }}
                                                         </a>
                                                     </p>
 
@@ -354,7 +359,12 @@
                                                 <div class="place-description">
                                                     <h3 class="p h5 text-capitalize text-spacing-inverse-25" style="height: 3em">
                                                         <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
-                                                            {% trans %}Havana{% endtrans %} - {{ place.getNameLocale }}
+                                                            {% if place.getOriginLocale is empty %}
+                                                                {% trans %}Havana{% endtrans %}
+                                                            {% else %}
+                                                                {{ place.getOriginLocale }}
+                                                            {% endif %}
+                                                            - {{ place.getNameLocale }}
                                                         </a>
                                                     </h3>
 
