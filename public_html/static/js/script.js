@@ -31,8 +31,8 @@ var userAgent = navigator.userAgent.toLowerCase(),
         //rdRange: $('.rd-range'),
         //textRotator: $(".text-rotator"),
         owl: $(".owl-carousel"),
-        swiper: $(".swiper-slider"),
-        swiperGallery: $(".gallery-top"),
+
+
         //counter: $(".counter"),
         //flickrfeed: $(".flickr"),
         //twitterfeed: $(".twitter"),
@@ -58,7 +58,7 @@ var userAgent = navigator.userAgent.toLowerCase(),
         rdInputLabel: $(".form-label"),
         stacktable: $("[data-responsive=true]"),
         //customWaypoints: $('[data-custom-scroll-to]'),
-        photoSwipeGallery: $("[data-photo-swipe-item]"),
+        //photoSwipeGallery: $("[data-photo-swipe-item]"),
         //circleProgress: $(".progress-bar-circle"),
         stepper: $("input[type='number']"),
         radio: $("input[type='radio']"),
@@ -569,121 +569,6 @@ $document.ready(function () {
     }
 
 
-    /**
-     * Swiper 3.1.7
-     * @description  Enable Swiper Slider
-     */
-    if (plugins.swiper.length) {
-        var i;
-        for (i = 0; i < plugins.swiper.length; i++) {
-            var s = $(plugins.swiper[i]);
-            var pag = s.find(".swiper-pagination"),
-                next = s.find(".swiper-button-next"),
-                prev = s.find(".swiper-button-prev"),
-                bar = s.find(".swiper-scrollbar"),
-                parallax = s.parents('.rd-parallax').length,
-                swiperSlide = s.find(".swiper-slide");
-
-            for (j = 0; j < swiperSlide.length; j++) {
-                var $this = $(swiperSlide[j]),
-                    url;
-
-                if (url = $this.attr("data-slide-bg")) {
-                    $this.css({
-                        "background-image": "url(" + url + ")",
-                        "background-size": "cover"
-                    })
-                }
-            }
-
-            swiperSlide.end()
-                .find("[data-caption-animate]")
-                .addClass("not-animated")
-                .end()
-                .swiper({
-                    autoplay: s.attr('data-autoplay') ? s.attr('data-autoplay') === "false" ? undefined : s.attr('data-autoplay') : 5000,
-                    direction: s.attr('data-direction') ? s.attr('data-direction') : "horizontal",
-                    effect: s.attr('data-slide-effect') ? s.attr('data-slide-effect') : "slide",
-                    speed: s.attr('data-slide-speed') ? s.attr('data-slide-speed') : 600,
-                    keyboardControl: s.attr('data-keyboard') === "true",
-                    mousewheelControl: s.attr('data-mousewheel') === "true",
-                    mousewheelReleaseOnEdges: s.attr('data-mousewheel-release') === "true",
-                    nextButton: next.length ? next.get(0) : null,
-                    prevButton: prev.length ? prev.get(0) : null,
-                    pagination: pag.length ? pag.get(0) : null,
-                    paginationClickable: pag.length ? pag.attr("data-clickable") !== "false" : false,
-                    paginationBulletRender: pag.length ? pag.attr("data-index-bullet") === "true" ? function (index, className) {
-                        return '<span class="' + className + '">' + (index + 1) + '</span>';
-                    } : null : null,
-                    scrollbar: bar.length ? bar.get(0) : null,
-                    scrollbarDraggable: bar.length ? bar.attr("data-draggable") !== "false" : true,
-                    scrollbarHide: bar.length ? bar.attr("data-draggable") === "false" : false,
-                    loop: s.attr('data-loop') !== "false",
-                    simulateTouch: s.attr('data-simulate-touch') ? s.attr('data-simulate-touch') === "true" : false,
-                    onTransitionStart: function (swiper) {
-                        toggleSwiperInnerVideos(swiper);
-                    },
-                    onTransitionEnd: function (swiper) {
-                        toggleSwiperCaptionAnimation(swiper);
-                    },
-                    onInit: function (swiper) {
-                        toggleSwiperInnerVideos(swiper);
-                        toggleSwiperCaptionAnimation(swiper);
-
-                        var swiperParalax = s.find(".swiper-parallax");
-
-                        for (var k = 0; k < swiperParalax.length; k++) {
-                            var $this = $(swiperParalax[k]),
-                                speed;
-
-                            if (parallax && !isIEBrows && !isMobile) {
-                                if (speed = $this.attr("data-speed")) {
-                                    makeParallax($this, speed, s, false);
-                                }
-                            }
-                        }
-                        $(window).on('resize', function () {
-                            swiper.update(true);
-                        })
-                    }
-                });
-
-            $(window)
-                .on("resize", function () {
-                    var mh = getSwiperHeight(s, "min-height"),
-                        h = getSwiperHeight(s, "height");
-                    if (h) {
-                        s.css("height", mh ? mh > h ? mh : h : h);
-                    }
-                })
-                .trigger("resize");
-        }
-    }
-
-
-    /**
-     * Swiper Gallery Top
-     * @description  Enable Swiper Gallery Slider
-     */
-    if (plugins.swiperGallery.length) {
-        for (i = 0; i < plugins.swiperGallery.length; i++) {
-            var galleryTop = new Swiper(plugins.swiperGallery, {
-                prevButton: '.swiper-button-prev',
-                nextButton: '.swiper-button-next',
-                spaceBetween: 0
-            });
-            var galleryThumbs = new Swiper('.gallery-thumbs', {
-                spaceBetween: 0,
-                centeredSlides: true,
-                slidesPerView: 'auto',
-                touchRatio: 0.2,
-                slideToClickedSlide: true
-            });
-            galleryTop.params.control = galleryThumbs;
-            galleryThumbs.params.control = galleryTop;
-        }
-    }
-
 
     /**
      *  Custom scroll
@@ -1022,83 +907,6 @@ $document.ready(function () {
             });
         }
     }
-
-    /**
-     * PhotoSwipe Gallery
-     * @description Enables PhotoSwipe Gallery plugin
-     */
-    if (plugins.photoSwipeGallery.length) {
-
-        // init image click event
-        $document.delegate("[data-photo-swipe-item]", "click", function (event) {
-            event.preventDefault();
-
-            var $el = $(this),
-                $galleryItems = $el.parents("[data-photo-swipe-gallery]").find("a[data-photo-swipe-item]"),
-                pswpElement = document.querySelectorAll('.pswp')[0],
-                encounteredItems = {},
-                pswpItems = [],
-                options,
-                pswpIndex = 0,
-                pswp;
-
-            if ($galleryItems.length == 0) {
-                $galleryItems = $el;
-            }
-
-            // loop over the gallery to build up the photoswipe items
-            $galleryItems.each(function () {
-                var $item = $(this),
-                    src = $item.attr('href'),
-                    size = $item.attr('data-size').split('x'),
-                    pswdItem;
-
-                if ($item.is(':visible')) {
-
-                    // if we have this image the first time
-                    if (!encounteredItems[src]) {
-                        // build the photoswipe item
-                        pswdItem = {
-                            src: src,
-                            w: parseInt(size[0], 10),
-                            h: parseInt(size[1], 10),
-                            el: $item // save link to element for getThumbBoundsFn
-                        };
-
-                        // store that we already had this item
-                        encounteredItems[src] = {
-                            item: pswdItem,
-                            index: pswpIndex
-                        };
-
-                        // push the item to the photoswipe list
-                        pswpItems.push(pswdItem);
-                        pswpIndex++;
-                    }
-                }
-            });
-
-            options = {
-                index: encounteredItems[$el.attr('href')].index,
-
-                getThumbBoundsFn: function (index) {
-                    var $el = pswpItems[index].el,
-                        offset = $el.offset();
-
-                    return {
-                        x: offset.left,
-                        y: offset.top,
-                        w: $el.width()
-                    };
-                }
-            };
-
-            // open the photoswipe gallery
-            pswp = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, pswpItems, options);
-            pswp.init();
-        });
-    }
-
 
     /**
      * Stacktable
