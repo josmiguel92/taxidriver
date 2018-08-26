@@ -57,48 +57,6 @@
     }
     </script>
 
-    {#Product#}
-    {% for place in places %}
-        <script type="application/ld+json">
-        {
-            "@context": "http://schema.org/",
-            "@type": "Product",
-            {% if not place.istour %}
-                "name": "Taxi to {{ place.getNameEn }}",
-            {% else %}
-                "name": "Tour or Taxi to {{ place.getNameEn }}",
-            {% endif %}
-            "image": [
-            "{{ absolute_url(asset(place.getWebPath("full-1x1"))) }}",
-            "{{ absolute_url(asset(place.getWebPath("full-4x3"))) }}",
-            "{{ absolute_url(asset(place.getWebPath("full-16x9"))) }}"
-            ],
-        {% if not place.istour %}
-            "description": "Taxi to {{ place.getNameEn }}",
-        {% else %}
-            "description": "Taxi Tour to {{ place.getNameEn }}",
-        {% endif %}
-            "mpn": "",
-            "brand": {
-                "@type": "Thing",
-                "name": "Taxi Drivers Cuba"
-            },
-            "offers": {
-                "@type": "Offer",
-                "priceCurrency": "USD",
-                "price": "{{ (place.getTrasferprice / config['tasa.usd']) | number_format(2,'.') }}",
-                "priceValidUntil": "2018-12-31",
-                "itemCondition": "http://schema.org/UsedCondition",
-                "availability": "http://schema.org/InStock",
-                "seller": {
-                    "@type": "Organization",
-                    "name": "Taxi Drivers Cuba"
-                    }
-                }
-        }
-        </script>
-    {% endfor %}
-
 {% endblock %}
 
 {% block header %}
@@ -448,12 +406,12 @@
                                     <div class="h2 text-spacing-inverse-50 color-sky">
                                         {% if 'horse' in infography.getIcon %}
                                             <a href="https://www.horseridinginvinales.com/"  target="_blank">
-                                                <img alt="{{ infography.getTitleLocale }}" src="{{ asset("images/custom-icons/horse.svg") }}" style="height: 2em;">
+                                                <img class="lazy" alt="{{ infography.getTitleLocale }}" data-src="{{ asset("images/custom-icons/horse.svg") }}" style="margin: auto; height: 2em;">
                                             </a>
                                         {% elseif  'diving' in infography.getIcon %}
-                                            <img alt="{{ infography.getTitleLocale }}" src="{{ asset("images/custom-icons/diving.svg") }}" style="height: 2em;">
+                                            <img class="lazy" alt="{{ infography.getTitleLocale }}" data-src="{{ asset("images/custom-icons/diving.svg") }}" style="margin: auto; height: 2em;">
                                         {% elseif  'food' in infography.getIcon %}
-                                            <img alt="{{ infography.getTitleLocale }}" src="{{ asset("images/custom-icons/food.svg") }}" style="height: 2em;">
+                                            <img class="lazy" alt="{{ infography.getTitleLocale }}" data-src="{{ asset("images/custom-icons/food.svg") }}" style="margin: auto; height: 2em;">
                                         {% else %}
                                             <i class="{{ infography.getIcon }} fa-2x"></i>
                                         {% endif %}
@@ -594,7 +552,7 @@
                                     <!-- Blockquote-->
                                     <blockquote class="quote">
                                         {% set alt = locale=='en'? "TripAdvisor Testimony by" : "Testimonio de TripAdvisor por" %}
-                                        <img alt="{{ alt }} {{ testimony.getName }}" src="{{ asset(testimony.getFullImageWebPath) }}" width="169" height="169" class="img-circle img-responsive center-block">
+                                        <img alt="{{ alt }} {{ testimony.getName }}" data-src="{{ asset(testimony.getFullImageWebPath) }}" width="169" height="169" class="img-circle img-responsive center-block lazy">
                                         <div class="offset-top-15 offset-md-top-30">
                                             <p >
                                                 {{ testimony.getTextLocale|striptags|slice(0, 190) }}
@@ -679,7 +637,7 @@
                         </form>
                     </div>
 
-                    <div class="cell-sm-6 cell-lg-4 offset-top-64 offset-sm-top-0 text-left">
+                    <div class="cell-sm-6 cell-lg-4 offset-sm-top-0 text-left">
                         <!-- Contact Info-->
                         <address class="contact-info">
                             <dl>
