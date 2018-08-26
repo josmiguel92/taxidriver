@@ -23,7 +23,7 @@
 
                     <div class="row well-row section-md-top-20 section-md-bottom-20">
 
-                        <div class="col-md-6 col-xs-12">
+                        <div class="col-md-6 col-xs-12" style="margin-bottom:  1em;">
                             <div class="btn-group source-cuba" data-toggle="buttons">
                                 <label class="btn btn-primary">
                                     <label id="pickup_no" class="btn btn-primary active">
@@ -96,7 +96,7 @@
                                 <div class="form-group">
                                     <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.numpeople.vars.id }}" name="{{ booking_form.numpeople.vars.full_name }}">
                                 </div>
-                                <label style="margin: 0 2em;" class="custom-label text-gray-dark text-right">
+                                <label style="margin: 1.5em 2em;" class="custom-label text-gray-dark text-right">
                                     {% trans %}Price{% endtrans %}: <span id="labelPrice"></span>
                                 </label>
                             </div>
@@ -118,7 +118,7 @@
                             <div class="offset-top-15 cell-sm-5 cell-md-8 well-row-flex">
                                 <label for="{{ booking_form.details.vars.id }}"  class="custom-label text-gray-dark">{% trans %}Place{% endtrans %}</label>
                                 <div style="max-width: 400px; width: 350%;" class="form-group">
-                                    <input placeholder="{% trans %}Address{% endtrans %}" type="text" style="padding: 10px 12px;" class="form-control" id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}">
+                                    <input placeholder="{% trans %}Address{% endtrans %}" type="text" style="padding: 10px 12px;" class="form-control" id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}" data-constraints="@Required" required>
                                 </div>
                                 {{ form_errors(booking_form.details, {'class':'danger'}) }}
                             </div>
@@ -190,7 +190,7 @@
                             </div>
 
                             <!---Email--->
-                            <div class="cell-md-4 inset-lg-left-8 inset-lg-right-8 offset-top-15 offset-md-top-0">
+                            <div class="cell-md-4 inset-lg-left-8 inset-lg-right-8 offset-md-top-0">
                                 <div class="form-group">
                                     <label for="{{ booking_form.email.vars.id }}" class="form-label rd-input-label">Email</label>
                                     <input name="{{ booking_form.email.vars.full_name }}" id="{{ booking_form.email.vars.id }}" data-constraints="@Email @Required" required class="form-control form-control-has-validation form-control-last-child" type="email">
@@ -329,9 +329,13 @@
                 pickup_place.setAttribute('disabled','true');
                 pickup_place.setAttribute('placeholder', place);
                 pickup_place.setAttribute('value', place);
+                pickup_place.removeAttribute('data-constraints');
+                pickup_place.removeAttribute('required');
             }
             else{
                 pickup_place.removeAttribute('disabled');
+                pickup_place.setAttribute('data-constraints','@Required');
+                pickup_place.setAttribute('required','true');
                 pickup_place.removeAttribute('value');
                 pickup_place.setAttribute('placeholder', '{% trans %}Address{% endtrans %}');
             }

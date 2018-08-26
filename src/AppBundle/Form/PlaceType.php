@@ -16,8 +16,12 @@ class PlaceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', null, ["label"=>"Nombre que se mostrará"])
-            ->add('nameEn', null, ["label"=>"Nombre que se mostrará, en ingles"])
+        $builder
+
+        ->add('origin', null, ["label"=>"Origen, si no se establece, se mostrará La Habana"])
+            ->add('originEn', null, ["label"=>"Origen, en ingles, opcional"])
+            ->add('name', null, ["label"=>"Destino"])
+            ->add('nameEn', null, ["label"=>"Destino, en ingles"])
             ->add('distance', null, ["label"=>"Distancia, en km."])
             ->add('file', null, ['label'=>"Imágen representativa"])
 

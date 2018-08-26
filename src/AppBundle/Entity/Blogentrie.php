@@ -492,6 +492,7 @@ class Blogentrie  extends ImageField
     {
         $this->tags = new ArrayCollection();
         $this->likes = 1;
+        $this->weight = 0;
         return $this->publisheddate = new \DateTime();
     }
 

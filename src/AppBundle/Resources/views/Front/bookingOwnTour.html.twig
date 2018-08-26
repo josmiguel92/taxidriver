@@ -106,6 +106,9 @@
 
 {% block javascript %}
 {{ parent() }}
+    {#  Google Maps Plugin #}
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&libraries=places"></script>
+
     <script src="{{ asset("js/jquery.placepicker.js") }}"></script>
 
     <script>

@@ -3,7 +3,7 @@
 {% set divider = asset("images/divider-01-135x4.png") %}
 
 <!DOCTYPE html>
-<html lang="{{ locale }}" class="wide wow-animation smoothscroll  scrollTo desktop landscape mag-js rd-navbar-fullwidth-linked">
+<html lang="{{ locale }}" class="">
 
 <head>
 	<meta charset="utf-8">
@@ -37,6 +37,8 @@
     {# Color chrome tab #}
     <meta name="theme-color" content="#18acfb">
 
+    <link rel="preload" href="{{ asset("css/styles.min.css") }}" as="style">
+
     {% if app.Environment == "dev" %}
         {#
         <link rel="stylesheet" href="{{ asset("css/myBootstrap.css") }}">
@@ -61,16 +63,6 @@
         }
     </style>
 </head>
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.10";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-</script>
 
 <body>
     <!-- Page-->
@@ -109,7 +101,7 @@
                                 </div>
 
                                 <div class="rd-navbar-brand veil-md reveal-tablet-md-inline-block">
-                                    <a href="" class="brand-name">
+                                    <a href="{{ path("home") }}" class="brand-name">
                                         <img style='margin-top: -7px;' width='128' height='24' src='{{ logo_wide }}' alt='logo Taxi Drivers Cuba'/>
                                     </a>
                                 </div>
@@ -332,16 +324,41 @@
         <!-- Java script-->
         {% if app.Environment == "dev" %}
             <script src="{{ asset("js/jquery.min.js") }}"></script>
-            <script src="{{ asset("js/bootstrap3.3.6.min.js") }}"></script>
             <script src="{{ asset("js/jquery.lazy.min.js") }}"></script>
+
+            <script>
+                 $(function() {
+                    $('.lazy').lazy({
+                      effect: "fadeIn",
+                      effectTime: 250,
+                      threshold: 0
+                    });
+                });
+            </script>
+
+            <script src="{{ asset("js/bootstrap3.3.6.min.js") }}"></script>
+
         {% else %}
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo=" crossorigin="anonymous"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js" integrity="sha256-7PSmF2ojY04Z7YCwG5wwvH+bdUxV1PPCIORvvTYHo7M=" crossorigin="anonymous"></script>
 
-            <script async src='https://www.google.com/recaptcha/api.js'></script>
+            <script>
+             $(function() {
+                $('.lazy').lazy({
+                  threshold: 0
+                });
+            });
+            </script>
 
-        {# Global site tag (gtag.js) - Google Analytics #}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo=" crossorigin="anonymous"></script>
+
+        {% endif %}
+
+        <script defer src="{{ asset("js/core.min.js") }}"></script>
+        <script defer src="{{ asset("js/script.js") }}"></script>
+
+        <script async src='https://www.google.com/recaptcha/api.js'></script>
+
         <script src="https://www.googletagmanager.com/gtag/js?id=UA-120939597-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -350,24 +367,6 @@
 
             gtag('config', 'UA-120939597-1');
         </script>
-        {% endif %}
-
-
-        <script>
-         $(function() {
-            $('.lazy').lazy({
-              effect: "fadeIn",
-              effectTime: 250,
-              threshold: 0
-            });
-        });
-        </script>
-
-        <script src="{{ asset("js/core.min.js") }}"></script>
-        <script src="{{ asset("js/script.js") }}"></script>
-
-        {#  Google Maps Plugin #}
-        <script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&libraries=places"></script>
     {% endblock %}
 </body>
 </html>
