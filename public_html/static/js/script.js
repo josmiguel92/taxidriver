@@ -808,14 +808,6 @@ $document.ready(function () {
         }
     }
 
-    
-    /**
-     * RD Input Label
-     * @description Enables RD Input Label Plugin
-     */
-    if (plugins.rdInputLabel.length) {
-        plugins.rdInputLabel.RDInputLabel();
-    }
 
     /**
      * Regula
