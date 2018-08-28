@@ -23,7 +23,7 @@
 
                     <div class="row well-row section-md-top-20 section-md-bottom-20">
 
-                        <div class="col-md-6 col-xs-12" style="margin-bottom:  1em;">
+                        <div class="col-md-6 col-xs-12 offset-top-15" style="margin-bottom:  1em;">
                             <div class="btn-group source-cuba" data-toggle="buttons">
                                 <label class="btn btn-primary">
                                     <label id="pickup_no" class="btn btn-primary active">
@@ -41,8 +41,8 @@
 
                         <div class="col-md-5 col-md-push-1 col-xs-12 offset-xs-top-15">
                             <div id="flynumber">
+                                <label for="{{ booking_form.flynumber.vars.id }}" class="text-extra-small custom-label text-gray-dark">{% trans %}Flight number or cruiser name{% endtrans %}</label>
                                 <div class="form-group">
-                                    <label for="{{ booking_form.flynumber.vars.id }}" class="text-extra-small form-label rd-input-label">{% trans %}Flight number or cruiser name{% endtrans %}</label>
                                     <input id="{{ booking_form.flynumber.vars.id }}" name="{{ booking_form.flynumber.vars.full_name }}"  class="form-control form-control-has-validation form-control-last-child" type="text" required disabled>
                                     <span class="form-validation"></span>
                                 </div>
