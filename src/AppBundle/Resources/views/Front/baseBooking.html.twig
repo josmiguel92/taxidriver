@@ -181,33 +181,34 @@
                         <div class="range range-xs-center">
 
                             <!---Name-->
-                            <div class="cell-md-4 inset-lg-right-8">
+                            <div class="cell-xs-12 cell-md-6 well-row-flex">
+                                <label for="{{ booking_form.fullname.vars.id }}" class="custom-label text-gray-dark">
+                                    {% trans %}Name{% endtrans %}
+                                </label>
                                 <div class="form-group">
-                                    <label for="{{ booking_form.fullname.vars.id }}" class="form-label rd-input-label">{% trans %}Name{% endtrans %}</label>
                                     <input name="{{ booking_form.fullname.vars.full_name }}" id="{{ booking_form.fullname.vars.id }}" data-constraints="@Required" required class="form-control form-control-has-validation form-control-last-child" type="text">
                                     <span class="form-validation"></span>
                                 </div>
                             </div>
 
                             <!---Email--->
-                            <div class="cell-md-4 inset-lg-left-8 inset-lg-right-8 offset-md-top-0">
+                            <div class="cell-xs-12 cell-md-6 well-row-flex">
+                                <label for="{{ booking_form.email.vars.id }}" class="custom-label text-gray-dark">Email</label>
                                 <div class="form-group">
-                                    <label for="{{ booking_form.email.vars.id }}" class="form-label rd-input-label">Email</label>
                                     <input name="{{ booking_form.email.vars.full_name }}" id="{{ booking_form.email.vars.id }}" data-constraints="@Email @Required" required class="form-control form-control-has-validation form-control-last-child" type="email">
                                     <span class="form-validation"></span>
 
                                 </div>
                             </div>
 
-                            <div class="cell-sm-12 offset-top-15">
-                                <div class="form-group">
-                                    <label for="{{ booking_form.comment.vars.id }}" class="form-label rd-input-label">Anything that you need to tell us</label>
+                            <div class="cell-xs-12 well-row-flex offset-top-15">
+                                <label for="{{ booking_form.comment.vars.id }}" class="custom-label text-gray-dark">Anything that you need to tell us</label>
+                                <div class="form-group col-xs-12 offset-top-15" style="padding-left: 0;">
                                     <textarea id="{{ booking_form.comment.vars.id }}" name="{{ booking_form.comment.vars.full_name }}" style="max-height: 115px;" class="form-control form-control-has-validation form-control-last-child"></textarea>
                                     <span class="form-validation"></span>
                                 </div>
 
                             </div>
-
                         </div>
 
                     </div>
