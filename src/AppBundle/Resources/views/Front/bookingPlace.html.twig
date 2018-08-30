@@ -6,12 +6,23 @@
     {% set title = "Reservar un Taxi para " %}
 {% endif %}
 
+{% set spanish_page = path("booking_place", {"_locale":"es", "_id":place.getId,  "_name":place.getName}) %}
+{% set english_page = path("booking_place", {"_locale":"en", "_id":place.getId, "_name":place.getNameEn}) %}
+
+
 {% set title = title~place.getNameLocale %}
+
+
+{% block canonical %}
+    {% if locale == 'es' %}
+        <link rel="canonical" href="{{ absolute_url(spanish_page) }}" />
+    {% else %}
+        <link rel="canonical" href="{{ absolute_url(english_page) }}" />
+    {% endif %}
+{% endblock %}
 
 {% set featureImage =  asset(place.getWideImageWebPath) %}
 
-{% set spanish_page = path("booking_place", {"_locale":"es", "_id":place.getId,  "_name":place.getName}) %}
-{% set english_page = path("booking_place", {"_locale":"en", "_id":place.getId, "_name":place.getNameEn}) %}
 
 {% block hreflang %}
     <link rel="alternate" hreflang="en" href="{{ absolute_url(english_page) }}" />

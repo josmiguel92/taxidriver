@@ -32,21 +32,29 @@ class BookingController extends Controller
     {
         Utils::setRequestLocaleLang($_locale);
         $em = $this->getDoctrine()->getManager();
+
+        $booking = new Booking();
+        $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking, array(
+            'action' => $this->generateUrl('add_booking'),
+            'method' => 'POST',
+        ));
+
+        $booking_form->handleRequest($request);
+
+
+
+
+
         $places = $em->getRepository('AppBundle:Place')->findAllSorted();
 
         if ($places) {
 
-            $booking = new Booking();
-            $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking, array(
-                'action' => $this->generateUrl('add_booking'),
-                'method' => 'POST',
-            ));
 
-            $booking_form->handleRequest($request);
 
             $noPlaceSelected = true;
             if($booking->getPlace()>0)
                 $noPlaceSelected = false;
+
             if ($booking_form->isSubmitted() && $booking_form->isValid()) {
 
                 $captcha = '';
@@ -74,8 +82,9 @@ class BookingController extends Controller
                     $config[$item->getName()]=$item->getValue();
                 }
 
+
                 //validacion para enviar correo a lester o no.
-                if(Utils::isSimpleBooking($booking))
+                if(!$booking->isExperience() && Utils::isSimpleBooking($booking))
                 {
                     $_place = $em->getRepository('AppBundle:Place')->find($booking->getPlace());
                     $booking->setPrice(Utils::calculateSimpleRoutePrices($_place, $booking, $config['price.increment']));
@@ -125,12 +134,23 @@ class BookingController extends Controller
     * @Route("/{_locale}/booking/{_id}/{_name}", requirements={"_id":"\d+"}, defaults={"_locale": "en"},
     * name="booking_place")
     */
-    public function bookingPlaceAction(Request $request, $_locale, $_id)
+    public function bookingPlaceAction(Request $request, $_locale, $_id, $_name)
     {
         Utils::setRequestLocaleLang($_locale);
         $em = $this->getDoctrine()->getManager();
         $places = $em->getRepository('AppBundle:Place')->findAll();
         $place = $em->getRepository('AppBundle:Place')->find($_id);
+
+        $nameLocale = $place->getNameLocale();
+        $nameRequest = $_name;
+
+        if ($nameRequest != $nameLocale){
+            return $this->redirectToRoute('booking_place',array(
+                '_locale'=>$_locale,
+                '_id'=> $_id,
+                '_name' => $nameLocale
+            ), 301);
+        }
 
         $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
         $config = [];;
@@ -235,6 +255,10 @@ class BookingController extends Controller
             else $place = null;
             $places = $em->getRepository('AppBundle:Place')->findAll();
 
+            if($purchase->isExperience())
+                $experience = $em->getRepository("AppBundle:Experience")
+                    ->find($purchase->getExperience());
+
             $this->sendEmailNotifications($purchase);
 
             if($_paypalCallback == 'success' OR !Utils::isSimpleBooking($purchase)){
@@ -283,6 +307,7 @@ class BookingController extends Controller
                 'socialNetworks'=>$socialNetworks,
                 'hashtags'=>$hashtags,
                 'place'=>$place,
+                'experience' => $experience,
                 'purchase'=>$purchase,
                 'places'=>$places,
                 'paypalCallback'=>$_paypalCallback,
@@ -351,6 +376,7 @@ class BookingController extends Controller
             $place = $em->getRepository("AppBundle:Place")
                 ->find($booking->getPlace());
         else $place = null;
+
         $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
         $config = [];;
         foreach ($_config as $item){
@@ -367,22 +393,45 @@ class BookingController extends Controller
             ->setReplyTo($senderEmail)
             ->setTo($booking->getEmail())
             //TODO: get email from parameters
-            ->setFrom("taxidriverscuba-noreply@taxidriverscuba.com")
-            ->setBody(
-                $this->renderView(
-                    'AppBundle:Email:clientNotification.html.twig',
-                    [
-                        'subject'=>$subject,
-                        '_locale'=>$booking->getBookingLocale(),
-                        'address' => $address,
-                        'telephone'=> $telephone,
-                        'place'=>$place,
-                        'booking'=>$booking,
-                        'config' => $config,
-                    ]
-                ),
-                'text/html'
-            );
+            ->setFrom("taxidriverscuba-noreply@taxidriverscuba.com");
+
+            if($booking->isExperience()){
+                $experience = $em->getRepository("AppBundle:Experience")
+                    ->find($booking->getExperience());
+                $message->setBody(
+                    $this->renderView(
+                        'AppBundle:Email:clientExperienceNotification.html.twig',
+                        [
+                            'subject'=>$subject,
+                            '_locale'=>$booking->getBookingLocale(),
+                            'address' => $address,
+                            'telephone'=> $telephone,
+                            'experience'=>$experience,
+                            'booking'=>$booking,
+                            'config' => $config,
+                        ]
+                    ),
+                    'text/html'
+                );
+            }
+            else
+                $message->setBody(
+                    $this->renderView(
+                        'AppBundle:Email:clientNotification.html.twig',
+                        [
+                            'subject'=>$subject,
+                            '_locale'=>$booking->getBookingLocale(),
+                            'address' => $address,
+                            'telephone'=> $telephone,
+                            'place'=>$place,
+                            'booking'=>$booking,
+                            'config' => $config,
+                        ]
+                    ),
+                    'text/html'
+                );
+
+
         $this->get('mailer')->send($message);
 
         $message = \Swift_Message::newInstance()
