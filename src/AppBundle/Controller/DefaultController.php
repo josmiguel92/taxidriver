@@ -32,6 +32,7 @@ class DefaultController extends Controller
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
             $places = $em->getRepository('AppBundle:Place')->findAllSorted();
+            $experiences = $em->getRepository('AppBundle:Experience')->findAll();
             $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
             $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries(0, 2);
             $testimonials = $em->getRepository('AppBundle:Testimony')->findAll();
@@ -91,6 +92,7 @@ class DefaultController extends Controller
             'socialNetworks'=>$socialNetworks,
             'hashtags'=>$hashtags,
             'places'=>$places,
+            'experiences'=>$experiences,
             'infographys'=>$infographys,
             'testimonials'=>$testimonials,
             'config' => $config,
@@ -153,12 +155,23 @@ class DefaultController extends Controller
      * "_id":"\d+",
      * }, name="blogEntry")
      */
-    public function blogEntryAction(Request $request, $_locale="en", $_id)
+    public function blogEntryAction(Request $request, $_locale="en", $_id, $_name)
     {
 
         Utils::setRequestLocaleLang($_locale);
         $em = $this->getDoctrine()->getManager();
         $blogEntry = $em->getRepository('AppBundle:Blogentrie')->find($_id);
+
+        $nameLocale = $blogEntry->getTitleLocale();
+        $nameRequest = $_name;
+
+        if ($nameRequest != $nameLocale){
+            return $this->redirectToRoute('blogEntry',array(
+                '_locale'=>$_locale,
+                '_id'=> $_id,
+                '_name' => $nameLocale
+            ), 301);
+        }
 
         if ($blogEntry)
         {
