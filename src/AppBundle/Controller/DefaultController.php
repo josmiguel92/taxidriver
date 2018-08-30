@@ -32,7 +32,7 @@ class DefaultController extends Controller
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
             $places = $em->getRepository('AppBundle:Place')->findAllSorted();
-            $experiences = $em->getRepository('AppBundle:Experience')->findAll();
+            //$experiences = $em->getRepository('AppBundle:Experience')->findAll();
             $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
             $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries(0, 2);
             $testimonials = $em->getRepository('AppBundle:Testimony')->findAll();
@@ -92,7 +92,7 @@ class DefaultController extends Controller
             'socialNetworks'=>$socialNetworks,
             'hashtags'=>$hashtags,
             'places'=>$places,
-            'experiences'=>$experiences,
+            //'experiences'=>$experiences,
             'infographys'=>$infographys,
             'testimonials'=>$testimonials,
             'config' => $config,
