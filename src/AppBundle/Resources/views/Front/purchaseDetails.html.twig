@@ -107,7 +107,7 @@
                                 {% trans %}We will pickup you in{% endtrans %}
 
                                 {% if purchase.isAnAirport %}
-                                    {% trans %}at the exit of the José Martí international terminal with his name written on a paper, looking for the flight with number{% endtrans %}: {{ purchase.flynumber }}
+                                    {% trans %}at the exit of the Jose Marti international terminal with his name written on a paper, looking for the flight with number{% endtrans %}: {{ purchase.flynumber }}
                                 {% elseif purchase.isACruise %}
                                     {% trans %}the departure of the cruisers in the "Plaza de San Francisco" looking for the cruise with name{% endtrans %}: {{ purchase.flynumber }}
                                 {% else %}
@@ -163,9 +163,7 @@
                                 <div class="cell-md-6 col-md-6 col-md-offset-3">
                                     <i class="fa fa-clock-o fa-5x color-sky"></i>
                                     <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">
-                                        {% trans %}We are processing your reservation.
-                                        As soon we have all resources confirm, we will get in touch with you,
-                                        usually this take less than a day.{% endtrans %}
+                                        {% trans %}We are processing your reservation. As soon we have all resources confirm, we will get in touch with you, usually this take less than a day.{% endtrans %}
                                     </p>
                                 </div>
                             {% endif %}

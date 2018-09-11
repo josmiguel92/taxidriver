@@ -135,7 +135,7 @@
 
     <script>
         increment = {{ config['price.increment'] }};
-
+        isTour = {{ place.isTour? "true":"false" }};
         function wrapperPrice(price)
         {
             if (typeof(price)=="number")
@@ -149,7 +149,6 @@
         {
             var tourPrice = {{ place.getPrice }};
             var transferPrice = {{ place.getTrasferprice }};
-            var isTour = {{ place.isTour? "true":"false" }};
 
             if (isTour){
                 if (buttonTourOn && numberPeople <= 3)
@@ -196,12 +195,14 @@
             $("#labelPrice")[0].innerHTML = priceContent;
         }
 
-        function vinalesShowReturnAdv(){
-            if (buttonReturnOn){
-                $("#vinalesTourText").css('display', 'block');
-            }
-            else{
-                $("#vinalesTourText").css('display', 'none');
+        function ShowReturnAdv(){
+            if (isTour){
+                if (buttonReturnOn){
+                    $("#returnAdv").css('display', 'block');
+                }
+                else{
+                    $("#returnAdv").css('display', 'none');
+                }
             }
         }
 
@@ -214,9 +215,7 @@
 
             $("#activeReturn").change(function() {
                 updatePrice();
-                {% if "viñales" in place.nameLocale|lower or "vinales" in place.nameLocale|lower %}
-                    vinalesShowReturnAdv();
-                {% endif %}
+                ShowReturnAdv();
             });
 
             $("#{{ booking_form.numpeople.vars.id }}").change(function() {

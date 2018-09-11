@@ -640,9 +640,70 @@
 
 
 <trans-unit id="experience">
-	<source>experience</source>
-	<target>experiencia</target>
+	<source>Experience</source>
+	<target>Experiencia</target>
 </trans-unit>
+
+
+<trans-unit id="experiences">
+	<source>Experiences</source>
+	<target>Experiencias</target>
+</trans-unit>
+
+
+<trans-unit id="we.have.received.your.reservation..as.soon.as.possible,.we.will.contact.you,.to.let.you.know.the.details.">
+	<source>We have received your reservation. As soon as possible, we will contact you, to let you know the details.</source>
+	<target>Hemos recibido su reservación. Tan pronto como sea posible, nos contactaremos con usted, para hacerle saber los detalles.</target>
+</trans-unit>
+
+
+<trans-unit id="more">
+	<source>More</source>
+	<target>Más</target>
+</trans-unit>
+
+
+<trans-unit id="visit.our.website">
+	<source>Visit our Website</source>
+	<target>Visita nuestro sitio Web</target>
+</trans-unit>
+
+
+<trans-unit id="we.are.processing.your.reservation..as.soon.we.have.all.resources.confirm,.we.will.get.in.touch.with.you,.usually.this.take.less.than.a.day.">
+	<source>We are processing your reservation. As soon we have all resources confirm, we will get in touch with you, usually this take less than a day.</source>
+	<target>Estamos procesando su reservación. Tan pronto como tengamos todos los recursos confirmados nos pondremos en contacto. Usualmente nos toma menos de un día.</target>
+</trans-unit>
+
+
+<trans-unit id="no..of.persons">
+	<source>No. of persons</source>
+	<target>No. de personas</target>
+</trans-unit>
+
+
+<trans-unit id="do.you.need.a.taxi.to.get.here">
+	<source>Do you need a taxi to get here?</source>
+	<target>¿Necesitas un taxi para llegar aquí?</target>
+</trans-unit>
+
+
+<trans-unit id="pickup.details">
+	<source>Pickup details</source>
+	<target>Detalles de recogida</target>
+</trans-unit>
+
+
+<trans-unit id="we.will.pick.up.you.in">
+	<source>we will pick up you in</source>
+	<target>te recogeremos en</target>
+</trans-unit>
+
+
+<trans-unit id="close">
+	<source>Close</source>
+	<target>Cerrar</target>
+</trans-unit>
+
 
 
 
