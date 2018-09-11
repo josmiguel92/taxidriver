@@ -162,7 +162,8 @@
 								</table>
 							</div>
 
-                            <div class='movableContent'>
+							{#
+							<div class='movableContent'>
                                 <table cellpadding="0" cellspacing="0" border="0" align="center" width="200">
                                     <tr>
                                         <td width="100">&nbsp;</td>
@@ -179,6 +180,7 @@
                                     </tr>
                                 </table>
                             </div>
+                            #}
                             
 							<div class='movableContent'>
 								<table cellpadding="0" cellspacing="0" border="0" align="center" width="600">
@@ -194,7 +196,7 @@
 
 													<p>{% trans %}We have received your reservation. As soon as possible, we will contact you, to let you know the details.{% endtrans %}</p>
 
-													<p class="text-gray-dark">{{ experience.nameLocale }} - {{ experience.placeLocale }}</p>
+													<p class="text-gray-dark">{{ experience.nameLocale }} {% trans %}in{% endtrans %} {{ experience.placeLocale }}</p>
 
                                                     <p>
 														{% trans %}Please, if you need to cancel your reservation, you must notify us at least 2 days in advance{% endtrans %}.
