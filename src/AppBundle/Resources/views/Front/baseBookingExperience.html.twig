@@ -133,7 +133,7 @@
                                     {% trans %}Prices according to some popular starting places{% endtrans %}.
                                 </label>
                                 <ul>
-                                    {% for price in experience.getPriceSumary | split('\r\n') %}
+                                    {% for price in experience.getPriceSumaryLocale | split('\r\n') %}
                                         <li>{{ price }}</li>
                                     {% endfor %}
                                 </ul>

@@ -355,6 +355,18 @@ class Experience extends ImageField
         return $this->priceEn;
     }
 
+    /**
+     * Get priceSummaryLocale
+     *
+     * @return string
+     */
+    public function getPriceSumaryLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->priceSumary;
+        return $this->priceSumaryEn;
+    }
+
     public function __toString()
     {
         return $this->getName();
