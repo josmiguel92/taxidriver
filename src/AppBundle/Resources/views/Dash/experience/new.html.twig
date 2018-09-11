@@ -1,0 +1,15 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+
+{% set pagename = 'experience' %}
+
+{% block content %}
+    <h1>Crear nueva Experiencia</h1>
+
+    <div class="row">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Guardar" class="form-inline btn btn-primary" id="savebtn" />
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}

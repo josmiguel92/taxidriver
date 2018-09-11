@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use AppBundle\Utils\Utils;
 use AppBundle\Entity\Place;
+use AppBundle\Entity\Experience;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -38,6 +39,13 @@ class Booking
      * @ORM\Column(name="place", type="integer", nullable=true)
      */
     private $place;
+
+    /**
+     * @var integer
+     * @ORM\ManyToOne(targetEntity="Experience")
+     * @ORM\JoinColumn(name="experience", referencedColumnName="id", nullable=true)
+     */
+    private $experience;
 
     /**
      * @var array
@@ -94,6 +102,12 @@ class Booking
      * @ORM\Column(name="returnpickup", type="boolean")
      */
     private $returnpickup;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="experience_taxi", type="boolean")
+     */
+    private $experienceTaxi;
 
     /**
      * @return bool
@@ -489,7 +503,7 @@ class Booking
     {
         $this->returnpickuptime  = \DateTime::createFromFormat('l d M Y - H:i',$returnpickuptime);
 
-        return $this;;
+        return $this;
     }
 
     /**
@@ -629,5 +643,46 @@ class Booking
             return true;
         return false;
     }
+
+    /**
+     * @return int
+     */
+    public function getExperience()
+    {
+        return $this->experience;
+    }
+
+    /**
+     * @param int $experience
+     */
+    public function setExperience($experience)
+    {
+        $this->experience = $experience;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExperienceTaxi()
+    {
+        return $this->experienceTaxi;
+    }
+
+    /**
+     * @param bool $experienceTaxi
+     */
+    public function setExperienceTaxi($experienceTaxi)
+    {
+        $this->experienceTaxi = $experienceTaxi;
+    }
+
+    public function isExperience()
+    {
+        if($this->experience > 0 && $this->place == null)
+           return true;
+        return false;
+    }
+
+
 }
 

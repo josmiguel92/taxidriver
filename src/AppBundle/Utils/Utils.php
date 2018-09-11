@@ -181,6 +181,11 @@ class Utils
         return $price;
     }
 
+    static function slugify(string $text){
+
+        return strtolower(preg_replace('[ ]', '-', trim($text)));
+    }
+
     static function buildProductName(\AppBundle\Entity\Booking $booking, \AppBundle\Entity\Place $place){
         $str = $booking->isTour() ? "Tour to " : "Transfer to ";
         $str .= $place->getNameLocale();

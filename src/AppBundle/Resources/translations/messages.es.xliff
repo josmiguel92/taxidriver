@@ -33,9 +33,9 @@
 </trans-unit>
 
 
-<trans-unit id="the.number.of.passengers.is">
-	<source>The number of passengers is</source>
-	<target>El número de pasajeros es</target>
+<trans-unit id="the.number.of.people.is">
+	<source>The number of people is</source>
+	<target>El número de personas es</target>
 </trans-unit>
 
 
@@ -243,9 +243,9 @@
 </trans-unit>
 
 
-<trans-unit id="these.are.yours.purchase.details">
-	<source>these are yours purchase details</source>
-	<target>estos son los detalles de tu compra</target>
+<trans-unit id="these.are.the.details.of.your.reservation">
+	<source>these are the details of your reservation</source>
+	<target>estos son los detalles de tu reservación</target>
 </trans-unit>
 
 
@@ -633,6 +633,16 @@
 </trans-unit>
 
 
+<trans-unit id="you.want.the.experience">
+	<source>You want the experience</source>
+	<target>Quieres la experiencia</target>
+</trans-unit>
+
+
+<trans-unit id="experience">
+	<source>experience</source>
+	<target>experiencia</target>
+</trans-unit>
 
 
 
