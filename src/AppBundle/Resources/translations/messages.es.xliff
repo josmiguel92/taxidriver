@@ -711,6 +711,12 @@
 </trans-unit>
 
 
+<trans-unit id="prices.according.to.some.popular.starting.places">
+	<source>Prices according to some popular starting places</source>
+	<target>Precios según algunos lugares de inicio populares</target>
+</trans-unit>
+
+
 
 
         </body>
