@@ -242,6 +242,9 @@
                                             <div class="unit-left">
                                                 <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
                                                     <img data-src="{{ asset(place.getWebPath) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
+                                                    <noscript>
+                                                        <img src="{{ asset(place.getWebPath) }}" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block">
+                                                    </noscript>
                                                 </a>
                                             </div>
                                             <div class="unit-body">
@@ -311,6 +314,9 @@
                                             <div class="unit-left">
                                                 <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
                                                     <img data-src="{{ asset(place.getWebPath) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
+                                                    <noscript>
+                                                        <img src="{{ asset(place.getWebPath) }}" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block">
+                                                    </noscript>
                                                 </a>
                                             </div>
                                             <div class="unit-body">
@@ -364,7 +370,6 @@
                     <div class="range range-xs-center offset-top-20">
                         <div class="cell-sm-10 cell-lg-8">
                             <p class="text-spacing-0">
-
                                 {#TODO: hacer campo en admin para este texto#}
                             </p>
                         </div>
@@ -382,6 +387,9 @@
                                         <div class="unit-left">
                                             <a href="{{ link }}" class="text-mine-shaft">
                                                 <img data-src="{{ asset(experience.getWebPath) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=" width="270" alt="{{ experience.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
+                                                <noscript>
+                                                    <img src="{{ asset(experience.getWebPath) }}" width="270" alt="{{ experience.getNameLocale }}" class="img-responsive center-block">
+                                                </noscript>
                                             </a>
                                         </div>
                                         <div class="unit-body">
