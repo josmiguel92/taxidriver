@@ -364,7 +364,7 @@
                     <div class="range range-xs-center offset-top-20">
                         <div class="cell-sm-10 cell-lg-8">
                             <p class="text-spacing-0">
-                                {{ content.getServicestaxitourstextLocale }}
+
                                 {#TODO: hacer campo en admin para este texto#}
                             </p>
                         </div>
@@ -635,7 +635,7 @@
                         </div>
                     </div>
 
-                    {#<div id="TA_selfserveprop245" class="TA_selfserveprop">
+                    <div id="TA_selfserveprop245" class="TA_selfserveprop">
                         <ul id="UgXRuE" class="TA_links 5A9w779">
                             <li id="bGmGQTDg5" class="uHSLrEnrO">
                                 <a target="_blank" href="https://www.tripadvisor.es/">
@@ -643,7 +643,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>#}
+                    </div>
 
                 </div>
 
@@ -787,6 +787,14 @@
     </script>
     #}
 
-{#<script async src="https://www.jscache.com/wejs?wtype=selfserveprop&amp;uniq=245&amp;locationId=13554747&amp;lang=es&amp;rating=true&amp;nreviews=5&amp;writereviewlink=true&amp;popIdx=true&amp;iswide=false&amp;border=true&amp;display_version=2"></script>#}
+<script async src="https://www.jscache.com/wejs?wtype=selfserveprop&amp;uniq=245&amp;locationId=13554747&amp;lang=es&amp;rating=true&amp;nreviews=5&amp;writereviewlink=true&amp;popIdx=true&amp;iswide=false&amp;border=true&amp;display_version=2"></script>
 
+{#<script >#}
+    {#$(".lazy-tripadvisor").Lazy({#}
+        {#afterLoad: function(element) {#}
+            {#console.log(element);#}
+            {#(function(t,r,i,p){i=t.createElement(r);i.src="https://www.tripadvisor.com/WidgetEmbed-selfserveprop?amp;locationId=13554747&amp;writereviewlink=true&amp;rating=true&amp;border=true&amp;uniq=245&amp;iswide=false&amp;popIdx=true&amp;lang=es&amp;nreviews=5&amp;display_version=2";i.async=true;p=t.getElementsByTagName(r)[0];p.parentNode.insertBefore(i,p)})(document,"script");#}
+        {#}#}
+    {#});#}
+{#</script>#}
 {% endblock %}
