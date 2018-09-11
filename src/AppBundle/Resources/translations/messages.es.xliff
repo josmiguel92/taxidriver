@@ -629,7 +629,7 @@
 
 <trans-unit id="if.you.plan.to.return.the.same.day,.select.our.tour.option.that.is.cheaper">
 	<source>If you plan to return the same day, select our tour option that is cheaper!</source>
-	<target>¡Si planeas regresar el mismo dia, selecciona nuestra opción de tour que es mas barata!</target>
+	<target>¡Si planeas regresar el mismo día, selecciona nuestra opción de tour que es más barata!</target>
 </trans-unit>
 
 
@@ -702,6 +702,12 @@
 <trans-unit id="close">
 	<source>Close</source>
 	<target>Cerrar</target>
+</trans-unit>
+
+
+<trans-unit id="pickup.time">
+	<source>Pickup time</source>
+	<target>Hora de recogida</target>
 </trans-unit>
 
 
