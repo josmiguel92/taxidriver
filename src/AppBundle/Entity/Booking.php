@@ -678,7 +678,7 @@ class Booking
 
     public function isExperience()
     {
-        if($this->experience > 0 && $this->place == null)
+        if($this->experience->getId() && $this->place == null)
            return true;
         return false;
     }
