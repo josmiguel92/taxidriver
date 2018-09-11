@@ -447,6 +447,7 @@ class BookingController extends Controller
                         'address' => $address,
                         'telephone'=> $telephone,
                         'place'=>$place,
+                        'experience'=>$experience,
                         'booking'=>$booking,
                         'config' => $config,
                     ]
