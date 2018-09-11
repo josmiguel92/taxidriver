@@ -165,7 +165,11 @@
                                         <div class="contentEditableContainer contentTextEditable">
                                             <div class="contentEditable" >
                                                 <p >Reservaci&oacute;n para ir a
-                                                    {% if place %}<b>{{place.Name}}</b>{% endif %}
+                                                    {% if place %}
+                                                        <b>{{place.Name}}</b>
+                                                    {% elseif booking.isExperience %}
+                                                        <b>{{ experience.name }}</b>
+                                                    {% endif %}
                                                     {% if booking.ownroute %}
                                                 <ul>
                                                     {% for _place in booking.ownrouteFormated %}
