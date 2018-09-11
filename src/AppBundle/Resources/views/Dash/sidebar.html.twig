@@ -20,6 +20,13 @@
         </a>
     </li>
 
+    <li {% if pagename == 'experience' %} class="active" {% endif %}>
+        <a href="{{ path('dash_experience_index') }}">
+            <i class="ti-trello"></i>
+            <p>Experiencias</p>
+        </a>
+    </li>
+
     <li {% if pagename == 'gallery' %} class="active" {% endif %}>
         <a href="{{ path('dash_gallery') }}">
             <i class="ti-gallery"></i>

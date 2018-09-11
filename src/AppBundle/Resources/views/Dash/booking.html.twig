@@ -100,7 +100,7 @@
                         <th>Lugar</th>
                         <th>Fecha/Hora</th>
                         <th>Precio</th>
-                        <th>Detalles</th>
+                        <th>Recogida</th>
                         </thead>
                         <tbody>
                         {% for item in booking %}
@@ -108,10 +108,13 @@
                             <td><a href="{{ path('booking_details', {'booking': item.id}) }}">{{ item.id }}</a></td>
                             <td>{{ item.fullname }}</td>
                             <td>{% if item.place %}
-                            {{ places[item.place] }}
-                            {% else %}
-                            Ruta personalizada
-                            {% endif %}</td>
+                                {{ places[item.place] }}
+                                {% elseif item.experience %}
+                                    {{ item.getExperience.getName }} ({{ item.getExperience.place }})
+                                {% else %}
+                                Ruta personalizada
+                                {% endif %}
+                            </td>
                             <td>{{ item.pickuptime | date("Y/M/d - H:i")}}</td>
                             <td>
                                 {% if item.price > 0 %}

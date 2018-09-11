@@ -58,8 +58,9 @@
                 {% elseif paypalCallback == 'cancel' %}
                     <i class="fa fa-times-circle-o fa-5x color-sky"></i>
                 {% endif %}
+
                 <h2>
-                    {% trans %}Hi!{% endtrans %} {{ purchase.fullname }}, {% trans %}these are yours purchase details{% endtrans %}
+                    {% trans %}Hi!{% endtrans %} {{ purchase.fullname }}, {% trans %}these are the details of your reservation{% endtrans %}
                 </h2>
 
                 <div class="offset-top-50">
@@ -69,7 +70,11 @@
 
                         <div class="well-row well-row-bg">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
-                                {% trans %}You want to visit{% endtrans %}:
+                                {% if purchase.experience %}
+                                    {% trans %}You want the experience{% endtrans %}:
+                                {% else %}
+                                    {% trans %}You want to visit{% endtrans %}:
+                                {% endif %}
                             </p>
                             <!-- List-->
                             <ul class="p text-bold text-spacing-25 font-accent text-gray-dark">
@@ -77,9 +82,14 @@
                                     {% for _place in purchase.ownrouteFormated %}
                                         <li>{{ _place }}</li>
                                     {% endfor %}
-                                {% else %}
+
+                                {% elseif place is not null %}
                                     <li class="offset-top-10">
                                         <p class="text-gray-dark">{{ place.getNameLocale }}</p>
+                                    </li>
+                                {% else %}
+                                    <li class="offset-top-10">
+                                        <p class="text-gray-dark">{{ experience.getNameLocale }}</p>
                                     </li>
                                 {% endif %}
                             </ul>
@@ -88,7 +98,7 @@
 
                         <div class="well-row">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
-                                {% trans %}The number of passengers is{% endtrans %}: {{ purchase.getNumpeople }}
+                                {% trans %}The number of people is{% endtrans %}: {{ purchase.getNumpeople }}
                             </p>
                         </div>
 
@@ -110,30 +120,30 @@
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
                                 {% trans %}At{% endtrans %}: {{ purchase.getPickuptime|date("l, d F Y - H:i")  }}
                             </p>
-                            <p class="text-bold text-spacing-25 font-accent text-gray-dark">
-                               {{ purchase.details  }}
-                            </p>
                         </div>
 
+                        {% if not purchase.isExperienceTaxi %}
                         <div class="well-row well-row-bg">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
                                 {% trans %}The type of service is{% endtrans %}:
-                                {% if not purchase.isTour %}
-                                    Taxi
-                                {% else %}
-                                    Taxi Tour
-                                {% endif %}
+                                    {% if not purchase.isTour %}
+                                        Taxi
+                                    {% else %}
+                                        Taxi Tour
+                                    {% endif %}
                             </p>
-
                         </div>
+                        {% endif %}
 
-                        <div class="well-row">
-                            <p class="text-bold text-spacing-25 font-accent text-gray-dark">
-                                {% trans %}The price of the service is{% endtrans %}:
-                                {{ purchase.price }} CUC ({% trans %}or{% endtrans %} {{ price_usd }} USD)
-                            </p>
+                        {% if not purchase.isExperienceTaxi %}
+                            <div class="well-row">
+                                <p class="text-bold text-spacing-25 font-accent text-gray-dark">
+                                    {% trans %}The price of the service is{% endtrans %}:
+                                    {{ purchase.price }} CUC ({% trans %}or{% endtrans %} {{ price_usd }} USD)
+                                </p>
 
-                        </div>
+                            </div>
+                        {% endif %}
 
                         {% if purchase.returnpickup %}
                         <div class="well-row well-row-bg">

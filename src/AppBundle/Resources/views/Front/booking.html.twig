@@ -6,10 +6,13 @@
     {% set title = "Reserve un viaje en taxi hacia estos destinos populares" %}
 {% endif %}
 
-{% set featureImage =  asset(content.getHeaderimage.getWideImageWebPath) %}
-
 {% set spanish_page = path("add_booking", {"_locale":"es"}) %}
 {% set english_page = path("add_booking", {"_locale":"en"}) %}
+
+
+
+{% set featureImage =  asset(content.getHeaderimage.getWideImageWebPath) %}
+
 
 {% block hreflang %}
     <link rel="alternate" hreflang="en" href="{{ absolute_url(english_page) }}" />

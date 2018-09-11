@@ -803,7 +803,7 @@ class AdminController extends Controller
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
         $senderEmail = $content[0]->getContactemail();
         $address = $content[0]->getContactaddressLocale();
-        $telephone = $content[0]->getContacttelephone();
+        $telephone = $content[0]->getContactelephone();
 
 
         $message = \Swift_Message::newInstance()

@@ -1,0 +1,81 @@
+{% extends 'AppBundle:Front:baseBookingExperience.html.twig' %}
+
+
+{% set title = "Book "%}
+{% if locale=='es' %}
+    {% set title = "Reservar " %}
+{% endif %}
+
+{% set title = title~experience.getNameLocale %}
+
+{% set featureImage =  asset(experience.getWideImageWebPath) %}
+
+{% set spanish_page = path("show_experience", {"_locale":"es", "id":experience.getId, "_name":utils.slugify(experience.getName)}) %}
+{% set english_page = path("show_experience", {"_locale":"en", "id":experience.getId, "_name":utils.slugify(experience.getNameEn)}) %}
+
+{% block hreflang %}
+    <link rel="alternate" hreflang="en" href="{{ absolute_url(english_page) }}" />
+    <link rel="alternate" hreflang="es" href="{{ absolute_url(spanish_page) }}" />
+    <link rel="alternate" hreflang="x-default" href="{{ absolute_url(english_page) }}" />
+{% endblock %}
+
+{% block structure_data %}
+    {#breadcrumbs#}
+    <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@id": "{{ absolute_url(path("home")) }}",
+              "name": "Home",
+              "image": "{{ asset("/images/favicon.png") }}"
+            }
+          }
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@id": "{{ absolute_url(english_page) }}",
+              "name": "{{ experience.getNameEn }}",
+              "image": "{{ asset("/images/favicon.png") }}"
+            }
+          }]
+        }
+    </script>
+{% endblock %}
+
+{% if locale=='es' %}
+    {% set description = 'Reserva ahora una experiencia para '~experience.getNameLocale~' el cual es uno de los lugares maravillosos de nuestra isla.' %}
+{% else %}
+    {% set description = 'Book now a experience for '~experience.getNameLocale~' wich is one of the most wonderful place of our island.'%}
+{% endif %}
+
+
+{% block destination %}
+<!--- Parallax -->
+    <div class="booking-place context-dark offset-top-0" style="margin-top: -8px;">
+        <!-- RD Parallax-->
+        <div data-on="false" data-md-on="true" class="rd-parallax">
+            <div data-speed="0.25" data-type="media" data-url="{{ asset(experience.getWideImageWebPath) }}" class="rd-parallax-layer"></div>
+            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+                <div class="shell section-75 section-md-top-103 section-md-bottom-110">
+                    <div class="range range-xs-center">
+                        <div class="cell-sm-10">
+
+                            <div class="offset-top-60 offset-md-top-30">
+
+                                <h2 class=" h1 text-center text-spacing-0 text-uppercase" style="border-radius: 5px;">
+                                    {{ experience.getNameLocale }}
+                                </h2>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
