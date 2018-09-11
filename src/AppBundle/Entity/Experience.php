@@ -354,5 +354,10 @@ class Experience extends ImageField
             return $this->price;
         return $this->priceEn;
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }
 

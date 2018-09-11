@@ -198,7 +198,7 @@
 
                     {{ form_widget(booking_form._token)}}
 
-                    {{ form_widget(booking_form.experience, {'value':experience.id, 'type':'hidden'}) }}
+                <input type="hidden" value="{{ experience.id }}" name="{{ booking_form.experience.vars.full_name }}">
 
                 </form>
             </div>
