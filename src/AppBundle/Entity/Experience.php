@@ -54,14 +54,14 @@ class Experience extends ImageField
     /**
      * @var string
      *
-     * @ORM\Column(name="Price", type="string", length=255)
+     * @ORM\Column(name="Price", type="text")
      */
     private $price;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="PriceEn", type="string", length=255)
+     * @ORM\Column(name="PriceEn", type="text")
      */
     private $priceEn;
 
@@ -92,6 +92,27 @@ class Experience extends ImageField
      * @ORM\Column(name="DescriptionEn", type="text", nullable=true)
      */
     private $descriptionEn;
+  
+     /**
+     * @var bool
+     *
+     * @ORM\Column(name="external", type="boolean")
+     */
+    private $external;
+  
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="externalUrl", type="string", length=500, nullable=true)
+     */
+    private $externalUrl;
+
+     /**
+     * @var bool
+     *
+     * @ORM\Column(name="needtaxi", type="boolean")
+     */
+    private $needTaxi;
 
 
     /**
@@ -365,6 +386,78 @@ class Experience extends ImageField
         if(Utils::getRequestLocaleLang()=="es")
             return $this->priceSumary;
         return $this->priceSumaryEn;
+    }
+  
+    /**
+     * Set External
+     *
+     * @param bool external
+     *
+     * @return Experience
+     */
+    public function setExternal($external)
+    {
+        $this->external = $external;
+
+        return $this;
+    }
+
+    /**
+     * Get External
+     *
+     * @return string
+     */
+    public function getExternal()
+    {
+        return $this->external;
+    }
+  
+   /**
+     * Set External
+     *
+     * @param bool external
+     *
+     * @return Experience
+     */
+    public function setExternalUrl($externalurl)
+    {
+        $this->externalUrl = $externalurl;
+
+        return $this;
+    }
+
+    /**
+     * Get External
+     *
+     * @return string
+     */
+    public function getExternalUrl()
+    {
+        return $this->externalUrl;
+    }
+  
+  /**
+     * Set NeedTaxi
+     *
+     * @param bool needtaxi
+     *
+     * @return Experience
+     */
+    public function setNeedTaxi($needtaxi)
+    {
+        $this->needTaxi = $needtaxi;
+
+        return $this;
+    }
+
+    /**
+     * Get NeedTaxi
+     *
+     * @return string
+     */
+    public function getNeedTaxi()
+    {
+        return $this->needTaxi;
     }
 
     public function __toString()

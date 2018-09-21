@@ -265,6 +265,20 @@ class SiteContent
      * @ORM\Column(name="sitekeywordsen", type="text", nullable=true)
      */
     private $sitekeywordsen;
+  
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="experiencestext", type="text")
+     */
+    private $experiencestext;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="experiencestexten", type="text")
+     */
+    private $experiencestexten;
 
     /**
      * @return string
@@ -1442,6 +1456,46 @@ class SiteContent
             return $this->sitedescription;
         else return $this->sitedescriptionen;
     }
+  
+    /**
+     * @param string $experiencestext
+     */
+    public function setExperiencesText($experiencestext)
+    {
+        $this->experiencestext = $experiencestext;
+    }
+  /**
+     * @return string
+     */
+    public function getExperiencesText()
+    {
+        return $this->experiencestext;
+    }
+  
+  /**
+     * @param string $experiencestexten
+     */
+    public function setExperiencesTextEn($experiencestexten)
+    {
+        $this->experiencestexten = $experiencestexten;
+    }
+  
+    /**
+     * @return string
+     */
+    public function getExperiencesTextEn()
+    {
+        return $this->experiencestexten;
+    }
+
+  
+   public function getExperiencesTextEnLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->experiencestext;
+        else return $this->experiencestexten;
+    }
+  
 
 }
 
