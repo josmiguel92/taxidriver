@@ -21,7 +21,7 @@ class ExperienceType extends AbstractType
             ->add('priceEn', null, ["label"=>"Precio de la experiencia en ingles"])
             ->add('priceSumary', null, ["label"=>"Precios segun el origen"])
             ->add('priceSumaryEn', null, ["label"=>"Precios segun origen, en ingles"])
-            ->add('description', null, ["label"=>"Derscripcion"])
+            ->add('description', null, ["label"=>"Descripcion"])
             ->add('descriptionEn', null, ["label"=>"Descripcion, en ingles"])
             ->add('external', null, ["label"=>"Esta experiencia se gestiona desde otra web"])
             ->add('externalUrl', null, ["label"=>"URL Externa para gestionar la experiencia"])
