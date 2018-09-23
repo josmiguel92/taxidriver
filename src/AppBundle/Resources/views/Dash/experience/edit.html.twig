@@ -42,31 +42,31 @@
         <p>Debe presionar el bot&oacute;n de Guardar para mostrar los cambios</p>
         <div class="col-md-6">
             {{ form_widget(edit_form.galleryImage0) }}
-            {% if experience.galleryImage0.vars.data is not null %}
+            {% if experience.galleryImage0 %}
                 <img src="{{ asset(edit_form.galleryImage0.vars.data.getwebpath) }}" style="height: 5em;">
             {% endif %}
         </div>
         <div class="col-md-6">
             {{ form_widget(edit_form.galleryImage1) }}
-            {% if experience.galleryImage1.vars.data is not null %}
+            {% if experience.galleryImage1 %}
                 <img src="{{ asset(edit_form.galleryImage1.vars.data.getwebpath) }}" style="height: 5em;">
             {% endif %}
         </div>
         <div class="col-md-6">
             {{ form_widget(edit_form.galleryImage2) }}
-            {% if experience.galleryImage2.vars.data is not null %}
+            {% if experience.galleryImage2 %}
                 <img src="{{ asset(edit_form.galleryImage2.vars.data.getwebpath) }}" style="height: 5em;">
             {% endif %}
         </div>
         <div class="col-md-6">
             {{ form_widget(edit_form.galleryImage3) }}
-            {% if experience.galleryImage3.vars.data is not null %}
+            {% if experience.galleryImage3 %}
                 <img src="{{ asset(edit_form.galleryImage3.vars.data.getwebpath) }}" style="height: 5em;">
             {% endif %}
         </div>
         <div class="col-md-6">
             {{ form_widget(edit_form.galleryImage4) }}
-            {% if experience.galleryImage4.vars.data is not null %}
+            {% if experience.galleryImage4 %}
                 <img src="{{ asset(edit_form.galleryImage4.vars.data.getwebpath) }}" style="height: 5em;">
             {% endif %}
         </div>
