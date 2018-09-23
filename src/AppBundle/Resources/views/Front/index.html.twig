@@ -706,17 +706,16 @@
                             'data-form-type':'contact',
                             'data-form-output':'form-output-global'}}) }}
                             <div class="form-group">
-
-                                <label for="{{ messageForm.name.vars.id }}" class="form-label">{% trans %}Name{% endtrans %}</label>
+                                <label for="{{ messageForm.name.vars.id }}" class="custom-label text-gray-dark">{% trans %}Name{% endtrans %}</label>
                                 <input id="{{ messageForm.name.vars.id }}" type="text" name="{{ messageForm.name.vars.full_name }}" data-constraints="@Required" class="form-control">
                             </div>
                             <div class="form-group offse-top-5">
-                                <label for="{{ messageForm.message.vars.id }}" class="form-label">{% trans %}Message{% endtrans %}</label>
+                                <label for="{{ messageForm.message.vars.id }}" class="custom-label text-gray-dark">{% trans %}Message{% endtrans %}</label>
                                 <textarea id="{{ messageForm.message.vars.id }}" name="{{ messageForm.message.vars.full_name }}" data-constraints="@Required" style="height: 140px;" class="form-control"></textarea>
 
                             </div>
                             <div class="form-group offse-top-5">
-                                <label for="{{ messageForm.email.vars.id }}" class="form-label">{% trans %}Email{% endtrans %}</label>
+                                <label for="{{ messageForm.email.vars.id }}" class="custom-label text-gray-dark">{% trans %}Email{% endtrans %}</label>
                                 <input id="{{ messageForm.email.vars.id }}" type="email" name="{{ messageForm.email.vars.full_name }}" data-constraints="@Email @Required" class="form-control">
                             </div>
                             <div class="text-center text-sm-right offse-top-5">
