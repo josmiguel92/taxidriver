@@ -24,6 +24,53 @@
         <div class="placepicker-map thumbnail"></div>
     </div>
     {{ form_row(route_form.name) }}
+    {{ form_row(route_form.nameEn) }}
+
+    {{ form_row(route_form.distance) }}
+    {{ form_row(route_form.time) }}
+
+    {{ form_row(route_form.price) }}
+    {{ form_row(route_form.trasferprice) }}
+    {{ form_row(route_form.istour) }}
+    {{ form_row(route_form.placedesc) }}
+    {{ form_row(route_form.placedescen) }}
+
+    {{ form_row(route_form.file) }}
+
+    <div class="col-md-12">
+        <h4>Imagenes de la Galeria</h4>
+        <p>Debe presionar el bot&oacute;n de Guardar para mostrar los cambios</p>
+        <div class="col-md-6">
+            {{ form_widget(route_form.galleryImage0) }}
+            {% if route_form.galleryImage0.vars.data is not null %}
+                <img src="{{ asset(route_form.galleryImage0.vars.data.getwebpath) }}" style="height: 5em;">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(route_form.galleryImage1) }}
+            {% if route_form.galleryImage1.vars.data is not null %}
+                <img src="{{ asset(route_form.galleryImage1.vars.data.getwebpath) }}" style="height: 5em;">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(route_form.galleryImage2) }}
+            {% if route_form.galleryImage2.vars.data is not null %}
+                <img src="{{ asset(route_form.galleryImage2.vars.data.getwebpath) }}" style="height: 5em;">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(route_form.galleryImage3) }}
+            {% if route_form.galleryImage3.vars.data is not null %}
+                <img src="{{ asset(route_form.galleryImage3.vars.data.getwebpath) }}" style="height: 5em;">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(route_form.galleryImage4) }}
+            {% if route_form.galleryImage4.vars.data is not null %}
+                <img src="{{ asset(route_form.galleryImage4.vars.data.getwebpath) }}" style="height: 5em;">
+            {% endif %}
+        </div>
+    </div>
 
     {{ form_widget(route_form) }}
     <div class="col-md-12">

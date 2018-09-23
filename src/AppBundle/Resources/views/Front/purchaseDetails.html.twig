@@ -102,19 +102,21 @@
                             </p>
                         </div>
 
-                        <div class="well-row well-row-bg">
-                            <p class="text-bold text-spacing-25 font-accent text-gray-dark">
-                                {% trans %}We will pickup you in{% endtrans %}
+                        {% if purchase.isAnAirport or purchase.isACruise or purchase.getDetails  %}
+                            <div class="well-row well-row-bg">
+                                <p class="text-bold text-spacing-25 font-accent text-gray-dark">
+                                    {% trans %}We will pickup you in{% endtrans %}
 
-                                {% if purchase.isAnAirport %}
-                                    {% trans %}at the exit of the Jose Marti international terminal with his name written on a paper, looking for the flight with number{% endtrans %}: {{ purchase.flynumber }}
-                                {% elseif purchase.isACruise %}
-                                    {% trans %}the departure of the cruisers in the "Plaza de San Francisco" looking for the cruise with name{% endtrans %}: {{ purchase.flynumber }}
-                                {% else %}
-                                    : {{ purchase.getDetails }}
-                                {% endif %}
-                            </p>
-                        </div>
+                                    {% if purchase.isAnAirport %}
+                                        {% trans %}at the exit of the Jose Marti international terminal with his name written on a paper, looking for the flight with number{% endtrans %}: {{ purchase.flynumber }}
+                                    {% elseif purchase.isACruise %}
+                                        {% trans %}the departure of the cruisers in the "Plaza de San Francisco" looking for the cruise with name{% endtrans %}: {{ purchase.flynumber }}
+                                    {% else %}
+                                        : {{ purchase.getDetails }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        {% endif %}
 
                         <div class="well-row">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
@@ -126,7 +128,9 @@
                         <div class="well-row well-row-bg">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
                                 {% trans %}The type of service is{% endtrans %}:
-                                    {% if not purchase.isTour %}
+                                {% if purchase.experience %}
+                                    {% trans %}Experience{% endtrans %}
+                                {% elseif not purchase.isTour %}
                                         Taxi
                                     {% else %}
                                         Taxi Tour

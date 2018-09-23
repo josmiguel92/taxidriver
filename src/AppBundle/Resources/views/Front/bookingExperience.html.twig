@@ -55,27 +55,18 @@
 
 
 {% block destination %}
-<!--- Parallax -->
-    <div class="booking-place context-dark offset-top-0" style="margin-top: -8px;">
-        <!-- RD Parallax-->
-        <div data-on="false" data-md-on="true" class="rd-parallax">
-            <div data-speed="0.25" data-type="media" data-url="{{ asset(experience.getWideImageWebPath) }}" class="rd-parallax-layer"></div>
-            <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
-                <div class="shell section-75 section-md-top-103 section-md-bottom-110">
-                    <div class="range range-xs-center">
-                        <div class="cell-sm-10">
-
-                            <div class="offset-top-60 offset-md-top-30">
-
-                                <h2 class=" h1 text-center text-spacing-0 text-uppercase" style="border-radius: 5px;">
-                                    {{ experience.getNameLocale }}
-                                </h2>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="main-carousel">
+        <div class="carousel-cell">
+            <img src="{{ asset(experience.getWideImageWebPath) }}">
         </div>
+        {% set gallery = experience.galleryImages %}
+        {% if gallery | length > 0%}
+            {% for image in gallery %}
+                <div class="carousel-cell">
+                    <img src="{{ asset(image.getWideImageWebPath) }}">
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
+
 {% endblock %}

@@ -281,6 +281,20 @@ class SiteContent
     private $experiencestexten;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="touradvice", type="text")
+     */
+    private $touradvice;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="touradviceen", type="text")
+     */
+    private $touradviceen;
+
+    /**
      * @return string
      */
     public function getServicesinfographtitle()
@@ -1495,7 +1509,50 @@ class SiteContent
             return $this->experiencestext;
         else return $this->experiencestexten;
     }
-  
+
+    /**
+     * @return string
+     */
+    public function getTouradvice()
+    {
+        return $this->touradvice;
+    }
+
+    /**
+     * @param string $touradvice
+     */
+    public function setTouradvice($touradvice)
+    {
+        $this->touradvice = $touradvice;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTouradviceen()
+    {
+        return $this->touradviceen;
+    }
+
+    /**
+     * @param string $touradviceen
+     */
+    public function setTouradviceen($touradviceen)
+    {
+        $this->touradviceen = $touradviceen;
+    }
+
+
+
+    /**
+     * @return string
+     */
+    public function getTouradviceLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->touradvice;
+        return $this->touradviceen;
+    }
 
 }
 

@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Booking;
+use AppBundle\Utils\Utils;
 
 /**
  * Experience controller.
@@ -55,7 +56,7 @@ class ExperienceController extends Controller
 
         return $this->render('AppBundle:Dash:experience/new.html.twig', array(
             'experience' => $experience,
-            'form' => $form->createView(),
+            'edit_form' => $form->createView(),
         ));
     }
 
@@ -145,6 +146,7 @@ class ExperienceController extends Controller
      */
     public function showExperienceAction(Experience $experience, $_locale)
     {
+        Utils::setRequestLocaleLang($_locale);
         if ($experience) {
 
             $em = $this->getDoctrine()->getManager();

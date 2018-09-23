@@ -14,7 +14,7 @@ use AppBundle\Entity\ImageField;
  */
 class Place extends ImageField
 {
-
+    use GalleryFields;
     /**
      * @var int
      *

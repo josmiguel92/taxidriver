@@ -29,12 +29,14 @@ class DefaultController extends Controller
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
 
         if ($content) {
+            $posters = $em->getRepository('AppBundle:Image')->findLastPosters(3);
+            $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries(0, 1);
+
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
             $places = $em->getRepository('AppBundle:Place')->findAllSorted();
             $experiences = $em->getRepository('AppBundle:Experience')->findAll();
             $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
-            $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries(0, 2);
             $testimonials = $em->getRepository('AppBundle:Testimony')->findAll();
 
             $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
@@ -45,8 +47,8 @@ class DefaultController extends Controller
             }
 
             $featureImage = '';
-            if(count($blogEntries)>0)
-                $featureImage = $blogEntries[0]->getWebPath();
+            if(count($posters)>0)
+                $featureImage = $posters[0]->getWebPath();
 
             $message = new ContactMsgs();
             $messageForm = $this->createForm('AppBundle\Form\ContactMsgsType',$message);
@@ -88,6 +90,7 @@ class DefaultController extends Controller
             ['locale'=>$_locale,
             'content'=>$content[0],
             'featureImage'=>$featureImage,
+            'posters'=>$posters,
             'blogEntries'=>$blogEntries,
             'socialNetworks'=>$socialNetworks,
             'hashtags'=>$hashtags,

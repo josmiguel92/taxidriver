@@ -13,6 +13,7 @@
     <link rel="alternate" hreflang="x-default" href="{{ absolute_url(path("home", {"_locale":"en"})) }}" />
 {% endblock %}
 
+
 {% block structure_data %}
     {#breadcrumbs#}
     <script type="application/ld+json">
@@ -89,7 +90,7 @@
                         <div class="pull-md-left veil reveal-lg-inline-block">
                             <ul class="rd-navbar-nav">
                                 <li>
-                                    <a class="btn-book" href="{{ path("add_booking") }}">
+                                    <a class="btn-book" href="#services">
                                         <i class="fa fa-shopping-cart"></i>
                                         {% trans %}Book Now{% endtrans %}
                                     </a>
@@ -101,7 +102,7 @@
                         <div class="rd-navbar-nav-wrap reveal-md-inline-block">
                             <ul class="rd-navbar-nav">
                                 <!-- RD Navbar Nav-->
-                                <li><a href="#home">{% trans %}home{% endtrans %}</a></li>
+                                <li><a href="#">{% trans %}home{% endtrans %}</a></li>
                                 <li><a href="#services">{% trans %}services{% endtrans %}</a></li>
                                 <li><a href="#about">{% trans %}about us{% endtrans %}</a></li>
                                 <li><a href="#contact">{% trans %}contacts{% endtrans %}</a></li>
@@ -142,7 +143,7 @@
             </nav>
         </div>
 
-        <!-- Swiper Gallery-->
+      {#  <!-- Swiper Gallery-->
         <div  id="home" class="swiper-container gallery-top">
 
             <div class="swiper-wrapper">
@@ -160,7 +161,7 @@
                                         {{ blogEntry.getQuoteLocale }}
                                     </h5>
                                     <div style="max-width:510px;" class="btn-both-lines offset-top-30 center-block">
-                                        <a href="{{ path("blogEntry",{"_id":blogEntry.getId, "_name":blogEntry.getTitleLocale}) }}" style="min-width:240px;" class="btn btn-primary">
+                                        <a href="{{ path("blogEntry",{"_id":blogEntry.getId, "_name": utils.slugify(blogEntry.getTitleLocale) }) }}" style="min-width:240px;" class="btn btn-primary">
                                             {% trans %}Read more{% endtrans %}
                                         </a>
                                     </div>
@@ -173,17 +174,37 @@
 
             </div>
 
-        </div>
-{#
-        <div class="swiper-container gallery-thumbs">
-            <div class="swiper-wrapper">
-                {% for blogEntry in blogEntries %}
-                    <div style="background-image:url({{ asset(blogEntry.getWebPath("4x3")) }})" class="swiper-slide"></div>
+        </div>#}
+
+
+            <div class="main-carousel" style="position: relative;">
+
+                {% for poster in posters %}
+                    <div class="carousel-cell">
+                        <img src="{{ asset(poster.getWideImageWebPath) }}"/>
+                        <div class="carousel-cell__description">
+                            <h2>
+                                {{ poster.title }}
+                            </h2>
+                        </div>
+                        <div class="carousel-cell__button">
+                            <a id="call-to-action" href="#services" class="btn btn-calypso btn-icon btn-icon-left">
+                                <span class="icon icon-xs fa fa-cab"></span>
+                                &nbsp;
+                                {% trans %}See our offers{% endtrans %}
+                            </a>
+                        </div>
+                    </div>
                 {% endfor %}
 
+                {#{% for blogEntry in blogEntries %}#}
+                    {#<div class="carousel-cell">#}
+                        {#<img src="{{ asset(blogEntry.getWideImageWebPath) }}"/>#}
+                    {#</div>#}
+                {#{% endfor %}#}
             </div>
-        </div>
-#}
+
+
     </header>
 
 {% endblock %}
@@ -210,7 +231,8 @@
                     </div>
 
 
-                    <div class="offset-top-35"><svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/></svg>
+                    <div class="offset-top-35">
+                        <svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/></svg>
                     </div>
 
                     <!-- Taxi subsection -->
@@ -240,7 +262,7 @@
                                         <!-- Unit-->
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                                             <div class="unit-left">
-                                                <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
+                                                <a href="{{ path("booking_place", {"_id":place.id, "_name": utils.slugify(place.getNameLocale) }) }}" class="text-mine-shaft">
                                                     <img data-src="{{ asset(place.getWebPath) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
                                                     <noscript>
                                                         <img src="{{ asset(place.getWebPath) }}" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block">
@@ -250,7 +272,7 @@
                                             <div class="unit-body">
                                                 <div class="place-description">
                                                     <p class="p h5 text-capitalize text-spacing-inverse-25" style="height: 3em">
-                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
+                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name": utils.slugify(place.getNameLocale) }) }}" class="text-mine-shaft">
                                                             {% if place.getOriginLocale is empty %}
                                                                 {% trans %}Havana{% endtrans %}
                                                             {% else %}
@@ -265,7 +287,7 @@
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getTrasferprice }}.00 CUC <br/></p>
 
                                                     <div class="offset-top-40">
-                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="btn btn-calypso btn-icon btn-icon-left">
+                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name": utils.slugify(place.getNameLocale) }) }}" class="btn btn-calypso btn-icon btn-icon-left">
                                                             <span class="icon icon-xs fa fa-info-circle"></span>
                                                             {% trans %}More{% endtrans %}
                                                         </a>
@@ -312,7 +334,7 @@
                                         <!-- Unit-->
                                         <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                                             <div class="unit-left">
-                                                <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
+                                                <a href="{{ path("booking_place", {"_id":place.id, "_name": utils.slugify(place.getNameLocale) }) }}" class="text-mine-shaft">
                                                     <img data-src="{{ asset(place.getWebPath) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
                                                     <noscript>
                                                         <img src="{{ asset(place.getWebPath) }}" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block">
@@ -322,7 +344,7 @@
                                             <div class="unit-body">
                                                 <div class="place-description">
                                                     <h3 class="p h5 text-capitalize text-spacing-inverse-25" style="height: 3em">
-                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="text-mine-shaft">
+                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name": utils.slugify(place.getNameLocale) }) }}" class="text-mine-shaft">
                                                             {% if place.getOriginLocale is empty %}
                                                                 {% trans %}Havana{% endtrans %}
                                                             {% else %}
@@ -337,7 +359,7 @@
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getTrasferprice }}.00 CUC <br/></p>
 
                                                     <div class="offset-top-40">
-                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="btn btn-calypso btn-icon btn-icon-left">
+                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name": utils.slugify(place.getNameLocale) }) }}" class="btn btn-calypso btn-icon btn-icon-left">
                                                             <span class="icon icon-xs fa fa-info-circle"></span>
                                                             {% trans %}More{% endtrans %}
                                                         </a>
@@ -379,7 +401,7 @@
                     <div class="range range-xs-center offset-top-44 offset-md-top-53 text-sm-left">
 
                         {% for experience in experiences %}
-                            {% set link = path("show_experience", {"_locale":"es", "id":experience.getId, "_name":utils.slugify(experience.getNameLocale)}) %}
+                            {% set link = path("show_experience", {"id":experience.getId, "_name":utils.slugify(experience.getNameLocale)}) %}
                             <div class="cell-sm-10 cell-md-7 cell-lg-6 offset-top-60">
                                 <div style="max-width: 100%;" class="reveal-inline-block">
                                     <!-- Unit-->
@@ -400,8 +422,8 @@
                                                     </a>
                                                 </h3>
 
-                                                <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Place{% endtrans %}: </b> {{ experience.getPlaceLocale }}</p>
-                                                <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ experience.getPriceLocale }}<br/></p>
+                                                <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Place{% endtrans %}: </b> {{ experience.getPlaceLocale }}
+                                                <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ experience.getPriceLocale | split('\r\n') | first }}<br/></p>
 
                                                 <div class="offset-top-40">
                                                     <a href="{{ link }}" class="btn btn-calypso btn-icon btn-icon-left">
@@ -610,7 +632,19 @@
             <div class="shell">
                 <h2>{% trans %}Testimonials{% endtrans %}</h2>
                 <div class="range range-xs-center offset-top-20">
-                    <div class="cell-sm-10 cell-md-12">
+                    <div class="cell-sm-10 cell-md-2">
+                        <div id="TA_selfserveprop245" class="TA_selfserveprop">
+                            <ul id="UgXRuE" class="TA_links 5A9w779">
+                                <li id="bGmGQTDg5" class="uHSLrEnrO">
+                                    <a target="_blank" href="https://www.tripadvisor.es/">
+                                        <img src="https://www.tripadvisor.es/img/cdsi/img2/branding/150_logo-11900-2.png" alt="TripAdvisor"/>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="cell-sm-10 cell-md-8 col-md-offset-1">
                         <div data-items="1" data-md-items="3" data-xs-stage-padding="5" data-loop="true" data-margin="30" data-mouse-drag="false" data-nav="true" data-dots="true" class="owl-carousel owl-nav-absolute owl-nav-primary owl-nav-top">
 
                             {% for testimony in testimonials %}
@@ -643,15 +677,6 @@
                         </div>
                     </div>
 
-                    <div id="TA_selfserveprop245" class="TA_selfserveprop">
-                        <ul id="UgXRuE" class="TA_links 5A9w779">
-                            <li id="bGmGQTDg5" class="uHSLrEnrO">
-                                <a target="_blank" href="https://www.tripadvisor.es/">
-                                    <img src="https://www.tripadvisor.es/img/cdsi/img2/branding/150_logo-11900-2.png" alt="TripAdvisor"/>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
 
                 </div>
 

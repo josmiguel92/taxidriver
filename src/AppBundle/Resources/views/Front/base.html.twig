@@ -51,11 +51,16 @@
 
         <link rel="stylesheet" type="text/css" href="{{ asset("css/css.css") }}">
         <link rel="stylesheet" type="text/css" href="{{ asset("css/font-awesome.css") }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset("css/flickity.min.css") }}">
     {% else %}
         <link rel="stylesheet" type="text/css" href="{{ asset("css/styles.min.css") }}">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700|Source+Sans+Pro" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous" />
+        <link rel="stylesheet" type="text/css" href="{{ asset("css/flickity.min.css") }}">
     {% endif %}
+
+    {% block inline_css %}
+    {% endblock %}
 
     {% block structure_data %}
     {% endblock %}
@@ -65,6 +70,41 @@
             display: block;
         }
     </style>
+
+    <style>
+        .carousel-cell{
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+        }
+        .carousel-cell img{
+            width: 100%;
+        }
+
+        .routes-description{
+            margin: 3em ;
+        }
+
+        .carousel-cell__description{
+            position: absolute;
+            z-index: 5;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            left: 50%;
+        }
+
+        .carousel-cell__description h2{
+            color: white;
+        }
+
+        .carousel-cell__button{
+            position: absolute;
+            top: 75%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+
 </head>
 
 <body>
@@ -93,7 +133,7 @@
                                     <div class="pull-md-left veil reveal-lg-inline-block">
                                         <ul class="rd-navbar-nav">
                                             <li>
-                                                <a class="btn-book" href="{{ path("add_booking") }}">
+                                                <a class="btn-book" href="{{ path("home") }}#services">
                                                     <i class="fa fa-shopping-cart"></i>
                                                     {% trans %}Book Now{% endtrans %}
                                                 </a>
@@ -354,7 +394,6 @@
             </script>
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo=" crossorigin="anonymous"></script>
-
         {% endif %}
 
         <script defer src="{{ asset("js/core.min.js") }}"></script>
@@ -368,6 +407,19 @@
 
             gtag('config', 'UA-120939597-1');
         </script>
+
+   <script src="{{ asset("js/flickity.pkgd.min.js") }}"></script>
+
+    <script >
+    $('.main-carousel').flickity({
+      // options
+      cellAlign: 'left',
+      contain: true,
+      autoPlay: 5000,
+      pauseAutoPlayOnHover: false,
+      wrapAround: true
+    });
+    </script>
     {% endblock %}
 </body>
 </html>
