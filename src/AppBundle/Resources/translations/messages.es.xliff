@@ -368,8 +368,8 @@
 
 
 <trans-unit id="do.you.want.to.activate.it">
-	<source>Do you want to activate it?</source>
-	<target>¿Quieres activarlo?</target>
+	<source>There is a tour option for this place. Do you want to activate it?</source>
+	<target>Tenemos una opción de tour para este lugar, ¿quieres activarla?</target>
 </trans-unit>
 
 
@@ -740,6 +740,8 @@
 	<source>Prices</source>
 	<target>Precios</target>
 </trans-unit>
+
+
 
         </body>
     </file>
