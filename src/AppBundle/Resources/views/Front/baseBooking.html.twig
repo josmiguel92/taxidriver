@@ -1,5 +1,24 @@
 {% extends 'AppBundle:Front:base.html.twig' %}
 
+{% block inline_css %}
+    {{ parent() }}
+    <style>
+        .carousel-cell{
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+        }
+        .carousel-cell img{
+            width: 100%;
+        }
+
+        .routes-description{
+            margin: 3em ;
+        }
+    </style>
+
+{% endblock %}
+
 {% block content %}
     <!-- Page Content-->
     <main class="page-content">
@@ -11,6 +30,18 @@
                 {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
                                                      'data-form-type':'order',
                                                      'data-form-output':'form-output-global'}}) }}
+
+                <!--- Where are you going --->
+                <div class="well-row well-row-bg">
+                    <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">{% trans %}You're going to {% endtrans %} {{  place.getNameLocale}}</p>
+                </div>
+                <div class="routes">
+                    {% block destination %}
+                    {% endblock %}
+                </div>
+                <div class="routes-description">
+                    {{ place.getPlaceDescLocale | nl2br }}
+                </div>
 
                     <!-- airport or cruise data -->
                     <div class="well-row well-row-bg">
@@ -52,15 +83,6 @@
                     </div>
 
 
-                    <!--- Where are you going --->
-                    <div class="well-row well-row-bg">
-                        <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">{% trans %}Where are you going?{% endtrans %}</p>
-                    </div>
-                    <div class="routes">
-                        {% block destination %}
-                        {% endblock %}
-                    </div>
-
                     <!--- Pickup Data --->
                     <div class="well-row well-row-bg">
                         <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
@@ -73,16 +95,7 @@
                         <div class="row">
                             <div id="tourToggle" class="offset-top-15 cell-xs-12 cell-md-8 well-row-flex" style="margin-bottom: 25px; display: none;">
                                 <label class="custom-label text-gray-dark">
-                                    {% trans %}
-                                        The selected place, admits a tour.
-                                    {% endtrans %}
-                                    <a href="#" data-toggle="modal" data-target="#myModal">
-                                       {% trans %} See tour description{% endtrans %}.
-                                    </a>
-                                    <br/>
-                                    {% trans %}
-                                        Do you want to activate it?
-                                    {% endtrans %}
+                                    {% trans %}Do you want to activate it?{% endtrans %}
                                 </label>
                                 <div class="form-group">
                                     <input data-toggle="toggle" type="checkbox" id="activeTour" name="{{ booking_form.tour.vars.full_name }}">
@@ -124,23 +137,18 @@
                             </div>
                         </div>
 
-
                         <div id="returnLine" class="row" style="margin-top: 2em; border-top: 1px #e3e3e3 solid; display: none;"></div>
 
                         <div id="returnAdv" style="margin: 1em auto; display: none;">
                             <label class="custom-label text-gray-dark" style="color: #18acfb;">
-                                {% trans %}
-                                    If you plan to return the same day, select our tour option that is cheaper!
-                                {% endtrans %}
+                                {{ content.getTouradviceLocale }}
                             </label>
                         </div>
 
                         <div id="returnToggle"  class="row" style="display: none;">
                             <div class="offset-top-15 cell-xs-12 cell-md-8 well-row-flex" style="margin-bottom: 10px;">
                                 <label class="custom-label text-gray-dark">
-                                    {% trans %}
-                                        You can travel back with us
-                                    {% endtrans %}.
+                                    {% trans %}You can travel back with us{% endtrans %}.
                                 </label>
                                 <div class="form-group">
                                     <input data-toggle="toggle" type="checkbox" id="activeReturn" name="{{ booking_form.returnpickup.vars.full_name }}">
@@ -202,7 +210,7 @@
                             </div>
 
                             <div class="cell-xs-12 well-row-flex offset-top-15">
-                                <label for="{{ booking_form.comment.vars.id }}" class="custom-label text-gray-dark">Anything that you need to tell us</label>
+                                <label for="{{ booking_form.comment.vars.id }}" class="custom-label text-gray-dark">{% trans %}Anything you need to tell us?{% endtrans %}</label>
                                 <div class="form-group col-xs-12 offset-top-15" style="padding-left: 0;">
                                     <textarea id="{{ booking_form.comment.vars.id }}" name="{{ booking_form.comment.vars.full_name }}" style="max-height: 115px;" class="form-control form-control-has-validation form-control-last-child"></textarea>
                                     <span class="form-validation"></span>
@@ -255,24 +263,6 @@
             </div>
         </section>
 
-        <div class="modal fade" id="myModal" style="margin-top: 5em">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h2 id="tourTitle" class="modal-title"></h2>
-                    </div>
-                    <div class="modal-body text-left">
-                        <p id="tourDescription" style="margin-bottom: 25px;">
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary text-capitalize" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-
     </main>
 
 {% endblock %}
@@ -280,6 +270,7 @@
 {% block javascript %}
 {{ parent() }}
     <script async src='https://www.google.com/recaptcha/api.js'></script>
+
     <script>
     numberPeople = 1;
     buttonTourOn = false;

@@ -20,6 +20,7 @@ class ImageType extends AbstractType
             ->add('details_es', null, ["label"=>"Describa la imagen (español)"])
             ->add('title_en', null, ["label"=>"Título de la imagen (ingles)"])
             ->add('details_en', null, ["label"=>"Describa la imagen (ingles)"])
+            ->add('poster', null, ["label"=>"Esta imagen es un poster para Home"])
 
         ;
     }

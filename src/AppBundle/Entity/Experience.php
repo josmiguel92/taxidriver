@@ -14,6 +14,7 @@ use AppBundle\Utils\Utils;
  */
 class Experience extends ImageField
 {
+    use GalleryFields;
     /**
      * @var int
      *
@@ -113,6 +114,7 @@ class Experience extends ImageField
      * @ORM\Column(name="needtaxi", type="boolean")
      */
     private $needTaxi;
+
 
 
     /**

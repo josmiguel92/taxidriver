@@ -5,11 +5,77 @@
 {% block content %}
     <h1>Crear nueva Experiencia</h1>
 
+
+
     <div class="row">
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
+        {{ form_start(edit_form) }}
+
+        {{ form_row(edit_form.name) }}
+        {{ form_row(edit_form.nameEn) }}
+
+        {{ form_row(edit_form.place) }}
+        {{ form_row(edit_form.placeEn) }}
+
+        {{ form_row(edit_form.price) }}
+        {{ form_row(edit_form.priceEn) }}
+
+        {{ form_row(edit_form.priceSumary) }}
+        {{ form_row(edit_form.priceSumaryEn) }}
+
+        {{ form_row(edit_form.description) }}
+        {{ form_row(edit_form.descriptionEn) }}
+
+        {{ form_row(edit_form.external) }}
+        {{ form_row(edit_form.externalUrl) }}
+
+        {{ form_row(edit_form.needTaxi) }}
+
+        {{ form_row(edit_form.file) }}
+        {% if experience.getwebpath is not null %}
+            <img src="{{ asset(experience.getwebpath) }}" style="height: 10em;">
+        {% endif %}
+
+
+    </div>
+    <div class="row">
+        <h2>Imagenes de la Galeria</h2>
+        <p>Debe presionar el bot&oacute;n de Guardar para mostrar los cambios</p>
+        <div class="col-md-6">
+            {{ form_widget(edit_form.galleryImage0) }}
+            {% if experience.galleryImage0 is not null %}
+                <img src="{{ asset(edit_form.galleryImage0.vars.data.getwebpath) }}" style="height: 5em;">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(edit_form.galleryImage1) }}
+            {% if experience.galleryImage1 is not null %}
+                <img src="{{ asset(edit_form.galleryImage1.vars.data.getwebpath) }}" style="height: 5em;">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(edit_form.galleryImage2) }}
+            {% if experience.galleryImage2 is not null %}
+                <img src="{{ asset(edit_form.galleryImage2.vars.data.getwebpath) }}" style="height: 5em;">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(edit_form.galleryImage3) }}
+            {% if experience.galleryImage3 is not null %}
+                <img src="{{ asset(edit_form.galleryImage3.vars.data.getwebpath) }}" style="height: 5em;">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(edit_form.galleryImage4) }}
+            {% if experience.galleryImage4 is not null %}
+                <img src="{{ asset(edit_form.galleryImage4.vars.data.getwebpath) }}" style="height: 5em;">
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        {{ form_widget(edit_form) }}
         <input type="submit" value="Guardar" class="form-inline btn btn-primary" id="savebtn" />
-        {{ form_end(form) }}
+        {{ form_end(edit_form) }}
 
     </div>
 {% endblock %}

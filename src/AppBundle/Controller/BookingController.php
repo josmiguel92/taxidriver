@@ -41,15 +41,9 @@ class BookingController extends Controller
 
         $booking_form->handleRequest($request);
 
-
-
-
-
         $places = $em->getRepository('AppBundle:Place')->findAllSorted();
 
         if ($places) {
-
-
 
             $noPlaceSelected = true;
             if($booking->getPlace()>0)
@@ -104,25 +98,7 @@ class BookingController extends Controller
 
             }
 
-            $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
-            $config = [];;
-            foreach ($_config as $item){
-                $config[$item->getName()]=$item->getValue();
-            }
-            $content = $em->getRepository('AppBundle:SiteContent')->findAll();
-            $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
-            $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
-
-           return $this->render('AppBundle:Front:booking.html.twig', [
-                'booking_form'=>$booking_form->createView(),
-                'locale'=>$_locale,
-                'content'=>$content[0],
-                'socialNetworks'=>$socialNetworks,
-                'hashtags'=>$hashtags,
-                'places'=>$places,
-                'config'=>$config,
-                'noPlaceSelected' => $noPlaceSelected
-            ]);
+            return $this->redirectToRoute('home');
         }
         else
             throw new Exception("No hay entradas de lugares");
@@ -255,6 +231,7 @@ class BookingController extends Controller
             else $place = null;
             $places = $em->getRepository('AppBundle:Place')->findAll();
 
+            $experience = null;
             if($purchase->isExperience())
                 $experience = $em->getRepository("AppBundle:Experience")
                     ->find($purchase->getExperience());
@@ -433,6 +410,11 @@ class BookingController extends Controller
 
 
         $this->get('mailer')->send($message);
+
+        $experience = null;
+        if($booking->isExperience())
+            $experience = $em->getRepository("AppBundle:Experience")
+                ->find($booking->getExperience());
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject. " (".$booking->getId().")")

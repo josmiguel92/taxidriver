@@ -171,11 +171,11 @@
                                                         <b>{{ experience.name }}</b> en {{ experience.place }}
                                                     {% endif %}
                                                     {% if booking.ownroute %}
-                                                <ul>
-                                                    {% for _place in booking.ownrouteFormated %}
-                                                        <li>{{_place}}</li>
-                                                    {% endfor %}
-                                                </ul>
+                                                        <ul>
+                                                            {% for _place in booking.ownrouteFormated %}
+                                                                <li>{{_place}}</li>
+                                                            {% endfor %}
+                                                        </ul>
                                                 {% endif %}
                                                 </p>
 

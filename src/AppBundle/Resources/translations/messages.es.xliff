@@ -200,6 +200,10 @@
 	<target>¿Hacia dónde vas?</target>
 </trans-unit>
 
+<trans-unit id="you.are.going.to">
+	<source>You're going to</source>
+	<target>Irás a</target>
+</trans-unit>
 
 <trans-unit id="from.havana.to">
 	<source>From Havana to</source>
@@ -717,7 +721,25 @@
 </trans-unit>
 
 
+<trans-unit id="anything.you.need.to.tell.us">
+	<source>Anything you need to tell us?</source>
+	<target>¿Algo que nos quieras decir?</target>
+</trans-unit>
 
+<trans-unit id="You are going to">
+	<source>You are going to</source>
+	<target>Irás a</target>
+</trans-unit>
+
+<trans-unit id="need.taxi">
+	<source>Do you need a taxi to get there?</source>
+	<target>¿Necesitas un taxi para llegar allí?</target>
+</trans-unit>
+
+<trans-unit id="prices">
+	<source>Prices</source>
+	<target>Precios</target>
+</trans-unit>
 
         </body>
     </file>

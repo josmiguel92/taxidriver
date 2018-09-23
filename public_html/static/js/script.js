@@ -1163,5 +1163,5 @@ $document.ready(function () {
 
 // Highlight the top nav as scrolling occurs
 $('body').scrollspy({
-    target: '.rd-navbar'
+    target: ['.rd-navbar', '#call-to-action']
 });

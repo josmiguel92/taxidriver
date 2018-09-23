@@ -23,7 +23,6 @@ class PlaceType extends AbstractType
             ->add('name', null, ["label"=>"Destino"])
             ->add('nameEn', null, ["label"=>"Destino, en ingles"])
             ->add('distance', null, ["label"=>"Distancia, en km."])
-            ->add('file', null, ['label'=>"Imágen representativa"])
 
             ->add('time', null, ["label"=> "Tiempo de recorrido, (horas:minutos)"])
             ->add('price', MoneyType::class, ["label"=>"Precio minimo del Tour",'currency'=>"CUC"])
@@ -31,11 +30,21 @@ class PlaceType extends AbstractType
             ->add('istour', null, ['label'=>"¿Es un Tour?"])
             ->add('placedesc', null, ['label'=>"Describa el Tour"])
             ->add('placedescen', null, ['label'=>"Describa el Tour, en ingles"])
-            ->add('weight',null,['label'=>"Peso del Servicio, mayores numeros apareceran primero"])
 
             //->add('services')
             ->add('latlong',HiddenType::class)
             ->add('googlename',HiddenType::class)
+
+            ->add('file', null, ['label'=>"Imágen representativa"])
+
+            ->add('galleryImage0',null,['label'=>"Agregar una imagen"])
+            ->add('galleryImage1',null,['label'=>"Agregar una imagen"])
+            ->add('galleryImage2',null,['label'=>"Agregar una imagen"])
+            ->add('galleryImage3',null,['label'=>"Agregar una imagen"])
+            ->add('galleryImage4',null,['label'=>"Agregar una imagen"])
+
+            ->add('weight',null,['label'=>"Peso del Servicio, mayores numeros apareceran primero"])
+
         ;
     }/**
      * {@inheritdoc}

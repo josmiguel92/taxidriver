@@ -43,7 +43,11 @@ class SiteContentType extends AbstractType
             ->add('servicestaxitourstitleen', null, ["label"=>"Título del servicio de taxi-tour, en ingles"])
             ->add('servicestaxitourstext', TextareaType::class, ["label"=>"Texto sobre el servicio de Tour"])
             ->add('servicestaxitourstexten', TextareaType::class, ["label"=>"Texto sobre el servicio de Tour, en ingles"])
-          
+            ->add('touradvice', TextareaType::class, ["label"=>"Aviso sobre los tours"])
+            ->add('touradviceen', TextareaType::class, ["label"=>"Aviso sobre los tours, en ingles"])
+
+
+
             ->add('experiencestext', TextareaType::class, ["label"=>"Texto sobre las experiencias"])
             ->add('experiencestexten', TextareaType::class, ["label"=>"Texto sobre las experiencias, en ingles"])
             

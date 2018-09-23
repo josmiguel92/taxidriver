@@ -25,8 +25,13 @@ class ExperienceType extends AbstractType
             ->add('descriptionEn', null, ["label"=>"Descripcion, en ingles"])
             ->add('external', null, ["label"=>"Esta experiencia se gestiona desde otra web"])
             ->add('externalUrl', null, ["label"=>"URL Externa para gestionar la experiencia"])
-            ->add('needTaxi', null, ["label"=>"¿Es necesario transporte por taxi para esta experiencia?"])
-            ->add('file', null, ['label'=>"Imagen de la Experiencia"]);
+            ->add('needTaxi', null, ["label"=>"¿Es necesario transporte por taxi para esta experiencia?", "attr"=>["checked"=>"true"]])
+            ->add('file', null, ['label'=>"Imagen de la Experiencia"])
+            ->add('galleryImage0',null,['label'=>"Agregar una imagen"])
+            ->add('galleryImage1',null,['label'=>"Agregar una imagen"])
+            ->add('galleryImage2',null,['label'=>"Agregar una imagen"])
+            ->add('galleryImage3',null,['label'=>"Agregar una imagen"])
+            ->add('galleryImage4',null,['label'=>"Agregar una imagen"]);
     }/**
      * {@inheritdoc}
      */

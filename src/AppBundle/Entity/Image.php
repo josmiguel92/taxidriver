@@ -56,6 +56,31 @@ class Image extends ImageField
     private $details_en;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="poster", type="boolean")
+     */
+    private $poster;
+
+    /**
+     * @return bool
+     */
+    public function isPoster()
+    {
+        return $this->poster;
+    }
+
+    /**
+     * @param bool $poster
+     */
+    public function setPoster($poster)
+    {
+        $this->poster = $poster;
+    }
+
+
+
+    /**
      * @return string
      */
     public function getTitleEn()

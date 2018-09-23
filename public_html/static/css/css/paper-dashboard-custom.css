@@ -140,3 +140,6 @@ display: block;
 .sidebar[data-background-color="black"]{
   background: #212120;
 }
+div.checkbox .icons{
+    border: solid 1px;
+}
