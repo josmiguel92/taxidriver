@@ -65,8 +65,30 @@
 
 
 {% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <!-- Include Editor style. -->
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/css/froala_editor.min.css' rel='stylesheet' type='text/css' />
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/css/froala_style.min.css' rel='stylesheet' type='text/css' />
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/css/plugins/table.min.css' rel='stylesheet' type='text/css' />
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/css/plugins/video.min.css' rel='stylesheet' type='text/css' />
+{% endblock stylesheets %}
+
 {% block javascripts %}
     {{ parent() }}
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/froala_editor.min.js'></script>
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/plugins/align.min.js'></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/plugins/link.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/plugins/lists.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/plugins/paragraph_format.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/plugins/paragraph_style.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/plugins/table.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/plugins/video.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/plugins/url.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.5/js/plugins/entities.min.js"></script>
+
+
 
     <script>
         function goSpanish(){
@@ -107,6 +129,8 @@
                     items[items.length-2].remove();
                 }
             });
+          
+          
         });
     </script>
 
@@ -146,7 +170,21 @@
             var $newFormLi = $('<li></li>').append(newForm);
             $newLinkLi.before($newFormLi);
         }
+      
+      
+      $(function(){
+        $('#appbundle_blogentries_teaser')
+          .on('froalaEditor.initialized', function (e, editor) {
+            $('#appbundle_blogentries_teaser').parents('form').on('submit', function () {
+              console.log($('#edit').val());
+              return false;
+            })
+          })
+          .froalaEditor({enter: $.FroalaEditor.ENTER_P, placeholderText: null, initOnClick: true})
+      });
+
     </script>
+
 
 
 {% endblock %}
