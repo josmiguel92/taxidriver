@@ -132,4 +132,26 @@
             center: {lat: 23.143056, lng: -82.38055600000001}
         }
     }).data('placepicker');
+    
+      $(function(){
+        $('#appbundle_place_placedesc')
+        .froalaEditor({
+        toolbarInline: true,
+        toolbarButtons: ['bold', 'italic', 'underline','color', 'indent', 'outdent', '-','insertLink', 'undo', 'redo'],
+        toolbarButtonsXS: null,
+        toolbarButtonsSM: null,
+        toolbarButtonsMD: null,
+        placeholderText: "Escriba el texto aquí", 
+        initOnClick: true})
+        
+        $('#appbundle_place_placedescen')
+        .froalaEditor({
+        toolbarInline: true,
+        toolbarButtons: ['bold', 'italic', 'underline','color', 'indent', 'outdent', '-','insertLink', 'undo', 'redo'],
+        toolbarButtonsXS: null,
+        toolbarButtonsSM: null,
+        toolbarButtonsMD: null,
+        placeholderText: "Escriba el texto aquí", 
+        initOnClick: true})
+      });
 </script>
