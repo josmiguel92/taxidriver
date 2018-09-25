@@ -67,7 +67,7 @@
 
                         {% for blogEntry in blogEntries %}
 
-                            {% set url = path("blogEntry",{"_id":blogEntry.getId, "_name":blogEntry.getTitleLocale}) %}
+                            {% set url = path("blogEntry",{"_id":blogEntry.getId, "_name":utils.slugify(blogEntry.getTitleLocale) }) %}
                             <!-- Post Classic-->
                             <article class="post-classic text-left offset-top-30">
                                 <div class="post-classic-img-wrap">

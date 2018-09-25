@@ -174,12 +174,17 @@
       
       $(function(){
         $('#appbundle_blogentries_teaser')
-          .on('froalaEditor.initialized', function (e, editor) {
-            $('#appbundle_blogentries_teaser').parents('form').on('submit', function () {
-              console.log($('#appbundle_blogentries_teaser').val());
-              //return false;
-            })
-          })
+          .froalaEditor({enter: $.FroalaEditor.ENTER_P, placeholderText: null, initOnClick: true})
+        
+        $('#appbundle_blogentries_teaseren')
+          .froalaEditor({enter: $.FroalaEditor.ENTER_P, placeholderText: null, initOnClick: true})
+      });
+      
+      $('#appbundle_blogentries_posttext')
+          .froalaEditor({enter: $.FroalaEditor.ENTER_P, placeholderText: null, initOnClick: true})
+      });
+      
+      $('#appbundle_blogentries_posttexten')
           .froalaEditor({enter: $.FroalaEditor.ENTER_P, placeholderText: null, initOnClick: true})
       });
 
