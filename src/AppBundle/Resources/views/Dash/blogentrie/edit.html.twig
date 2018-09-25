@@ -176,7 +176,7 @@
         $('#appbundle_blogentries_teaser')
           .on('froalaEditor.initialized', function (e, editor) {
             $('#appbundle_blogentries_teaser').parents('form').on('submit', function () {
-              console.log($('#edit').val());
+              console.log($('#appbundle_blogentries_teaser').val());
               return false;
             })
           })
