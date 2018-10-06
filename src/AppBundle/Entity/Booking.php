@@ -111,7 +111,7 @@ class Booking
 
     /**
      * @var boolean
-     * @ORM\Column(name="experience_time", type="float", nullable=true)
+     * @ORM\Column(name="experience_time", type="integer", nullable=true)
      */
     private $experienceTime;
 
