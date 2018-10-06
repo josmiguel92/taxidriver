@@ -37,6 +37,10 @@
         {{ booking.returnpickupplacce}}
     </p>
 {% endif %}
+{% if booking.experience %}
+    <p>Desea permanecer {{ booking.experienceTime }} horas en el lugar.
+    </p>
+{% endif %}
 <h4>Mensaje del cliente</h4>
 <p>{{ booking.comment }}</p>
 
