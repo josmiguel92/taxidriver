@@ -102,6 +102,14 @@
                             </p>
                         </div>
 
+                        {% if purchase.experience  %}
+                        <div class="well-row">
+                            <p class="text-bold text-spacing-25 font-accent text-gray-dark">
+                                {% trans %}You'll be there for about{% endtrans %} {{ purchase.experienceTime }} {% trans %}hours{% endtrans %}.
+                            </p>
+                        </div>
+                        {% endif %}
+
                         {% if purchase.isAnAirport or purchase.isACruise or purchase.getDetails  %}
                             <div class="well-row well-row-bg">
                                 <p class="text-bold text-spacing-25 font-accent text-gray-dark">
@@ -195,7 +203,7 @@
                     {% endif %}
 
                     <div class="row section-bottom-40">
-
+                        {% if purchase.price > 0 %}
                         <div class="col-md-6 col-md-offset-3">
                             <p> <a href="http://westernunion.com/" target="_blank">
                                     <img src="{{ asset('images/logo.wu.big.svg') }}" alt="wester union logo">
@@ -204,6 +212,7 @@
                                 {% trans %}You can pay in advance, making a transfer of{% endtrans %} {{ price_usd }} USD
                                 {% trans %}through <a href="http://westernunion.com/" target="_blank">Western Union</a> to this bank account{% endtrans %} <strong>1500812414776</strong>.</p>
                         </div>
+                        {% endif %}
 
                         <div class="col-md-12 section-xs-top-40">
                             <p>{% trans %}Please, if you need to cancel your reservation, you must notify us at least 2 days in advance{% endtrans %}.</p>

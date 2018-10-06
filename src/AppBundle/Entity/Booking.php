@@ -110,6 +110,12 @@ class Booking
     private $experienceTaxi;
 
     /**
+     * @var boolean
+     * @ORM\Column(name="experience_time", type="integer", nullable=true)
+     */
+    private $experienceTime;
+
+    /**
      * @return bool
      */
     public function isReturnpickup()
@@ -675,6 +681,23 @@ class Booking
     {
         $this->experienceTaxi = $experienceTaxi;
     }
+
+    /**
+     * @return bool
+     */
+    public function getExperienceTime()
+    {
+        return $this->experienceTime;
+    }
+
+    /**
+     * @param bool $experienceTime
+     */
+    public function setExperienceTime($experienceTime)
+    {
+        $this->experienceTime = $experienceTime;
+    }
+
 
     public function isExperience()
     {

@@ -740,6 +740,18 @@
 	<source>Prices</source>
 	<target>Precios</target>
 </trans-unit>
+<trans-unit id="experience.time">
+	<source>How many hours you'll stay there?</source>
+	<target>¿Cuantas horas estará allí?</target>
+</trans-unit>
+<trans-unit id="experience.time.answer">
+	<source>You'll be there for about</source>
+	<target>Estará allí aproximadamente durante</target>
+</trans-unit>
+<trans-unit id="experience.time.hours">
+	<source>hours</source>
+	<target>horas</target>
+</trans-unit>
 
 
 

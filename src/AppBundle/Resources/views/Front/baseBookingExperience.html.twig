@@ -60,6 +60,18 @@
                                 </div>
                             </div>
 
+                            <!--Experience Time -->
+                            <div class="row">
+                                <div class="offset-top-15 cell-sm-5 cell-md-7 well-row-flex">
+                                     <label class="custom-label text-gray-dark">{% trans %}How many hours you'll stay there?{% endtrans %}
+                                    </label>
+                                    <div class="form-group">
+                                        <input type="number" data-zeros="true" value="2" min="1" max="72" class="form-control" id="{{ booking_form.experienceTime.vars.id }}" name="{{ booking_form.experienceTime.vars.full_name }}">
+                                    </div>
+                                </div>
+                            </div>
+                            
+
                             {% if experience.getNeedTaxi %}
                                 <!-- Need a Taxi -->
                                 <div class="row">
