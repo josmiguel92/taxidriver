@@ -33,6 +33,7 @@ class BookingType extends AbstractType
             ->add('returnpickuptime',TextType::class)
             ->add('experience')
             ->add('experienceTaxi')
+            ->add('experienceTime')
             ;
     }/**
      * {@inheritdoc}
