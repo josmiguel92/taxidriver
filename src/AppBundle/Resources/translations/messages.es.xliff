@@ -740,6 +740,33 @@
 	<source>Prices</source>
 	<target>Precios</target>
 </trans-unit>
+<trans-unit id="exchange.rate">
+	<source>The exchange rate in Cuba is 1 CUC</source>
+	<target>La tasa de cambio en Cuba es de 1 CUC</target>
+</trans-unit>
+<trans-unit id="pick.you">
+	<source>We will pickup you</source>
+	<target>Le recogeremos</target>
+</trans-unit>
+<trans-unit id="pay.advance">
+	<source>You can pay in advance, making a transfer of</source>
+	<target>Puede pagar por adelantado, haciendo una transferencia de</target>
+</trans-unit>
+<trans-unit id="pay.through">
+	<source>through</source>
+	<target>a través de</target>
+</trans-unit>
+<trans-unit id="pay.account">
+	<source>to this bank account</source>
+	<target>a la siguiente cuenta bancaria</target>
+</trans-unit>
+<trans-unit id="see.our.offers">
+	<source>See our offers</source>
+	<target>Mira nuestras ofertas</target>
+</trans-unit>
+
+
+
 
 
 

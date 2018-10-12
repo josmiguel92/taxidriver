@@ -105,14 +105,14 @@
                         {% if purchase.isAnAirport or purchase.isACruise or purchase.getDetails  %}
                             <div class="well-row well-row-bg">
                                 <p class="text-bold text-spacing-25 font-accent text-gray-dark">
-                                    {% trans %}We will pickup you in{% endtrans %}
+                                    {% trans %}We will pickup you{% endtrans %}
 
                                     {% if purchase.isAnAirport %}
                                         {% trans %}at the exit of the Jose Marti international terminal with his name written on a paper, looking for the flight with number{% endtrans %}: {{ purchase.flynumber }}
                                     {% elseif purchase.isACruise %}
-                                        {% trans %}the departure of the cruisers in the "Plaza de San Francisco" looking for the cruise with name{% endtrans %}: {{ purchase.flynumber }}
+                                        {% trans %}in the departure of the cruisers in the "Plaza de San Francisco" looking for the cruise with name{% endtrans %}: {{ purchase.flynumber }}
                                     {% else %}
-                                        : {{ purchase.getDetails }}
+                                        {% trans %}in{% endtrans %}: {{ purchase.getDetails }}
                                     {% endif %}
                                 </p>
                             </div>
@@ -171,10 +171,11 @@
                                     </p>
                                 </div>
                             {% endif %}
+                            <hr style="margin-bottom: 1em;">
                                 <!-- simple purchase -->
-                                    {#todo: poner el botton de paypal luego#}
-                                    {#<div class="col-md-6">
-                                        <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-lg btn-primary">
+                                    {# todo: poner el botton de paypal luego #}
+                                    <div class="center-block">
+                                        <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-primary">
                                             <i class="fa fa-paypal"></i>
                                             {% trans %}Pay with PayPal{% endtrans %} - {{ (purchase.price / config['tasa.usd']) | number_format(2,'.') }} USD
                                         </a>
@@ -182,7 +183,7 @@
                                             {% trans %}The exchange rate in Cuba is 1 CUC{% endtrans %}  = {{ config['tasa.usd'] }} USD
                                         </p>
                                     </div>
-                                    <div class="col-md-6">
+                                   {# <div class="col-md-6">
                                         <a href="{{ path('purchase_details_paypal', {'_token': purchase.token, '_paypalCallback':'cash'}) }}" class="btn btn-border">
                                             <i class="fa fa-dollar"></i>
                                             {% trans %}Pay with cash{% endtrans %} - {{ purchase.price }} CUC
@@ -190,7 +191,8 @@
                                         <p class="offset-top-15 text-extra-small">
                                             {% trans %}You can always pay in Cuba with cash.{% endtrans %}
                                         </p>
-                                    </div>#}
+                                    </div>
+                                    #}
                         </div>
                     {% endif %}
 
@@ -202,7 +204,7 @@
                                 </a>
                                 <br/>
                                 {% trans %}You can pay in advance, making a transfer of{% endtrans %} {{ price_usd }} USD
-                                {% trans %}through <a href="http://westernunion.com/" target="_blank">Western Union</a> to this bank account{% endtrans %} <strong>1500812414776</strong>.</p>
+                                {% trans %}through{% endtrans %} <a href="http://westernunion.com/" target="_blank">Western Union</a> {% trans %}to this bank account{% endtrans %} <strong>1500812414776</strong>.</p>
                         </div>
 
                         <div class="col-md-12 section-xs-top-40">
@@ -220,13 +222,13 @@
                             </a>
                         </div>
                         <div class="col-md-4">
-                            <a href="{{ path("add_booking", {'locale':locale}) }}" class="btn btn-primary btn-lg">
+                            <a href="{{ path("add_booking", {'locale':locale}) }}" class="btn btn-border btn-lg">
                                 <i class="fa fa-shopping-cart"></i>
                                 {% trans %}Select more places{% endtrans %}
                             </a>
                         </div>
                         <div class="col-md-4">
-                            <a href="{{ path("bookingOwnTour", {'locale':locale}) }}" class="btn btn-border">
+                            <a href="{{ path("home") }}#contact" class="btn btn-border">
                                 <i class="fa fa-map-signs"></i>
                                 {% trans %}Make my own tour{% endtrans %}
                             </a>

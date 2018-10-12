@@ -2,8 +2,8 @@
 
 
 {% set title = blogEntry.getTitleLocale %}
-{% set spanish_page = path("blogEntry", {"_locale":"es", "_id":blogEntry.getId, "_name":blogEntry.getTitle}) %}
-{% set english_page = path("blogEntry", {"_locale":"en", "_id":blogEntry.getId, "_name":blogEntry.getTitleen}) %}
+{% set spanish_page = path("blogEntry", {"_locale":"es", "_id":blogEntry.getId, "_name": utils.slugify(blogEntry.getTitle)}) %}
+{% set english_page = path("blogEntry", {"_locale":"en", "_id":blogEntry.getId, "_name": utils.slugify(blogEntry.getTitleen)}) %}
 
 
 {% block canonical %}
@@ -134,7 +134,7 @@
                                     <div class="offset-top-75 offset-md-top-75">
                                         {% set link = path("add_booking",{_locale:locale}) %}
                                         {% if blogEntry.getPlace %}
-                                            {% set link = path("booking_place", {_id:blogEntry.getPlace.id, _name:blogEntry.getPlace.getNameLocale}) %}
+                                            {% set link = path("booking_place", {_id:blogEntry.getPlace.id, _name: utils.slugify(blogEntry.getPlace.getNameLocale)}) %}
                                         {% endif %}
 
                                         <a href="{{ link }}" style="min-width:140px;" class="btn btn-calypso">
@@ -161,16 +161,11 @@
                         </div>
 
                         <div class="group group-xs btn-tags offset-top-50 offset-md-top-30">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ absolute_url(path("blogEntry", {"_locale":locale, "_name":blogEntry.getTitleLocale, "_id":blogEntry.getId}))|url_encode }}&amp;src=sdkpreparse" class="btn btn-info btn-icon btn-icon-left">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ absolute_url(path("blogEntry", {"_locale":locale, "_name": utils.slugify(blogEntry.getTitleLocale), "_id":blogEntry.getId}))|url_encode }}&amp;src=sdkpreparse" class="btn btn-info btn-icon btn-icon-left">
                                 <span class="icon icon-xs fa fa-facebook"></span>
                                 <span class="text-lowercase text-regular text-spacing-0 font-default">facebook</span>
                             </a>
-                            {#Todo: google share#}
-                            <a href="#" class="btn btn-mandy btn-icon btn-icon-left">
-                                <span class="icon icon-xs fa fa-google-plus"></span>
-                                <span class="text-lowercase text-regular text-spacing-0 font-default">google +</span>
-                            </a>
-                            <a href="mailto:yourfriend@mail.com?subject={% trans %}Check out this post!!{% endtrans %}&amp;body={{ absolute_url(path("blogEntry", {"_locale":locale, "_name":blogEntry.getTitleLocale, "_id":blogEntry.getId})) }}" class="btn btn-success btn-icon btn-icon-left">
+                            <a href="mailto:yourfriend@mail.com?subject={% trans %}Check out this post!!{% endtrans %}&amp;body={{ absolute_url(path("blogEntry", {"_locale":locale, "_name": utils.slugify(blogEntry.getTitleLocale), "_id":blogEntry.getId})) }}" class="btn btn-success btn-icon btn-icon-left">
                                 <span class="icon icon-xs fa fa-send"></span>
                                 <span class="text-lowercase text-regular text-spacing-0 font-default">Email</span>
                             </a>

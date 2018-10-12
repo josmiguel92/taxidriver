@@ -35,10 +35,18 @@ class ConfigValue
      */
     private $value;
 
-    public function __construct($name, $value)
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=600, nullable=true)
+     */
+    private $description;
+
+    public function __construct($name, $value, $description = null)
     {
         $this->name = $name;
         $this->value = $value;
+        $this->description = $description;
     }
 
     public function __toString()
@@ -103,6 +111,30 @@ class ConfigValue
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return ConfigValue
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }
 
