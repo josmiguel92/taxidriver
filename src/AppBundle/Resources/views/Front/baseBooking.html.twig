@@ -33,15 +33,23 @@
 
                 <!--- Where are you going --->
                 <div class="well-row well-row-bg">
-                    <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">{% trans %}You're going to {% endtrans %} {{  place.getNameLocale}}</p>
+                    <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
+                        {% if ownTourPage is defined %}
+                            {% trans %}Add the places you wanna to visit{% endtrans %}
+                        {% else %}
+                            {% trans %}You're going to {% endtrans %} {{ place.getNameLocale }}
+                        {% endif %}
+                    </p>
                 </div>
                 <div class="routes">
                     {% block destination %}
                     {% endblock %}
                 </div>
-                <div class="routes-description">
-                    {{ place.getPlaceDescLocale | nl2br }}
-                </div>
+                {% if ownTourPage is not defined %}
+                    <div class="routes-description">
+                        {{ place.getPlaceDescLocale | nl2br }}
+                    </div>
+                {% endif %}
 
                     <!-- airport or cruise data -->
                     <div class="well-row well-row-bg">

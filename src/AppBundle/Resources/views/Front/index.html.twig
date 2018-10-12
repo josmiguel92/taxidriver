@@ -215,7 +215,7 @@
     <main class="page-content">
 
         <!-- Routes-->
-        <section id="services">
+        <section id="services" style="margin-top: 5em;">
             <div class="shell offset-top-100">
 
                 <div class="offset-top-100">
@@ -465,7 +465,7 @@
                                         {{ content.getServicesmakeroutetextLocale }}
                                     </h2>
                                     <div class="offset-top-30 offset-md-top-60">
-                                        <a href="{{ path("bookingOwnTour") }}" style="min-width:240px;" class="btn btn-calypso">
+                                        <a href="#contact" style="min-width:240px;" class="btn btn-calypso">
                                             <i class="fa fa-heart"></i>
                                             {% trans %}Make your own way!{% endtrans %}
                                         </a>
@@ -475,6 +475,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div style="margin: 2em 10% 0 10%">
+                <p class="text-spacing-25 text-gray-dark">
+                    {{ content.owntaxidescriptionLocale() | nl2br}}
+                </p>
             </div>
         </section>
 

@@ -295,6 +295,20 @@ class SiteContent
     private $touradviceen;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="owntaxidescription", type="text")
+     */
+    private $owntaxidescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="owntaxidescriptionen", type="text")
+     */
+    private $owntaxidescriptionen;
+
+    /**
      * @return string
      */
     public function getServicesinfographtitle()
@@ -1508,6 +1522,47 @@ class SiteContent
         if(Utils::getRequestLocaleLang()=="es")
             return $this->experiencestext;
         else return $this->experiencestexten;
+    }
+
+
+    /**
+     * @param string $owntaxidescription
+     */
+    public function setOwntaxidescription($owntaxidescription)
+    {
+        $this->owntaxidescription = $owntaxidescription;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOwntaxidescription()
+    {
+        return $this->owntaxidescription;
+    }
+
+    /**
+     * @param string $owntaxidescriptionen
+     */
+    public function setOwntaxidescriptionEn($owntaxidescriptionen)
+    {
+        $this->owntaxidescriptionen = $owntaxidescriptionen;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOwntaxidescriptionEn()
+    {
+        return $this->owntaxidescriptionen;
+    }
+
+
+    public function getOwntaxidescriptionLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->owntaxidescription;
+        else return $this->owntaxidescriptionen;
     }
 
     /**

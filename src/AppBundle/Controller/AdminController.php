@@ -530,20 +530,20 @@ class AdminController extends Controller
         }
 
        if(!isset($config['tasa.usd']))
-           $em->persist(new \AppBundle\Entity\ConfigValue("tasa.usd",0.88));
+           $em->persist(new \AppBundle\Entity\ConfigValue("tasa.usd",0.88, "Tasa de conversion USD/CUC"));
 
 
         if(!isset($config['price.increment']))
-            $em->persist(new \AppBundle\Entity\ConfigValue("price.increment",10));
+            $em->persist(new \AppBundle\Entity\ConfigValue("price.increment",10, "Incremento del precio por cada persona en los tours y transfers"));
 
         if(!isset($config['paypal.email']))
-            $em->persist(new \AppBundle\Entity\ConfigValue("paypal.email","taxidriverscuba@gmail.com"));
+            $em->persist(new \AppBundle\Entity\ConfigValue("paypal.email","taxidriverscuba@gmail.com", "Email de la cuenta de Paypal"));
 
         if(!isset($config['paypal.token']))
-            $em->persist(new \AppBundle\Entity\ConfigValue("paypal.token",'xxxxxxxxx'));
+            $em->persist(new \AppBundle\Entity\ConfigValue("paypal.token",'xxxxxxxxx',"Token de identificacion de la cuenta en Paypal"));
 		
 		if(!isset($config['credit.card']))
-            $em->persist(new \AppBundle\Entity\ConfigValue("credit.card",'1234567890123456'));
+            $em->persist(new \AppBundle\Entity\ConfigValue("credit.card",'1234567890123456', "Credit Card"));
 
 
         $em->flush();
@@ -803,7 +803,7 @@ class AdminController extends Controller
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
         $senderEmail = $content[0]->getContactemail();
         $address = $content[0]->getContactaddressLocale();
-        $telephone = $content[0]->getContactelephone();
+        $telephone = $content[0]->getContacttelephone();
 
 
         $message = \Swift_Message::newInstance()

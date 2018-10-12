@@ -71,7 +71,7 @@ class BookingController extends Controller
                 }
 
                 $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
-                $config = [];;
+                $config = [];
                 foreach ($_config as $item){
                     $config[$item->getName()]=$item->getValue();
                 }

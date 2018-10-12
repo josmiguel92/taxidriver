@@ -30,7 +30,7 @@
                 <div>
                     <ul>
                         {% for config in configValues %}
-                            <li><b>{{ config.name }}</b> = {{ config.value }} (<a href="{{ path('dash_config_values_edit', {'id':config.id}) }}"> Editar</a>)</li>
+                            <li><b><abbr title="{{ config.name }}">{{ config.description }}</abbr></b> = {{ config.value }} (<a href="{{ path('dash_config_values_edit', {'id':config.id}) }}">Editar</a>)</li>
                         {% endfor %}
                     </ul>
 
