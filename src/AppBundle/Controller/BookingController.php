@@ -314,8 +314,6 @@ class BookingController extends Controller
         {
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             //$email = $content[0]->getEmail();
-            //TODO: change to karlita.garcia.l0v3@gmail.com
-            $account_email = 'karlita.garcia.l0v3@gmail.com';
             $_place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
             $_person_number = $purchase->getNumpeople();
             $product_name = Utils::buildProductName($purchase, $_place);
@@ -326,8 +324,8 @@ class BookingController extends Controller
                 $config[$item->getName()]=$item->getValue();
             }
 
-            $price = $purchase->getPrice();
             $cuc_usd_conversion = $config['tasa.usd'];
+            $account_email = $config['paypal.email'];
             $product_price = round($purchase->getPrice() / $cuc_usd_conversion, 2);
 
             return $this->render('AppBundle:Front:makePaypalTransfer.html.twig', [
@@ -336,7 +334,6 @@ class BookingController extends Controller
                 '_token'=>$_token,
                 '_locale'=>$_locale,
                 'product_price'=>$product_price
-
             ]);
         }
         else
