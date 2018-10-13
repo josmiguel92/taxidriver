@@ -117,7 +117,7 @@ class BookingController extends Controller
         $places = $em->getRepository('AppBundle:Place')->findAll();
         $place = $em->getRepository('AppBundle:Place')->find($_id);
 
-        $nameLocale = $place->getNameLocale();
+        $nameLocale = Utils::slugify($place->getNameLocale());
         $nameRequest = $_name;
 
         if ($nameRequest != $nameLocale){

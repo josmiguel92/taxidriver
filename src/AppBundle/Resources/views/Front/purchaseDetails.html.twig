@@ -45,7 +45,7 @@
 
 {% block content %}
 
-    {% set price_usd = (purchase.price / config['tasa.usd']) | number_format(2,'.') %}
+    {% set price_usd = purchase.price %}
 
     <!-- Page Content-->
     <main class="page-content">
@@ -182,10 +182,13 @@
                             <hr style="margin-bottom: 1em;">
                                 <!-- simple purchase -->
                                     <div class="center-block">
+
+                                        {% if config['paypal.url'] != 'null' %}
                                         <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-primary">
                                             <i class="fa fa-paypal"></i>
                                             {% trans %}Pay with PayPal{% endtrans %} <b>{{ purchase.price }} USD </b>
                                         </a>
+                                        {% endif %}
 
                                         <p class="offset-top-15 text-extra-small">
                                             {% trans %}You can pay in Cuba with cash to your driver.{% endtrans %}

@@ -13,8 +13,8 @@
                         </div>
                         <div class="col-xs-7">
                             <div class="numbers">
-                                <p>Esta semana</p>
-                                {{ nextweek|length }}
+                                <p>Tours reservados</p>
+                                {{ all_books|length }}
                             </div>
                         </div>
                     </div>
@@ -33,8 +33,8 @@
                         </div>
                         <div class="col-xs-7">
                             <div class="numbers">
-                                <p>Este mes</p>
-                                {{ nextmonth|length }}
+                                <p>Experiencias r.</p>
+                                {{ experiences_books|length }}
                             </div>
                         </div>
                     </div>
@@ -54,8 +54,8 @@
                         </div>
                         <div class="col-xs-7">
                             <div class="numbers">
-                                <p>Por confirmar</p>
-                                {{ pendientes|length }}
+                                <p>Pagos por PayPal</p>
+                                {{ paypal_books|length }}
                             </div>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                         <div class="col-xs-7">
                             <div class="numbers">
                                 <p>Total Reserv.</p>
-                                +{{ booking|length }}
+                                +{{ all_books|length }}
                             </div>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Lugar</th>
-                        <th>Fecha/Hora</th>
+                        <th>Fecha/Hora del Viaje</th>
                         <th>Precio</th>
                         <th>Recogida</th>
                         </thead>

@@ -462,33 +462,22 @@ class AdminController extends Controller
         ->createQueryBuilder("b")
             ->where("b.pickuptime > :yesterday")
             ->setParameter("yesterday", new \DateTime('yesterday'))
-            ->orderBy("b.pickuptime", "DESC")
+            ->orderBy("b.pickuptime", "ASC")
             ->getQuery()->getResult();
+
         $_places = $em->getRepository("AppBundle:Place")->findByNonePlaceNames();
         $places = [];
 
-        $next_week = $em->getRepository("AppBundle:Booking")
-            ->createQueryBuilder("b")->orderBy("b.id", "DESC")
-            ->where("b.pickuptime > :today AND b.pickuptime < :nextweek  AND b.confirmed = true")
-            ->setParameter("today", new \DateTime('today'))
-            ->setParameter("nextweek", new \DateTime('today + 1 week'))
+        $all_books = $em->getRepository("AppBundle:Booking")->findAll();//ByTour(true);
+
+        $tours_books = $em->getRepository("AppBundle:Booking")->findByTour(true);
+
+        $experiences_books = $em->getRepository("AppBundle:Booking")->createQueryBuilder("b")
+            ->where("b.experience is not null")
             ->getQuery()->getResult();
 
-        $pendientes_month = $em->createQuery(
-                            'SELECT b.id
-                FROM AppBundle:Booking b
-                WHERE b.pickuptime > :today AND b.pickuptime < :nextmonth  AND b.confirmed = true'
-                        )
-            ->setParameter("today", new \DateTime('today'))
-            ->setParameter("nextmonth", new \DateTime('next month'))
-            ->getResult();
-
-        $booking_pend = $em->getRepository("AppBundle:Booking")
-            ->createQueryBuilder("b")
-
-            ->where("b.accepted = false AND b.pickuptime >= :today  AND b.confirmed = true")
-
-            ->setParameter("today", new \DateTime('today'))
+        $paypal_books =  $em->getRepository("AppBundle:Booking")->createQueryBuilder("b")
+            ->where("b.idpaypal is not null")
             ->getQuery()->getResult();
 
         foreach ($_places as $value) {
@@ -498,10 +487,11 @@ class AdminController extends Controller
         return $this->render('AppBundle:Dash:booking.html.twig', [
             'pagename' => 'booking',
             'booking' => $booking,
-            'places'=>$places,
-            'pendientes'=>$booking_pend,
-            'nextweek'=>$next_week,
-            'nextmonth'=>$pendientes_month]);
+            'all_books'=>$all_books,
+            'tours_books'=>$tours_books,
+            'experiences_books'=>$experiences_books,
+            'paypal_books'=>$paypal_books,
+            'places'=>$places]);
     }
 
     /**
