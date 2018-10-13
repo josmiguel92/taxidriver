@@ -236,7 +236,6 @@ class BookingController extends Controller
                 $experience = $em->getRepository("AppBundle:Experience")
                     ->find($purchase->getExperience());
 
-            $this->sendEmailNotifications($purchase);
 
             if($_paypalCallback == 'success' OR !Utils::isSimpleBooking($purchase)){
 
@@ -270,6 +269,7 @@ class BookingController extends Controller
                         $purchase->setConfirmed(true);
                         $em->persist($purchase);
                         $em->flush();
+
                     }
 
                     $paypalSuccessFormHtml = $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
@@ -279,6 +279,8 @@ class BookingController extends Controller
                     ]);
                 }
             }
+
+            $this->sendEmailNotifications($purchase);
 
             return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
                 'locale'=>$_locale,
@@ -409,9 +411,14 @@ class BookingController extends Controller
             $experience = $em->getRepository("AppBundle:Experience")
                 ->find($booking->getExperience());
 
-        $message = \Swift_Message::newInstance()
-            ->setSubject($subject. " (".$booking->getId().")")
-            ->setTo($senderEmail)
+        $message = \Swift_Message::newInstance();
+
+        if($booking->getIdpaypal())
+            $message->setSubject($subject. " (".$booking->getId().") [PAGADO POR PAYPAL]");
+        else
+            $message->setSubject($subject. " (".$booking->getId().")");
+
+            $message->setTo($senderEmail)
             ->setFrom("noreply@taxidriverscuba.com")
             ->setBody(
                 $this->renderView(
