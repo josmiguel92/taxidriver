@@ -251,6 +251,7 @@ class BookingController extends Controller
 
 
 
+            $paypalSuccessFormHtml = "";
             /*TODO: proccess Paypal POST headers and push it on DB*/
             if($_paypalCallback == 'success') {
                 if (isset($_GET['tx'])) {
@@ -271,7 +272,7 @@ class BookingController extends Controller
                         $em->flush();
                     }
 
-                    return $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
+                    $paypalSuccessFormHtml = $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
                         'paypalTransactionID' => $paypalTransactionID,
                         'paypalIdentificationToken' => $config['paypal.token'],
                         'paypalUrl' => $config['paypal.url']
@@ -289,7 +290,8 @@ class BookingController extends Controller
                 'purchase'=>$purchase,
                 'places'=>$places,
                 'paypalCallback'=>$_paypalCallback,
-                'config'=>$config
+                'config'=>$config,
+                'paypalSuccessFormHtml' => $paypalSuccessFormHtml
                 ]);
         }
         else
