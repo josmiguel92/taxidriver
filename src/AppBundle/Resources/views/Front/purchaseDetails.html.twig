@@ -169,7 +169,7 @@
 
                     </div>
 
-                    {% if paypalCallback is empty %}
+                    {% if paypalCallback is empty or purchase.idpaypal is null%}
                         <div class="row section-bottom-40">
                             {% if not purchase.accepted %}
                                 <div class="cell-md-6 col-md-6 col-md-offset-3">
@@ -205,7 +205,7 @@
                     {% endif %}
 
                     <div class="row section-bottom-40">
-                        {% if purchase.price > 0 %}
+                        {#% if purchase.price > 0 %}
                         <div class="col-md-6 col-md-offset-3">
                             <p> <a href="http://westernunion.com/" target="_blank">
                                     <img src="{{ asset('images/logo.wu.big.svg') }}" alt="wester union logo">
@@ -214,7 +214,7 @@
                                 {% trans %}You can pay in advance, making a transfer of{% endtrans %} {{ price_usd }} USD
                                 {% trans %}through{% endtrans %} <a href="http://westernunion.com/" target="_blank">Western Union</a> {% trans %}to this bank account{% endtrans %} <strong>1500812414776</strong>.</p>
                         </div>
-                        {% endif %}
+                        {% endif %#}
 
                         <div class="col-md-12 section-xs-top-40">
                             <p>{% trans %}Please, if you need to cancel your reservation, you must notify us at least 2 days in advance{% endtrans %}.</p>
