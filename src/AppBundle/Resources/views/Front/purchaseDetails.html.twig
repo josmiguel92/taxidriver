@@ -169,7 +169,7 @@
 
                     </div>
 
-                    {% if paypalCallback is empty or purchase.idpaypal is null%}
+                    {% if paypalCallback is empty and purchase.idpaypal == null%}
                         <div class="row section-bottom-40">
                             {% if not purchase.accepted %}
                                 <div class="cell-md-6 col-md-6 col-md-offset-3">
