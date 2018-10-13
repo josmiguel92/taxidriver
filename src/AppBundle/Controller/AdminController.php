@@ -541,8 +541,12 @@ class AdminController extends Controller
 
         if(!isset($config['paypal.token']))
             $em->persist(new \AppBundle\Entity\ConfigValue("paypal.token",'xxxxxxxxx',"Token de identificacion de la cuenta en Paypal"));
-		
-		if(!isset($config['credit.card']))
+
+        if(!isset($config['paypal.url']))
+            $em->persist(new \AppBundle\Entity\ConfigValue("paypal.url",'https://www.sandbox.paypal.com/cgi-bin/webscr',"URL para enviar info de pagos a PayPal"));
+
+
+        if(!isset($config['credit.card']))
             $em->persist(new \AppBundle\Entity\ConfigValue("credit.card",'1234567890123456', "Credit Card"));
 
 

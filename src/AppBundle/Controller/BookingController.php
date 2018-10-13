@@ -252,7 +252,7 @@ class BookingController extends Controller
 
 
             /*TODO: proccess Paypal POST headers and push it on DB*/
-            /*if($_paypalCallback == 'success') {
+            if($_paypalCallback == 'success') {
                 if (isset($_GET['tx'])) {
                     $paypalTransactionID = $_GET['tx'];
                     /*echo "-->";
@@ -261,22 +261,23 @@ class BookingController extends Controller
                     echo $_POST['mc_gross']." Monto recibido Paypal\n";
                     echo $_POST['mc_currency']."  Moneda recibida de Paypal\n";
                     //echo $_POST['st']." Estado del producto Paypal\n";
-                    echo "-->";
+                    echo "-->";*/
 
                     //todo: esta verificacion debe de hacerse luego de completar paypal
                     if($_POST['amt'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
                     {
                         $purchase->setConfirmed(true);
-                        $purchase->setIdpaypal($_REQUEST['tx']);
                         $em->persist($purchase);
                         $em->flush();
                     }
 
                     return $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
                         'paypalTransactionID' => $paypalTransactionID,
+                        'paypalIdentificationToken' => $config['paypal.token'],
+                        'paypalUrl' => $config['paypal.url']
                     ]);
                 }
-            }*/
+            }
 
             return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
                 'locale'=>$_locale,
@@ -312,28 +313,21 @@ class BookingController extends Controller
 
         if($purchase)
         {
-            $content = $em->getRepository('AppBundle:SiteContent')->findAll();
-            //$email = $content[0]->getEmail();
             $_place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
             $_person_number = $purchase->getNumpeople();
             $product_name = Utils::buildProductName($purchase, $_place);
 
-            $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
-            $config = [];;
-            foreach ($_config as $item){
-                $config[$item->getName()]=$item->getValue();
-            }
-
             $cuc_usd_conversion = $config['tasa.usd'];
             $account_email = $config['paypal.email'];
-            $product_price = round($purchase->getPrice() / $cuc_usd_conversion, 2);
+            $product_price = round($purchase->getPrice() / $cuc_usd_conversion, 2, PHP_ROUND_HALF_DOWN);
 
             return $this->render('AppBundle:Front:makePaypalTransfer.html.twig', [
                 'account_email'=>$account_email,
                 'product_name'=>$product_name,
                 '_token'=>$_token,
                 '_locale'=>$_locale,
-                'product_price'=>$product_price
+                'product_price'=>$product_price,
+                'paypalUrl' => $config['paypal.url']
             ]);
         }
         else
