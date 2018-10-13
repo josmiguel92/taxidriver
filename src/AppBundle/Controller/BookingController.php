@@ -264,7 +264,7 @@ class BookingController extends Controller
                     echo "-->";*/
 
                     //todo: esta verificacion debe de hacerse luego de completar paypal
-                    if($_POST['amt'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
+                    if($_GET['amt'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
                     {
                         $purchase->setConfirmed(true);
                         $em->persist($purchase);
