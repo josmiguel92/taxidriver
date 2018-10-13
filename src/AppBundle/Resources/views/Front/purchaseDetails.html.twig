@@ -9,7 +9,7 @@
 {% set description =  ''%}
 
 {% if paypalCallback is empty %}
-    {% set title = "your booking is ready" %}
+    {% set title = "Your booking is ready" %}
 {% else %}
     {% set title = "Your transaction was " %}
 {% endif %}
@@ -151,7 +151,7 @@
                             <div class="well-row">
                                 <p class="text-bold text-spacing-25 font-accent text-gray-dark">
                                     {% trans %}The price of the service is{% endtrans %}:
-                                    {{ purchase.price }} CUC ({% trans %}or{% endtrans %} {{ price_usd }} USD)
+                                    {{ purchase.price }} USD
                                 </p>
 
                             </div>
@@ -181,26 +181,19 @@
                             {% endif %}
                             <hr style="margin-bottom: 1em;">
                                 <!-- simple purchase -->
-                                    {# todo: poner el botton de paypal luego #}
                                     <div class="center-block">
                                         <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-primary">
                                             <i class="fa fa-paypal"></i>
-                                            {% trans %}Pay with PayPal{% endtrans %} - {{ (purchase.price / config['tasa.usd']) | number_format(2,'.') }} USD
+                                            {% trans %}Pay with PayPal{% endtrans %} <b>{{ purchase.price }} USD </b>
                                         </a>
+
                                         <p class="offset-top-15 text-extra-small">
-                                            {% trans %}The exchange rate in Cuba is 1 CUC{% endtrans %}  = {{ config['tasa.usd'] }} USD
+                                            {% trans %}You can pay in Cuba with cash to your driver.{% endtrans %}
                                         </p>
                                     </div>
-                                   {# <div class="col-md-6">
-                                        <a href="{{ path('purchase_details_paypal', {'_token': purchase.token, '_paypalCallback':'cash'}) }}" class="btn btn-border">
-                                            <i class="fa fa-dollar"></i>
-                                            {% trans %}Pay with cash{% endtrans %} - {{ purchase.price }} CUC
-                                        </a>
-                                        <p class="offset-top-15 text-extra-small">
-                                            {% trans %}You can always pay in Cuba with cash.{% endtrans %}
-                                        </p>
-                                    </div>
-                                    #}
+
+
+
                         </div>
                     {% endif %}
 

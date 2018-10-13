@@ -318,19 +318,16 @@ class BookingController extends Controller
         if($purchase)
         {
             $_place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
-            $_person_number = $purchase->getNumpeople();
             $product_name = Utils::buildProductName($purchase, $_place);
 
-            $cuc_usd_conversion = $config['tasa.usd'];
             $account_email = $config['paypal.email'];
-            $product_price = round($purchase->getPrice() / $cuc_usd_conversion, 2, PHP_ROUND_HALF_DOWN);
 
             return $this->render('AppBundle:Front:makePaypalTransfer.html.twig', [
                 'account_email'=>$account_email,
                 'product_name'=>$product_name,
                 '_token'=>$_token,
                 '_locale'=>$_locale,
-                'product_price'=>$product_price,
+                'product_price'=>$purchase->getPrice(),
                 'paypalUrl' => $config['paypal.url']
             ]);
         }

@@ -221,7 +221,7 @@
                                                         {% else %}
                                                             Taxi
                                                         {% endif %}
-                                                        {% trans %}is{% endtrans %} <strong>{{ booking.price }} CUC</strong> ({% trans %}or{% endtrans %} <strong>{{ (booking.price / config['tasa.usd']) | number_format(2,'.') }} USD</strong> )
+                                                        {% trans %}is{% endtrans %} <strong>{{ booking.price }} USD</strong> 
                                                         {% trans %}for{% endtrans %} {{ booking.numpeople }}
                                                         {% if booking.numpeople == 1 %}
                                                             {% trans %}people{% endtrans %}
