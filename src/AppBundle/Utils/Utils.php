@@ -163,9 +163,9 @@ class Utils
         if($place->getName() == 'Viñales' && $booking->isTour())
         {
             if($booking->getNumpeople() <= 3)
-                $price = 135;
+                $price = floor(135/0.88);
             elseif ($booking->getNumpeople() <= 5)
-                $price = 160;
+                $price = floor(160/0.88);
         }
         else {
             $_price = $booking->isTour() ? $place->getPrice() : $place->getTrasferprice();

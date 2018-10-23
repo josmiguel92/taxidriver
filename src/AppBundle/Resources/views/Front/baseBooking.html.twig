@@ -47,7 +47,7 @@
                 </div>
                 {% if ownTourPage is not defined %}
                     <div class="routes-description">
-                        {{ place.getPlaceDescLocale | nl2br }}
+                        {{ place.getPlaceDescLocale | raw }}
                     </div>
                 {% endif %}
 

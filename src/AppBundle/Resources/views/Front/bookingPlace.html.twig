@@ -175,9 +175,9 @@
             //vinnales hard-coded
             {% if "viñales" in place.nameLocale|lower or "vinales" in place.nameLocale|lower %}
                 if (buttonTourOn && numberPeople <= 3)
-                    priceContent = wrapperPrice(135);
+                    priceContent = wrapperPrice(Math.round(135/0.88));
                 if (buttonTourOn && numberPeople > 3)
-                    priceContent = wrapperPrice(160);
+                    priceContent = wrapperPrice(Math.round(160/0.88));
             {% endif %}
 
 
