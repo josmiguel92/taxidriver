@@ -30,7 +30,8 @@ class Booking
     /**
      * @var string
      *
-     * @ORM\Column(name="airport", type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Airport")
+     * @ORM\JoinColumn(name="airport", referencedColumnName="id", nullable=true)
      */
     private $airport;
 

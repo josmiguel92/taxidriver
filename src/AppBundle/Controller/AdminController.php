@@ -12,8 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Tests\Fixtures\Entity;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use AppBundle\Entity\Image;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
@@ -363,6 +362,15 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $place = new \AppBundle\Entity\Place();
         $placeForm = $this->createForm('AppBundle\Form\PlaceType', $place);
+
+        $airports = $em->getRepository('AppBundle:Airport')->findAll();
+        foreach ($airports as $airport)
+        {
+            $placeForm->add('airport_price_'.Utils::slugify($airport->getNombre()),
+                MoneyType::class,['label'=>"Precio desde ".$airport->getNombre(),
+                    'currency'=>"CUC"]);
+        }
+
         $placeForm->handleRequest($request);
 
 
@@ -392,7 +400,7 @@ class AdminController extends Controller
         return $this->render('AppBundle:Dash:services.html.twig',
             ['pagename'=>'services',
                 'places'=>$places,
-                'placeForm'=>$placeForm->createView()
+                'route_form'=>$placeForm->createView()
             ]);
 
     }
@@ -410,10 +418,21 @@ class AdminController extends Controller
         $deleteForm = $this->createServicePlaceDeleteForm($place);
         $editForm = $this->createForm('AppBundle\Form\PlaceType', $place,
             ['action' => $this->generateUrl('dash_services_place_edit', array('id' => $id))]);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $airports = $em->getRepository('AppBundle:Airport')->findAll();
+        foreach ($airports as $airport)
+        {
+            $editForm->add('airport_price_'.Utils::slugify($airport->getNombre()),
+                MoneyType::class,['label'=>"Precio desde ".$airport->getNombre(),
+                    'currency'=>"CUC"]);
+        }
+
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+
             $em->persist($place);
             $em->flush();
 

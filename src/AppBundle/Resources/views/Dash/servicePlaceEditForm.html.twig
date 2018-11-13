@@ -1,79 +1,98 @@
 <div class="header">
-    <h4 class="title">Editar un destino<small><i class="fa-spin fa fa-spinner hidden formLoader" style="float: right"></i></small></h4>
+    <h4 class="title">Editar un destino<small> ({{ route_form.vars.value.name }})<i class="fa-spin fa fa-spinner hidden formLoader" style="float: right"></i></small></h4>
 </div>
 <div class="content">
 
 {{ form_start(route_form) }}
-    <label>Seleccione el Origen</label>
-    <div class="form-group">
-        <input class="start-point placepicker form-control" data-map-container-id="collapseOriginPlaceMap"/>
-    </div>
-    <div id="collapseOriginPlaceMap" class="collapse">
-        <div class="placepicker-map thumbnail"></div>
-    </div>
-
-
-    {{ form_row(route_form.origin) }}
-    {{ form_row(route_form.originEn) }}
-
-    <label>Seleccione el Destino</label>
-    <div class="form-group">
-        <input class="end-point placepicker form-control" data-map-container-id="collapseEndPlaceMap"/>
-    </div>
-    <div id="collapseEndPlaceMap" class="collapse">
-        <div class="placepicker-map thumbnail"></div>
-    </div>
-    {{ form_row(route_form.name) }}
-    {{ form_row(route_form.nameEn) }}
-
-    {{ form_row(route_form.distance) }}
-    {{ form_row(route_form.time) }}
-
-    {{ form_row(route_form.price) }}
-    {{ form_row(route_form.trasferprice) }}
-    {{ form_row(route_form.istour) }}
-    {{ form_row(route_form.placedesc) }}
-    {{ form_row(route_form.placedescen) }}
-
-    {{ form_row(route_form.file) }}
 
     <div class="col-md-12">
-        <h4>Imagenes de la Galeria</h4>
-        <p>Debe presionar el bot&oacute;n de Guardar para mostrar los cambios</p>
-        <div class="col-md-6">
-            {{ form_widget(route_form.galleryImage0) }}
-            {% if route_form.galleryImage0.vars.data %}
-                <img src="{{ asset(route_form.galleryImage0.vars.data.getwebpath) }}" style="height: 5em;">
-            {% endif %}
+        <label>Seleccione el Destino</label>
+        <div class="form-group">
+            <input class="end-point placepicker form-control" data-map-container-id="collapseEndPlaceMap"/>
         </div>
-        <div class="col-md-6">
-            {{ form_widget(route_form.galleryImage1) }}
-            {% if route_form.galleryImage1.vars.data %}
-                <img src="{{ asset(route_form.galleryImage1.vars.data.getwebpath) }}" style="height: 5em;">
-            {% endif %}
+        <div id="collapseEndPlaceMap" class="collapse">
+            <div class="placepicker-map thumbnail"></div>
         </div>
-        <div class="col-md-6">
-            {{ form_widget(route_form.galleryImage2) }}
-            {% if route_form.galleryImage2.vars.data %}
-                <img src="{{ asset(route_form.galleryImage2.vars.data.getwebpath) }}" style="height: 5em;">
-            {% endif %}
+        {{ form_row(route_form.name) }}
+        {{ form_row(route_form.nameEn) }}
+        <hr>
+        {{ form_row(route_form.weight) }}
+    </div>
+
+    <div class="col-md-12">
+        <hr>
+        <h5 data-toggle="collapse" data-target="#galleryCollapse">Imagenes de la Galeria <i class="fa fa-angle-double-down"></i></h5>
+        <div class="row collapse" id="galleryCollapse">
+            <p>Debe presionar el bot&oacute;n de Guardar para mostrar los cambios</p>
+            <div class="col-md-12">
+                {{ form_row(route_form.file) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_widget(route_form.galleryImage0) }}
+                {% if route_form.galleryImage0.vars.data %}
+                    <img src="{{ asset(route_form.galleryImage0.vars.data.getwebpath) }}" style="height: 5em;">
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                {{ form_widget(route_form.galleryImage1) }}
+                {% if route_form.galleryImage1.vars.data %}
+                    <img src="{{ asset(route_form.galleryImage1.vars.data.getwebpath) }}" style="height: 5em;">
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                {{ form_widget(route_form.galleryImage2) }}
+                {% if route_form.galleryImage2.vars.data %}
+                    <img src="{{ asset(route_form.galleryImage2.vars.data.getwebpath) }}" style="height: 5em;">
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                {{ form_widget(route_form.galleryImage3) }}
+                {% if route_form.galleryImage3.vars.data %}
+                    <img src="{{ asset(route_form.galleryImage3.vars.data.getwebpath) }}" style="height: 5em;">
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                {{ form_widget(route_form.galleryImage4) }}
+                {% if route_form.galleryImage4.vars.data %}
+                    <img src="{{ asset(route_form.galleryImage4.vars.data.getwebpath) }}" style="height: 5em;">
+                {% endif %}
+            </div>
         </div>
-        <div class="col-md-6">
-            {{ form_widget(route_form.galleryImage3) }}
-            {% if route_form.galleryImage3.vars.data %}
-                <img src="{{ asset(route_form.galleryImage3.vars.data.getwebpath) }}" style="height: 5em;">
-            {% endif %}
-        </div>
-        <div class="col-md-6">
-            {{ form_widget(route_form.galleryImage4) }}
-            {% if route_form.galleryImage4.vars.data %}
-                <img src="{{ asset(route_form.galleryImage4.vars.data.getwebpath) }}" style="height: 5em;">
-            {% endif %}
+
+    </div>
+
+    <div class="col-md-12">
+        <hr>
+        {{ form_row(route_form.placedesc) }}
+        {{ form_row(route_form.placedescen) }}
+        {{ form_row(route_form.istour) }}
+
+    </div>
+
+    <div class="col-md-12">
+        <hr>
+        <h5 data-toggle="collapse" data-target="#basePriceCollapse">Precios Base, desde la Habana <i class="fa fa-angle-double-down"></i></h5>
+        <div class="row collapse" id="basePriceCollapse">
+            <div class="col-md-12">
+
+            {{ form_row(route_form.price) }}
+            {{ form_row(route_form.trasferprice) }}
+            </div>
         </div>
     </div>
 
-    {{ form_widget(route_form) }}
     <div class="col-md-12">
+        <hr>
+        <h5 data-toggle="collapse" data-target="#airportsCollapse">Precios desde los Aereopuertos <i class="fa fa-angle-double-down"></i></h5>
+        <div class="row collapse" id="airportsCollapse">
+            <div class="col-md-12">
+                {{ form_widget(route_form) }}
+            </div>
+        </div>
+    </div>
+
+
+        <div class="col-md-12">
 
     {{ form_widget(route_form) }}
         <div class="text-center"  id="placeRouteSubmit">

@@ -38,44 +38,6 @@ class Place extends ImageField
      */
     private $nameEn;
 
-   /**
-     * @var string
-     *
-     * @ORM\Column(name="origin", type="string", length=255, nullable=true)
-     */
-    private $origin;
-
-   /**
-     * @var string
-     *
-     * @ORM\Column(name="originen", type="string", length=255, nullable=true)
-     */
-    private $originEn;
-
-    /**
-     * @return int
-     */
-    public function getDistance()
-    {
-        return $this->distance;
-    }
-
-    /**
-     * @param int $distance
-     */
-    public function setDistance($distance)
-    {
-        $this->distance = $distance;
-    }
-
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="time", type="time", nullable=true)
-     */
-
-    private $time;
 
     /**
      * @var float
@@ -102,21 +64,6 @@ class Place extends ImageField
     /**
      * @var int
      *
-     * @ORM\Column(name="distance", type="float", nullable=true)
-     */
-    private $distance;
-
-    //TODO: latlong and googlename no deben ser nullables en prod.env
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="latlong", type="string", nullable=true)
-     */
-    private $latlong;
-
-    /**
-     * @var int
-     *
      * @ORM\Column(name="googlename", type="string", nullable=true)
      */
     private $googlename;
@@ -134,6 +81,11 @@ class Place extends ImageField
      * @ORM\Column(name="placedesen", type="text", nullable=true)
      */
     private $placedescen;
+
+    /**
+     * @ORM\Column(name="airports_prices", type="array", nullable=true)
+     */
+    private $airports_prices;
 
     /**
      * @return string
@@ -178,10 +130,6 @@ class Place extends ImageField
     {
         $this->placedescen = $placedescen;
     }
-
-
-
-
 
     /**
      * @return int
@@ -403,6 +351,62 @@ class Place extends ImageField
         public function __construct()
     {
         $this->weight = 0;
+        $this->airports_prices = new ArrayCollection();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAirportsPrices()
+    {
+        return $this->airports_prices;
+    }
+
+    /**
+     * @param mixed $airports_prices
+     */
+    public function setAirportsPrices($airports_prices)
+    {
+        $this->airports_prices = $airports_prices;
+    }
+
+    public function __get($name)
+    {
+        if(substr_count($name, 'airport_price_'))
+        {
+            if(is_iterable($this->airports_prices))
+            foreach ($this->airports_prices as $_name => $_value ){
+                dump([$_name,$_value]);
+                if($_name == $name){
+
+                    return $_value;
+                }
+            }
+        }
+        else
+            return $this->$$name;
+    }
+    public function __set($name, $value)
+    {
+        if(substr_count($name, 'airport_price_'))
+        {
+
+            if(is_iterable($this->airports_prices)){
+                if(key_exists($name,$this->airports_prices))
+                {
+                    $this->airports_prices[$name]=$value;
+                }
+                else
+                    $this->airports_prices[$name]=$value;
+
+            }
+            else
+                $this->airports_prices[$name]=$value;
+
+
+
+        }
+    }
+
 }
 

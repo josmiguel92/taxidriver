@@ -273,17 +273,10 @@
                                                 <div class="place-description">
                                                     <p class="p h5 text-capitalize text-spacing-inverse-25" style="height: 3em">
                                                         <a href="{{ path("booking_place", {"_id":place.id, "_name": utils.slugify(place.getNameLocale) }) }}" class="text-mine-shaft">
-                                                            {% if place.getOriginLocale is empty %}
-                                                                {% trans %}Havana{% endtrans %}
-                                                            {% else %}
-                                                                    {{ place.getOriginLocale }}
-                                                            {% endif %}
-                                                            - {{ place.getNameLocale }}
+                                                            {{ place.getNameLocale }}
                                                         </a>
                                                     </p>
 
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km <p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('H:i') }} {% trans %}hours{% endtrans %} </p>
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getTrasferprice }}.00 USD <br/></p>
 
                                                     <div class="offset-top-40">
@@ -345,17 +338,10 @@
                                                 <div class="place-description">
                                                     <h3 class="p h5 text-capitalize text-spacing-inverse-25" style="height: 3em">
                                                         <a href="{{ path("booking_place", {"_id":place.id, "_name": utils.slugify(place.getNameLocale) }) }}" class="text-mine-shaft">
-                                                            {% if place.getOriginLocale is empty %}
-                                                                {% trans %}Havana{% endtrans %}
-                                                            {% else %}
-                                                                {{ place.getOriginLocale }}
-                                                            {% endif %}
-                                                            - {{ place.getNameLocale }}
+                                                            {{ place.getNameLocale }}
                                                         </a>
                                                     </h3>
 
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Distance{% endtrans %}: </b> {{ place.getDistance }} km <p>
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ place.getTime|date('H:i') }} {% trans %}hours{% endtrans %} </p>
                                                     <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getTrasferprice }}.00 USD <br/></p>
 
                                                     <div class="offset-top-40">
@@ -444,329 +430,15 @@
             </div>
         </section>
 
-        <!-- Make your own Tour-->
-        <section class="context-dark offset-top-0 section-md-top-40">
-            <!-- RD Parallax-->
-            <div data-on="false" data-md-on="true" class="own-route rd-parallax">
-                <div data-speed="0.25" data-type="media" data-url="{{ asset(random(content.ownRoutePathImages)) }}" class="rd-parallax-layer"></div>
-                <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
-                    <div class="shell section-75 section-md-top-103 section-md-bottom-110">
-                        <div class="range range-xs-center">
-                            <div class="cell-sm-10">
-                                <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
-                                    <img src="{{ divider }}" width="135" height="2" alt="divider" style="opacity: .5;" class="img-responsive center-block"></div>
-                                <div class="veil reveal-sm-inline-block">
-                                    <span class="fa fa-map-o fa-3x text-white"></span>
-                                </div>
-                                <div style="margin-bottom:17px;" class="veil reveal-sm-inline-block text-bottom">
-                                    <img src="{{ divider }}" width="135" height="2" alt="divider" style="opacity: .5;" class="img-responsive center-block"></div>
-                                <div class="offset-top-15 offset-md-top-30">
-                                    <h2 class="text-spacing-0">
-                                        {{ content.getServicesmakeroutetextLocale }}
-                                    </h2>
-                                    <div class="offset-top-30 offset-md-top-60">
-                                        <a href="#contact" style="min-width:240px;" class="btn btn-calypso">
-                                            <i class="fa fa-heart"></i>
-                                            {% trans %}Make your own way!{% endtrans %}
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div style="margin: 2em 10% 0 10%">
-                <p class="text-spacing-25 text-gray-dark">
-                    {{ content.owntaxidescriptionLocale() | nl2br}}
-                </p>
-            </div>
-        </section>
+    {% include '@App/Front/index/_services.html.twig' %}
 
-        <!-- Other Services-->
-        <section class="section-75 section-md-top-103 section-md-bottom-40">
-            <div class="shell">
-                <h2 class="text-spacing-inverse-25">
-                    {% trans %}Other services{% endtrans %}
-                </h2>
+    {% include '@App/Front/index/_about_us.html.twig' %}
 
-                <div class="range range-xs-center list-index-lg offset-md-top-15">
+    {% include '@App/Front/index/_infography.html.twig' %}
 
-                    {% for infography in infographys %}
-                        {% if infography.isservices %}
-                            <div class="cell-sm-10 cell-md-3">
-                                <div class="inset-lg-left-30 inset-lg-right-10">
-                                    <div class="h2 text-spacing-inverse-50 color-sky">
-                                        {% if 'horse' in infography.getIcon %}
-                                            <a href="https://www.horseridinginvinales.com/"  target="_blank">
-                                                <img class="lazy" alt="{{ infography.getTitleLocale }}" data-src="{{ asset("images/custom-icons/horse.svg") }}" style="margin: auto; height: 2em;">
-                                            </a>
-                                        {% elseif  'diving' in infography.getIcon %}
-                                            <img class="lazy" alt="{{ infography.getTitleLocale }}" data-src="{{ asset("images/custom-icons/diving.svg") }}" style="margin: auto; height: 2em;">
-                                        {% elseif  'food' in infography.getIcon %}
-                                            <img class="lazy" alt="{{ infography.getTitleLocale }}" data-src="{{ asset("images/custom-icons/food.svg") }}" style="margin: auto; height: 2em;">
-                                        {% else %}
-                                            <i class="{{ infography.getIcon }} fa-2x"></i>
-                                        {% endif %}
+    {% include '@App/Front/index/_testimonial.html.twig' %}
 
-                                    </div>
-                                    <div class="offset-top-10">
-                                        <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">
-                                            {% if 'horse' in infography.getIcon %}
-                                                <a href="https://www.horseridinginvinales.com/"  target="_blank">
-                                                {{ infography.getTitleLocale }}
-                                                </a>
-                                            {% else %}
-                                                {{ infography.getTitleLocale }}
-                                            {% endif %}
-                                        </p>
-                                    </div>
-                                    <div class="offset-top-20">
-                                        <p class="text-spacing-0">
-                                            {{ infography.getTextLocale }}
-                                        </p>
-                                    </div>
-                                    <div class="offset-top-10">
-                                        <h5 class="text-spacing-20 text-silver-chalice">...</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-
-                </div>
-            </div>
-        </section>
-
-
-        <!-- About Us-->
-        <section id="about" style="padding-top: 1%;" class="about-us context-dark">
-            <!-- RD Parallax-->
-            <div data-on="false" data-md-on="true" class="rd-parallax offset-top-100">
-                <div data-speed="0.15" data-type="media" data-url="{{ asset("images/banners/about-us.jpg") }}" class="rd-parallax-layer"></div>
-                <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
-                    <div class="shell section-75 section-md-top-103 section-md-bottom-110">
-                        <div class="range range-xs-center">
-                            <div class="cell-sm-10">
-                                <div class="offset-top-15 offset-md-top-30">
-                                    <h1 class="text-spacing-0 text-uppercase">
-                                        {{ content.getAbouttitleLocale }}
-                                    </h1>
-                                    <div class="offset-top-20 offset-md-top-44">
-                                        <br/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Us-->
-        <section class="section-75 section-md-top-40 section-md-bottom-20">
-            <div class="shell">
-
-                <!-- Who we are-->
-                <div class="offset-top-10">
-                    <h2 class="text-spacing-25 text-center">
-                        {% trans %}Who we are?{% endtrans %}
-                    </h2>
-                </div>
-
-                <div class="range range-xs-center offset-top-30 text-left">
-                    <div class="cell-sm-12 cell-md-10">
-                        <p class="text-spacing-0 two-columns">
-                            {{ content.getAbouttextLocale()|nl2br }}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!--Taxi Drivers Numbers-->
-        <section class="section-75 section-md-top-40 section-md-bottom-40">
-            <div class="shell">
-
-                <h2 class="text-spacing-inverse-25">
-                    {{ content.getAboutinfographtitleLocale }}
-                </h2>
-
-                <div class="range range-xs-center offset-top-20">
-                    <div class="cell-sm-10 cell-lg-8">
-                        <p class="text-spacing-0">
-                            {{ content.getAboutinfographtextLocale }}
-                        </p>
-                    </div>
-                </div>
-
-                <div class="range range-xs-center list-index-lg offset-md-top-15">
-
-                    {% for infography in infographys %}
-                        {% if not infography.isservices %}
-                            <div class="cell-sm-10 cell-md-4">
-                                <div class="inset-lg-left-30 inset-lg-right-10">
-                                    <div class="h2 text-spacing-inverse-50 color-sky">
-                                        <i class="{{ infography.getIcon }} fa-2x"></i>
-                                    </div>
-                                    <div class="offset-top-10">
-                                        <p class="font-accent text-spacing-50 text-bold text-uppercase text-gray-base">
-                                            {{ infography.getTitleLocale }}
-                                        </p>
-                                    </div>
-                                    <div class="offset-top-20">
-                                        <p class="text-spacing-0">
-                                            {{ infography.getTextLocale }}
-                                        </p>
-                                    </div>
-                                    <div class="offset-top-10">
-                                        <h5 class="text-spacing-20 text-silver-chalice">...</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-
-                </div>
-
-            </div>
-        </section>
-
-        <!-- Testimonials-->
-        <section class="section-75 section-md-top-40 section-md-bottom-20">
-            <div class="shell">
-                <h2>{% trans %}Testimonials{% endtrans %}</h2>
-                <div class="range range-xs-center offset-top-20">
-                    <div class="cell-sm-10 cell-md-2">
-                        <div id="TA_selfserveprop245" class="TA_selfserveprop">
-                            <ul id="UgXRuE" class="TA_links 5A9w779">
-                                <li id="bGmGQTDg5" class="uHSLrEnrO">
-                                    <a target="_blank" href="https://www.tripadvisor.es/">
-                                        <img src="https://www.tripadvisor.es/img/cdsi/img2/branding/150_logo-11900-2.png" alt="TripAdvisor"/>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="cell-sm-10 cell-md-8 col-md-offset-1">
-                        <div data-items="1" data-md-items="3" data-xs-stage-padding="5" data-loop="true" data-margin="30" data-mouse-drag="false" data-nav="true" data-dots="true" class="owl-carousel owl-nav-absolute owl-nav-primary owl-nav-top">
-
-                            {% for testimony in testimonials %}
-                                <div class="owl-item">
-                                    <!-- Blockquote-->
-                                    <blockquote class="quote">
-                                        {% set alt = locale=='en'? "TripAdvisor Testimony by" : "Testimonio de TripAdvisor por" %}
-                                        <img alt="{{ alt }} {{ testimony.getName }}" data-src="{{ asset(testimony.getFullImageWebPath) }}" width="169" height="169" class="img-circle img-responsive center-block lazy">
-                                        <div class="offset-top-15 offset-md-top-30">
-                                            <p >
-                                                {{ testimony.getTextLocale|striptags|slice(0, 190) }}
-                                                {% if testimony.getTextLocale|striptags|length > 190 %}
-                                                    ...
-                                                {% endif %}
-                                            </p>
-                                        </div>
-                                        <div class="offset-top-10 offset-md-top-25">
-                                            <p>
-                                                <cite class="font-accent text-bold text-spacing-inverse-25 text-primary">
-                                                    <span class="text-mine-shaft">{{ testimony.getName }}</span>
-                                                </cite>
-                                            </p>
-                                        </div>
-                                        <div class="offset-top-10">
-                                            <h5 class="text-spacing-20 text-silver-chalice">...</h5>
-                                        </div>
-                                    </blockquote>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-
-
-                </div>
-
-                {% for socialNetwork in socialNetworks %}
-                    {% if socialNetwork.getName=="tripadvisor" %}
-                        <div style="max-width:560px;" class="btn-both-lines btn-both-lines-gray-lighter offset-top-30 center-block">
-                            <a href="{{ socialNetwork.getProfilelink }}" target="_blank" style="min-width:260px;" class="btn btn-calypso">more testimonials from
-                                <i class="fa fa-tripadvisor"></i>
-                            </a>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-        </section>
-
-
-        <!--Contact-->
-        <section id="contact" style="padding-top: 1%;"  class="section-md-bottom-40">
-            <div class="shell offset-top-100">
-                <h1>{% trans %}Contact{% endtrans %}</h1>
-
-                <div class="range range-xs-center offset-top-50">
-
-                    <div class="cell-sm-6 cell-lg-4">
-
-                        {{ form_start(messageForm, {'attr':{'class':'text-left',
-                            'data-form-type':'contact',
-                            'data-form-output':'form-output-global'}}) }}
-                            <div class="form-group">
-                                <label for="{{ messageForm.name.vars.id }}" class="custom-label text-gray-dark">{% trans %}Name{% endtrans %}</label>
-                                <input id="{{ messageForm.name.vars.id }}" type="text" name="{{ messageForm.name.vars.full_name }}" data-constraints="@Required" class="form-control">
-                            </div>
-                            <div class="form-group offse-top-5">
-                                <label for="{{ messageForm.message.vars.id }}" class="custom-label text-gray-dark">{% trans %}Message{% endtrans %}</label>
-                                <textarea id="{{ messageForm.message.vars.id }}" name="{{ messageForm.message.vars.full_name }}" data-constraints="@Required" style="height: 140px;" class="form-control"></textarea>
-
-                            </div>
-                            <div class="form-group offse-top-5">
-                                <label for="{{ messageForm.email.vars.id }}" class="custom-label text-gray-dark">{% trans %}Email{% endtrans %}</label>
-                                <input id="{{ messageForm.email.vars.id }}" type="email" name="{{ messageForm.email.vars.full_name }}" data-constraints="@Email @Required" class="form-control">
-                            </div>
-                            <div class="text-center text-sm-right offse-top-5">
-                                {% if sended_email %}
-                                    <div class="alert alert-succes text-align: center;">
-                                        <a href="#" class="alert-link">{% trans %}Your message have been sended, thanks a lot!{% endtrans %}</a>
-                                    </div>
-                                    {% else %}
-                                        <button type="submit" style="min-width: 210px;" class="btn btn-primary">
-                                            <i class="fa fa-send"></i>
-                                            {% trans %}Send a message{% endtrans %}
-                                        </button>
-                                {% endif %}
-
-                            </div>
-                        {{ form_widget(messageForm._token)}}
-                        </form>
-                    </div>
-
-                    <div class="cell-sm-6 cell-lg-4 offset-sm-top-0 text-left">
-                        <!-- Contact Info-->
-                        <address class="contact-info">
-                            <dl>
-                                <dt class="font-accent text-bold text-uppercase text-mine-shaft">{% trans %}Address{% endtrans %}</dt>
-                                <dd class="offset-top-4">{{ content.getContactaddressLocale }}</dd>
-                            </dl>
-                            <dl class="offset-top-25">
-                                <dt class="font-accent text-bold text-uppercase text-mine-shaft">{% trans %}Opening hours{% endtrans %}</dt>
-                                <dd>8.00-18.00 Mon-Sat</dd>
-                            </dl>
-                            <dl class="offset-top-30">
-                                <dt class="font-accent text-bold text-uppercase text-mine-shaft">{% trans %}Phone{% endtrans %}</dt>
-                                <dd><a href="tel://{{ content.getContacttelephone }}" class="text-silver-chalice">{{ content.getContacttelephone }}</a>
-                                </dd>
-                            </dl>
-                            <dl class="offset-top-30">
-                                <dt class="font-accent text-bold text-uppercase text-mine-shaft">{% trans %}Email{% endtrans %}</dt>
-                                <dd class="offset-top-5">
-                                    <a href="mailto:{{ content.getContactemail() }}" class="font-accent text-bold text-primary">{{ content.getContactemail() }}</a></dd>
-                            </dl>
-                        </address>
-                    </div>
-                </div>
-
-            </div>
-        </section>
+    {% include '@App/Front/index/_contact.html.twig' %}
     </main>
 
 {% endblock %}

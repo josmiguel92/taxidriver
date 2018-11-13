@@ -1,0 +1,43 @@
+<!-- About Us-->
+<section id="about" style="padding-top: 1%;" class="about-us context-dark">
+    <!-- RD Parallax-->
+    <div data-on="false" data-md-on="true" class="rd-parallax offset-top-100">
+        <div data-speed="0.15" data-type="media" data-url="{{ asset("images/banners/about-us.jpg") }}" class="rd-parallax-layer"></div>
+        <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
+            <div class="shell section-75 section-md-top-103 section-md-bottom-110">
+                <div class="range range-xs-center">
+                    <div class="cell-sm-10">
+                        <div class="offset-top-15 offset-md-top-30">
+                            <h1 class="text-spacing-0 text-uppercase">
+                                {{ content.getAbouttitleLocale }}
+                            </h1>
+                            <div class="offset-top-20 offset-md-top-44">
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- About Us-->
+<section class="section-75 section-md-top-40 section-md-bottom-20">
+    <div class="shell">
+
+        <!-- Who we are-->
+        <div class="offset-top-10">
+            <h2 class="text-spacing-25 text-center">
+                {% trans %}Who we are?{% endtrans %}
+            </h2>
+        </div>
+
+        <div class="range range-xs-center offset-top-30 text-left">
+            <div class="cell-sm-12 cell-md-10">
+                <p class="text-spacing-0 two-columns">
+                    {{ content.getAbouttextLocale()|nl2br }}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

@@ -9,6 +9,7 @@ use Couchbase\Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,6 +39,11 @@ class BookingController extends Controller
             'action' => $this->generateUrl('add_booking'),
             'method' => 'POST',
         ));
+
+        $booking_form->add('airport', ChoiceType::class,
+            ['choices' => $em->getRepository('AppBundle:Airport')->findAll(),
+                'choices_as_values' => true
+        ]);
 
         $booking_form->handleRequest($request);
 
@@ -143,6 +149,14 @@ class BookingController extends Controller
                 'method' => 'POST',
             ));
 
+            $booking_form->add('airport', ChoiceType::class,
+                ['choices' => $em->getRepository('AppBundle:Airport')->findAll(),
+                    'choices_as_values' => true,
+                    'choice_label' => function($airport,$keyy, $index){
+                                        return $airport->getNameLocale();
+                    }
+                ]);
+
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
@@ -182,6 +196,10 @@ class BookingController extends Controller
                 'action' => $this->generateUrl('add_booking'),
                 'method' => 'POST',
             ));
+            $booking_form->add('airport', ChoiceType::class,
+                ['choices' => $em->getRepository('AppBundle:Airport')->findAll(),
+                    'choices_as_values' => true
+                ]);
 
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();

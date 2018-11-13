@@ -5,101 +5,156 @@
 
 
 <div class="row">
-    <div class="col-lg-6 col-md-6">
-        <div class="card">
-            <div class="header">
-                <h4 class="title">Destinos disponibles</h4>
+
+    {{ render(controller(
+        'AppBundle:Airport:index'
+    ))   }}
+</div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Destinos disponibles</h4>
+                </div>
+                <div class="content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="btn-list places">
+                                {% for place in places %}
+                                    <li>
+                                        {{ place.name }}
+                                        <a href="#" class="btn btn-sm btn-info editbtn" title="Editar" data-placeid="{{ place.id }}"><i class="ti-pencil"></i> </a>
+                                    </li>
+                                {% else %}
+                                    No hay lugares a&uacute;n
+                                {% endfor %}
+                            </ul>
+
+                        </div>
+
+
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
             </div>
-            <div class="content">
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="card" id="placeForm">
                 <div class="row">
-                    <div class="col-md-12">
-                        <ul class="btn-list places">
-                            {% for place in places %}
-                                <li> {% if place.origin is not empty %}
-                                        {{ place.origin }}
-                                            -
+                    <div class="header">
+                        <h4 class="title"  data-toggle="collapse" data-target="#addPlace">Agregar un destino<small><i class="fa-spin fa fa-spinner hidden formLoader" style="float: right"></i></small></h4>
+                    </div>
+                    <div class="content">
+
+                        {{ form_start(route_form) }}
+
+                        <div class="col-md-12">
+                            <label>Seleccione el Destino</label>
+                            <div class="form-group">
+                                <input class="end-point placepicker form-control" data-map-container-id="collapseEndPlaceMap"/>
+                            </div>
+                            <div id="collapseEndPlaceMap" class="collapse">
+                                <div class="placepicker-map thumbnail"></div>
+                            </div>
+                            {{ form_row(route_form.name) }}
+                            {{ form_row(route_form.nameEn) }}
+                            <hr>
+                            {{ form_row(route_form.weight) }}
+                        </div>
+
+                        <div class="col-md-12">
+                            <hr>
+                            <h5 data-toggle="collapse" data-target="#galleryCollapse">Imagenes de la Galeria <i class="fa fa-angle-double-down"></i></h5>
+                            <div class="row collapse" id="galleryCollapse">
+                                <p>Debe presionar el bot&oacute;n de Guardar para mostrar los cambios</p>
+                                <div class="col-md-12">
+                                    {{ form_row(route_form.file) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_widget(route_form.galleryImage0) }}
+                                    {% if route_form.galleryImage0.vars.data %}
+                                        <img src="{{ asset(route_form.galleryImage0.vars.data.getwebpath) }}" style="height: 5em;">
                                     {% endif %}
-                                    {{ place.name }}
-                                    <a href="#" class="btn btn-sm btn-info editbtn" title="Editar" data-placeid="{{ place.id }}"><i class="ti-pencil"></i> </a>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_widget(route_form.galleryImage1) }}
+                                    {% if route_form.galleryImage1.vars.data %}
+                                        <img src="{{ asset(route_form.galleryImage1.vars.data.getwebpath) }}" style="height: 5em;">
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_widget(route_form.galleryImage2) }}
+                                    {% if route_form.galleryImage2.vars.data %}
+                                        <img src="{{ asset(route_form.galleryImage2.vars.data.getwebpath) }}" style="height: 5em;">
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_widget(route_form.galleryImage3) }}
+                                    {% if route_form.galleryImage3.vars.data %}
+                                        <img src="{{ asset(route_form.galleryImage3.vars.data.getwebpath) }}" style="height: 5em;">
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_widget(route_form.galleryImage4) }}
+                                    {% if route_form.galleryImage4.vars.data %}
+                                        <img src="{{ asset(route_form.galleryImage4.vars.data.getwebpath) }}" style="height: 5em;">
+                                    {% endif %}
+                                </div>
+                            </div>
 
-                                </li>
-                            {% else %}
-                                No hay lugares a&uacute;n
-                            {% endfor %}
-                        </ul>
+                        </div>
 
+                        <div class="col-md-12">
+                            <hr>
+                            {{ form_row(route_form.placedesc) }}
+                            {{ form_row(route_form.placedescen) }}
+                            {{ form_row(route_form.istour) }}
+
+                        </div>
+
+                        <div class="col-md-12">
+                            <hr>
+                            <h5 data-toggle="collapse" data-target="#basePriceCollapse">Precios Base, desde la Habana <i class="fa fa-angle-double-down"></i></h5>
+                            <div class="row collapse" id="basePriceCollapse">
+                                <div class="col-md-12">
+
+                                    {{ form_row(route_form.price) }}
+                                    {{ form_row(route_form.trasferprice) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <hr>
+                            <h5 data-toggle="collapse" data-target="#airportsCollapse">Precios desde los Aereopuertos <i class="fa fa-angle-double-down"></i></h5>
+                            <div class="row collapse" id="airportsCollapse">
+                                <div class="col-md-12">
+                                    {{ form_widget(route_form) }}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12">
+
+                            {{ form_widget(route_form) }}
+                            <div class="text-center"  id="">
+                                <button type="submit" class="btn btn-info btn-fill btn-wd btn-save">Guardar</button>
+                            </div>
+
+                            {{ form_end(route_form) }}
+                        </div>
                     </div>
-
-
-                </div>
-                <div class="clearfix"></div>
-
-            </div>
-        </div>
-        </div>
-
-
-
-
-    <div class="col-lg-6 col-md-6">
-        <div class="card" id="placeForm">
-            <div class="header">
-                <h4 class="title"  data-toggle="collapse" data-target="#addPlace">Agregar un destino<small><i class="fa-spin fa fa-spinner hidden formLoader" style="float: right"></i></small></h4>
-            </div>
-            <div class="content">
-
-                {{ form_start(placeForm) }}
-                <div class="row"  id="addPlace">
-                    <div class="col-md-12">
-                        <label>Seleccione el Origen</label>
-                        <div class="form-group">
-                            <input class="start-point placepicker form-control" data-map-container-id="collapseOriginPlaceMap"/>
-                        </div>
-                        <div id="collapseOriginPlaceMap" class="collapse">
-                            <div class="placepicker-map thumbnail"></div>
-                        </div>
-
-
-                        {{ form_row(placeForm.origin) }}
-                        {{ form_row(placeForm.originEn) }}
-
-                        <label>Seleccione el Destino</label>
-                        <div class="form-group">
-                            <input class="end-point placepicker form-control" data-map-container-id="collapseEndPlaceMap"/>
-                        </div>
-                        <div id="collapseEndPlaceMap" class="collapse">
-                            <div class="placepicker-map thumbnail"></div>
-                        </div>
-                        {{ form_row(placeForm.name) }}
-
-                        {{ form_widget(placeForm) }}
-
-                    </div>
-
-
                 </div>
 
-                <div class="text-center">
-                    <button type="submit" class="btn btn-info btn-fill btn-wd">Guardar</button>
-                </div>
 
-                {{ form_end(placeForm) }}
-                <div class="clearfix"></div>
+
 
             </div>
         </div>
     </div>
-
-
-
-</div>
-
-
-
-
-
-
-
 
 {% endblock %}
 {% block javascripts %}
@@ -132,31 +187,7 @@
             var startPointCoord = new google.maps.LatLng(23.143056, -82.38055600000001);
             var endPointCoord = null;
 
-            $(".start-point").placepicker({
-                mapIconClass: "ti-map-alt",
-                placeChanged: function(place) {
 
-                    $("#appbundle_place_origin")[0].value = place.name;
-                    startPointCoord = new google.maps.LatLng(this.getLocation().latitude, this.getLocation().longitude);
-
-                    if (endPointCoord != null) {
-                        serviceDistance.getDistanceMatrix(
-                            {
-                                origins: [startPointCoord],
-                                destinations: [endPointCoord],
-                                travelMode: 'DRIVING',
-                                avoidHighways: false,
-                                avoidTolls: false,
-                            }, callbackDistance);
-
-                        $('#appbundle_place_distance')[0].value = calcDistance(startPointCoord, endPointCoord);
-                    }
-                },
-                mapOptions: {
-                    zoom: 15,
-                    center: {lat: 23.143056, lng: -82.38055600000001}
-                }
-            }).data('placepicker');
 
             $(".end-point").placepicker({
                 mapIconClass: "ti-map-alt",
@@ -175,7 +206,6 @@
                             avoidTolls: false,
                         }, callbackDistance);
 
-                    $('#appbundle_place_distance')[0].value = calcDistance(startPointCoord, endPointCoord);
                 },
                 mapOptions: {
                     zoom: 15,
@@ -187,42 +217,8 @@
                 return x * Math.PI / 180;
             };
 
-            calcDistance = function calcDistancePlane(p1, p2) {
-                return (google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000).toFixed(2);
-            };
-
-            serviceDistance = new google.maps.DistanceMatrixService();
-            var secondsToHourMinutes = function (seconds) {
-                return {'hours': Math.round(seconds/3600),
-                        'minutes': Math.round(seconds%3600 / 60)}
-            };
 
 
-            callbackDistance = function callbackDistanceMatrix(response, status) {
-                if (status == 'OK') {
-                    var origins = response.originAddresses;
-                    var destinations = response.destinationAddresses;
-
-                    for (var i = 0; i < origins.length; i++) {
-                        var results = response.rows[i].elements;
-                        for (var j = 0; j < results.length; j++) {
-                            var element = results[j];
-                            var distance = Math.round(element.distance.value/1000, -2);
-                            var duration = secondsToHourMinutes(element.duration.value);
-                            var from = origins[i];
-                            var to = destinations[j];
-                        }
-                    }
-
-
-                    $('#appbundle_place_distance')[0].value = distance;
-                    $('#appbundle_place_time_hour')[0].value = duration.hours;
-                    $('#appbundle_place_time_minute')[0].value = duration.minutes;
-
-                }
-
-
-            }
         });
 
 
