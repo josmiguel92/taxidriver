@@ -40,10 +40,13 @@ class BookingController extends Controller
             'method' => 'POST',
         ));
 
-        $booking_form->add('airport', ChoiceType::class,
+        $booking_form->add('airportname', ChoiceType::class,
             ['choices' => $em->getRepository('AppBundle:Airport')->findAll(),
-                'choices_as_values' => true
-        ]);
+                'choices_as_values' => true,
+                'choice_label' => 'NameLocale',
+                'choice_value' => 'Id',
+
+            ]);
 
         $booking_form->handleRequest($request);
 
@@ -147,14 +150,14 @@ class BookingController extends Controller
             $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking, array(
                 'action' => $this->generateUrl('add_booking'),
                 'method' => 'POST',
-            ));
+            ), $em);
 
-            $booking_form->add('airport', ChoiceType::class,
+            $booking_form->add('airportname', ChoiceType::class,
                 ['choices' => $em->getRepository('AppBundle:Airport')->findAll(),
                     'choices_as_values' => true,
-                    'choice_label' => function($airport,$keyy, $index){
-                                        return $airport->getNameLocale();
-                    }
+                    'choice_label' => 'NameLocale',
+                    'choice_value' => 'Id',
+
                 ]);
 
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
@@ -177,45 +180,6 @@ class BookingController extends Controller
             throw new NotFoundHttpException();
     }
 
-    /**
-     * @Route("/booking/own-tour")
-     * @Route("/{_locale}/booking/own-tour", defaults={"_locale": "en"},
-     * requirements={"_locale": "en|es|fr"},  name="bookingOwnTour")
-     */
-    public function bookingOwnTourAction(Request $request, $_locale='en')
-    {
-        Utils::setRequestLocaleLang($_locale);
-        $em = $this->getDoctrine()->getManager();
-        $content = $em->getRepository('AppBundle:SiteContent')->findAll();
-        $places = $em->getRepository('AppBundle:Place')->findAll();
-
-        if ($content) {
-
-            $booking = new Booking();
-            $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking, array(
-                'action' => $this->generateUrl('add_booking'),
-                'method' => 'POST',
-            ));
-            $booking_form->add('airport', ChoiceType::class,
-                ['choices' => $em->getRepository('AppBundle:Airport')->findAll(),
-                    'choices_as_values' => true
-                ]);
-
-            $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
-            $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
-
-            return $this->render('AppBundle:Front:bookingOwnTour.html.twig', [
-                'booking_form'=>$booking_form->createView(),
-                'locale'=>$_locale,
-                'content'=>$content[0],
-                'socialNetworks'=>$socialNetworks,
-                'hashtags'=>$hashtags,
-                'places'=>$places,
-                ]);
-        }
-        else
-            throw new Exception("No hay entradas de lugares");
-    }
 
     /**
      * @Route("/purchase-details/{_token}", requirements={"_token":"[a-z0-9]*"})

@@ -30,10 +30,17 @@ class Booking
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Airport")
-     * @ORM\JoinColumn(name="airport", referencedColumnName="id", nullable=true)
+     * @ORM\Column(name="airport", type="string", length=255, nullable=true)
      */
     private $airport;
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Airport")
+     * @ORM\JoinColumn(name="airportname", referencedColumnName="id", nullable=true)
+     */
+    private $airportName;
 
     /**
      * @var integer
@@ -216,6 +223,23 @@ class Booking
         $this->setAccepted(0);
         $this->setConfirmed(0);
     }
+
+    /**
+     * @return string
+     */
+    public function getAirportName()
+    {
+        return $this->airportName;
+    }
+
+    /**
+     * @param string $airportName
+     */
+    public function setAirportName($airportName)
+    {
+        $this->airportName = $airportName;
+    }
+
 
 
     /**

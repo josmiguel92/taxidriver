@@ -10,19 +10,32 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+
+/**
+ * Common features needed in controllers.
+ *
+ * @author Fabien Potencier <fabien@symfony.com>
+ *
+ * @internal
+ *
+ * @property ContainerInterface $container
+ */
 class BookingType extends AbstractType
 {
+
     /**
      * {@inheritdoc}
+     *
      */
     public function buildForm(FormBuilderInterface $builder, array $options )
     {
-
-        $builder
+      $builder
             ->add('place')
             ->add('ownroute')
+            ->add('airport')
             ->add('tour')
             ->add('fullname')
             ->add('email', EmailType::class)
@@ -37,6 +50,7 @@ class BookingType extends AbstractType
             ->add('experience')
             ->add('experienceTaxi')
             ->add('experienceTime')
+            ->add('airportname')
             ;
     }/**
      * {@inheritdoc}
