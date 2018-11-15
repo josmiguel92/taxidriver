@@ -73,3 +73,8 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+fos_ck_editor:
+    configs:
+        my_config:
+            toolbar: basic

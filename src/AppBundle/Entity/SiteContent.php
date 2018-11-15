@@ -1517,7 +1517,7 @@ class SiteContent
     }
 
   
-   public function getExperiencesTextEnLocale()
+   public function getExperiencesTextLocale()
     {
         if(Utils::getRequestLocaleLang()=="es")
             return $this->experiencestext;

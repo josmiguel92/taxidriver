@@ -93,7 +93,7 @@
                                             <!-- Post Body-->
                                             <div class="post-body offset-top-15 offset-md-top-25">
                                                 <p class="text-spacing-0">
-                                                    {{ blogEntry.getTeaserLocale|striptags|slice(0, 500)|nl2br }}... <a href="{{ url }}" >{% trans %}Read more{% endtrans %}</a>
+                                                    {{ blogEntry.getTeaserLocale|raw|`striptags|slice(0, 500)|nl2br }}... <a href="{{ url }}" >{% trans %}Read more{% endtrans %}</a>
                                                 </p>
                                             </div>
                                             <div class="offset-top-20 offset-md-top-30">

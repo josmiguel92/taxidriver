@@ -17,7 +17,7 @@
                             <img src="{{ divider }}" width="135" height="2" alt="divider" style="opacity: .5;" class="img-responsive center-block"></div>
                         <div class="offset-top-15 offset-md-top-30">
                             <h2 class="text-spacing-0">
-                                {{ content.getServicesmakeroutetextLocale }}
+                                {{ content.getServicesmakeroutetextLocale |raw }}
                             </h2>
                             <div class="offset-top-30 offset-md-top-60">
                                 <a href="#contact" style="min-width:240px;" class="btn btn-calypso">
@@ -33,7 +33,7 @@
     </div>
     <div style="margin: 2em 10% 0 10%">
         <p class="text-spacing-25 text-gray-dark">
-            {{ content.owntaxidescriptionLocale() | nl2br}}
+            {{ content.owntaxidescriptionLocale() | raw}}
         </p>
     </div>
 </section>

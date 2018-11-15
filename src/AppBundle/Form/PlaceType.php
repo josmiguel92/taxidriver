@@ -8,6 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+
 
 class PlaceType extends AbstractType
 {
@@ -23,8 +25,8 @@ class PlaceType extends AbstractType
             ->add('price', MoneyType::class, ["label"=>"Precio del Tour",'currency'=>"CUC"])
             ->add('trasferprice', MoneyType::class, ["label"=>"Precio del Transfer",'currency'=>"CUC"])
             ->add('istour', null, ['label'=>"¿Es un Tour?"])
-            ->add('placedesc', null, ['label'=>"Describa el Tour"])
-            ->add('placedescen', null, ['label'=>"Describa el Tour, en ingles"])
+            ->add('placedesc', CKEditorType::class, ['label'=>"Describa el Tour"])
+            ->add('placedescen', CKEditorType::class, ['label'=>"Describa el Tour, en ingles"])
 
             //->add('services')
              ->add('googlename',HiddenType::class)

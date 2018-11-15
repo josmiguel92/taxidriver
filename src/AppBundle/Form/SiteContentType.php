@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+
 
 class SiteContentType extends AbstractType
 {
@@ -20,11 +22,9 @@ class SiteContentType extends AbstractType
             ->add('abouttitle', null, ["label"=> "Título de la sección About"])
             ->add('abouttitleen', null, ["label"=> "Título de la sección About, en ingles"])
 
-            ->add('abouttext', TextareaType::class, ["label"=>"Texto sobre nosotros"])
-            ->add('abouttexten', TextareaType::class, ["label"=>"Texto sobre nosotros, en ingles"])
+            ->add('abouttext', CKEditorType::class, ["label"=>"Texto sobre nosotros"])
+            ->add('abouttexten', CKEditorType::class, ["label"=>"Texto sobre nosotros, en ingles"])
             ->add('aboutusimage',null, ["label"=> "Banner para sección About."])
-            ->add('abouttextfooter', TextareaType::class, ["label"=>"Texto sobre nosotros, se mostrará en Footer"])
-            ->add('abouttextfooteren', TextareaType::class, ["label"=>"Texto sobre nosotros, se mostrará en Footer, en ingles"])
             ->add('aboutteamtext', TextareaType::class, ["label"=>"Texto sobre el equipo"])
             ->add('aboutteamtexten', TextareaType::class, ["label"=>"Texto sobre el equipo, en ingles"])
             ->add('aboutinfographtitle', null,  ["label"=>"Titulo de la Infografía"])
@@ -33,34 +33,34 @@ class SiteContentType extends AbstractType
             ->add('aboutinfographtexten', TextareaType::class, ["label"=>"Texto sobre la Infografía, en ingles"])
             ->add('servicestitle', null, ["label"=>"Título de los servicios"])
             ->add('servicestitleen', null, ["label"=>"Título de los servicios, en ingles"])
-            ->add('servicestext', TextareaType::class, ["label"=>"Texto sobre los servicios"])
-            ->add('servicestexten', TextareaType::class, ["label"=>"Texto sobre los servicios, en ingles"])
+            ->add('servicestext', CKEditorType::class, ["label"=>"Texto sobre los servicios"])
+            ->add('servicestexten', CKEditorType::class, ["label"=>"Texto sobre los servicios, en ingles"])
             ->add('servicestaxititle', null , ["label"=>"Título de los servicios de taxi"])
             ->add('servicestaxititleen', null , ["label"=>"Título de los servicios de taxi, en ingles"])
-            ->add('servicestaxitext', TextareaType::class, ["label"=>"Texto sobre el servicio de Taxi"])
-            ->add('servicestaxitexten', TextareaType::class, ["label"=>"Texto sobre el servicio de Taxi, en ingles"])
+            ->add('servicestaxitext', CKEditorType::class, ["label"=>"Texto sobre el servicio de Taxi"])
+            ->add('servicestaxitexten', CKEditorType::class, ["label"=>"Texto sobre el servicio de Taxi, en ingles"])
             ->add('servicestaxitourstitle', null, ["label"=>"Título del servicio de taxi-tour"])
             ->add('servicestaxitourstitleen', null, ["label"=>"Título del servicio de taxi-tour, en ingles"])
-            ->add('servicestaxitourstext', TextareaType::class, ["label"=>"Texto sobre el servicio de Tour"])
-            ->add('servicestaxitourstexten', TextareaType::class, ["label"=>"Texto sobre el servicio de Tour, en ingles"])
+            ->add('servicestaxitourstext', CKEditorType::class, ["label"=>"Texto sobre el servicio de Tour"])
+            ->add('servicestaxitourstexten', CKEditorType::class, ["label"=>"Texto sobre el servicio de Tour, en ingles"])
             ->add('touradvice', TextareaType::class, ["label"=>"Aviso sobre los tours"])
             ->add('touradviceen', TextareaType::class, ["label"=>"Aviso sobre los tours, en ingles"])
 
 
 
-            ->add('experiencestext', TextareaType::class, ["label"=>"Texto sobre las experiencias"])
-            ->add('experiencestexten', TextareaType::class, ["label"=>"Texto sobre las experiencias, en ingles"])
+            ->add('experiencestext', CKEditorType::class, ["label"=>"Texto sobre las experiencias"])
+            ->add('experiencestexten', CKEditorType::class, ["label"=>"Texto sobre las experiencias, en ingles"])
             
             
             ->add('ownrouteimage',null, ["label"=> "Banner para Ruta personalizada."])
             ->add('ownrouteimage1',null, ["label"=> "Banner para Ruta personalizada."])
             ->add('ownrouteimage2',null, ["label"=> "Banner para Ruta personalizada."])
 
-            ->add('servicesmakeroutetext', TextareaType::class, ["label"=>"Texto para rutas personalizadas, en el home"])
-            ->add('servicesmakeroutetexten', TextareaType::class, ["label"=>"Texto para rutas personalizadas, en el home, en ingles"])
+            ->add('servicesmakeroutetext', CKEditorType::class, ["label"=>"Texto para rutas personalizadas, en el home"])
+            ->add('servicesmakeroutetexten', CKEditorType::class, ["label"=>"Texto para rutas personalizadas, en el home, en ingles"])
 
-            ->add('owntaxidescription', TextareaType::class, ["label"=>"Texto describiendo las rutas personalizadas, en la reservacion"])
-            ->add('owntaxidescriptionen', TextareaType::class, ["label"=>"Texto describiendo las rutas personalizadas, en la reservacion, en ingles"])
+            ->add('owntaxidescription', CKEditorType::class, ["label"=>"Texto describiendo las rutas personalizadas, en la reservacion"])
+            ->add('owntaxidescriptionen', CKEditorType::class, ["label"=>"Texto describiendo las rutas personalizadas, en la reservacion, en ingles"])
 
 
 
