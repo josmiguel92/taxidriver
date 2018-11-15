@@ -45,7 +45,7 @@ class BookingController extends Controller
                 'choices_as_values' => true,
                 'choice_label' => 'NameLocale',
                 'choice_value' => 'Id',
-
+                'attr'=>['disabled'=>true]
             ]);
 
         $booking_form->handleRequest($request);
@@ -157,6 +157,7 @@ class BookingController extends Controller
                     'choices_as_values' => true,
                     'choice_label' => 'NameLocale',
                     'choice_value' => 'Id',
+                    'attr'=>['disabled'=>true]
 
                 ]);
 

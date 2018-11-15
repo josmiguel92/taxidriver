@@ -13,7 +13,7 @@
 </p>
 
 {% if booking.isAnAirport %}
-    <p>Recogida al aereopuerto,<br/>
+    <p>Recogida al aereopuerto, {{ booking.airportName.nameLocale }}<br/>
         numero de vuelo: <strong>{{ booking.flynumber }}</strong>
     </p>
 {% elseif booking.aCruise %}

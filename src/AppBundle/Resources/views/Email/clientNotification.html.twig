@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
+{% spaceless %}
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -210,7 +210,7 @@
 															{% trans %}in front of the departure of the cruisers in the Plaza de San Francisco, which is located as soon as you cross the street by the pedestrian stationary step standing at the fountain of the lions with his name written on a paper{% endtrans %}
 															({{ booking.fullname }}).
 														{% elseif booking.isAnAirport %}
-															{% trans %}at the exit of the Jose Marti international terminal with his name written on a paper{% endtrans %} ({{ booking.fullname }}).
+															{% trans %}at the exit of the{% endtrans %}  {{ booking.airportName.nameLocale }} {% trans %}with his name written on a paper{% endtrans %} ({{ booking.fullname }}).
 														{% else %}
 															{% trans %}in{% endtrans %} {{ booking.details }}.
 														{% endif %}
@@ -406,3 +406,4 @@
 		<!-- End of wrapper table -->
 	</body>
 	</html>
+{% endspaceless %}

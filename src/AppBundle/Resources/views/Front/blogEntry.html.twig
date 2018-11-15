@@ -120,7 +120,9 @@
         <section class="blog-post context-dark offset-top-0" style="margin-top: -8px;">
             <!-- RD Parallax-->
             <div data-on="false" data-md-on="true" class="rd-parallax">
-                <div data-speed="0.25" data-type="media" data-url="{{ asset(blogEntry.getImageSecondary.getWideImageWebPath) }}" class="rd-parallax-layer"></div>
+                {% if blogEntry.getImageSecondary is not null %}
+                    <div data-speed="0.25" data-type="media" data-url="{{ asset(blogEntry.getImageSecondary.getWideImageWebPath) }}" class="rd-parallax-layer"></div>
+                {% endif %}
                 <div data-speed="0" data-type="html" data-md-fade="false" class="rd-parallax-layer">
                     <div class="shell section-75 section-md-top-103 section-md-bottom-110">
                         <div class="range range-xs-center">

@@ -192,7 +192,7 @@
                                                 <p>Hora y fecha: {{ booking.pickuptime | date("l d/m/Y H:i") }}</p>
                                                 <p>
                                                     {% if booking.isAnAirport %}
-                                                        Debe recogerlo en el aereopuerto,<br/>
+                                                        Debe recogerlo en el aereopuerto <b>{{ booking.airportName.nameLocale }}</b><br/>
                                                         su numero de vuelo es: <b>{{booking.flynumber}}</b>
                                                     {% elseif booking.aCruise %}
                                                         Debe recogerlo en la terminal de crucero<br/>

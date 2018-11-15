@@ -54,7 +54,7 @@
                     <!-- airport or cruise data -->
                     <div class="well-row well-row-bg">
                         <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
-                            {% trans %}Pickup from airport or cruise?{% endtrans %}<br>
+                            {% trans %}Pick you up from airport or cruise?{% endtrans %}<br>
                             <small class="subtitle">
                                 {% trans %}If you arrive to Cuba through some airport or cruise terminal, we can pick you up!{% endtrans %}</small>
                         </p>
@@ -63,7 +63,6 @@
                     <div class="row well-row section-md-top-20 section-md-bottom-20">
 
 
-                        {{ form_widget( booking_form.airportname) }}
                         <div class="col-md-6 col-xs-12 offset-top-15" style="margin-bottom:  1em;">
                             <div class="btn-group source-cuba" data-toggle="buttons">
                                 <label class="btn btn-primary">
@@ -79,6 +78,16 @@
                                 </label>
                             </div>
                         </div>
+
+                        <div class="col-md-5 col-md-push-1 col-xs-12 offset-xs-top-15">
+                            <div id="flynumber">
+                                <label for="{{ booking_form.airportname.vars.id }}" class="text-extra-small custom-label text-gray-dark">{% trans %}Airport name{% endtrans %}</label>
+                                <div class="form-group">
+                                    {{ form_widget( booking_form.airportname) }}
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div class="col-md-5 col-md-push-1 col-xs-12 offset-xs-top-15">
                             <div id="flynumber">
@@ -361,6 +370,8 @@
                 var source_input = $('#{{ booking_form.flynumber.vars.id }}')[0];
                 var source_label_input = $('label[for="{{ booking_form.flynumber.vars.id }}"]')[0];
 
+                var airport_name = $('#{{ booking_form.airportname.vars.id }}')[0];
+
                 pickup_from_airport = $("#pickup_airport")[0].classList.contains('active');
                 pickup_from_cruise = $("#pickup_cruise")[0].classList.contains('active');
 
@@ -376,6 +387,8 @@
                     source_input.setAttribute('data-constraints','@Required')) :
                     (source_input.setAttribute('disabled','true') ||
                     source_input.removeAttribute('data-constraints'));
+
+                pickup_from_airport ? airport_name.removeAttribute('disabled') : airport_name.setAttribute('disabled','true');
 
                 activeOrDeactivePickupPlace();
             });
