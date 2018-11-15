@@ -183,7 +183,9 @@ class Utils
 
     static function slugify(string $text){
 
-        return strtolower(preg_replace('[ ]', '-', trim($text)));
+        $text = strtolower(preg_replace('[ ]', '-', trim($text)));
+        $text =preg_replace('[,.]', '',$text);
+        return $text;
     }
 
     static function buildProductName(\AppBundle\Entity\Booking $booking, \AppBundle\Entity\Place $place){
