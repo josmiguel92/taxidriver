@@ -107,7 +107,7 @@
                         <tr>
                             <td><a href="{{ path('booking_details', {'booking': item.id}) }}">{{ item.id }}</a></td>
                             <td>{{ item.fullname }}</td>
-                            <td>{% if item.place and places[item.place] is not null %}
+                            <td>{% if item.place and places[item.place] is defined %}
                                 {{ places[item.place] }}
                                 {% elseif item.experience %}
                                     {{ item.getExperience.getName }} ({{ item.getExperience.place }})
