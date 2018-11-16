@@ -36,6 +36,7 @@ class Airport
      */
     private $name;
 
+    public $price;
 
     /**
      * Get id
@@ -105,8 +106,11 @@ class Airport
 
     public function __toString()
     {
-           return  $this->nombre;
+           return $this->nombre;
     }
 
+    public function machineName(){
+        return 'airport_price_'.Utils::slugify($this->getName());
+    }
 }
 

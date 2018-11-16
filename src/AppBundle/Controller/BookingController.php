@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
+use AppBundle\Entity\Airport;
 use AppBundle\Entity\Place;
 use AppBundle\Utils\Utils;
 use Couchbase\Exception;
@@ -45,6 +46,7 @@ class BookingController extends Controller
                 'choices_as_values' => true,
                 'choice_label' => 'NameLocale',
                 'choice_value' => 'Id',
+                'choice_name' => 'machineName',
                 'attr'=>['disabled'=>true]
             ]);
 
@@ -157,6 +159,10 @@ class BookingController extends Controller
                     'choices_as_values' => true,
                     'choice_label' => 'NameLocale',
                     'choice_value' => 'Id',
+                    'choice_attr' => function(Airport $airport, $key, $price){
+                        return ['data-airportname'=> $airport->machineName()];
+                            },
+                    'choice_name' => 'machineName',
                     'attr'=>['disabled'=>true]
 
                 ]);
@@ -234,7 +240,6 @@ class BookingController extends Controller
 
 
             $paypalSuccessFormHtml = "";
-            /*TODO: proccess Paypal POST headers and push it on DB*/
             if($_paypalCallback == 'success') {
                 if (isset($_GET['tx'])) {
                     $paypalTransactionID = $_GET['tx'];
@@ -246,7 +251,7 @@ class BookingController extends Controller
                     //echo $_POST['st']." Estado del producto Paypal\n";
                     echo "-->";*/
 
-                    //todo: esta verificacion debe de hacerse luego de completar paypal
+                    //verificacion de que el precio pagado mediante paypal coincida con el calculado
                     if($_GET['amt'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
                     {
                         $purchase->setConfirmed(true);
@@ -344,7 +349,6 @@ class BookingController extends Controller
             ->setSubject($subject)
             ->setReplyTo($senderEmail)
             ->setTo($booking->getEmail())
-            //TODO: get email from parameters
             ->setFrom("taxidriverscuba-noreply@taxidriverscuba.com");
 
             if($booking->isExperience()){

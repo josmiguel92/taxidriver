@@ -156,7 +156,6 @@ class Utils
         return $idPlaces;
     }
 
-    //todo: hay que ver si la reservacion hecha es tour o tranfer
     static function calculateSimpleRoutePrices(\AppBundle\Entity\Place $place, \AppBundle\Entity\Booking $booking, $increment){
 
         $price = 0;

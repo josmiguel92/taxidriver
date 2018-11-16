@@ -5,7 +5,6 @@
     <title>Moving you to Paypal...</title>
 </head>
 <body>
-{#TODO: change paypal url outside from sandbox#}
     <form name="myform" action="{{ paypalUrl }}" method="post" target="_top">
         <input type="hidden" name="cmd" value="_xclick">
         <input type="hidden" name="cancel_return" value="{{ absolute_url(path("purchase_details_paypal",

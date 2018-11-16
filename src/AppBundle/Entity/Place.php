@@ -376,11 +376,8 @@ class Place extends ImageField
         {
             if(is_iterable($this->airports_prices))
             foreach ($this->airports_prices as $_name => $_value ){
-                dump([$_name,$_value]);
-                if($_name == $name){
-
+                if($_name == $name)
                     return $_value;
-                }
             }
         }
         else

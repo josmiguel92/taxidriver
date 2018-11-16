@@ -182,8 +182,6 @@ class Booking
      */
     private $accepted;
 
-    //TODO: por ahora, nunca se conffirman las reservaciones por parte de los clientes
-
     /**
      * @var boolean
      * @ORM\Column(name="confirmed", type="boolean", nullable=true)

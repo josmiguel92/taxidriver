@@ -20,6 +20,7 @@
 {% endblock %}
 
 {% block content %}
+    {{ dump(place) }}
     <!-- Page Content-->
     <main class="page-content">
         <section class="section-75 section-md-top-90 section-md-bottom-110">
@@ -335,6 +336,8 @@
             var pickup_place = $('#{{ booking_form.details.vars.id }}')[0];
             var pickup = pickup_from_airport || pickup_from_cruise;
 
+            var airport_prices={{ place.AirportsPrices|json_encode|raw }};
+
             if (pickup){
                 var origin = pickup_from_airport? "airport": "cruise";
                 var place = '{% trans %}we will pick up you in{% endtrans %} ' + (pickup_from_airport? "{% trans %}Airport{% endtrans %}" : "{% trans %}Cruise{% endtrans %}");
@@ -388,6 +391,7 @@
                     (source_input.setAttribute('disabled','true') ||
                     source_input.removeAttribute('data-constraints'));
 
+                {# TODO: modificar los precios al seleccionar un aereopuerto, eliminar el dump(place) #}
                 pickup_from_airport ? airport_name.removeAttribute('disabled') : airport_name.setAttribute('disabled','true');
 
                 activeOrDeactivePickupPlace();

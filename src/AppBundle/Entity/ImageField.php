@@ -248,17 +248,13 @@ class ImageField
     {
         if($file = $this->getAbsolutePath())
         {
-            @unlink($file.'-thumb.jpg');//TODO: eliminar estas 2 lineas luego de la migracion a este branch y la eliminacion de las antiguas thumbs
-            @unlink($file.'-wide.jpg');
-			
 			@unlink($file.'-1x1.jpg');
 			@unlink($file.'-4x3.jpg');
 			@unlink($file.'-16x9.jpg');
 			
 			@unlink($file.'-full-1x1.jpg');
 			@unlink($file.'-full-4x3.jpg');
-			@unlink($file.'-full-16x9.jpg');			
-			
+			@unlink($file.'-full-16x9.jpg');
         }
     }
 

@@ -366,8 +366,8 @@ class AdminController extends Controller
         $airports = $em->getRepository('AppBundle:Airport')->findAll();
         foreach ($airports as $airport)
         {
-            $placeForm->add('airport_price_'.Utils::slugify($airport->getNombre()),
-                MoneyType::class,['label'=>"Precio desde ".$airport->getNombre(),
+            $placeForm->add($airport->machineName(),
+                MoneyType::class,['label'=>"Precio desde ".$airport->getName(),
                     'currency'=>"CUC"]);
         }
 
@@ -424,7 +424,7 @@ class AdminController extends Controller
         $airports = $em->getRepository('AppBundle:Airport')->findAll();
         foreach ($airports as $airport)
         {
-            $editForm->add('airport_price_'.Utils::slugify($airport->getNombre()),
+            $editForm->add($airport->machineName(),
                 MoneyType::class,['label'=>"Precio desde ".$airport->getNombre(),
                     'currency'=>"CUC"]);
         }
@@ -821,7 +821,6 @@ class AdminController extends Controller
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
-            //TODO: get email from parameters
             ->setFrom("taxidriverscuba-noreply@taxidriverscuba.com")
             ->setReplyTo($senderEmail)
             ->setTo($booking->getEmail())
