@@ -29,7 +29,7 @@ class ExperienceController extends Controller
 
         $experiences = $em->getRepository('AppBundle:Experience')->findAll();
 
-        return $this->render('AppBundle:Dash:experience/index.html.twig', array(
+        return $this->render('@App/Dash/services/experience/index.html.twig', array(
             'experiences' => $experiences,
         ));
     }
@@ -54,7 +54,7 @@ class ExperienceController extends Controller
             return $this->redirectToRoute('dash_experience_index');
         }
 
-        return $this->render('AppBundle:Dash:experience/new.html.twig', array(
+        return $this->render('@App/Dash/services/experience/new.html.twig', array(
             'experience' => $experience,
             'edit_form' => $form->createView(),
         ));
@@ -70,7 +70,7 @@ class ExperienceController extends Controller
     {
         $deleteForm = $this->createDeleteForm($experience);
 
-        return $this->render('AppBundle:Dash:experience/show.html.twig', array(
+        return $this->render('@App/Dash/services/experience/show.html.twig', array(
             'experience' => $experience,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -94,7 +94,7 @@ class ExperienceController extends Controller
             return $this->redirectToRoute('dash_experience_edit', array('id' => $experience->getId()));
         }
 
-        return $this->render('AppBundle:Dash:experience/edit.html.twig', array(
+        return $this->render('@App/Dash/services/experience/edit.html.twig', array(
             'experience' => $experience,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -157,7 +157,6 @@ class ExperienceController extends Controller
                 $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
                 $places = $em->getRepository('AppBundle:Place')->findAllSorted();
                 $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
-                $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries(0, 2);
                 $testimonials = $em->getRepository('AppBundle:Testimony')->findAll();
 
                 $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();

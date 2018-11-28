@@ -20,13 +20,6 @@
         </a>
     </li>
 
-    <li {% if pagename == 'experience' %} class="active" {% endif %}>
-        <a href="{{ path('dash_experience_index') }}">
-            <i class="ti-trello"></i>
-            <p>Experiencias</p>
-        </a>
-    </li>
-
     <li {% if pagename == 'gallery' %} class="active" {% endif %}>
         <a href="{{ path('dash_gallery') }}">
             <i class="ti-gallery"></i>
@@ -39,13 +32,7 @@
             <p>Blog</p>
         </a>
     </li>
-    <!--    <li {% if pagename == 'paygateway' %} class="active" {% endif %}>
-                    <a href="{{ path('dash_paygateway') }}">
-                        <i class="ti-credit-card"></i>
-                        <p>Pasarela de Pagos</p>
-                    </a>
-                </li>
-            -->    <li {% if pagename == 'sitecontent' %} class="active" {% endif %}>
+    <li {% if pagename == 'sitecontent' %} class="active" {% endif %}>
         <a href="{{ path('dash_sitecontent_edit') }}">
             <i class="ti-pin-alt"></i>
             <p>Contenido</p>
@@ -57,14 +44,6 @@
             <p>Redes Sociales</p>
         </a>
     </li>
-<!--
-    <li {% if pagename == 'drivers' %} class="active" {% endif %}>
-        <a href="{{ path('dash_drivers_index') }}">
-            <i class="fa fa-user"></i>
-            <p>Choferes</p>
-        </a>
-    </li>
-    -->
     <li {% if pagename == 'config' %} class="active" {% endif %}>
         <a href="{{ path('dash_config') }}">
             <i class="ti-settings"></i>

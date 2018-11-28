@@ -5,18 +5,15 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\ImageField;
 use AppBundle\Utils\Utils;
-use AppBundle\Entity\Service;
 
 /**
- * Experience
+ * Transfer
  * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="experience")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ExperienceRepository")
+ * @ORM\Table(name="transfer")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TransferRepository")
  */
-class Experience extends Service
+class Transfer extends Service
 {
-    use GalleryFields;
-
 
     /**
      * @var string
@@ -32,20 +29,12 @@ class Experience extends Service
      */
     private $priceSumaryEn;
 
-
-     /**
-     * @var bool
-     *
-     * @ORM\Column(name="external", type="boolean")
-     */
-     private $external;
-  
     /**
      * @var string
      *
-     * @ORM\Column(name="externalUrl", type="string", length=500, nullable=true)
+     * @ORM\Column(name="origin", type="string", length=255)
      */
-     private $externalUrl;
+    private $origin;
 
     /**
      * Set priceSumary
@@ -99,53 +88,21 @@ class Experience extends Service
             return $this->priceSumary;
         return $this->priceSumaryEn;
     }
-  
-    /**
-     * Set External
-     *
-     * @param bool external
-     *
-     * @return Experience
-     */
-    public function setExternal($external)
-    {
-        $this->external = $external;
-
-        return $this;
-    }
 
     /**
-     * Get External
-     *
      * @return string
      */
-    public function getExternal()
+    public function getOrigin()
     {
-        return $this->external;
-    }
-  
-   /**
-     * Set External
-     *
-     * @param bool external
-     *
-     * @return Experience
-     */
-    public function setExternalUrl($externalurl)
-    {
-        $this->externalUrl = $externalurl;
-
-        return $this;
+        return $this->origin;
     }
 
     /**
-     * Get External
-     *
-     * @return string
+     * @param string $origin
      */
-    public function getExternalUrl()
+    public function setOrigin($origin)
     {
-        return $this->externalUrl;
+        $this->origin = $origin;
     }
 
     public function __toString()

@@ -38,28 +38,12 @@ class Place extends ImageField
      */
     private $nameEn;
 
-
     /**
-     * @var float
+     * @var int
      *
-     * @ORM\Column(name="price", type="float")
+     * @ORM\Column(name="latlong", type="string", nullable=true)
      */
-    private $price;
-
-    /**
-     * @var float
-     *
-     * @ORM\Column(name="transferprice", type="float")
-     */
-    private $trasferprice;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="istour", type="boolean")
-     */
-    private $istour;
-
+    private $latlong;
 
     /**
      * @var int
@@ -81,11 +65,6 @@ class Place extends ImageField
      * @ORM\Column(name="placedesen", type="text", nullable=true)
      */
     private $placedescen;
-
-    /**
-     * @ORM\Column(name="airports_prices", type="array", nullable=true)
-     */
-    private $airports_prices;
 
     /**
      * @return string
@@ -148,72 +127,6 @@ class Place extends ImageField
     }
 
     /**
-     * @return \DateTime
-     */
-    public function getTime()
-    {
-        return $this->time;
-    }
-
-    /**
-     * @param \DateTime $time
-     */
-    public function setTime($time)
-    {
-        $this->time = $time;
-    }
-
-    /**
-     * @return float
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * @param float $price
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-    }
-
-    /**
-     * @return float
-     */
-    public function getTrasferprice()
-    {
-        return $this->trasferprice;
-    }
-
-    /**
-     * @param float $trasferprice
-     */
-    public function setTrasferprice($trasferprice)
-    {
-        $this->trasferprice = $trasferprice;
-    }
-
-
-    /**
-     * @return bool
-     */
-    public function getistour()
-    {
-        return $this->istour;
-    }
-
-    /**
-     * @param bool $istour
-     */
-    public function setIstour($istour)
-    {
-        $this->istour = $istour;
-    }
-
-
-    /**
      * @return int
      */
     public function getLatlong()
@@ -258,19 +171,6 @@ class Place extends ImageField
         return $this;
     }
 
-        public function setOrigin($name)
-    {
-        $this->origin = $name;
-
-        return $this;
-    }
-
-        public function setOriginEn($name)
-    {
-        $this->originEn = $name;
-
-        return $this;
-    }
     /**
      * Get name
      *
@@ -283,12 +183,6 @@ class Place extends ImageField
         return $this->nameEn;
     }
 
-    public function getOriginLocale()
-    {
-        if(Utils::getRequestLocaleLang()=="es")
-            return $this->origin;
-        return $this->originEn;
-    }
     /**
      * @return string
      */
@@ -315,95 +209,6 @@ class Place extends ImageField
         return $this->name;
     }
 
-    public function getOrigin()
-    {
-        return $this->origin;
-    }
-
-    public function getOriginEn()
-    {
-        return $this->originEn;
-    }
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="weight", type="integer")
-     */
-    private $weight;
-
-    /**
-     * @return int
-     */
-    public function getWeight()
-    {
-        return $this->weight;
-    }
-
-    /**
-     * @param int $weigh
-     */
-    public function setWeight($weight)
-    {
-        $this->weight = $weight;
-    }
-
-        public function __construct()
-    {
-        $this->weight = 0;
-        $this->airports_prices = new ArrayCollection();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAirportsPrices()
-    {
-        return $this->airports_prices;
-    }
-
-    /**
-     * @param mixed $airports_prices
-     */
-    public function setAirportsPrices($airports_prices)
-    {
-        $this->airports_prices = $airports_prices;
-    }
-
-    public function __get($name)
-    {
-        if(substr_count($name, 'airport_price_'))
-        {
-            if(is_iterable($this->airports_prices))
-            foreach ($this->airports_prices as $_name => $_value ){
-                if($_name == $name)
-                    return $_value;
-            }
-        }
-        else
-            return $this->$$name;
-    }
-    public function __set($name, $value)
-    {
-        if(substr_count($name, 'airport_price_'))
-        {
-
-            if(is_iterable($this->airports_prices)){
-                if(key_exists($name,$this->airports_prices))
-                {
-                    $this->airports_prices[$name]=$value;
-                }
-                else
-                    $this->airports_prices[$name]=$value;
-
-            }
-            else
-                $this->airports_prices[$name]=$value;
-
-
-
-        }
-    }
 
 }
 

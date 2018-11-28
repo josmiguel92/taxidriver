@@ -1,37 +1,29 @@
 {% extends 'AppBundle:Dash:base.html.twig' %}
-
-{% set pagename = 'experience' %}
+{% block pagetitle %}Servicios de Taxi | Nueva experiencia{% endblock pagetitle %}
+{% set pagename = 'services' %}
 
 {% block content %}
-    <h1>Crear nueva Experiencia</h1>
-
-
-
     <div class="row">
         {{ form_start(edit_form) }}
 
+        {{ form_row(edit_form.nameEs) }}
         {{ form_row(edit_form.name) }}
-        {{ form_row(edit_form.nameEn) }}
 
-        {{ form_row(edit_form.place) }}
-        {{ form_row(edit_form.placeEn) }}
+        {{ form_row(edit_form.targetPlace) }}
 
-        {{ form_row(edit_form.price) }}
-        {{ form_row(edit_form.priceEn) }}
+        {{ form_row(edit_form.basePrice) }}
 
         {{ form_row(edit_form.priceSumary) }}
         {{ form_row(edit_form.priceSumaryEn) }}
 
+        {{ form_row(edit_form.descriptionEs) }}
         {{ form_row(edit_form.description) }}
-        {{ form_row(edit_form.descriptionEn) }}
 
         {{ form_row(edit_form.external) }}
         {{ form_row(edit_form.externalUrl) }}
 
-        {{ form_row(edit_form.needTaxi) }}
-
         {{ form_row(edit_form.file) }}
-        {% if experience.getwebpath is not null %}
+        {% if experience.path is not null %}
             <img src="{{ asset(experience.getwebpath) }}" style="height: 10em;">
         {% endif %}
 
@@ -72,9 +64,9 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row margin-top">
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Guardar" class="form-inline btn btn-primary" id="savebtn" />
+        <input type="submit" value="Guardar" class="form-inline btn btn-primary" />
         {{ form_end(edit_form) }}
 
     </div>

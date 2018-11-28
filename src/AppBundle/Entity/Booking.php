@@ -50,10 +50,13 @@ class Booking
 
     /**
      * @var integer
-     * @ORM\ManyToOne(targetEntity="Experience")
-     * @ORM\JoinColumn(name="experience", referencedColumnName="id", nullable=true)
+     * @ORM\Column(name="experience", type="integer", nullable=true)
      */
+
+
     private $experience;
+    //  * ORM\ManyToOne(targetEntity="Experience")
+    //     * ORM\JoinColumn(name="experience", referencedColumnName="id", nullable=true)
 
     /**
      * @var array
@@ -208,6 +211,11 @@ class Booking
      */
     private $drivermsg;
 
+    /**
+     * @var int
+     * @ORM\Column(name="telephone", type="string", length=30)
+     */
+    private $telephone;
 
     public function getBookingLocale()
     {
@@ -728,6 +736,23 @@ class Booking
            return true;
         return false;
     }
+
+    /**
+     * @return int
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * @param int $telephone
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+    }
+
 
 
 }

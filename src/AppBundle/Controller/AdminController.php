@@ -363,13 +363,6 @@ class AdminController extends Controller
         $place = new \AppBundle\Entity\Place();
         $placeForm = $this->createForm('AppBundle\Form\PlaceType', $place);
 
-        $airports = $em->getRepository('AppBundle:Airport')->findAll();
-        foreach ($airports as $airport)
-        {
-            $placeForm->add($airport->machineName(),
-                MoneyType::class,['label'=>"Precio desde ".$airport->getName(),
-                    'currency'=>"CUC"]);
-        }
 
         $placeForm->handleRequest($request);
 
@@ -397,7 +390,7 @@ class AdminController extends Controller
 
         $places = $em->getRepository('AppBundle:Place')->findAll();
 
-        return $this->render('AppBundle:Dash:services.html.twig',
+        return $this->render('@App/Dash/services/services.html.twig',
             ['pagename'=>'services',
                 'places'=>$places,
                 'route_form'=>$placeForm->createView()
@@ -421,13 +414,6 @@ class AdminController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
-        $airports = $em->getRepository('AppBundle:Airport')->findAll();
-        foreach ($airports as $airport)
-        {
-            $editForm->add($airport->machineName(),
-                MoneyType::class,['label'=>"Precio desde ".$airport->getNombre(),
-                    'currency'=>"CUC"]);
-        }
 
         $editForm->handleRequest($request);
 
@@ -511,16 +497,6 @@ class AdminController extends Controller
             'experiences_books'=>$experiences_books,
             'paypal_books'=>$paypal_books,
             'places'=>$places]);
-    }
-
-    /**
-     * @Route("/paygateway", name="dash_paygateway")
-     * @Method({"GET", "POST"})
-     */
-    public function paygatewayAction(){
-        return $this->render('AppBundle:Dash:paygateway.html.twig', [
-            'pagename' => 'paygateway',
-        ]);
     }
 
     /**

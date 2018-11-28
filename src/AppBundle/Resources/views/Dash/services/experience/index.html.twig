@@ -1,11 +1,10 @@
 {% extends 'AppBundle:Dash:base.html.twig' %}
-
-{% set pagename = 'experience' %}
+{% block pagetitle %}Servicios de Taxi | Experiencias{% endblock pagetitle %}
+{% set pagename = 'services' %}
 
 {% block content %}
 
     <div class="row">
-        <h1>Experiencias</h1>
 
         <a class="btn-primary btn" href="{{ path('dash_experience_new') }}" style="float: right">Crear una nueva Experiencia</a>
 
@@ -23,9 +22,9 @@
 
 
                 <div class="col-md-8">
-                    <h4 class="media-heading">{{ experience.name }} <small>{{ experience.price }}</small></h4>
-                    <h5>{{ experience.place }}</h5>
-                    <p>{{ experience.description }}</p>
+                    <h4 class="media-heading">{{ experience.name }} <small>{{ experience.targetPlace }}</small></h4>
+                    <h5>{{ experience.basePrice }}</h5>
+                    <p>{{ experience.description | striptags }}</p>
                     <p>{{ experience.priceSumary }}</p>
                 </div>
 

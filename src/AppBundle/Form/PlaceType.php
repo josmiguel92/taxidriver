@@ -22,11 +22,8 @@ class PlaceType extends AbstractType
 
           ->add('name', null, ["label"=>"Destino"])
             ->add('nameEn', null, ["label"=>"Destino, en ingles"])
-            ->add('price', MoneyType::class, ["label"=>"Precio del Tour",'currency'=>"CUC"])
-            ->add('trasferprice', MoneyType::class, ["label"=>"Precio del Transfer",'currency'=>"CUC"])
-            ->add('istour', null, ['label'=>"¿Es un Tour?"])
-            ->add('placedesc', CKEditorType::class, ['label'=>"Describa el Tour"])
-            ->add('placedescen', CKEditorType::class, ['label'=>"Describa el Tour, en ingles"])
+            ->add('placedesc', CKEditorType::class, ['label'=>"Describa el lugar"])
+            ->add('placedescen', CKEditorType::class, ['label'=>"Describa el lugar, en ingles"])
 
             //->add('services')
              ->add('googlename',HiddenType::class)
@@ -38,8 +35,6 @@ class PlaceType extends AbstractType
             ->add('galleryImage2',null,['label'=>"Agregar una imagen"])
             ->add('galleryImage3',null,['label'=>"Agregar una imagen"])
             ->add('galleryImage4',null,['label'=>"Agregar una imagen"])
-
-            ->add('weight',null,['label'=>"Posición/Peso del Servicio, mayores numeros apareceran primero"])
 
         ;
     }/**
