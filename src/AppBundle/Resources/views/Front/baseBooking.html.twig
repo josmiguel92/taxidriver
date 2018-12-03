@@ -5,8 +5,8 @@
     <style>
         .carousel-cell{
             width: 100%;
-            height: auto;
             max-height: 80vh;
+            min-height: 60vh;
         }
         .carousel-cell img{
             width: 100%;
@@ -20,7 +20,6 @@
 {% endblock %}
 
 {% block content %}
-    {{ dump(place) }}
     <!-- Page Content-->
     <main class="page-content">
         <section class="section-75 section-md-top-90 section-md-bottom-110">
@@ -66,6 +65,7 @@
 
                         <div class="col-md-6 col-xs-12 offset-top-15" style="margin-bottom:  1em;">
                             <div class="btn-group source-cuba" data-toggle="buttons">
+
                                 <label class="btn btn-primary">
                                     <label id="pickup_no" class="btn btn-primary active">
                                         <input checked type="radio" name="{{ booking_form.airport.vars.full_name }}" id="{{ booking_form.airport.vars.id }}" value="no"> No
@@ -84,7 +84,8 @@
                             <div id="flynumber">
                                 <label for="{{ booking_form.airportname.vars.id }}" class="text-extra-small custom-label text-gray-dark">{% trans %}Airport name{% endtrans %}</label>
                                 <div class="form-group">
-                                    {{ form_widget( booking_form.airportname) }}
+                                    {{ form_widget(booking_form.airportname) }}
+
                                 </div>
                             </div>
                         </div>
@@ -103,145 +104,122 @@
                     </div>
 
 
-                    <!-- Pickup Data -->
-                    <div class="well-row well-row-bg">
-                        <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
-                            {% trans %}Pickup time and Price{% endtrans %}
-                        </p>
-                    </div>
+                <!--- Pickup Data --->
+                <div class="well-row well-row-bg">
+                    <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
+                        {% trans %}Pickup details{% endtrans %}
+                    </p>
+                </div>
 
-                    <div class="well-row">
+                <div class="well-row row">
 
-                        <div class="row">
-                            <div id="tourToggle" class="offset-top-15 cell-xs-12 cell-md-8 well-row-flex" style="margin-bottom: 25px; display: none;">
-                                <label class="custom-label text-gray-dark">
-                                    {% trans %}There is a tour option for this place. Do you want to activate it?{% endtrans %}
-                                </label>
-                                <div class="form-group">
-                                    <input data-toggle="toggle" type="checkbox" id="activeTour" name="{{ booking_form.tour.vars.full_name }}">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="cell-xs-12 cell-md-8 well-row-flex">
-                                <label class="custom-label text-gray-dark">{% trans %}No. of passengers{% endtrans %}</label>
-                                <div class="form-group">
-                                    <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.numpeople.vars.id }}" name="{{ booking_form.numpeople.vars.full_name }}">
-                                </div>
-                                <label style="margin: 1.5em 2em;" class="custom-label text-gray-dark text-right">
-                                    {% trans %}Price{% endtrans %}: <span id="labelPrice"></span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="offset-top-15 cell-sm-5 cell-md-8 well-row-flex">
-                                <label class="custom-label text-gray-dark">{% trans %}Date and time{% endtrans %}
-                                </label>
-                                <div style="max-width: 400px; width: 350%;" class="form-group">
-                                    <input data-constraints="@Required" required placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="" type="text" style="text-align: left; padding: 10px 12px;" class="form-control" id="{{ booking_form.pickuptime.vars.id }}" name="{{ booking_form.pickuptime.vars.full_name }}">
-                                    <span class="form-validation"></span>
-                                    {{ form_errors(booking_form.pickuptime, {'class':'danger'}) }}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="offset-top-15 cell-sm-5 cell-md-8 well-row-flex">
+                    <div class="col-md-10 cell-md-10">
+                        <!--Pickup place-->
+                        <div class="row offset-top-15 well-row-flex">
+                            <div class="col-md-3">
                                 <label for="{{ booking_form.details.vars.id }}"  class="custom-label text-gray-dark">{% trans %}Place{% endtrans %}</label>
-                                <div style="max-width: 400px; width: 350%;" class="form-group">
-                                    <input placeholder="{% trans %}Address{% endtrans %}" type="text" style="padding: 10px 12px;" class="form-control" id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}" data-constraints="@Required" required>
-                                </div>
+                            </div>
+                            <div class="col-md-9 form-group">
+                                <input placeholder="{% trans %}Address{% endtrans %}" type="text" style="padding: 10px 12px;" class="form-control" id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}">
                                 {{ form_errors(booking_form.details, {'class':'danger'}) }}
                             </div>
                         </div>
 
-                        <div id="returnLine" class="row" style="margin-top: 2em; border-top: 1px #e3e3e3 solid; display: none;"></div>
 
-                        <div id="returnAdv" style="margin: 1em auto; display: none;">
-                            <label class="custom-label text-gray-dark" style="color: #18acfb;">
-                                {{ content.getTouradviceLocale }}
+
+                        <!--Date Time -->
+                        <div class="row offset-top-15 well-row-flex">
+                            <!--Pickup place-->
+                            <div class="col-md-3">
+                                <label class="custom-label text-gray-dark">{% trans %}Date and time{% endtrans %}
+                                </label>
+                            </div>
+                            <div class="col-md-9 form-group">
+                                <input data-constraints="@Required" required placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="" type="text" style="text-align: left; padding: 10px 12px;" class="form-control" id="{{ booking_form.pickuptime.vars.id }}" name="{{ booking_form.pickuptime.vars.full_name }}">
+                                <span class="form-validation"></span>
+                                {{ form_errors(booking_form.pickuptime, {'class':'danger'}) }}
+                            </div>
+                        </div>
+
+
+
+                        <!--Persons-->
+                        <div class="row offset-top-15 well-row-flex">
+                            <!--Pickup place-->
+                            <div class="col-md-3">
+                                <label class="custom-label text-gray-dark">{% trans %}No. of persons{% endtrans %}</label>
+                            </div>
+                            <div class="col-md-9 form-group">
+                                <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.numpeople.vars.id }}" name="{{ booking_form.numpeople.vars.full_name }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 cell-md-2" style="display: none">{# todo: revisar incrementos de precio x javascript#}
+                        <div class="row" style="text-align: center">
+                            <p><strong>{% trans %}Price{% endtrans %}</strong></p>
+                            <ul>
+                                <li id="labelPrice">{{ transfer.basePrice }}</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!---Personal Data--->
+                <div class="well-row well-row-bg">
+                    <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">{% trans %}Personal Data{% endtrans %}</p>
+                </div>
+                <div class="well-row row">
+
+                    <!---Name-->
+                    <div class="col-md-10 offset-top-15 well-row-flex">
+                        <div class="col-md-3">
+                            <label for="{{ booking_form.fullname.vars.id }}" class="custom-label text-gray-dark">
+                                {% trans %}Name{% endtrans %}
                             </label>
                         </div>
-
-                        <div id="returnToggle"  class="row" style="display: none;">
-                            <div class="offset-top-15 cell-xs-12 cell-md-8 well-row-flex" style="margin-bottom: 10px;">
-                                <label class="custom-label text-gray-dark">
-                                    {% trans %}You can travel back with us{% endtrans %}.
-                                </label>
-                                <div class="form-group">
-                                    <input data-toggle="toggle" type="checkbox" id="activeReturn" name="{{ booking_form.returnpickup.vars.full_name }}">
-                                </div>
-                            </div>
+                        <div class="col-md-9 form-group">
+                            <input name="{{ booking_form.fullname.vars.full_name }}" id="{{ booking_form.fullname.vars.id }}" data-constraints="@Required" required class="form-control form-control-has-validation form-control-last-child" type="text">
                         </div>
+                    </div>
 
-                        <div id="returnPlace" class="row" style="display: none;">
-                            <div class="offset-top-15 cell-sm-5 cell-md-8 well-row-flex">
-                                <label for="{{ booking_form.returnpickupplacce.vars.id }}"  class="custom-label text-gray-dark">{% trans %}Place for pickup you on return{% endtrans %}</label>
-                                <div style="max-width: 400px; width: 350%;" class="form-group">
-                                    <input placeholder="Address" type="text" style="padding: 10px 12px;" class="form-control" id="{{ booking_form.returnpickupplacce.vars.id }}" name="{{ booking_form.returnpickupplacce.vars.full_name }}">
-                                </div>
-                                {{ form_errors(booking_form.returnpickupplacce, {'class':'danger'}) }}
-                            </div>
+                    <!---Email--->
+                    <div class="col-md-10 offset-top-15 well-row-flex">
+                        <div class="col-md-3">
+                            <label for="{{ booking_form.email.vars.id }}" class="custom-label text-gray-dark">Email</label>
                         </div>
+                        <div class="col-md-9 form-group">
+                            <input name="{{ booking_form.email.vars.full_name }}" id="{{ booking_form.email.vars.id }}" data-constraints="@Email @Required" required class="form-control form-control-has-validation form-control-last-child" type="email">
+                        </div>
+                    </div>
 
-                        <div id="returnTime" class="row" style="display: none;">
-                            <div class="offset-top-15 cell-sm-5 cell-md-8 well-row-flex">
-                                <label class="custom-label text-gray-dark">{% trans %}Date and time for pickup you on return{% endtrans %}</label>
-                                <div style="max-width: 400px; width: 350%;" class="form-group">
-                                    <input data-constraints="@Required" required placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="" type="text" style="text-align: left; padding: 10px 12px;" class="form-control" id="{{ booking_form.returnpickuptime.vars.id }}" name="{{ booking_form.returnpickuptime.vars.full_name }}">
-                                    <span class="form-validation"></span>
-                                    {{ form_errors(booking_form.returnpickuptime, {'class':'danger'}) }}
-                                </div>
-                            </div>
+
+                    <!---Telephone--->
+                    <div class="col-md-10 offset-top-15 well-row-flex">
+                        <div class="col-md-3">
+                            <label for="{{ booking_form.telephone.vars.id }}" class="custom-label text-gray-dark">Telephone</label>
+                        </div>
+                        <div class="col-md-9 form-group">
+                            <input name="{{ booking_form.telephone.vars.full_name }}" id="{{ booking_form.telephone.vars.id }}" class="form-control form-control-has-validation form-control-last-child" type="text">
+                        </div>
+                    </div>
+
+                    <!-- Comment -->
+                    <div class="col-md-10 well-row-flex offset-top-15">
+                        <label for="{{ booking_form.comment.vars.id }}" class="custom-label text-gray-dark">{% trans %}Anything that you need to tell us?{% endtrans %}</label>
+                        <div class="form-group col-xs-12 offset-top-15" style="padding-left: 0;">
+                            <textarea id="{{ booking_form.comment.vars.id }}" name="{{ booking_form.comment.vars.full_name }}" style="max-height: 115px;" class="form-control form-control-has-validation form-control-last-child"></textarea>
+                            <span class="form-validation"></span>
                         </div>
 
                     </div>
 
+                </div>
 
-                    <!---Personal Data--->
-                    <div class="well-row well-row-bg">
-                        <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">{% trans %}Personal Data{% endtrans %}</p>
-                    </div>
-                    <div class="well-row">
 
-                        <div class="range range-xs-center">
-
-                            <!---Name-->
-                            <div class="cell-xs-12 cell-md-6 well-row-flex">
-                                <label for="{{ booking_form.fullname.vars.id }}" class="custom-label text-gray-dark">
-                                    {% trans %}Name{% endtrans %}
-                                </label>
-                                <div class="form-group">
-                                    <input name="{{ booking_form.fullname.vars.full_name }}" id="{{ booking_form.fullname.vars.id }}" data-constraints="@Required" required class="form-control form-control-has-validation form-control-last-child" type="text">
-                                    <span class="form-validation"></span>
-                                </div>
-                            </div>
-
-                            <!---Email--->
-                            <div class="cell-xs-12 cell-md-6 well-row-flex">
-                                <label for="{{ booking_form.email.vars.id }}" class="custom-label text-gray-dark">Email</label>
-                                <div class="form-group">
-                                    <input name="{{ booking_form.email.vars.full_name }}" id="{{ booking_form.email.vars.id }}" data-constraints="@Email @Required" required class="form-control form-control-has-validation form-control-last-child" type="email">
-                                    <span class="form-validation"></span>
-
-                                </div>
-                            </div>
-
-                            <div class="cell-xs-12 well-row-flex offset-top-15">
-                                <label for="{{ booking_form.comment.vars.id }}" class="custom-label text-gray-dark">{% trans %}Anything you need to tell us?{% endtrans %}</label>
-                                <div class="form-group col-xs-12 offset-top-15" style="padding-left: 0;">
-                                    <textarea id="{{ booking_form.comment.vars.id }}" name="{{ booking_form.comment.vars.full_name }}" style="max-height: 115px;" class="form-control form-control-has-validation form-control-last-child"></textarea>
-                                    <span class="form-validation"></span>
-                                </div>
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="well-row">
+                <div class="well-row">
 
                         <div class="range range-xs-center">
                             <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_public_key }}"></div>
@@ -270,7 +248,9 @@
                     </div>
 
                     {{ form_widget(booking_form._token)}}
-                    {{ form_widget(booking_form.ownroute, {'type':'hidden'})}}
+                    <input type="hidden" value="{{ transfer.id }}" name="{{ booking_form.transfer.vars.full_name }}">
+                    <input type="hidden" value="{{ transfer.serviceType }}" name="{{ booking_form.serviceType.vars.full_name }}">
+
 
 
 
@@ -312,7 +292,7 @@
                 $("#returnTime").fadeIn(500);
             }
         }
-
+/*
         function activeOrDeactiveReturn(){
             var returnPlaceInput = $('#{{ booking_form.returnpickupplacce.vars.id }}')[0];
             var returnTimeInput = $('#{{ booking_form.returnpickuptime.vars.id }}')[0];
@@ -330,13 +310,11 @@
                 returnTimeInput.removeAttribute('data-constraints');
             }
         }
-
+*/
         function activeOrDeactivePickupPlace(){
 
             var pickup_place = $('#{{ booking_form.details.vars.id }}')[0];
             var pickup = pickup_from_airport || pickup_from_cruise;
-
-            var airport_prices={{ place.AirportsPrices|json_encode|raw }};
 
             if (pickup){
                 var origin = pickup_from_airport? "airport": "cruise";
@@ -358,6 +336,11 @@
 
     $(document).ready(function()
         {
+             _tourPrice = 0 {#{ place.getPrice }#};
+             _transferPrice = 0{{ transfer.getbasePrice }};
+
+             transferPrice = _transferPrice;
+             tourPrice = _tourPrice;
 
             $('#booking_submit').click(function(e){
 
@@ -392,9 +375,34 @@
                     source_input.removeAttribute('data-constraints'));
 
                 {# TODO: modificar los precios al seleccionar un aereopuerto, eliminar el dump(place) #}
-                pickup_from_airport ? airport_name.removeAttribute('disabled') : airport_name.setAttribute('disabled','true');
+                if(pickup_from_airport){
+                    airport_name.removeAttribute('disabled')
+                }
+                else{
+                    airport_name.setAttribute('disabled','true');
+                }
 
                 activeOrDeactivePickupPlace();
+            });
+
+            //select airport names
+                $("select#appbundle_booking_airportname").change(function() {
+                pickup_from_airport = true; //por si el formulario se recargo con ese valors
+                var selectedName = this.selectedOptions[0].dataset['airportname'];
+                try {
+                  if(typeof airport_prices[selectedName] != null ){
+                      current_price =  airport_prices[selectedName];
+
+                  }
+                    console.log(airport_prices[selectedName]);
+                }
+                catch (e) {
+                  console.log("No se conocen los precios")
+                }
+
+
+
+
             });
 
             //Button of active Tour
@@ -404,10 +412,12 @@
             });
 
             //Button of active return
+            /*
             $("#activeReturn").change(function() {
                 buttonReturnOn = !$('.toggle')[1].classList.contains('off');
                 activeOrDeactiveReturn();
             });
+            */
 
             $("#{{ booking_form.numpeople.vars.id }}").change(function() {
                 numberPeople = $('#{{ booking_form.numpeople.vars.id }}')[0].value;

@@ -6,11 +6,11 @@
     {% set title = "Reservar un Taxi para " %}
 {% endif %}
 
-{% set spanish_page = path("booking_place", {"_locale":"es", "_id":place.getId,  "_name":place.getName}) %}
-{% set english_page = path("booking_place", {"_locale":"en", "_id":place.getId, "_name":place.getNameEn}) %}
+{% set spanish_page = path("booking_place", {"_locale":"es", "_id":transfer.getId,  "_name":transfer.getNameEs}) %}
+{% set english_page = path("booking_place", {"_locale":"en", "_id":transfer.getId, "_name":transfer.getName}) %}
 
 
-{% set title = title~place.getNameLocale %}
+{% set title = title~transfer.getNameLocale %}
 
 
 {% block canonical %}
@@ -21,7 +21,7 @@
     {% endif %}
 {% endblock %}
 
-{% set featureImage =  asset(place.getWideImageWebPath) %}
+{% set featureImage =  asset(transfer.getWideImageWebPath) %}
 
 
 {% block hreflang %}
@@ -50,7 +50,7 @@
             "position": 2,
             "item": {
               "@id": "{{ absolute_url(english_page) }}",
-              "name": "{{ place.getNameEn }}",
+              "name": "{{ transfer.getNameEs }}",
               "image": "{{ asset("/images/favicon.png") }}"
             }
           }]
@@ -61,21 +61,13 @@
         {
             "@context": "http://schema.org/",
             "@type": "Product",
-            {% if not place.istour %}
-                "name": "Taxi to {{ place.getNameEn }}",
-            {% else %}
-                "name": "Tour or Taxi to {{ place.getNameEn }}",
-            {% endif %}
+                "name": "Tour or Taxi to {{ transfer.getNameLocale }}",
             "image": [
-            "{{ absolute_url(asset(place.getWebPath("full-1x1"))) }}",
-            "{{ absolute_url(asset(place.getWebPath("full-4x3"))) }}",
-            "{{ absolute_url(asset(place.getWebPath("full-16x9"))) }}"
+            "{{ absolute_url(asset(transfer.getWebPath("full-1x1"))) }}",
+            "{{ absolute_url(asset(transfer.getWebPath("full-4x3"))) }}",
+            "{{ absolute_url(asset(transfer.getWebPath("full-16x9"))) }}"
             ],
-        {% if not place.istour %}
-            "description": "Taxi to {{ place.getNameEn }}",
-        {% else %}
-            "description": "Taxi Tour to {{ place.getNameEn }}",
-        {% endif %}
+            "description": "Taxi Tour to {{ transfer.getName }}",
             "mpn": "",
             "brand": {
                 "@type": "Thing",
@@ -84,7 +76,7 @@
             "offers": {
                 "@type": "Offer",
                 "priceCurrency": "USD",
-                "price": "{{ (place.getTrasferprice / config['tasa.usd']) | number_format(2,'.') }}",
+                "price": "{{ (transfer.basePrice) | number_format(2,'.') }}",
                 "priceValidUntil": "2018-12-31",
                 "itemCondition": "http://schema.org/UsedCondition",
                 "availability": "http://schema.org/InStock",
@@ -98,18 +90,18 @@
 {% endblock %}
 
 {% if locale=='es' %}
-    {% set description = 'Reserva ahora un taxi para '~place.getNameLocale~' el cual es uno de los lugares maravillosos de nuestra isla. '~content.getReservationDescriptionLocale %}
+    {% set description = 'Reserva ahora un taxi para '~transfer.targetPlace.getNameLocale~' el cual es uno de los lugares maravillosos de nuestra isla. '~content.getReservationDescriptionLocale %}
 {% else %}
-    {% set description = 'Book now a taxi for '~place.getNameLocale~' wich is one of the most wonderful place of our island. '~content.getReservationDescriptionLocale %}
+    {% set description = 'Book now a taxi for '~transfer.targetPlace.getNameLocale~' wich is one of the most wonderful place of our island. '~content.getReservationDescriptionLocale %}
 {% endif %}
 
 
 {% block destination %}
     <div class="main-carousel">
         <div class="carousel-cell">
-            <img src="{{ asset(place.getWideImageWebPath) }}">
+            <img src="{{ asset(transfer.getWideImageWebPath) }}">
         </div>
-        {% set gallery = place.galleryImages %}
+        {% set gallery = transfer.targetPlace.galleryImages %}
         {% if gallery | length > 0%}
             {% for image in gallery %}
                 <div class="carousel-cell">
@@ -127,7 +119,9 @@
 
     <script>
         increment = {{ config['price.increment'] }};
-        isTour = {{ place.isTour? "true":"false" }};
+        isTour = false;
+
+
         function wrapperPrice(price)
         {
             if (typeof(price)=="number")
@@ -138,47 +132,10 @@
         }
 
         function updatePrice()
-        {
-            var tourPrice = {{ place.getPrice }};
-            var transferPrice = {{ place.getTrasferprice }};
-
-            if (isTour){
-                if (buttonTourOn && numberPeople <= 3)
-                    priceContent = wrapperPrice(tourPrice);
-                if (!buttonTourOn && numberPeople <= 3)
-                    priceContent = wrapperPrice(transferPrice);
-                if (buttonTourOn && numberPeople > 3)
-                    priceContent = wrapperPrice(tourPrice+increment*(numberPeople-3));
-                if (!buttonTourOn && numberPeople > 3)
-                    priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
-
-                if (!buttonTourOn && buttonReturnOn){
-                    if (numberPeople <= 3)
-                        priceContent = wrapperPrice(2*transferPrice);
-                    if (numberPeople > 3)
-                        priceContent = wrapperPrice(2*(transferPrice+increment*(numberPeople-3)));
-                }
-            }
-            else if (buttonReturnOn){
-                if (numberPeople <= 3)
-                    priceContent = wrapperPrice(2*transferPrice);
-                if (numberPeople > 3)
-                    priceContent = wrapperPrice(2*(transferPrice+increment*(numberPeople-3)));
-            }
-            else{
-                if (numberPeople <= 3)
+        {      if (numberPeople <= 3)
                     priceContent = wrapperPrice(transferPrice);
                 if (numberPeople > 3)
                     priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
-            }
-
-            //vinnales hard-coded
-            {% if "viñales" in place.nameLocale|lower or "vinales" in place.nameLocale|lower %}
-                if (buttonTourOn && numberPeople <= 3)
-                    priceContent = wrapperPrice(Math.round(135/0.88));
-                if (buttonTourOn && numberPeople > 3)
-                    priceContent = wrapperPrice(Math.round(160/0.88));
-            {% endif %}
 
 
             if (numberPeople > 5)
@@ -214,13 +171,8 @@
               updatePrice();
             });
 
-            {% if place.isTour %}
-                {#Como es un tour mostrar el toggle del tour
-                y anadir la descripcion del lugar.#}
-                $("#tourToggle").fadeIn(500);
-            {% endif %}
-
-            activeOrDeactiveReturn();
+          
+           // activeOrDeactiveReturn();
             $("#returnLine").fadeIn(500);
             $("#returnToggle").fadeIn(500);
             $("#returnPlace").fadeIn(500);

@@ -47,6 +47,8 @@ class Experience extends Service
      */
      private $externalUrl;
 
+
+
     /**
      * Set priceSumary
      *
@@ -151,6 +153,10 @@ class Experience extends Service
     public function __toString()
     {
         return $this->getName();
+    }
+
+    public function getServiceType(){
+        return 'Experience';
     }
 }
 

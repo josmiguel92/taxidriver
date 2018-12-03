@@ -4,7 +4,11 @@ namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
 use AppBundle\Entity\Airport;
+use AppBundle\Entity\AirportTransfer;
+use AppBundle\Entity\Experience;
 use AppBundle\Entity\Place;
+use AppBundle\Entity\Service;
+use AppBundle\Entity\Transfer;
 use AppBundle\Utils\Utils;
 use Couchbase\Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -26,6 +30,15 @@ class BookingController extends Controller
 {
 
     /**
+     * @Route("/_booking", name="new_booking")
+     */
+    public function _bookingAction(Request $request){
+        echo Service::class;
+        dump([Transfer::class, Experience::class, AirportTransfer::class]);
+        exit();
+        return new Response($service);
+    }
+    /**
      * @Route("/booking", defaults={"_locale": "en"})
      * @Route("/{_locale}/booking", defaults={"_locale": "en"}, requirements={
      * "_locale": "en|es|fr"}, name="add_booking")
@@ -40,6 +53,7 @@ class BookingController extends Controller
             'action' => $this->generateUrl('add_booking'),
             'method' => 'POST',
         ));
+        if($booking)
 
         $booking_form->add('airportname', ChoiceType::class,
             ['choices' => $em->getRepository('AppBundle:Airport')->findAll(),
@@ -52,7 +66,7 @@ class BookingController extends Controller
 
         $booking_form->handleRequest($request);
 
-        $places = $em->getRepository('AppBundle:Place')->findAllSorted();
+        $places = $em->getRepository('AppBundle:Place')->findAll();
 
         if ($places) {
 
@@ -89,10 +103,9 @@ class BookingController extends Controller
 
 
                 //validacion para enviar correo a lester o no.
-                if(!$booking->isExperience() && Utils::isSimpleBooking($booking))
+                if(!$booking->isExperience() && $booking->getNumpeople()<=5)
                 {
-                    $_place = $em->getRepository('AppBundle:Place')->find($booking->getPlace());
-                    $booking->setPrice(Utils::calculateSimpleRoutePrices($_place, $booking, $config['price.increment']));
+                    $booking->setPrice($booking->calculateSimplePrice($config['price.increment']));
 
                     $booking->setAccepted(true);
                 }
@@ -126,9 +139,9 @@ class BookingController extends Controller
         Utils::setRequestLocaleLang($_locale);
         $em = $this->getDoctrine()->getManager();
         $places = $em->getRepository('AppBundle:Place')->findAll();
-        $place = $em->getRepository('AppBundle:Place')->find($_id);
+        $transfer = $em->getRepository('AppBundle:Transfer')->find($_id);
 
-        $nameLocale = Utils::slugify($place->getNameLocale());
+        $nameLocale = Utils::slugify($transfer->getNameLocale());
         $nameRequest = $_name;
 
         if ($nameRequest != $nameLocale){
@@ -145,14 +158,17 @@ class BookingController extends Controller
             $config[$item->getName()]=$item->getValue();
         }
 
-        if ($place)
+        if ($transfer)
         {
 
             $booking = new Booking();
+            $booking->setServiceType('Transfer');
+            $booking->setTransfer($transfer);
             $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking, array(
                 'action' => $this->generateUrl('add_booking'),
                 'method' => 'POST',
             ), $em);
+            $place = $transfer->getTargetPlace();
 
             $booking_form->add('airportname', ChoiceType::class,
                 ['choices' => $em->getRepository('AppBundle:Airport')->findAll(),
@@ -178,6 +194,7 @@ class BookingController extends Controller
                     'content'=>$content[0],
                     'socialNetworks'=>$socialNetworks,
                     'hashtags'=>$hashtags,
+                    'transfer'=>$transfer,
                     'place'=>$place,
                     'places'=>$places,
                     'config'=>$config
@@ -215,6 +232,21 @@ class BookingController extends Controller
             $content = $em->getRepository('AppBundle:SiteContent')->findAll();
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
+
+            $service = null;
+            if($purchase->getServiceType()=='Experience')
+            {
+                $service = $em->getRepository('AppBundle:Experience')->find($purchase->getExperience());
+            }
+
+            if($purchase->getServiceType()=='Transfer')
+            {
+                $service = $em->getRepository('AppBundle:Transfer')->find($purchase->getTransfer());
+            }
+            if($purchase->getServiceType()=='AirportTransfer')
+            {
+                $service = $em->getRepository('AppBundle:AirportTransfer')->find($purchase->getAirportTransfer());
+            }
             if($purchase->getPlace())
                 $place = $em->getRepository('AppBundle:Place')->find($purchase->getPlace());
             else $place = null;
@@ -226,7 +258,7 @@ class BookingController extends Controller
                     ->find($purchase->getExperience());
 
 
-            if($_paypalCallback == 'success' OR !Utils::isSimpleBooking($purchase)){
+            if($_paypalCallback == 'success' OR $purchase->getNumpeople()<=5){
 
                 $purchase->setConfirmed(true);
 

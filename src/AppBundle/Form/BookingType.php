@@ -51,6 +51,10 @@ class BookingType extends AbstractType
             ->add('experienceTaxi')
             ->add('experienceTime')
             ->add('airportname')
+            ->add('telephone')
+            ->add('serviceType',HiddenType::class)
+            ->add('airportTransfer')
+             ->add('transfer')
             ;
     }/**
      * {@inheritdoc}

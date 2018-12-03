@@ -1,0 +1,16 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+{% block pagetitle %}Servicios de Taxi | Agregar Aeropuerto-Transfers{% endblock pagetitle %}
+{% set pagename = 'services' %}
+
+{% block content %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div class="row margin-top">
+
+        <input type="submit" value="Guardar" class="form-inline btn btn-primary" />
+
+    </div>
+    {{ form_end(form) }}
+
+
+{% endblock %}

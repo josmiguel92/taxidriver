@@ -230,70 +230,25 @@
                         </div>
                     </div>
 
-
+                    <!--- Divider -->
                     <div class="offset-top-35">
                         <svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/></svg>
                     </div>
 
+
+
+                    {% include '@App/Front/index/_services__experiences.html.twig' %}
+
+
+                    <!--- Divider -->
+                    <div class="offset-top-35">
+                        <svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/>
+                        </svg>
+                    </div>
+
                     <!-- Taxi subsection -->
-                    <div class="offset-top-25">
-                        {% set alt = locale=='en'?"Taxi sign":"señal de Taxi" %}
-                        <img alt="{{ alt }}" src="{{ asset("images/custom-icons/taxi-sign.svg") }}">
-                        <h2 class="text-spacing-25">
-                            {% trans %}Taxi{% endtrans %}
-                        </h2>
-                    </div>
 
-                    <div class="range range-xs-center offset-top-20">
-                        <div class="cell-sm-10 cell-lg-8">
-                            <p class="text-spacing-0">
-                                {{ content.getServicestaxitextLocale | raw }}
-                            </p>
-                        </div>
-                    </div>
-
-                    <!--- list of taxis services -->
-                    <div class="range range-xs-center offset-top-44 offset-md-top-53 text-sm-left">
-
-                        {% for place in places %}
-                            {% if not place.istour %}
-                                <div class="cell-sm-10 cell-md-7 cell-lg-6 offset-top-60">
-                                    <div style="max-width: 100%;" class="reveal-inline-block">
-                                        <!-- Unit-->
-                                        <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
-                                            <div class="unit-left">
-                                                <a href="{{ path("booking_place", {"_id":place.id, "_name": utils.slugify(place.getNameLocale) }) }}" class="text-mine-shaft">
-                                                    <img data-src="{{ asset(place.getWebPath) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
-                                                    <noscript>
-                                                        <img src="{{ asset(place.getWebPath) }}" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block">
-                                                    </noscript>
-                                                </a>
-                                            </div>
-                                            <div class="unit-body">
-                                                <div class="place-description">
-                                                    <p class="p h5 text-capitalize text-spacing-inverse-25" style="height: 3em">
-                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name": utils.slugify(place.getNameLocale) }) }}" class="text-mine-shaft">
-                                                            {{ place.getNameLocale }}
-                                                        </a>
-                                                    </p>
-
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getTrasferprice }}.00 USD <br/></p>
-
-                                                    <div class="offset-top-40">
-                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name": utils.slugify(place.getNameLocale) }) }}" class="btn btn-calypso btn-icon btn-icon-left">
-                                                            <span class="icon icon-xs fa fa-info-circle"></span>
-                                                            {% trans %}More{% endtrans %}
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-
-                    </div>
+                    {% include '@App/Front/index/_services__transfers.html.twig' %}
 
                     <!--- Divider -->
                     <div class="offset-top-35">
@@ -301,133 +256,10 @@
                         </svg>
                     </div>
 
-                    <!-- Taxi-Tours subsection -->
-                    <div class="offset-top-25">
-                        <i class="fa fa-binoculars fa-3x color-sky"></i>
-                        <h2 class="text-spacing-25">
-                            {% trans %}Taxi-Tours{% endtrans %}
-                        </h2>
-                    </div>
+                    {% include '@App/Front/index/_services__airport_transfers.html.twig' %}
 
-                    <div class="range range-xs-center offset-top-20">
-                        <div class="cell-sm-10 cell-lg-8">
-                            <p class="text-spacing-0">
-                                {{ content.getServicestaxitourstextLocale | raw}}
-                            </p>
-                        </div>
-                    </div>
-
-                    <!--List of Tours -->
-                    <div class="range range-xs-center offset-top-44 offset-md-top-53 text-sm-left">
-
-                        {% for place in places %}
-                            {% if place.istour %}
-                                <div class="cell-sm-10 cell-md-7 cell-lg-6 offset-top-60">
-                                    <div style="max-width: 100%;" class="reveal-inline-block">
-                                        <!-- Unit-->
-                                        <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
-                                            <div class="unit-left">
-                                                <a href="{{ path("booking_place", {"_id":place.id, "_name": utils.slugify(place.getNameLocale) }) }}" class="text-mine-shaft">
-                                                    <img data-src="{{ asset(place.getWebPath) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
-                                                    <noscript>
-                                                        <img src="{{ asset(place.getWebPath) }}" width="270" alt="{{ place.getNameLocale }}" class="img-responsive center-block">
-                                                    </noscript>
-                                                </a>
-                                            </div>
-                                            <div class="unit-body">
-                                                <div class="place-description">
-                                                    <h3 class="p h5 text-capitalize text-spacing-inverse-25" style="height: 3em">
-                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name": utils.slugify(place.getNameLocale) }) }}" class="text-mine-shaft">
-                                                            {{ place.getNameLocale }}
-                                                        </a>
-                                                    </h3>
-
-                                                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ place.getTrasferprice }}.00 USD <br/></p>
-
-                                                    <div class="offset-top-40">
-                                                        <a href="{{ path("booking_place", {"_id":place.id, "_name": utils.slugify(place.getNameLocale) }) }}" class="btn btn-calypso btn-icon btn-icon-left">
-                                                            <span class="icon icon-xs fa fa-info-circle"></span>
-                                                            {% trans %}More{% endtrans %}
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-
-                    </div>
-
-                    <!--- Divider -->
-                    <div class="offset-top-35">
-                        <svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/>
-                        </svg>
-                    </div>
-
-
-                    <!-- Experiences subsection -->
-                    <div class="offset-top-25">
-                        <i class="fa fa-binoculars fa-3x color-sky"></i>
-                        <h2 class="text-spacing-25">
-                            {% trans %}Experiences{% endtrans %}
-                        </h2>
-                    </div>
-
-                    <div class="range range-xs-center offset-top-20">
-                        <div class="cell-sm-10 cell-lg-8">
-                            <p class="text-spacing-0">
-                                {{ content.getExperiencesTextLocale |raw }}
-                            </p>
-                        </div>
-                    </div>
-
-                    <!--List of Experiences -->
-                    <div class="range range-xs-center offset-top-44 offset-md-top-53 text-sm-left">
-
-                        {% for experience in experiences %}
-                            {% set link = path("show_experience", {"id":experience.getId, "_name":utils.slugify(experience.getNameLocale)}) %}
-                            <div class="cell-sm-10 cell-md-7 cell-lg-6 offset-top-60">
-                                <div style="max-width: 100%;" class="reveal-inline-block">
-                                    <!-- Unit-->
-                                    <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
-                                        <div class="unit-left">
-                                            <a href="{{ link }}" class="text-mine-shaft">
-                                                <img data-src="{{ asset(experience.getWebPath) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=" width="270" alt="{{ experience.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
-                                                <noscript>
-                                                    <img src="{{ asset(experience.getWebPath) }}" width="270" alt="{{ experience.getNameLocale }}" class="img-responsive center-block">
-                                                </noscript>
-                                            </a>
-                                        </div>
-                                        <div class="unit-body">
-                                            <div class="place-description">
-                                                <h3 class="p h5 text-capitalize text-spacing-inverse-25" style="height: 3em">
-                                                    <a href="{{ link }}" class="text-mine-shaft">
-                                                        {{ experience.getNameLocale }}
-                                                    </a>
-                                                </h3>
-
-                                                <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Place{% endtrans %}: </b> {{ experience.getPlaceLocale }}
-                                                <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ experience.getPriceLocale | split('\r\n') | first }}<br/></p>
-
-                                                <div class="offset-top-40">
-                                                    <a href="{{ link }}" class="btn btn-calypso btn-icon btn-icon-left">
-                                                        <span class="icon icon-xs fa fa-info-circle"></span>
-                                                        {% trans %}More{% endtrans %}
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        {% endfor %}
-
-                    </div>
-                </div>
             </div>
+        </div>
         </section>
 
     {% include '@App/Front/index/_services.html.twig' %}

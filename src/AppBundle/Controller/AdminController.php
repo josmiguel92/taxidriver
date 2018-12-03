@@ -475,16 +475,6 @@ class AdminController extends Controller
 
         $all_books = $em->getRepository("AppBundle:Booking")->findAll();//ByTour(true);
 
-        $tours_books = $em->getRepository("AppBundle:Booking")->findByTour(true);
-
-        $experiences_books = $em->getRepository("AppBundle:Booking")->createQueryBuilder("b")
-            ->where("b.experience is not null")
-            ->getQuery()->getResult();
-
-        $paypal_books =  $em->getRepository("AppBundle:Booking")->createQueryBuilder("b")
-            ->where("b.idpaypal is not null")
-            ->getQuery()->getResult();
-
         foreach ($_places as $value) {
             $places[$value['id']]=$value['name'];
         }
@@ -493,9 +483,7 @@ class AdminController extends Controller
             'pagename' => 'booking',
             'booking' => $booking,
             'all_books'=>$all_books,
-            'tours_books'=>$tours_books,
-            'experiences_books'=>$experiences_books,
-            'paypal_books'=>$paypal_books,
+
             'places'=>$places]);
     }
 

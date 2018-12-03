@@ -1,15 +1,25 @@
 {{ form_start(form) }}
  <h4 class="modal-title">Reservaci&oacute;n de {{ booking.fullname}}</h4>
-  {%  if place %}
-    <h5>{{ place.name }}</h5>
-      {% else %}
-          <h5>Ruta personalizada</h5>
+  {%  if booking.transfer %}
+    <h5>{{ booking.transfer.nameLocale }}</h5>
+  {% elseif booking.experience %}
+           <h5>{{ booking.experience.nameLocale }}, en {{ booking.experience.targetPlace.nameLocale }}</h5>
+   {% else %}
+          <h5>
+
+              {% if booking.toAirport %}a{% else %}desde{% endif %}
+              {% if booking.airportTransfer is not null %}
+                {{ booking.airportTransfer.targetAirport }}
+              {% endif %}
+              (Aeropuerto o terminal de cruceros)
+          </h5>
 
     {%  endif %}
 
 
   <p>Nombre: {{ booking.fullname }} <small>( {{ booking.numpeople }} personas)</small></p>
-<p>Su correo: <a href="mailto:{{ booking.email }}">{{ booking.email }}</a>
+<p>Su correo: <a href="mailto:{{ booking.email }}">{{ booking.email }}</a></p>
+<p>Telefono: <a href="tel://{{ booking.telephone }}">{{ booking.telephone }}</a>
 </p>
 
 {% if booking.isAnAirport %}
@@ -35,10 +45,6 @@
         {{ booking.returnpickuptime | date("l d/m/Y H:i") }}</p>
     <p>Detalles de recogida:<br>
         {{ booking.returnpickupplacce}}
-    </p>
-{% endif %}
-{% if booking.experience %}
-    <p>Desea permanecer {{ booking.experienceTime }} horas en el lugar.
     </p>
 {% endif %}
 <h4>Mensaje del cliente</h4>

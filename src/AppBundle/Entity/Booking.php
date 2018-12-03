@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Utils\Utils;
 use AppBundle\Entity\Place;
 use AppBundle\Entity\Experience;
+use AppBundle\Entity\Transfer;
+use AppBundle\Entity\AirportTransfer;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -35,7 +37,7 @@ class Booking
     private $airport;
 
     /**
-     * @var string
+     * @var Airport
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Airport")
      * @ORM\JoinColumn(name="airportname", referencedColumnName="id", nullable=true)
@@ -49,14 +51,29 @@ class Booking
     private $place;
 
     /**
-     * @var integer
-     * @ORM\Column(name="experience", type="integer", nullable=true)
+     * @var AirportTransfer
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\AirportTransfer")
+     * @ORM\JoinColumn(name="airportTransfer", referencedColumnName="id", nullable=true)
      */
+    private $airportTransfer;
 
 
+    /**
+     * @var Experience
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Experience")
+     * @ORM\JoinColumn(name="experience", referencedColumnName="id", nullable=true)
+     */
     private $experience;
-    //  * ORM\ManyToOne(targetEntity="Experience")
-    //     * ORM\JoinColumn(name="experience", referencedColumnName="id", nullable=true)
+
+
+
+    /**
+     * @var Transfer
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Transfer")
+     * @ORM\JoinColumn(name="transfer", referencedColumnName="id", nullable=true)
+     */
+    private $transfer;
 
     /**
      * @var array
@@ -125,6 +142,29 @@ class Booking
      * @ORM\Column(name="experience_time", type="integer", nullable=true)
      */
     private $experienceTime;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="toAirport", type="boolean", nullable=true)
+     */
+    private $toAirport;
+
+    /**
+     * @return bool
+     */
+    public function isToAirport()
+    {
+        return $this->toAirport;
+    }
+
+    /**
+     * @param bool $toAirport
+     */
+    public function setToAirport($toAirport)
+    {
+        $this->toAirport = $toAirport;
+    }
 
     /**
      * @return bool
@@ -213,9 +253,15 @@ class Booking
 
     /**
      * @var int
-     * @ORM\Column(name="telephone", type="string", length=30)
+     * @ORM\Column(name="telephone", type="string", length=30, nullable=true)
      */
     private $telephone;
+
+    /**
+     * @var string
+     * @ORM\Column(name="serviceType", type="string", length=30)
+     */
+    private $serviceType;
 
     public function getBookingLocale()
     {
@@ -690,12 +736,45 @@ class Booking
     }
 
     /**
-     * @param int $experience
+     * @param Experience $experience
      */
-    public function setExperience($experience)
+    public function setExperience(Experience $experience)
     {
         $this->experience = $experience;
     }
+
+    /**
+     * @return int
+     */
+    public function getTransfer()
+    {
+        return $this->transfer;
+    }
+
+    /**
+     * @param Transfer $transfer
+     */
+    public function setTransfer(Transfer $transfer)
+    {
+        $this->transfer = $transfer;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAirportTransfer()
+    {
+        return $this->airportTransfer;
+    }
+
+    /**
+     * @param AirportTransfer $airportTransfer
+     */
+    public function setAirportTransfer(AirportTransfer $airportTransfer)
+    {
+        $this->airportTransfer = $airportTransfer;
+    }
+
 
     /**
      * @return bool
@@ -753,7 +832,44 @@ class Booking
         $this->telephone = $telephone;
     }
 
+    /**
+     * @return string
+     */
+    public function getServiceType()
+    {
+        return $this->serviceType;
+    }
 
+    /**
+     * @param string $serviceType
+     */
+    public function setServiceType($serviceType)
+    {
+        $this->serviceType = $serviceType;
+    }
+
+
+    public function calculateSimplePrice($increment = 10)
+    {
+
+        $basePrice = 0;
+
+        if($this->transfer)
+        {
+            $basePrice = $this->transfer->getBasePrice();
+        }
+        if($this->experience)
+        {
+            $basePrice = $this->experience->getBasePrice();
+        }
+        if($this->airportTransfer)
+        {
+            $basePrice = $this->transfer->getBasePrice();
+        }
+        $plusPrice = $this->numpeople > 3 ? 0 : ($this->numpeople-3)*$increment;
+        $price = $basePrice + $plusPrice;
+        return $price;
+    }
 
 }
 

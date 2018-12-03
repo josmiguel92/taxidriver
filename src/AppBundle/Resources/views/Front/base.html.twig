@@ -289,19 +289,19 @@
                     </div>
                 </div>
 
-                <div class="cell-xs-12 cell-sm-6 cell-md-3 offset-top-44 offset-md-top-0">
+                <div class="cell-xs-12 cell-sm-6 cell-md-5 offset-top-44 offset-md-top-0">
                     <!-- Taxi -->
                     <div>
                         <p class="text-uppercase text-bold font-accent text-spacing-25 text-white">
                             {% trans %}Taxi{% endtrans %}
                         </p>
                     </div>
-                    <div class="reveal-inline-block offset-top-15 offset-md-top-30">
+                    <div class="reveal-inline-block offset-top-15 offset-md-top-30" style="margin-right: 2em;">
                         <ul class="list-marked p text-left">
                             {% for place in places %}
-                                {% if not place.istour %}
-                                    <li class="offset-top-5">
-                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="color-sky">
+                                {% if loop.index is odd %}
+                                   <li class="offset-top-5">
+                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":utils.slugify(place.getNameLocale)}) }}" class="color-sky">
                                             {{ place.getNameLocale }}
                                         </a>
                                     </li>
@@ -309,29 +309,24 @@
                             {% endfor %}
                         </ul>
                     </div>
+
+
+                    <div class="reveal-inline-block offset-top-15 offset-md-top-30">
+                        <ul class="list-marked p text-left">
+                            {% for place in places %}
+                                {% if loop.index is even %}
+                                <li class="offset-top-5">
+                                    <a href="{{ path("booking_place", {"_id":place.id, "_name":utils.slugify(place.getNameLocale)}) }}" class="color-sky">
+                                        {{ place.getNameLocale }}
+                                    </a>
+                                </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+
                 </div>
 
-                <div class="cell-xs-12 cell-sm-6 cell-md-3 offset-top-44 offset-md-top-0">
-                    <!-- Taxi-Tours -->
-                    <div>
-                        <p class="text-uppercase text-bold font-accent text-spacing-25 text-white">
-                            {% trans %}Taxi-Tours{% endtrans %}
-                        </p>
-                    </div>
-                    <div class="reveal-inline-block offset-top-15 offset-md-top-30">
-                        <ul class="list-marked p text-left">
-                            {% for place in places %}
-                                {% if place.istour %}
-                                    <li class="offset-top-5">
-                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="color-sky">
-                                            {{ place.getNameLocale }}
-                                        </a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
 
 
             </div>
@@ -399,6 +394,9 @@
         </script>
 
    <script src="{{ asset("js/flickity.pkgd.min.js") }}"></script>
+       <!--  Notifications Plugin    -->
+    <script src="{{ asset("/js/bootstrap-notify.js")}}"></script>
+
 
     <script >
     $('.main-carousel').flickity({
@@ -410,6 +408,25 @@
       wrapAround: true
     });
     </script>
+
+      {% if app.session.flashbag.get('notice') %}
+        <script>
+            $('document').ready(function(){
+
+                {% for flash_message in app.session.flashbag.get('notice') %}
+                    {% set thisflash = utils.formatFlashBagNotification(flash_message) %}
+                $.notify({
+                    icon: '{{ thisflash[2] }}',
+                    message: "{{ thisflash[0] }}"
+
+                },{
+                    type: '{{ thisflash[1] }}',
+                    timer: 4000
+                });
+                {% endfor %}
+            });
+        </script>
+        {% endif %}
     {% endblock %}
 </body>
 </html>

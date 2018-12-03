@@ -47,6 +47,7 @@
 
     {% set price_usd = purchase.price %}
 
+
     <!-- Page Content-->
     <main class="page-content">
 
@@ -72,27 +73,31 @@
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
                                 {% if purchase.experience %}
                                     {% trans %}You want the experience{% endtrans %}:
-                                {% else %}
-                                    {% trans %}You want to visit{% endtrans %}:
+                                {% elseif purchase.transfer %}
+                                    {% trans %}You want to go to{% endtrans %}:
+                                {% endif %}
+                                {% if purchase.airportTransfer %}
+                                    Yo want a transfer
+                                    {% if purchase.toAirport %}
+                                        to
+                                    {% else %}
+                                        from
+                                    {% endif %}
+                                    {{ purchase.airportTransfer.targetAirport }}
                                 {% endif %}
                             </p>
+                            {% if purchase.experience or purchase.transfer %}
                             <!-- List-->
                             <ul class="p text-bold text-spacing-25 font-accent text-gray-dark">
-                                {% if purchase.ownroute is not empty %}
-                                    {% for _place in purchase.ownrouteFormated %}
-                                        <li>{{ _place }}</li>
-                                    {% endfor %}
-
-                                {% elseif place is not null %}
-                                    <li class="offset-top-10">
-                                        <p class="text-gray-dark">{{ place.getNameLocale }}</p>
-                                    </li>
-                                {% else %}
-                                    <li class="offset-top-10">
-                                        <p class="text-gray-dark">{{ experience.getNameLocale }}</p>
-                                    </li>
+                                <li class="offset-top-10">
+                                {% if purchase.experience %}
+                                   <p class="text-gray-dark">{{ purchase.experience.nameLocale }}, {% trans %}in{% endtrans %} {{ purchase.experience.targetPlace.getNameLocale }}</p>
+                               {% else %}
+                                    <p class="text-gray-dark">{{ purchase.transfer.targetPlace.getNameLocale }}</p>
                                 {% endif %}
+                                </li>
                             </ul>
+                            {% endif %}
 
                         </div>
 
@@ -101,14 +106,6 @@
                                 {% trans %}The number of people is{% endtrans %}: {{ purchase.getNumpeople }}
                             </p>
                         </div>
-
-                        {% if purchase.experience  %}
-                        <div class="well-row">
-                            <p class="text-bold text-spacing-25 font-accent text-gray-dark">
-                                {% trans %}You'll be there for about{% endtrans %} {{ purchase.experienceTime }} {% trans %}hours{% endtrans %}.
-                            </p>
-                        </div>
-                        {% endif %}
 
                         {% if purchase.isAnAirport or purchase.isACruise or purchase.getDetails  %}
                             <div class="well-row well-row-bg">
@@ -132,20 +129,6 @@
                             </p>
                         </div>
 
-                        {% if not purchase.isExperienceTaxi %}
-                        <div class="well-row well-row-bg">
-                            <p class="text-bold text-spacing-25 font-accent text-gray-dark">
-                                {% trans %}The type of service is{% endtrans %}:
-                                {% if purchase.experience %}
-                                    {% trans %}Experience{% endtrans %}
-                                {% elseif not purchase.isTour %}
-                                        Taxi
-                                    {% else %}
-                                        Taxi Tour
-                                    {% endif %}
-                            </p>
-                        </div>
-                        {% endif %}
 
                         {% if not purchase.experience %}
                             <div class="well-row">

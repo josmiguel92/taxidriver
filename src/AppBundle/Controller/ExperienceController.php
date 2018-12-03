@@ -155,7 +155,7 @@ class ExperienceController extends Controller
             if ($content) {
                 $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
                 $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
-                $places = $em->getRepository('AppBundle:Place')->findAllSorted();
+                $places = $em->getRepository('AppBundle:Place')->findAll();
                 $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
                 $testimonials = $em->getRepository('AppBundle:Testimony')->findAll();
 
@@ -167,8 +167,10 @@ class ExperienceController extends Controller
                 }
 
                 $booking = new Booking();
+                $booking->setServiceType('Experience');
                 $form = $this->createForm('AppBundle\Form\BookingType', $booking,
                     ['action' => $this->generateUrl('add_booking')]);
+
 
 
                 return $this->render('AppBundle:Front:bookingExperience.html.twig', array(

@@ -10,8 +10,8 @@
 
 {% set featureImage =  asset(experience.getWideImageWebPath) %}
 
-{% set spanish_page = path("show_experience", {"_locale":"es", "id":experience.getId, "_name":utils.slugify(experience.getName)}) %}
-{% set english_page = path("show_experience", {"_locale":"en", "id":experience.getId, "_name":utils.slugify(experience.getNameEn)}) %}
+{% set spanish_page = path("show_experience", {"_locale":"es", "id":experience.getId, "_name":utils.slugify(experience.getNameEs)}) %}
+{% set english_page = path("show_experience", {"_locale":"en", "id":experience.getId, "_name":utils.slugify(experience.getName)}) %}
 
 {% block hreflang %}
     <link rel="alternate" hreflang="en" href="{{ absolute_url(english_page) }}" />
@@ -39,7 +39,7 @@
             "position": 2,
             "item": {
               "@id": "{{ absolute_url(english_page) }}",
-              "name": "{{ experience.getNameEn }}",
+              "name": "{{ experience.getName }}",
               "image": "{{ asset("/images/favicon.png") }}"
             }
           }]

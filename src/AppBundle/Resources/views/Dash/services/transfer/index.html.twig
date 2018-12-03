@@ -1,0 +1,42 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+{% block pagetitle %}Servicios de Taxi | Transfers{% endblock pagetitle %}
+{% set pagename = 'services' %}
+
+{% block content %}
+
+    <div class="row">
+
+        <a class="btn-primary btn" href="{{ path('dash_transfer_new') }}" style="float: right">Agregar un nuevo transfer</a>
+
+    </div>
+
+
+    {% for transfer in transfers %}
+
+        <div class="media card">
+            <div class="col-md-2">
+                <a class="pull-left" href="#">
+                    <img class="img-responsive" style="height: 100%" src="{{ asset(transfer.WebPath) }}" alt="{{ transfer.name }}">
+                </a>
+            </div>
+
+
+            <div class="col-md-8">
+                <h4 class="media-heading">{{ transfer.name }} <small>{{ transfer.targetPlace }}</small></h4>
+                <h5>{{ transfer.basePrice }}</h5>
+                <p>{{ transfer.description | striptags }}</p>
+                <p>{{ transfer.priceSumary }}</p>
+            </div>
+
+            <div class="col-md-2">
+                <ul style="list-style: none" class="btn-list">
+                    <li>
+                        <a href="{{ path('dash_transfer_edit', { 'id': transfer.id }) }}"><i class="ti-pencil-alt"></i> Editar</a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    {% endfor %}
+{% endblock %}

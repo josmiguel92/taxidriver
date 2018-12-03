@@ -10,7 +10,7 @@ use AppBundle\Utils\Utils;
  * Service
  *
  */
-class Service extends ImageField
+abstract class Service extends ImageField
 {
     /**
      * @var int
@@ -63,6 +63,11 @@ class Service extends ImageField
      */
     protected $descriptionEn;
 
+    /**
+     * @var integer
+     * @ORM\Column(name="weight", type="integer", nullable=true)
+     */
+    protected $weight;
 
     /**
      * Get id
@@ -236,6 +241,24 @@ class Service extends ImageField
             return $this->description;
         return $this->descriptionEn;
     }
+
+    /**
+     * @return int
+     */
+    public function getWeight()
+    {
+        return $this->weight;
+    }
+
+    /**
+     * @param int $weight
+     */
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+    }
+
+    abstract function getServiceType();
 
 }
 

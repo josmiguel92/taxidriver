@@ -18,12 +18,12 @@ class PlaceRepository extends \Doctrine\ORM\EntityRepository
             )
             ->getResult();
     }
-
-    public function findAllSorted(){
-        return $this->getEntityManager()
-            ->createQuery(
-                'SELECT p FROM AppBundle:Place p ORDER BY p.weight DESC'
-            )
-            ->getResult();
-    }
+//
+//    public function findAllSorted(){
+//        return $this->getEntityManager()
+//            ->createQuery(
+//                'SELECT p FROM AppBundle:Place p ORDER BY p.weight DESC'
+//            )
+//            ->getResult();
+//    }
 }

@@ -15,8 +15,7 @@
         </div>
         {{ form_row(route_form.name) }}
         {{ form_row(route_form.nameEn) }}
-        <hr>
-        {{ form_row(route_form.weight) }}
+
     </div>
 
     <div class="col-md-12">
@@ -65,30 +64,7 @@
         <hr>
         {{ form_row(route_form.placedesc) }}
         {{ form_row(route_form.placedescen) }}
-        {{ form_row(route_form.istour) }}
 
-    </div>
-
-    <div class="col-md-12">
-        <hr>
-        <h5 data-toggle="collapse" data-target="#basePriceCollapse">Precios Base, desde la Habana <i class="fa fa-angle-double-down"></i></h5>
-        <div class="row collapse" id="basePriceCollapse">
-            <div class="col-md-12">
-
-            {{ form_row(route_form.price) }}
-            {{ form_row(route_form.trasferprice) }}
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-12">
-        <hr>
-        <h5 data-toggle="collapse" data-target="#airportsCollapsePrice">Precios desde los Aeropuertos <i class="fa fa-angle-double-down"></i></h5>
-        <div class="row collapse" id="airportsCollapsePrice">
-            <div class="col-md-12">
-                {{ form_widget(route_form) }}
-            </div>
-        </div>
     </div>
 
 

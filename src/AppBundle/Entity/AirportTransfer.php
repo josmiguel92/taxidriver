@@ -20,6 +20,8 @@ class AirportTransfer extends Service
      */
     protected $targetAirport;
 
+
+
     /**
      * @return Place
      */
@@ -37,9 +39,14 @@ class AirportTransfer extends Service
     }
 
 
+
     public function __toString()
     {
         return $this->getName();
+    }
+
+    public function getServiceType(){
+        return 'AirportTransfer';
     }
 }
 

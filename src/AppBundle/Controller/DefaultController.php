@@ -24,6 +24,14 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request, $_locale)
     {
+        /*
+         * TODO: Enviar mensaje FLASH de exito
+        $this->addFlash('notice', 'Mensaje enviado. Muchas gracias<br>Message sended, Thanks a lot! >> success >> fa-cab');
+        $this->addFlash(
+            'notice',
+            'La imagen fue eliminada definitivamente! >> success >> ti-trash'
+        );
+*/
         Utils::setRequestLocaleLang($_locale);
         $em = $this->getDoctrine()->getManager();
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
@@ -34,10 +42,13 @@ class DefaultController extends Controller
 
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
-            $places = $em->getRepository('AppBundle:Place')->findAllSorted();
+            $places = $em->getRepository('AppBundle:Place')->findAll(); //TODO: eliminar esta consulta y no pasar los places
             $experiences = $em->getRepository('AppBundle:Experience')->findAll();
             $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
             $testimonials = $em->getRepository('AppBundle:Testimony')->findAll();
+
+            $transfers = $em->getRepository('AppBundle:Transfer')->findAllSorted();
+            $airport_transfers = $em->getRepository('AppBundle:AirportTransfer')->findAll();
 
             $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
             $config = [];
@@ -50,43 +61,15 @@ class DefaultController extends Controller
             if(count($posters)>0)
                 $featureImage = $posters[0]->getWebPath();
 
-            $message = new ContactMsgs();
-            $messageForm = $this->createForm('AppBundle\Form\ContactMsgsType',$message);
-            $messageForm->handleRequest($request);
-            $sended_email = false;
-            if ($messageForm->isSubmitted() && $messageForm->isValid()) {
-                $em->persist($message);
-                $em->flush();
-                $sended_email = true;
+            $messageForm = $this->createForm('AppBundle\Form\ContactMsgsType',
+                            new ContactMsgs(),
+                            array(
+                                'action' => $this->generateUrl('sendMessage'),
+                                'method' => 'POST'
+                                )
+                            );
 
-                $senderEmail = $content[0]->getContactemail();
-                $address = $content[0]->getContactaddressLocale();
-                $telephone = $content[0]->getContacttelephone();
-                $subject = "Nuevo contacto a traves de la Web (".$message->getId().")";
-                $email = \Swift_Message::newInstance()
-                    ->setSubject($subject)
-                    ->setReplyTo($senderEmail)
-                    ->setTo($senderEmail)
-                    ->setFrom("taxidriverscuba-noreply@taxidriverscuba.com")
-                    ->setBody(
-                        $this->renderView(
-                            'AppBundle:Email:contactNotification.html.twig',
-                            [
-                                'subject'=>$subject,
-                                '_locale'=>$_locale,
-                                'address' => $address,
-                                'telephone'=> $telephone,
-                                'message'=>$message,
-                            ]
-                        ),
-                        'text/html'
-                    );
-                $this->get('mailer')->send($email);
-            }
-
-
-
-                return $this->render('AppBundle:Front:index.html.twig',
+            return $this->render('AppBundle:Front:index.html.twig',
             ['locale'=>$_locale,
             'content'=>$content[0],
             'featureImage'=>$featureImage,
@@ -94,17 +77,21 @@ class DefaultController extends Controller
             'blogEntries'=>$blogEntries,
             'socialNetworks'=>$socialNetworks,
             'hashtags'=>$hashtags,
+
+            'transfers'=>$transfers,
             'places'=>$places,
             'experiences'=>$experiences,
+            'airport_transfers' => $airport_transfers,
             'infographys'=>$infographys,
             'testimonials'=>$testimonials,
             'config' => $config,
             'messageForm' => $messageForm->createView(),
-            'sended_email'=>$sended_email
+
             ]);
         }
         else throw new \Exception("No hay datos en la DB", 500 );
     }
+
 
     /**
      * @Route("/blog")
@@ -269,5 +256,49 @@ class DefaultController extends Controller
         }
 
         return new JsonResponse(['status'=>'ok']);
+    }
+
+    /**
+     * @Route("/sendMessage", methods={"POST"}, name="sendMessage")
+     */
+    public function sendMessageAction(Request $request)
+    {
+
+        $message = new ContactMsgs();
+        $messageForm = $this->createForm('AppBundle\Form\ContactMsgsType',$message);
+        $messageForm->handleRequest($request);
+        $_locale = $request->getLocale();
+        $em = $this->getDoctrine()->getManager();
+        $content = $em->getRepository('AppBundle:SiteContent')->findAll();
+
+        if ($messageForm->isSubmitted() && $messageForm->isValid()) {
+        $em->persist($message);
+        $em->flush();
+        $sended_email = true;
+
+        $senderEmail = $content[0]->getContactemail();
+        $subject = "Nuevo contacto a traves de la Web (".$message->getId().")";
+        $email = \Swift_Message::newInstance()
+            ->setSubject($subject)
+            ->setReplyTo($senderEmail)
+            ->setTo($senderEmail)
+            ->setFrom("taxidriverscuba-noreply@taxidriverscuba.com")
+            ->setBody(
+                $this->renderView(
+                    'AppBundle:Email:contactNotification.html.twig',
+                    [
+                    'subject'=>$subject,
+                    '_locale'=>$_locale,
+                    'message'=>$message,
+                    ]
+                ),
+            'text/html'
+            );
+        $this->get('mailer')->send($email);
+        }
+
+        $this->addFlash('message', 'Mensaje enviado. Muchas gracias<br>Message sended, Thanks a lot!');
+        return $this->redirectToRoute('home');
+
     }
 }

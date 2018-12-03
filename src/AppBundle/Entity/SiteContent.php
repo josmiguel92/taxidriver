@@ -1609,5 +1609,111 @@ class SiteContent
         return $this->touradviceen;
     }
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="airport_transfer_title", type="string", length=1000)
+     */
+    private $airport_transfer_title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="airport_transfer_title_en", type="string", length=1000)
+     */
+    private $airport_transfer_title_en;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="airport_transfer_text", type="text")
+     */
+    private $airport_transfer_text;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="airport_transfer_text_en", type="text")
+     */
+    private $airport_transfer_text_en;
+
+    /**
+     * @return string
+     */
+    public function getAirportTransferTitle()
+    {
+        return $this->airport_transfer_title;
+    }
+
+    /**
+     * @param string $airport_transfer_title
+     */
+    public function setAirportTransferTitle($airport_transfer_title)
+    {
+        $this->airport_transfer_title = $airport_transfer_title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAirportTransferTitleEn()
+    {
+        return $this->airport_transfer_title_en;
+    }
+
+    /**
+     * @param string $airport_transfer_title_en
+     */
+    public function setAirportTransferTitleEn($airport_transfer_title_en)
+    {
+        $this->airport_transfer_title_en = $airport_transfer_title_en;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAirportTransferText()
+    {
+        return $this->airport_transfer_text;
+    }
+
+    /**
+     * @param string $airport_transfer_text
+     */
+    public function setAirportTransferText($airport_transfer_text)
+    {
+        $this->airport_transfer_text = $airport_transfer_text;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAirportTransferTextEn()
+    {
+        return $this->airport_transfer_text_en;
+    }
+
+    /**
+     * @param string $airport_transfer_text_en
+     */
+    public function setAirportTransferTextEn($airport_transfer_text_en)
+    {
+        $this->airport_transfer_text_en = $airport_transfer_text_en;
+    }
+
+    public function getAirportTransferTitleLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->airport_transfer_title;
+        else return $this->airport_transfer_title_en;
+    }
+
+    public function getAirportTransferTextLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->airport_transfer_text;
+        else return $this->airport_transfer_text_en;
+    }
+
 }
 

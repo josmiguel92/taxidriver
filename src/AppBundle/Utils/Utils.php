@@ -136,16 +136,6 @@ class Utils
             return "en";
     }
 
-    //retorna falso si tiene multiples lugares o es un  owntour
-    static function isSimpleBooking(\AppBundle\Entity\Booking $booking){
-        $ownroute = false;
-
-        if($booking->getOwnroute() != null)
-            return false;
-
-        return $booking->getNumpeople() <= 5;
-    }
-
     static function placesJasonParse($placeCollections){
         $places = json_decode($placeCollections, true);
         $idPlaces = [];
@@ -158,32 +148,20 @@ class Utils
 
     static function calculateSimpleRoutePrices(\AppBundle\Entity\Place $place, \AppBundle\Entity\Booking $booking, $increment){
 
-        $price = 0;
-        if($place->getName() == 'Viñales' && $booking->isTour())
-        {
-            if($booking->getNumpeople() <= 3)
-                $price = floor(135/0.88);
-            elseif ($booking->getNumpeople() <= 5)
-                $price = floor(160/0.88);
-        }
-        else {
-            $_price = $booking->isTour() ? $place->getPrice() : $place->getTrasferprice();
-            if ($booking->getNumpeople() <= 3)
-                $price = $_price;
-            else
-                $price = $_price + ($booking->getNumpeople()-3)*$increment;
-
-        }
-        if($booking->isReturnpickup())
-            $price *= 2;
-
-        return $price;
     }
 
     static function slugify(string $text){
-
         $text = strtolower(preg_replace('[ ]', '-', trim($text)));
-        $text =preg_replace('[,.]', '',$text);
+        $replaceThis = Array(
+            'á' => 'a',
+            'é' => 'e',
+            'í' => 'i',
+            'ó' => 'o',
+            'ú' => 'u',
+            '(' => '',
+            ')' => ''
+        );
+        $text = str_replace(array_keys($replaceThis), $replaceThis, $text);
         return $text;
     }
 

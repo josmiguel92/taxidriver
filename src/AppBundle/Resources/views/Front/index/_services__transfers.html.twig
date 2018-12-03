@@ -1,0 +1,65 @@
+
+<!-- Taxi-Transfers subsection -->
+<div class="offset-top-25">
+    {% set alt = locale=='en'?"Taxi sign":"señal de Taxi" %}
+    <img alt="{{ alt }}" src="{{ asset("images/custom-icons/taxi-sign.svg") }}">
+    <h2 class="text-spacing-25">
+        {% trans %}Taxi{% endtrans %}
+    </h2>
+</div>
+
+<div class="range range-xs-center offset-top-20">
+    <div class="cell-sm-10 cell-lg-8">
+        <p class="text-spacing-0">
+            {{ content.getServicestaxitextLocale | raw }}
+        </p>
+    </div>
+</div>
+
+
+
+<!--List of Tours -->
+<div class="range range-xs-center offset-top-44 offset-md-top-53 text-sm-left" id="service-transfers" style="flex-wrap: wrap;">
+
+    {% for transfer in transfers %}
+        <div class="cell-sm-10 cell-md-6 cell-lg-4 offset-top-60"  style="display: flex; float: none">
+            <div style="max-width: 40%;" class="reveal-inline-block">
+                <!-- Unit-->
+                <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
+                    <div class="unit-left">
+                        <a href="{{ path("booking_place", {"_id":transfer.id, "_name": utils.slugify(transfer.getNameLocale) }) }}" class="text-mine-shaft">
+                            <img data-src="{{ asset(transfer.getWebPath) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII="  alt="{{ transfer.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
+                            <noscript>
+                                <img src="{{ asset(transfer.getWebPath) }}" alt="{{ transfer.getNameLocale }}" class="img-responsive center-block">
+                            </noscript>
+                        </a>
+                    </div>
+                    <div class="unit-body">
+                        <div class="place-description" style="display: flex;flex-direction: column;">
+                            <h3 class="p h5 text-capitalize text-spacing-inverse-25" style="height: 2em">
+                                <a href="{{ path("booking_place", {"_id":transfer.id, "_name": utils.slugify(transfer.getNameLocale) }) }}" class="text-mine-shaft">
+                                    {{ transfer.getNameLocale }}
+                                </a>
+                            </h3>
+                            {% if transfer.basePrice > 0 %}
+                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i>
+                                    {% trans %}Price{% endtrans %}: </b>
+                                    {{ transfer.basePrice | number_format(2,'.') }} USD
+                            </p>
+                            {% endif %}
+
+                            {#<div class="" style="bottom: 0">
+                                <a href="{{ path("booking_place", {"_id":transfer.id, "_name": utils.slugify(transfer.getNameLocale) }) }}" class="btn btn-calypso btn-icon btn-icon-left">
+                                    <span class="icon icon-xs fa fa-info-circle"></span>
+                                    {% trans %}See details{% endtrans %}
+                                </a>
+                            </div>
+                            #}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+</div>

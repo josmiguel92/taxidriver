@@ -14,7 +14,7 @@
                         <div class="col-xs-7">
                             <div class="numbers">
                                 <p>Tours reservados</p>
-                                {{ all_books|length }}
+                                {#{ all_books|length }#}
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                         <div class="col-xs-7">
                             <div class="numbers">
                                 <p>Experiencias r.</p>
-                                {{ experiences_books|length }}
+                                {#{ experiences_books|length }#}
                             </div>
                         </div>
                     </div>
@@ -43,26 +43,7 @@
             </div>
         </div>
 
-        <div class="col-lg-3 col-sm-6">
-            <div class="card">
-                <div class="content">
-                    <div class="row">
-                        <div class="col-xs-5">
-                            <div class="icon-big icon-danger text-center">
-                                <i class="ti-receipt"></i>
-                            </div>
-                        </div>
-                        <div class="col-xs-7">
-                            <div class="numbers">
-                                <p>Pagos por PayPal</p>
-                                {{ paypal_books|length }}
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-            </div>
-        </div>
         <div class="col-lg-3 col-sm-6">
             <div class="card">
                 <div class="content">
@@ -107,10 +88,8 @@
                         <tr>
                             <td><a href="{{ path('booking_details', {'booking': item.id}) }}">{{ item.id }}</a></td>
                             <td>{{ item.fullname }}</td>
-                            <td>{% if item.place and places[item.place] is defined %}
-                                {{ places[item.place] }}
-                                {% elseif item.experience %}
-                                    {{ item.getExperience.getName }} ({{ item.getExperience.place }})
+                            <td>{% if item.experience %}
+                                {{ item.getExperience.getName }} ({{ item.getExperience.targetPlace }})
                                 {% else %}
                                 Ruta personalizada
                                 {% endif %}

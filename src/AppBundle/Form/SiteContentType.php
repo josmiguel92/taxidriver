@@ -43,6 +43,13 @@ class SiteContentType extends AbstractType
             ->add('servicestaxitourstitleen', null, ["label"=>"Título del servicio de taxi-tour, en ingles"])
             ->add('servicestaxitourstext', CKEditorType::class, ["label"=>"Texto sobre el servicio de Tour"])
             ->add('servicestaxitourstexten', CKEditorType::class, ["label"=>"Texto sobre el servicio de Tour, en ingles"])
+
+            ->add('airport_transfer_title', null, ["label"=>"Título del servicio de taxi al aeropuerto"])
+            ->add('airport_transfer_title_en', null, ["label"=>"Título del servicio de taxi al aeropuerto, ingles"])
+            ->add('airport_transfer_text', CKEditorType::class, ["label"=>"Texto sobre el servicio de Taxi al aeropuerto"])
+            ->add('airport_transfer_text_en', CKEditorType::class, ["label"=>"Texto sobre el servicio de Taxi al aeropuerto, ingles"])
+
+
             ->add('touradvice', TextareaType::class, ["label"=>"Aviso sobre los tours"])
             ->add('touradviceen', TextareaType::class, ["label"=>"Aviso sobre los tours, en ingles"])
 

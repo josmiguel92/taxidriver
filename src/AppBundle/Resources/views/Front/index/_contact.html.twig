@@ -24,16 +24,11 @@
                     <input id="{{ messageForm.email.vars.id }}" type="email" name="{{ messageForm.email.vars.full_name }}" data-constraints="@Email @Required" class="form-control">
                 </div>
                 <div class="text-center text-sm-right offse-top-5">
-                    {% if sended_email %}
-                        <div class="alert alert-succes text-align: center;">
-                            <a href="#" class="alert-link">{% trans %}Your message have been sended, thanks a lot!{% endtrans %}</a>
-                        </div>
-                    {% else %}
+
                         <button type="submit" style="min-width: 210px;" class="btn btn-primary">
                             <i class="fa fa-send"></i>
                             {% trans %}Send a message{% endtrans %}
                         </button>
-                    {% endif %}
 
                 </div>
                 {{ form_widget(messageForm._token)}}
