@@ -55,46 +55,6 @@ class SupervisorController extends Controller
     public function migrationAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $experiences = $em->getRepository('AppBundle:Experience')->findAll();
-
-        $havana = new Place();
-        $havana->setName('La Habana')->setNameEn('Havana');
-        $havana->setPath('d3c2a2b9ad.jpeg');
-        $em->persist($havana);
-
-        foreach ($experiences as $exp){
-            $exp->setNameEs($exp->getName());
-
-            if($exp->getId()==3)
-            {
-                    $exp->setBasePrice(120);
-                    $exp->setTargetPlace($havana);
-            }
-            if($exp->getId()==5)
-            {//playa larga
-                $exp->setBasePrice(153);
-                $exp->setTargetPlace($em->getRepository('AppBundle:Place')->find(10));
-            }
-            if($exp->getId()==6 OR $exp->getId()==4)
-            {
-                $exp->setTargetPlace($havana);
-            }
-
-            $em->persist($exp);
-        }
-
-        $places = $em->getRepository('AppBundle:Place')->findAll();
-
-        foreach ($places as $place)
-        {
-            $transfer = new Transfer();
-            $transfer->setTargetPlace($place);
-            $transfer->setName($place->getNameEn())
-                     ->setNameEs($place->getName());
-            $transfer->setPath($place->getPath());
-
-            $em->persist($transfer);
-        }
 
         $em->flush();
 
