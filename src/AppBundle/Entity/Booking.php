@@ -891,8 +891,9 @@ class Booking
         if($this->airportTransfer)
         {
             $basePrice = $this->airportTransfer->getBasePrice();
-
         }
+        if(!$basePrice)
+            return false;
 
         $plusPrice = $this->numpeople <= 3 ? 0 : ($this->numpeople-3)*$increment;
         $price = $basePrice + $plusPrice;

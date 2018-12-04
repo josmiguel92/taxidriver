@@ -104,11 +104,11 @@ class BookingController extends Controller
 
                 //validacion para enviar correo a lester o no.
                 if(!$booking->isExperience() && $booking->getNumpeople()<=5)
-                {
-                    $booking->setPrice($booking->calculateSimplePrice($config['price.increment']));
-
-                    $booking->setAccepted(true);
-                }
+                    if($_price = $booking->calculateSimplePrice($config['price.increment']))
+                    {
+                        $booking->setPrice($_price);
+                        $booking->setAccepted(true);
+                    }
 
 
                 $em->persist($booking);
