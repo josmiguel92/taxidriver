@@ -24,6 +24,8 @@
                         {% endblock %}
                     </div>
                     <div class="routes-description">
+                        {{ experience.targetPlace.getPlaceDescLocale | raw }}
+                        <hr>
                         {{ experience.getDescriptionLocale | raw }}
                     </div>
 

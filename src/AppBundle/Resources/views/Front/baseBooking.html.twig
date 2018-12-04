@@ -48,6 +48,8 @@
                 {% if ownTourPage is not defined %}
                     <div class="routes-description">
                         {{ place.getPlaceDescLocale | raw }}
+                        <hr>
+                        {{ transfer.getDescriptionLocale | raw }}
                     </div>
                 {% endif %}
 
