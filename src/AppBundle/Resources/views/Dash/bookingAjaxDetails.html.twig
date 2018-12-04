@@ -15,7 +15,12 @@
           </h5>
 
     {%  endif %}
-
+   <h5>
+       {% if booking.targetPlace %}
+           para ir a
+           {{ booking.targetPlace.NameLocale }}
+       {% endif %}
+   </h5>
 
   <p>Nombre: {{ booking.fullname }} <small>( {{ booking.numpeople }} personas)</small></p>
 <p>Su correo: <a href="mailto:{{ booking.email }}">{{ booking.email }}</a></p>

@@ -45,6 +45,14 @@ class Booking
     private $airportName;
 
     /**
+     * @var Place
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Place")
+     * @ORM\JoinColumn(name="targetPlace", referencedColumnName="id", nullable=true)
+     */
+    private $targetPlace;
+
+    /**
      * @var integer
      * @ORM\Column(name="place", type="integer", nullable=true)
      */
@@ -276,6 +284,7 @@ class Booking
         $this->setConfirmed(0);
     }
 
+
     /**
      * @return string
      */
@@ -483,6 +492,23 @@ class Booking
     {
         return $this->email;
     }
+
+    /**
+     * @return \AppBundle\Entity\Place
+     */
+    public function getTargetPlace()
+    {
+        return $this->targetPlace;
+    }
+
+    /**
+     * @param \AppBundle\Entity\Place $targetPlace
+     */
+    public function setTargetPlace($targetPlace)
+    {
+        $this->targetPlace = $targetPlace;
+    }
+
 
     /**
      * Set flynumber
@@ -864,9 +890,11 @@ class Booking
         }
         if($this->airportTransfer)
         {
-            $basePrice = $this->transfer->getBasePrice();
+            $basePrice = $this->airportTransfer->getBasePrice();
+
         }
-        $plusPrice = $this->numpeople > 3 ? 0 : ($this->numpeople-3)*$increment;
+
+        $plusPrice = $this->numpeople <= 3 ? 0 : ($this->numpeople-3)*$increment;
         $price = $basePrice + $plusPrice;
         return $price;
     }

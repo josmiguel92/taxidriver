@@ -10,4 +10,11 @@ namespace AppBundle\Repository;
  */
 class AirportTransferRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllSorted(){
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT p FROM AppBundle:AirportTransfer p ORDER BY p.weight DESC'
+            )
+            ->getResult();
+    }
 }

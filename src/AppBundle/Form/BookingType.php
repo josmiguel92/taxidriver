@@ -55,6 +55,7 @@ class BookingType extends AbstractType
             ->add('serviceType',HiddenType::class)
             ->add('airportTransfer')
              ->add('transfer')
+             ->add('targetPlace')
             ;
     }/**
      * {@inheritdoc}

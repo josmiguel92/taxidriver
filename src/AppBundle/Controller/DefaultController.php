@@ -43,12 +43,12 @@ class DefaultController extends Controller
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
             $places = $em->getRepository('AppBundle:Place')->findAll(); //TODO: eliminar esta consulta y no pasar los places
-            $experiences = $em->getRepository('AppBundle:Experience')->findAll();
             $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
             $testimonials = $em->getRepository('AppBundle:Testimony')->findAll();
 
+            $experiences = $em->getRepository('AppBundle:Experience')->findAllSorted();
             $transfers = $em->getRepository('AppBundle:Transfer')->findAllSorted();
-            $airport_transfers = $em->getRepository('AppBundle:AirportTransfer')->findAll();
+            $airport_transfers = $em->getRepository('AppBundle:AirportTransfer')->findAllSorted();
 
             $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
             $config = [];

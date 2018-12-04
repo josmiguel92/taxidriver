@@ -119,8 +119,13 @@
 
     <script>
         increment = {{ config['price.increment'] }};
+        transferPrice = {{ transfer.basePrice }};
         isTour = false;
 
+
+        $("#{{ booking_form.numpeople.vars.id }}").change(function() {
+                numberPeople = $('#{{ booking_form.numpeople.vars.id }}')[0].value;
+            });
 
         function wrapperPrice(price)
         {
@@ -169,6 +174,7 @@
 
             $("#{{ booking_form.numpeople.vars.id }}").change(function() {
               updatePrice();
+              console.log('update price')
             });
 
           

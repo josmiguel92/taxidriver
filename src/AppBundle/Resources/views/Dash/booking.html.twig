@@ -89,10 +89,13 @@
                             <td><a href="{{ path('booking_details', {'booking': item.id}) }}">{{ item.id }}</a></td>
                             <td>{{ item.fullname }}</td>
                             <td>{% if item.experience %}
-                                {{ item.getExperience.getName }} ({{ item.getExperience.targetPlace }})
-                                {% else %}
-                                Ruta personalizada
+                                    {{ item.getExperience.getName }} ({{ item.getExperience.targetPlace }})
+                                {% elseif item.transfer %}
+                                    {{ item.transfer.targetPlace }}
+                                {% elseif item.airportTransfer %}
+                                    {{ item.airportTransfer.targetAirport }}
                                 {% endif %}
+                                -{{ item.targetPlace }}
                             </td>
                             <td>{{ item.pickuptime | date("Y/M/d - H:i")}}</td>
                             <td>

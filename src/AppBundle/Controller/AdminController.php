@@ -464,10 +464,10 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $booking = $em->getRepository("AppBundle:Booking")
-        ->createQueryBuilder("b")
+            ->createQueryBuilder("b")
             ->where("b.pickuptime > :yesterday")
             ->setParameter("yesterday", new \DateTime('yesterday'))
-            ->orderBy("b.pickuptime", "ASC")
+            ->orderBy("b.id", "DESC")
             ->getQuery()->getResult();
 
         $_places = $em->getRepository("AppBundle:Place")->findByNonePlaceNames();

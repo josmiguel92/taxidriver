@@ -1,5 +1,100 @@
 {% extends 'AppBundle:Front:base.html.twig' %}
 
+{% set title = "Book a Taxi to "%}
+{% if locale=='es' %}
+    {% set title = "Reservar un Taxi para " %}
+{% endif %}
+
+{% set spanish_page = path("booking_place", {"_locale":"es", "_id":transfer.getId,  "_name":transfer.getNameEs}) %}
+{% set english_page = path("booking_place", {"_locale":"en", "_id":transfer.getId, "_name":transfer.getName}) %}
+
+
+{% set title = title~transfer.getNameLocale %}
+
+
+{% block canonical %}
+    {% if locale == 'es' %}
+        <link rel="canonical" href="{{ absolute_url(spanish_page) }}" />
+    {% else %}
+        <link rel="canonical" href="{{ absolute_url(english_page) }}" />
+    {% endif %}
+{% endblock %}
+
+{% set featureImage =  asset(transfer.getWideImageWebPath) %}
+
+
+{% block hreflang %}
+    <link rel="alternate" hreflang="en" href="{{ absolute_url(english_page) }}" />
+    <link rel="alternate" hreflang="es" href="{{ absolute_url(spanish_page) }}" />
+    <link rel="alternate" hreflang="x-default" href="{{ absolute_url(english_page) }}" />
+{% endblock %}
+
+{% block structure_data %}
+    {#breadcrumbs#}
+    <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+              "@id": "{{ absolute_url(path("home")) }}",
+              "name": "Home",
+              "image": "{{ asset("/images/favicon.png") }}"
+            }
+          }
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@id": "{{ absolute_url(english_page) }}",
+              "name": "{{ transfer.getNameEs }}",
+              "image": "{{ asset("/images/favicon.png") }}"
+            }
+          }]
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org/",
+            "@type": "Product",
+                "name": "Tour or Taxi to {{ transfer.getNameLocale }}",
+            "image": [
+            "{{ absolute_url(asset(transfer.getWebPath("full-1x1"))) }}",
+            "{{ absolute_url(asset(transfer.getWebPath("full-4x3"))) }}",
+            "{{ absolute_url(asset(transfer.getWebPath("full-16x9"))) }}"
+            ],
+            "description": "Taxi Tour to {{ transfer.getName }}",
+            "mpn": "",
+            "brand": {
+                "@type": "Thing",
+                "name": "Taxi Drivers Cuba"
+            },
+            "offers": {
+                "@type": "Offer",
+                "priceCurrency": "USD",
+                "price": "{{ (transfer.basePrice) | number_format(2,'.') }}",
+                "priceValidUntil": "2018-12-31",
+                "itemCondition": "http://schema.org/UsedCondition",
+                "availability": "http://schema.org/InStock",
+                "seller": {
+                    "@type": "Organization",
+                    "name": "Taxi Drivers Cuba"
+                    }
+                }
+        }
+        </script>
+{% endblock %}
+
+{% if locale=='es' %}
+    {% set description = 'Reserva ahora un taxi para '~transfer.targetAirport.getNameLocale~' el cual es uno de los lugares maravillosos de nuestra isla. '~content.getReservationDescriptionLocale %}
+{% else %}
+    {% set description = 'Book now a taxi for '~transfer.targetAirport.getNameLocale~' wich is one of the most wonderful place of our island. '~content.getReservationDescriptionLocale %}
+{% endif %}
+
+
 {% block inline_css %}
     {{ parent() }}
     <style>
@@ -28,100 +123,120 @@
                 {% block tour_explication %}
                 {% endblock %}
                 {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
-                                                     'data-form-type':'order',
-                                                     'data-form-output':'form-output-global'}}) }}
+                    'data-form-type':'order',
+                    'data-form-output':'form-output-global'}}) }}
 
                 <!--- Where are you going --->
                 <div class="well-row well-row-bg">
                     <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
-                        {% if ownTourPage is defined %}
-                            {% trans %}Add the places you wanna to visit{% endtrans %}
-                        {% else %}
-                            {% trans %}You're going to {% endtrans %} {{ place.getNameLocale }}
-                        {% endif %}
+                        {{ transfer.NameLocale }}
                     </p>
                 </div>
                 <div class="routes">
+
                     {% block destination %}
+                        <div class="main-carousel">
+                            <div class="carousel-cell">
+                                <img src="{{ asset(transfer.getWideImageWebPath) }}">
+                            </div>
+
+                        </div>
+
                     {% endblock %}
+
+
                 </div>
                 {% if ownTourPage is not defined %}
                     <div class="routes-description">
-                        {{ place.getPlaceDescLocale | raw }}
+                        {{ transfer.getDescriptionLocale | raw }}
                     </div>
                 {% endif %}
 
-                    <!-- airport or cruise data -->
-                    <div class="well-row well-row-bg">
-                        <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
-                            {% trans %}Pick you up from airport or cruise?{% endtrans %}<br>
-                            <small class="subtitle">
-                                {% trans %}If you arrive to Cuba through some airport or cruise terminal, we can pick you up!{% endtrans %}</small>
-                        </p>
-                    </div>
+                <!-- airport or cruise data -->
+                <div class="well-row well-row-bg">
+                    <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
+                        {% trans %}Pick you up from airport or cruise?{% endtrans %}<br>
+                        <small class="subtitle">
+                            {% trans %}If you arrive to Cuba through some airport or cruise terminal, we can pick you up!{% endtrans %}</small>
+                    </p>
+                </div>
 
-                    <div class="row well-row section-md-top-20 section-md-bottom-20">
+                <div class="grid4">
 
 
-                        <div class="col-md-6 col-xs-12 offset-top-15" style="margin-bottom:  1em;">
-                            <div class="btn-group source-cuba" data-toggle="buttons">
+                    <div class="" style="margin-bottom:  1em;">
+                        <div class="btn-group source-cuba" data-toggle="buttons">
 
-                                <label class="btn btn-primary">
-                                    <label id="pickup_no" class="btn btn-primary active">
-                                        <input checked type="radio" name="{{ booking_form.airport.vars.full_name }}" id="{{ booking_form.airport.vars.id }}" value="no"> No
-                                    </label>
-                                    <label id="pickup_airport" class="btn btn-primary">
-                                        <input type="radio" name="{{ booking_form.airport.vars.full_name }}" id="{{ booking_form.airport.vars.id }}" value="airport"> {% trans %}Airport{% endtrans %}
-                                    </label>
-                                    <label id="pickup_cruise" class="btn btn-primary">
-                                        <input type="radio" name="{{ booking_form.airport.vars.full_name }}" id="{{ booking_form.airport.vars.id }}" value="cruise"> {% trans %}Cruise{% endtrans %}
-                                    </label>
+                            <label class="btn btn-primary">
+                                <label id="pickup_airport" class="btn btn-primary active">
+                                    <input checked type="radio" name="{{ booking_form.airport.vars.full_name }}" id="{{ booking_form.airport.vars.id }}" value="airport"> {% trans %}Airport{% endtrans %}
                                 </label>
-                            </div>
+                                <label id="pickup_cruise" class="btn btn-primary">
+                                    <input type="radio" name="{{ booking_form.airport.vars.full_name }}" id="{{ booking_form.airport.vars.id }}" value="cruise"> {% trans %}Cruise{% endtrans %}
+                                </label>
+                            </label>
                         </div>
-
-                        <div class="col-md-5 col-md-push-1 col-xs-12 offset-xs-top-15">
-                            <div id="flynumber">
-                                <label for="{{ booking_form.airportname.vars.id }}" class="text-extra-small custom-label text-gray-dark">{% trans %}Airport name{% endtrans %}</label>
-                                <div class="form-group">
-                                    {{ form_widget(booking_form.airportname) }}
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-5 col-md-push-1 col-xs-12 offset-xs-top-15">
-                            <div id="flynumber">
-                                <label for="{{ booking_form.flynumber.vars.id }}" class="text-extra-small custom-label text-gray-dark">{% trans %}Flight number or cruiser name{% endtrans %}</label>
-                                <div class="form-group">
-                                    <input id="{{ booking_form.flynumber.vars.id }}" name="{{ booking_form.flynumber.vars.full_name }}"  class="form-control form-control-has-validation form-control-last-child" type="text" required disabled>
-                                    <span class="form-validation"></span>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
+
+                    <div class="">
+                        <div id="flynumber">
+                            <label for="{{ booking_form.airportname.vars.id }}" class="text-extra-small custom-label text-gray-dark">{% trans %}Airport name{% endtrans %}</label>
+                            <div class="form-group">
+                                {{ form_widget(booking_form.airportname) }}
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="" style="margin-bottom:  1em;">
+                        <div class="">
+                            <label for="{{ booking_form.targetPlace.vars.id }}" class="text-extra-small custom-label text-gray-dark">{% trans %}Destination place{% endtrans %}</label>
+                            <div class="form-group">
+
+                                {{ form_widget(booking_form.targetPlace) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <div id="flynumber">
+                            <label for="{{ booking_form.flynumber.vars.id }}" class="text-extra-small custom-label text-gray-dark">{% trans %}Flight number or cruiser name{% endtrans %}</label>
+                            <div class="form-group">
+                                <input id="{{ booking_form.flynumber.vars.id }}" name="{{ booking_form.flynumber.vars.full_name }}"  class="form-control form-control-has-validation form-control-last-child" type="text" required>
+                                <span class="form-validation"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
 
 
                 <!--- Pickup Data --->
                 <div class="well-row well-row-bg">
                     <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
-                        {% trans %}Pickup details{% endtrans %}
+                        {% trans %}details{% endtrans %}
                     </p>
                 </div>
 
                 <div class="well-row row">
 
                     <div class="col-md-10 cell-md-10">
-                        <!--Pickup place-->
+
                         <div class="row offset-top-15 well-row-flex">
+                            <!--Pickup place-->
                             <div class="col-md-3">
-                                <label for="{{ booking_form.details.vars.id }}"  class="custom-label text-gray-dark">{% trans %}Place{% endtrans %}</label>
+                                <label for="{{ booking_form.details.vars.id }}" class="custom-label text-gray-dark custom-label text-gray-dark">{% trans %}Hotel or Rent House address{% endtrans %}</label>
+
                             </div>
                             <div class="col-md-9 form-group">
-                                <input placeholder="{% trans %}Address{% endtrans %}" type="text" style="padding: 10px 12px;" class="form-control" id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}">
-                                {{ form_errors(booking_form.details, {'class':'danger'}) }}
+                                <input id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}"  class="form-control form-control-has-validation form-control-last-child" type="text" required>
+                                <span class="form-validation"></span>
+                                {{ form_errors(booking_form.pickuptime, {'class':'danger'}) }}
                             </div>
                         </div>
 
@@ -221,35 +336,35 @@
 
                 <div class="well-row">
 
-                        <div class="range range-xs-center">
-                            <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_public_key }}"></div>
-                        </div>
+                    <div class="range range-xs-center">
+                        <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_public_key }}"></div>
+                    </div>
+                </div>
+
+                <!--Submit button-->
+                <div class="well-row well-row-bg">
+                    {% block submitAlert %}
+                    {% endblock submitAlert %}
+
+                    <div class="text-center offset-top-33">
+                        <button type="submit" class="btn btn-xl btn-primary" id="booking_submit">
+                            <i class="fa fa-shopping-cart "></i>
+                            {% trans %}Book Now{% endtrans %}
+                            <span class="text-extra-small">*</span>
+                        </button>
                     </div>
 
-                    <!--Submit button-->
-                    <div class="well-row well-row-bg">
-                        {% block submitAlert %}
-                        {% endblock submitAlert %}
-
-                        <div class="text-center offset-top-33">
-                            <button type="submit" class="btn btn-xl btn-primary" id="booking_submit">
-                                <i class="fa fa-shopping-cart "></i>
-                                {% trans %}Book Now{% endtrans %}
-                                <span class="text-extra-small">*</span>
-                            </button>
-                        </div>
-
-                        <div>
-                            <p class="text-extra-small offset-top-30 text-justify">*
-                                {% trans %}The price can vary in function of the amount of passengers and distance of the place
-                                {% endtrans %}.
-                            </p>
-                        </div>
+                    <div>
+                        <p class="text-extra-small offset-top-30 text-justify">*
+                            {% trans %}The price can vary in function of the amount of passengers and distance of the place
+                            {% endtrans %}.
+                        </p>
                     </div>
+                </div>
 
-                    {{ form_widget(booking_form._token)}}
-                    <input type="hidden" value="{{ transfer.id }}" name="{{ booking_form.transfer.vars.full_name }}">
-                    <input type="hidden" value="{{ transfer.serviceType }}" name="{{ booking_form.serviceType.vars.full_name }}">
+                {{ form_widget(booking_form._token)}}
+                <input type="hidden" value="{{ transfer.id }}" name="{{ booking_form.airportTransfer.vars.full_name }}">
+                <input type="hidden" value="{{ transfer.serviceType }}" name="{{ booking_form.serviceType.vars.full_name }}">
 
 
 
@@ -311,28 +426,7 @@
             }
         }
 */
-        function activeOrDeactivePickupPlace(){
 
-            var pickup_place = $('#{{ booking_form.details.vars.id }}')[0];
-            var pickup = pickup_from_airport || pickup_from_cruise;
-
-            if (pickup){
-                var origin = pickup_from_airport? "airport": "cruise";
-                var place = '{% trans %}we will pick up you in{% endtrans %} ' + (pickup_from_airport? "{% trans %}Airport{% endtrans %}" : "{% trans %}Cruise{% endtrans %}");
-                pickup_place.setAttribute('disabled','true');
-                pickup_place.setAttribute('placeholder', place);
-                pickup_place.setAttribute('value', place);
-                pickup_place.removeAttribute('data-constraints');
-                pickup_place.removeAttribute('required');
-            }
-            else{
-                pickup_place.removeAttribute('disabled');
-                pickup_place.setAttribute('data-constraints','@Required');
-                pickup_place.setAttribute('required','true');
-                pickup_place.removeAttribute('value');
-                pickup_place.setAttribute('placeholder', '{% trans %}Address{% endtrans %}');
-            }
-        }
 
     $(document).ready(function()
         {
@@ -380,7 +474,6 @@
                     airport_name.setAttribute('disabled','true');
                 }
 
-                activeOrDeactivePickupPlace();
             });
 
             //select airport names
@@ -423,5 +516,73 @@
 
         });
 
+        increment = {{ config['price.increment'] }};
+        transferPrice = {{ transfer.basePrice }};
+        isTour = false;
+
+
+        $("#{{ booking_form.numpeople.vars.id }}").change(function() {
+                numberPeople = $('#{{ booking_form.numpeople.vars.id }}')[0].value;
+            });
+
+        function wrapperPrice(price)
+        {
+            if (typeof(price)=="number")
+                return "<i class=\'fa fa-dollar color-sky\'></i> "+price+" USD";
+            else
+                return "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
+            return price;
+        }
+
+        function updatePrice()
+        {      if (numberPeople <= 3)
+                    priceContent = wrapperPrice(transferPrice);
+                if (numberPeople > 3)
+                    priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
+
+
+            if (numberPeople > 5)
+                priceContent = wrapperPrice("");
+
+            $("#labelPrice")[0].innerHTML = priceContent;
+        }
+
+        function ShowReturnAdv(){
+            if (isTour){
+                if (buttonReturnOn){
+                    $("#returnAdv").css('display', 'block');
+                }
+                else{
+                    $("#returnAdv").css('display', 'none');
+                }
+            }
+        }
+
+        $("#document").ready(function (){
+            updatePrice();
+
+            $("#activeTour").change(function() {
+                updatePrice();
+            });
+
+            $("#activeReturn").change(function() {
+                updatePrice();
+                ShowReturnAdv();
+            });
+
+            $("#{{ booking_form.numpeople.vars.id }}").change(function() {
+              updatePrice();
+              console.log('update price')
+            });
+
+          
+           // activeOrDeactiveReturn();
+            $("#returnLine").fadeIn(500);
+            $("#returnToggle").fadeIn(500);
+            $("#returnPlace").fadeIn(500);
+            $("#returnTime").fadeIn(500);
+        });
+
     </script>
+
 {% endblock %}

@@ -15,13 +15,42 @@
 .carousel-cell__description h2{
     text-shadow: #000 1px 1px 2px;
 }
+.grid4{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 27px 14.7%;
+    grid-column-gap: 2em;
+    grid-row-gap: 2em;
+    justify-content: center;
+}
+.grid13-cards{
+
+    display: grid;
+    grid-auto-columns: minmax(100px, 90vw);
+    grid-auto-rows: minmax(100px, 80vh);
+    grid-column-gap: 6vw;
+    grid-row-gap: 8vh;
+    justify-content: center;
+}
+
+@media (min-width:768px) {
+    .grid13-cards{
+        display: grid;
+        grid-auto-columns: minmax(100px, 30vw);
+        grid-auto-rows: minmax(100px, 30vh);
+        grid-column-gap: 6vw;
+        grid-row-gap: 8vh;
+        justify-content: center;
+    }
+}
+
     .grid3-cards {
         display: grid;
         grid-template-columns: 90vw;
         grid-auto-rows: minmax(100px, 80vh);
         grid-column-gap: 6vw;
         grid-row-gap: 8vh;
-        justify-items: center;
+        justify-content: center;
     }
     .grid_item.grid_card{
         display: grid;

@@ -206,6 +206,92 @@ class BookingController extends Controller
 
 
     /**
+     * @Route("/airport/{_id}", defaults={"_locale": "en"}, requirements={"_id":"\d+"})
+     * @Route("/{_locale}/airport/{_id}/{_name}", requirements={"_id":"\d+"}, defaults={"_locale": "en"},
+     * name="booking_airport")
+     */
+    public function bookingAirportAction(Request $request, $_locale, $_id, $_name)
+    {
+        Utils::setRequestLocaleLang($_locale);
+        $em = $this->getDoctrine()->getManager();
+        $places = $em->getRepository('AppBundle:Place')->findAll();
+        $airportTransfer = $em->getRepository('AppBundle:AirportTransfer')->find($_id);
+
+        $nameLocale = Utils::slugify($airportTransfer->getNameLocale());
+        $nameRequest = $_name;
+
+        if ($nameRequest != $nameLocale){
+            return $this->redirectToRoute('booking_airport',array(
+                '_locale'=>$_locale,
+                '_id'=> $_id,
+                '_name' => $nameLocale
+            ), 301);
+        }
+
+        $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+        $config = [];;
+        foreach ($_config as $item){
+            $config[$item->getName()]=$item->getValue();
+        }
+
+        if ($airportTransfer)
+        {
+
+            $booking = new Booking();
+            $booking->setServiceType('AirportTransfer');
+            $booking->setAirportTransfer($airportTransfer);
+            $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking, array(
+                'action' => $this->generateUrl('add_booking'),
+                'method' => 'POST',
+            ), $em);
+            $airport = $airportTransfer->getTargetAirport();
+
+            $booking_form->add('airportname', ChoiceType::class,
+                ['choices' => $em->getRepository('AppBundle:Airport')->findAll(),
+                    'choices_as_values' => true,
+                    'choice_label' => 'NameLocale',
+                    'choice_value' => 'Id',
+                    'choice_attr' => function(Airport $airport, $key, $price){
+                        return ['data-airportname'=> $airport->machineName()];
+                    },
+                    'choice_name' => 'machineName'
+
+                ]);
+
+            $booking_form->add('targetPlace', ChoiceType::class,
+                ['choices' => $em->getRepository('AppBundle:Place')->findAll(),
+                    'choices_as_values' => true,
+                    'choice_label' => 'NameLocale',
+                    'choice_value' => 'Id',
+                    'choice_attr' => function(Place $place, $key, $price){
+                        return ['data-targetPlace'=> $place->getName()];
+                    },
+                    'choice_name' => 'getName'
+
+                ]);
+
+            $content = $em->getRepository('AppBundle:SiteContent')->findAll();
+            $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
+            $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
+
+
+            return $this->render('AppBundle:Front:bookingAirTransfer.html.twig', [
+                'booking_form'=>$booking_form->createView(),
+                'locale'=>$_locale,
+                'content'=>$content[0],
+                'socialNetworks'=>$socialNetworks,
+                'hashtags'=>$hashtags,
+                'transfer'=>$airportTransfer,
+                'airport'=>$airport,
+                'places'=>$places,
+                'config'=>$config
+            ]);
+        }
+        else
+            throw new NotFoundHttpException();
+    }
+
+    /**
      * @Route("/purchase-details/{_token}", requirements={"_token":"[a-z0-9]*"})
      * @Route("/{_locale}/purchase-details/{_token}", defaults={"_locale": "en"},
      * requirements={"_locale": "en|es|fr", "_token":"[a-z0-9]*"},  name="purchase_details")
@@ -364,7 +450,10 @@ class BookingController extends Controller
         if($booking->getPlace())
             $place = $em->getRepository("AppBundle:Place")
                 ->find($booking->getPlace());
+        elseif($booking->getAirportTransfer())
+            $place = $booking->getTargetPlace();
         else $place = null;
+
 
         $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
         $config = [];;

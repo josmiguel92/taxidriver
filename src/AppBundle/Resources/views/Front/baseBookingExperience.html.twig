@@ -78,11 +78,11 @@
                             </div>
                         </div>
 
-                        <div class="col-md-2 cell-md-2" style="display: none">
+                        <div class="col-md-2 cell-md-2">
                             <div class="row" style="text-align: center">
                                 <p><strong>{% trans %}Prices{% endtrans %}</strong></p>
                                 <ul>
-                                      <li>{{ experience.basePrice }}</li>
+                                      <li id="labelPrice">{{ experience.basePrice }}</li>
                                 </ul>
                             </div>
 
@@ -164,7 +164,6 @@
 
                     {{ form_widget(booking_form._token)}}
 
-                pr
                 <input type="hidden" value="{{ experience.serviceType }}" name="{{ booking_form.serviceType.vars.full_name }}">
 
                 </form>
@@ -210,11 +209,13 @@
     </script>
 
     <script>
-    numberPeople = 1;
-    buttonTaxi = false;
-    pickup_from_airport = false;
-    pickup_from_cruise = false;
-    pickup_place = $('#{{ booking_form.details.vars.id }}')[0];
+        numberPeople = 1;
+        buttonTaxi = false;
+        pickup_from_airport = false;
+        pickup_from_cruise = false;
+        pickup_place = $('#{{ booking_form.details.vars.id }}')[0];
+        transferPrice = {{ experience.basePrice }};
+        increment = {{ config['price.increment'] }};
 
         function activeOrDeactivePickupPlace(){
 
@@ -255,6 +256,7 @@
 
     $(document).ready(function()
         {
+            updatePrice();
 
             $('#booking_submit').click(function(e){
 
@@ -295,8 +297,33 @@
                 activeOrDeactiveTaxi();
             });
 
+            function wrapperPrice(price)
+        {
+            if (typeof(price)=="number")
+                return "<i class=\'fa fa-dollar color-sky\'></i> "+price+" USD";
+            else
+                return "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
+            return price;
+        }
+
+        function updatePrice()
+        {      if (numberPeople <= 3)
+                    priceContent = wrapperPrice(transferPrice);
+                if (numberPeople > 3)
+                    priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
+
+
+            if (numberPeople > 5)
+                priceContent = wrapperPrice("");
+
+            $("#labelPrice")[0].innerHTML = priceContent;
+        }
+
+
             $("#{{ booking_form.numpeople.vars.id }}").change(function() {
                 numberPeople = $('#{{ booking_form.numpeople.vars.id }}')[0].value;
+                  updatePrice();
+                  console.log('update price')
             });
 
         });

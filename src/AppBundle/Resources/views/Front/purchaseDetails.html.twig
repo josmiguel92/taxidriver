@@ -79,11 +79,15 @@
                                 {% if purchase.airportTransfer %}
                                     Yo want a transfer
                                     {% if purchase.toAirport %}
-                                        to
+                                        {% trans %}to{% endtrans %}
                                     {% else %}
-                                        from
+                                        {% trans %}from{% endtrans %}
                                     {% endif %}
                                     {{ purchase.airportTransfer.targetAirport }}
+                                    {% if purchase.targetPlace %}
+                                        {% trans %}to{% endtrans %}
+                                        {{ purchase.targetPlace.NameLocale }}
+                                    {% endif %}
                                 {% endif %}
                             </p>
                             {% if purchase.experience or purchase.transfer %}

@@ -207,7 +207,7 @@
     <script>
         $('document').ready(function(){
 
-            $('div.places .btn').click(function(e){
+            $('div.places a').click(function(e){
                 e.preventDefault();
                 $(".fa-spinner.formLoader")[0].classList.remove('hidden');
                 var edit_path = "{{ path('dash_services_place_edit', {'id':'placeidplaceholder'}) }}"

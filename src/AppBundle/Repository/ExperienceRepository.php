@@ -10,4 +10,11 @@ namespace AppBundle\Repository;
  */
 class ExperienceRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllSorted(){
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT p FROM AppBundle:Experience p ORDER BY p.weight DESC'
+            )
+            ->getResult();
+    }
 }
