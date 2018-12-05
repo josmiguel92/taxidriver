@@ -33,7 +33,8 @@ class ExperienceType extends AbstractType
 
             ->add('targetPlace', null, ["label"=>"Lugar donde se realiza"])
             ->add('galleryImage0')->add('galleryImage1')->add('galleryImage2')
-            ->add('galleryImage3')->add('galleryImage4');
+            ->add('galleryImage3')->add('galleryImage4')
+            ->add('weight', null, ['label'=>'Orden entre los servicios']);
     }/**
      * {@inheritdoc}
      */

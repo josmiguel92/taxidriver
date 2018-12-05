@@ -151,20 +151,19 @@
                             <div class="col-md-3">
                                 <label class="custom-label text-gray-dark">{% trans %}No. of persons{% endtrans %}</label>
                             </div>
-                            <div class="col-md-9 form-group">
+                            <div class="col-md-3 form-group">
                                 <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.numpeople.vars.id }}" name="{{ booking_form.numpeople.vars.full_name }}">
+                            </div>
+
+                            <div class="col-md-6">
+                                <p><strong>{% trans %}Price{% endtrans %}</strong></p>
+                                <ul>
+                                    <li id="labelPrice">{{ transfer.basePrice | number_format(2,'.') }} USD </li>
+                                </ul>
+
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-md-2 cell-md-2">{# todo: revisar incrementos de precio x javascript#}
-                        <div class="row" style="text-align: center">
-                            <p><strong>{% trans %}Price{% endtrans %}</strong></p>
-                            <ul>
-                                <li id="labelPrice">{{ transfer.basePrice }}</li>
-                            </ul>
-                        </div>
-
                     </div>
                 </div>
 

@@ -1,12 +1,7 @@
 {% extends 'AppBundle:Front:baseBookingExperience.html.twig' %}
 
 
-{% set title = "Book "%}
-{% if locale=='es' %}
-    {% set title = "Reservar " %}
-{% endif %}
-
-{% set title = title~experience.getNameLocale %}
+{% set title = experience.getNameLocale %}
 
 {% set featureImage =  asset(experience.getWideImageWebPath) %}
 

@@ -119,7 +119,7 @@
 
     <script>
         increment = {{ config['price.increment'] }};
-        transferPrice = {{ transfer.basePrice }};
+        transferPrice = {% if transfer.basePrice %}{{ transfer.basePrice }}{% else %}0{% endif %};
         isTour = false;
 
 
@@ -129,24 +129,26 @@
 
         function wrapperPrice(price)
         {
-            if (typeof(price)=="number")
-                return "<i class=\'fa fa-dollar color-sky\'></i> "+price+" USD";
+            if (typeof(price)=="number" && price > 0)
+                return "<i class=\'fa fa-dollar color-sky\'></i> "+price+".00 USD";
             else
                 return "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
             return price;
         }
 
         function updatePrice()
-        {      if (numberPeople <= 3)
-                    priceContent = wrapperPrice(transferPrice);
-                if (numberPeople > 3)
-                    priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
+        {
+                 if (numberPeople <= 3)
+                        priceContent = wrapperPrice(transferPrice);
+                    if (numberPeople > 3  && transferPrice > 0)
+                        priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
 
 
-            if (numberPeople > 5)
-                priceContent = wrapperPrice("");
+                if (numberPeople > 5)
+                    priceContent = wrapperPrice("");
 
-            $("#labelPrice")[0].innerHTML = priceContent;
+                $("#labelPrice")[0].innerHTML = priceContent;
+
         }
 
         function ShowReturnAdv(){

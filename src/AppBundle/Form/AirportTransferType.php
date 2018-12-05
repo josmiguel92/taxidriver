@@ -29,7 +29,8 @@ class AirportTransferType extends AbstractType
             ->add('file', null, ['label'=>"Imagen destacada del transfer"])
 
 
-            ->add('targetPlace');
+            ->add('targetPlace')
+            ->add('weight', null, ['label'=>'Orden entre los servicios']);
     }/**
      * {@inheritdoc}
      */

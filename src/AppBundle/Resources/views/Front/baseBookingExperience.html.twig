@@ -16,7 +16,7 @@
                     <!--- Where are you going --->
                     <div class="well-row well-row-bg">
                         <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
-                            {% trans %}You are going to {% endtrans %} {{ experience.getNameLocale }}
+                            {{ experience.getNameLocale }}
                         </p>
                     </div>
                     <div class="routes">
@@ -216,7 +216,7 @@
         pickup_from_airport = false;
         pickup_from_cruise = false;
         pickup_place = $('#{{ booking_form.details.vars.id }}')[0];
-        transferPrice = {{ experience.basePrice }};
+        transferPrice = {% if experience.basePrice %}{{ experience.basePrice }}{% else %}0{% endif %};
         increment = {{ config['price.increment'] }};
 
         function activeOrDeactivePickupPlace(){
@@ -299,10 +299,10 @@
                 activeOrDeactiveTaxi();
             });
 
-            function wrapperPrice(price)
+        function wrapperPrice(price)
         {
-            if (typeof(price)=="number")
-                return "<i class=\'fa fa-dollar color-sky\'></i> "+price+" USD";
+            if (typeof(price)=="number" && price > 0)
+                return "<i class=\'fa fa-dollar color-sky\'></i> "+price+".00 USD";
             else
                 return "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
             return price;
@@ -310,15 +310,16 @@
 
         function updatePrice()
         {      if (numberPeople <= 3)
-                    priceContent = wrapperPrice(transferPrice);
-                if (numberPeople > 3)
-                    priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
+                        priceContent = wrapperPrice(transferPrice);
+                    if (numberPeople > 3  && transferPrice > 0)
+                        priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
 
 
-            if (numberPeople > 5)
-                priceContent = wrapperPrice("");
+                if (numberPeople > 5)
+                    priceContent = wrapperPrice("");
 
-            $("#labelPrice")[0].innerHTML = priceContent;
+                $("#labelPrice")[0].innerHTML = priceContent;
+
         }
 
 

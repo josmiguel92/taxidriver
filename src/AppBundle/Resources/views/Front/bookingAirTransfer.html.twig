@@ -192,10 +192,11 @@
 
                     <div class="" style="margin-bottom:  1em;">
                         <div class="">
-                            <label for="{{ booking_form.targetPlace.vars.id }}" class="text-extra-small custom-label text-gray-dark">{% trans %}Destination place{% endtrans %}</label>
                             <div class="form-group">
-
-                                {{ form_widget(booking_form.targetPlace) }}
+                                <label for="targetPlaceAutocompletion" class="text-extra-small custom-label text-gray-dark">{% trans %}Destination place{% endtrans %}</label>
+                                <br>
+                                <input type="text" class="tt-autocomplete form-control form-control-has-validation form-control-last-child" id="targetPlaceAutocompletion">
+                                {{ form_widget(booking_form.targetPlace, { 'attr': {'class': 'autocomplete hidden' } }) }}
                             </div>
                         </div>
                     </div>
@@ -230,7 +231,7 @@
                         <div class="row offset-top-15 well-row-flex">
                             <!--Pickup place-->
                             <div class="col-md-3">
-                                <label for="{{ booking_form.details.vars.id }}" class="custom-label text-gray-dark custom-label text-gray-dark">{% trans %}Hotel or Rent House address{% endtrans %}</label>
+                                <label for="{{ booking_form.details.vars.id }}" class="custom-label text-gray-dark custom-label text-gray-dark">{% trans %}Exact address of your destination{% endtrans %}</label>
 
                             </div>
                             <div class="col-md-9 form-group">
@@ -264,21 +265,21 @@
                             <div class="col-md-3">
                                 <label class="custom-label text-gray-dark">{% trans %}No. of persons{% endtrans %}</label>
                             </div>
-                            <div class="col-md-9 form-group">
+                            <div class="col-md-3 form-group">
                                 <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.numpeople.vars.id }}" name="{{ booking_form.numpeople.vars.full_name }}">
+                            </div>
+
+                            <div class="col-md-6">
+                                    <p><strong>{% trans %}Price{% endtrans %}</strong></p>
+                                    <ul>
+                                        <li id="labelPrice">{{ transfer.basePrice | number_format(2,'.') }} USD </li>
+                                    </ul>
+
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-2 cell-md-2">{# todo: revisar incrementos de precio x javascript#}
-                        <div class="row" style="text-align: center">
-                            <p><strong>{% trans %}Price{% endtrans %}</strong></p>
-                            <ul>
-                                <li id="labelPrice">{{ transfer.basePrice }}</li>
-                            </ul>
-                        </div>
 
-                    </div>
                 </div>
 
 
@@ -385,6 +386,8 @@
 {% block javascript %}
 {{ parent() }}
     <script async src='https://www.google.com/recaptcha/api.js'></script>
+    <script src='{{ asset('js/typeahead.bundle.js') }}'></script>
+
 
     <script>
     numberPeople = 1;
@@ -392,6 +395,53 @@
     buttonReturnOn = false;
     pickup_from_airport = false;
     pickup_from_cruise = false;
+
+
+$('#targetPlaceAutocompletion').change(function(){
+var _name = $('#targetPlaceAutocompletion')[0].value; //$('option[data-targetplace="Cayo Levisa"]')
+var _value = $('option[data-targetplace="'+_name+'"]')[0].value;
+console.log(_name + ' '+ _value);
+ $('#{{ booking_form.targetPlace.vars.id }}').val(_value)
+})
+
+    $(document).ready(function(){
+var substringMatcher = function(strs) {
+  return function findMatches(q, cb) {
+    var matches, substringRegex;
+
+    // an array that will be populated with substring matches
+    matches = [];
+
+    // regex used to determine if a string contains the substring `q`
+    substrRegex = new RegExp(q, 'i');
+
+    // iterate through the pool of strings and for any string that
+    // contains the substring `q`, add it to the `matches` array
+    $.each(strs, function(i, str) {
+      if (substrRegex.test(str)) {
+        matches.push(str);
+      }
+    });
+
+    cb(matches);
+  };
+};
+
+var _places = [
+    {% for place in places %}'{{ place.name }}',{% endfor %}
+];
+
+$('#targetPlaceAutocompletion').typeahead({
+  hint: true,
+  highlight: true,
+  minLength: 1
+},
+{
+  name: '_places',
+  source: substringMatcher(_places)
+});
+
+});
 
         function hideOrShowReturn(){
             if (buttonTourOn){
@@ -527,24 +577,24 @@
 
         function wrapperPrice(price)
         {
-            if (typeof(price)=="number")
-                return "<i class=\'fa fa-dollar color-sky\'></i> "+price+" USD";
+            if (typeof(price)=="number" && price > 0)
+                return "<i class=\'fa fa-dollar color-sky\'></i> "+price+".00 USD";
             else
                 return "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
             return price;
         }
 
         function updatePrice()
-        {      if (numberPeople <= 3)
-                    priceContent = wrapperPrice(transferPrice);
-                if (numberPeople > 3)
-                    priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
+        {        if (numberPeople <= 3)
+                        priceContent = wrapperPrice(transferPrice);
+                    if (numberPeople > 3  && transferPrice > 0)
+                        priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
 
 
-            if (numberPeople > 5)
-                priceContent = wrapperPrice("");
+                if (numberPeople > 5)
+                    priceContent = wrapperPrice("");
 
-            $("#labelPrice")[0].innerHTML = priceContent;
+                $("#labelPrice")[0].innerHTML = priceContent;
         }
 
         function ShowReturnAdv(){

@@ -788,6 +788,10 @@
 	<source>See our offers</source>
 	<target>Mira nuestras ofertas</target>
 </trans-unit>
+<trans-unit id="Exact.destination">
+	<source>Exact address of your destination</source>
+	<target>Dirección exacta de su lugar de destino</target>
+</trans-unit>
 
 
         </body>

@@ -45,6 +45,29 @@ class Testimony extends ImageField
      */
     private $name;
 
+    /**
+     * @var Place
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Place")
+     * @ORM\JoinColumn(name="targetPlace", referencedColumnName="id", nullable=true)
+     */
+    private $targetPlace;
+
+    /**
+     * @var Experience
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Experience")
+     * @ORM\JoinColumn(name="experience", referencedColumnName="id", nullable=true)
+     */
+    private $experience;
+
+
+
+    /**
+     * @var Transfer
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Transfer")
+     * @ORM\JoinColumn(name="transfer", referencedColumnName="id", nullable=true)
+     */
+    private $transfer;
 
     /**
      * Get id
@@ -124,6 +147,54 @@ class Testimony extends ImageField
     public function setTexten($texten)
     {
         $this->texten = $texten;
+    }
+
+    /**
+     * @return Place
+     */
+    public function getTargetPlace()
+    {
+        return $this->targetPlace;
+    }
+
+    /**
+     * @param Place $targetPlace
+     */
+    public function setTargetPlace($targetPlace)
+    {
+        $this->targetPlace = $targetPlace;
+    }
+
+    /**
+     * @return Experience
+     */
+    public function getExperience()
+    {
+        return $this->experience;
+    }
+
+    /**
+     * @param Experience $experience
+     */
+    public function setExperience($experience)
+    {
+        $this->experience = $experience;
+    }
+
+    /**
+     * @return Transfer
+     */
+    public function getTransfer()
+    {
+        return $this->transfer;
+    }
+
+    /**
+     * @param Transfer $transfer
+     */
+    public function setTransfer($transfer)
+    {
+        $this->transfer = $transfer;
     }
 
 
