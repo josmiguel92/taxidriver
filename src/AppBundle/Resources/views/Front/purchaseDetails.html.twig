@@ -134,11 +134,18 @@
                         </div>
 
 
-                        {% if not purchase.experience %}
+                        {% if purchase.price %}
                             <div class="well-row">
                                 <p class="text-bold text-spacing-25 font-accent text-gray-dark">
                                     {% trans %}The price of the service is{% endtrans %}:
                                     {{ purchase.price }} USD
+                                </p>
+
+                            </div>
+                        {% else %}
+                            <div class="well-row">
+                                <p class="text-bold text-spacing-25 font-accent text-gray-dark">
+                                    {% trans %}We'll send you an offer email with the price.{% endtrans %}
                                 </p>
 
                             </div>
@@ -168,7 +175,7 @@
                             {% endif %}
                             <hr style="margin-bottom: 1em;">
                                 <!-- simple purchase -->
-                                    <div class="center-block">
+                                    <div class="cell-md-6 col-md-6 col-md-offset-3">
 
                                         {% if config['paypal.url'] != 'null' %}
                                         <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-primary">

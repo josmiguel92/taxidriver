@@ -67,6 +67,11 @@ class Place extends ImageField
     private $placedescen;
 
     /**
+     * @ORM\Column(name="airports_prices", type="array", nullable=true)
+     */
+    private $airports_prices;
+
+    /**
      * @return string
      */
     public function getPlacedesc()
@@ -209,6 +214,70 @@ class Place extends ImageField
         return $this->name;
     }
 
+    /**
+     * @return mixed
+    */
+    public function getAirportsPrices()
+    {
+        return $this->airports_prices;
+     }
 
+    /**
+     * @return mixed
+     */
+    public function getJSONAirportsPrices()
+    {
+        return json_encode($this->airports_prices);
+    }
+
+    /**
+     * @param mixed $airports_prices
+     */
+    public function setAirportsPrices($airports_prices)
+    {
+        $this->airports_prices = $airports_prices;
+    }
+
+    public function __get($name)
+    {
+        if(substr_count($name, '_airportprice_'))
+        {
+            if(is_iterable($this->airports_prices))
+            foreach ($this->airports_prices as $_name => $_value ){
+                if($_name == $name){
+
+                    return $_value;
+                }
+            }
+        }
+        else
+            return $this->$$name;
+    }
+    public function __set($name, $value)
+    {
+        if(substr_count($name, '_airportprice_'))
+        {
+
+            if(is_iterable($this->airports_prices)){
+                if(key_exists($name,$this->airports_prices))
+                {
+                    $this->airports_prices[$name]=$value;
+                }
+                else
+                    $this->airports_prices[$name]=$value;
+
+            }
+            else
+                $this->airports_prices[$name]=$value;
+
+
+
+        }
+    }
+
+    public function __construct()
+    {
+        $this->airports_prices = new ArrayCollection();
+    }
 }
 

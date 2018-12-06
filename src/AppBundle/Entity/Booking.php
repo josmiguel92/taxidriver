@@ -890,7 +890,16 @@ class Booking
         }
         if($this->airportTransfer)
         {
-            $basePrice = $this->airportTransfer->getBasePrice();
+            if($this->targetPlace)
+            {
+
+                $airportIdentifier = $this->airportName->machineName();
+                $airportIdentifier = str_replace('_airportname_','_airportprice_',$airportIdentifier);
+
+                $basePrice =$this->targetPlace->__get($airportIdentifier);
+            }
+            else
+                $basePrice = $this->airportTransfer->getBasePrice();
         }
         if(!$basePrice)
             return false;

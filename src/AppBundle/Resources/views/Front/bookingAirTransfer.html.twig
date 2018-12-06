@@ -398,11 +398,39 @@
 
 
 $('#targetPlaceAutocompletion').change(function(){
-var _name = $('#targetPlaceAutocompletion')[0].value; //$('option[data-targetplace="Cayo Levisa"]')
-var _value = $('option[data-targetplace="'+_name+'"]')[0].value;
-console.log(_name + ' '+ _value);
- $('#{{ booking_form.targetPlace.vars.id }}').val(_value)
+    setPriceByPlace();
+});
+$('#{{ booking_form.airportname.vars.id }}').change(function(){
+    setPriceByPlace();
 })
+
+    var setPriceByPlace = function()
+    {
+        var _name = $('#targetPlaceAutocompletion')[0].value;
+        if(_name.length > 0)
+        {
+            var _optionPlace = $('option[data-targetplace="'+_name+'"]')[0];
+            if(_optionPlace)
+            {
+                var _value = _optionPlace.value;
+                $('#{{ booking_form.targetPlace.vars.id }}').val(_value);
+                var _airportname = $('#{{ booking_form.airportname.vars.id }}')[0].selectedOptions[0].dataset['airportname'];
+                _airportname = _airportname.replace('_airportname_','');
+                var _place_airports_price = $('#{{ booking_form.targetPlace.vars.id }}')[0].selectedOptions[0].dataset['airportpricesjson'];
+
+                if (_place_airports_price)
+                {
+                    var _prices = JSON.parse(_place_airports_price);
+                    if(_prices)
+                        transferPrice = _prices['_airportprice_'+_airportname];
+                    else
+                        transferPrice = 0;
+
+                }
+            }
+        }
+        updatePrice();
+    };
 
     $(document).ready(function(){
 var substringMatcher = function(strs) {
@@ -457,7 +485,7 @@ $('#targetPlaceAutocompletion').typeahead({
                 $("#returnTime").fadeIn(500);
             }
         }
-/*
+
         function activeOrDeactiveReturn(){
             var returnPlaceInput = $('#{{ booking_form.returnpickupplacce.vars.id }}')[0];
             var returnTimeInput = $('#{{ booking_form.returnpickuptime.vars.id }}')[0];
@@ -475,14 +503,11 @@ $('#targetPlaceAutocompletion').typeahead({
                 returnTimeInput.removeAttribute('data-constraints');
             }
         }
-*/
+
 
 
     $(document).ready(function()
         {
-             _tourPrice = 0 {#{ place.getPrice }#};
-
-             tourPrice = _tourPrice;
 
             $('#booking_submit').click(function(e){
 
@@ -526,26 +551,6 @@ $('#targetPlaceAutocompletion').typeahead({
 
             });
 
-            //select airport names
-                $("select#appbundle_booking_airportname").change(function() {
-                pickup_from_airport = true; //por si el formulario se recargo con ese valors
-                var selectedName = this.selectedOptions[0].dataset['airportname'];
-                try {
-                  if(typeof airport_prices[selectedName] != null ){
-                      current_price =  airport_prices[selectedName];
-
-                  }
-                    console.log(airport_prices[selectedName]);
-                }
-                catch (e) {
-                  console.log("No se conocen los precios")
-                }
-
-
-
-
-            });
-
             //Button of active Tour
             $("#activeTour").change(function() {
                 buttonTourOn = !$('.toggle')[0].classList.contains('off');
@@ -553,12 +558,12 @@ $('#targetPlaceAutocompletion').typeahead({
             });
 
             //Button of active return
-            /*
+
             $("#activeReturn").change(function() {
                 buttonReturnOn = !$('.toggle')[1].classList.contains('off');
                 activeOrDeactiveReturn();
             });
-            */
+
 
             $("#{{ booking_form.numpeople.vars.id }}").change(function() {
                 numberPeople = $('#{{ booking_form.numpeople.vars.id }}')[0].value;
@@ -567,7 +572,8 @@ $('#targetPlaceAutocompletion').typeahead({
         });
 
         increment = {{ config['price.increment'] }};
-        transferPrice = {{ transfer.basePrice }};
+        _transferPrice = {{ transfer.basePrice }};
+        transferPrice = _transferPrice;
         isTour = false;
 
 

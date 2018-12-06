@@ -264,7 +264,8 @@ class BookingController extends Controller
                     'choice_label' => 'NameLocale',
                     'choice_value' => 'Id',
                     'choice_attr' => function(Place $place, $key, $price){
-                        return ['data-targetPlace'=> $place->getName()];
+                        return ['data-targetPlace'=> $place->getName(),
+                                'data-airportPricesJSON'=>$place->getJSONAirportsPrices()];
                     },
                     'choice_name' => 'getName'
 

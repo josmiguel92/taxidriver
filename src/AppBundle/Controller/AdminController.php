@@ -363,6 +363,9 @@ class AdminController extends Controller
         $place = new \AppBundle\Entity\Place();
         $placeForm = $this->createForm('AppBundle\Form\PlaceType', $place);
 
+        $airports = $em->getRepository('AppBundle:Airport')->findAll();
+
+        $this->fillAirportPricesFields($placeForm, $airports);
 
         $placeForm->handleRequest($request);
 
@@ -414,6 +417,9 @@ class AdminController extends Controller
 
         $em = $this->getDoctrine()->getManager();
 
+        $airports = $em->getRepository('AppBundle:Airport')->findAll();
+
+        $this->fillAirportPricesFields($editForm, $airports);
 
         $editForm->handleRequest($request);
 
@@ -424,7 +430,7 @@ class AdminController extends Controller
 
             $this->addFlash(
                 'notice',
-                'Los cambios en la ruta fueron salvados! >> info >> ti-save'
+                'Los cambios en '.$place->getName().' fueron salvados! >> info >> ti-save'
             );
 
             return $this->redirectToRoute('dash_services_edit');
@@ -805,5 +811,18 @@ class AdminController extends Controller
         $this->get('mailer')->send($message);
 
     }
+
+    private function fillAirportPricesFields(&$placeForm, $airports)
+    {
+        foreach ($airports as $airport)
+        {
+            $placeForm->add('_airportprice_'.Utils::slugify($airport->getNombre()),
+                MoneyType::class,['label'=>"Precio desde ".$airport->getNombre(),
+                    'currency'=>"USD"]);
+        }
+
+    }
+
+
 
 }

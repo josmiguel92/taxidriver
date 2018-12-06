@@ -157,11 +157,14 @@ class Utils
             'é' => 'e',
             'í' => 'i',
             'ó' => 'o',
-            'ú' => 'u',
-            '(' => '',
-            ')' => ''
+            'ú' => 'u'
         );
         $text = str_replace(array_keys($replaceThis), $replaceThis, $text);
+        $matches = null;
+        if(preg_match_all('/[a-z]+/',$text,$matches)){
+            $text = implode("-",$matches[0]);
+        }
+
         return $text;
     }
 

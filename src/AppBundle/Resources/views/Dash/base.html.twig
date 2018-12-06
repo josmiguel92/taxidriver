@@ -149,11 +149,12 @@
 	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
 	<script src="{{ asset("/js/demo.js")}}"></script>
 
-        {% if app.session.flashbag.get('notice') %}
+        {% set flashbag = app.session.flashbag.get('notice') %}
+        {% if flashbag %}
         <script>
             $('document').ready(function(){
-
-                {% for flash_message in app.session.flashbag.get('notice') %}
+//flash
+                {% for flash_message in flashbag %}
                     {% set thisflash = utils.formatFlashBagNotification(flash_message) %}
                 $.notify({
                     icon: '{{ thisflash[2] }}',

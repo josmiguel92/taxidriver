@@ -110,7 +110,7 @@ class Airport
     }
 
     public function machineName(){
-        return 'airport_price_'.Utils::slugify($this->getName());
+        return '_airportname_'.Utils::slugify($this->getNombre());
     }
 }
 

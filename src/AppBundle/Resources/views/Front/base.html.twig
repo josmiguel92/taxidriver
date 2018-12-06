@@ -40,7 +40,7 @@
     {# Color chrome tab #}
     <meta name="theme-color" content="#18acfb">
 
-    <link rel="preload" href="{{ asset("css/styles.min.css?v1") }}" as="style">
+    <link rel="preload" href="{{ asset("css/styles.min.css?v2") }}" as="style">
 
     {% if app.Environment == "dev" %}
         {#
@@ -53,7 +53,6 @@
         <link rel="stylesheet" type="text/css" href="{{ asset("css/font-awesome.css") }}">
         <link rel="stylesheet" type="text/css" href="{{ asset("css/flickity.min.css") }}">
     {% else %}
-        <link rel="stylesheet" type="text/css" href="{{ asset("css/styles.min.css") }}">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700|Source+Sans+Pro" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous" />
         <link rel="stylesheet" type="text/css" href="{{ asset("css/flickity.min.css") }}">
