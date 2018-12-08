@@ -18,4 +18,18 @@ class TransferRepository extends \Doctrine\ORM\EntityRepository
             )
             ->getResult();
     }
+
+    public function findRandomByImportant($excludedId = null, $amount = 3)
+    {
+        return $this->createQueryBuilder('a')
+            ->addSelect('RAND() as HIDDEN rand')
+            ->where('a.important = true')
+            ->andWhere('a.id != :id')
+            ->orderBy('rand')
+            ->setMaxResults($amount)
+            ->setParameter('id',$excludedId)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

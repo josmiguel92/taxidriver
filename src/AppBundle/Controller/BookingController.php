@@ -144,6 +144,7 @@ class BookingController extends Controller
         $testimonials = $em->getRepository('AppBundle:Testimony')
                             ->findRandomByTransferOrPlace($transfer->getId(),$transfer->getTargetPlace()->getId());
 
+        $suggestedPlaces = $em->getRepository('AppBundle:Transfer')->findRandomByImportant($transfer->getId());
         $nameLocale = Utils::slugify($transfer->getNameLocale());
         $nameRequest = $_name;
 
@@ -201,7 +202,8 @@ class BookingController extends Controller
                     'place'=>$place,
                     'places'=>$places,
                     'config'=>$config,
-                    'testimonials'=>$testimonials
+                    'testimonials'=>$testimonials,
+                    'suggestedPlaces'=>$suggestedPlaces
                     ]);
         }
         else

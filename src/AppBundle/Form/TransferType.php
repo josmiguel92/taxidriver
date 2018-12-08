@@ -36,6 +36,7 @@ class TransferType extends AbstractType
 
             ->add('file', null, ['label'=>"Imagen destacada del transfer"])
             ->add('weight', null, ['label'=>'Orden entre los servicios, mayores tienen prioridad'])
+            ->add('important', null, ['label'=>'Destacado, aparece en las sugerencias'])
         ;
 
 

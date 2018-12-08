@@ -58,6 +58,14 @@ class Experience extends Service
      * @ORM\Column(name="distance", type="integer", nullable=true)
      */
     private $distance;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="important", type="boolean")
+     */
+    private $important;
+
     /**
      * @return integer
      */
@@ -198,6 +206,22 @@ class Experience extends Service
     public function setDurationTime($durationTime)
     {
         $this->durationTime = $durationTime;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isImportant()
+    {
+        return $this->important;
+    }
+
+    /**
+     * @param bool $important
+     */
+    public function setImportant($important)
+    {
+        $this->important = $important;
     }
 
 

@@ -36,6 +36,15 @@ class Transfer extends Service
      */
     private $origin;
 
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="important", type="boolean")
+     */
+    private $important;
+
+
     /**
      * Set priceSumary
      *
@@ -132,6 +141,22 @@ class Transfer extends Service
     public function setDistance($distance)
     {
         $this->distance = $distance;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isImportant()
+    {
+        return $this->important;
+    }
+
+    /**
+     * @param bool $important
+     */
+    public function setImportant($important)
+    {
+        $this->important = $important;
     }
 
 

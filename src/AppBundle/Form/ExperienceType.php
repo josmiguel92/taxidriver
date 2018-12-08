@@ -38,7 +38,8 @@ class ExperienceType extends AbstractType
             ->add('distance', null, ["label"=>"Distancia, en km"])
             ->add('galleryImage0')->add('galleryImage1')->add('galleryImage2')
             ->add('galleryImage3')->add('galleryImage4')
-            ->add('weight', null, ['label'=>'Orden entre los servicios, mayores tienen prioridad']);
+            ->add('weight', null, ['label'=>'Orden entre los servicios, mayores tienen prioridad'])
+            ->add('important', null, ['label'=>'Destacado, aparece en las sugerencias']);
     }/**
      * {@inheritdoc}
      */

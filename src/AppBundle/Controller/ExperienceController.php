@@ -159,6 +159,8 @@ class ExperienceController extends Controller
                 $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
                 $testimonials = $em->getRepository('AppBundle:Testimony')->findRandomByExperience($experience->getId(),2);
 
+                $suggestedPlaces = $em->getRepository('AppBundle:Experience')->findRandomByImportant($experience->getId());
+
                 $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
                 $config = [];
 
@@ -184,6 +186,7 @@ class ExperienceController extends Controller
                     'infographys'=>$infographys,
                     'testimonials'=>$testimonials,
                     'config' => $config,
+                    'suggestedPlaces'=>$suggestedPlaces
                 ));
             }
         }

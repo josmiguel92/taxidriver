@@ -27,9 +27,9 @@
 
                 <div class="row">
                     {% if testimonials | length > 0 %}
-                        <div class="col-md-9">
-                    {% else %}
-                        <div class="col-md-12">
+                    <div class="col-md-9">
+                {% else %}
+                    <div class="col-md-12">
                     {% endif %}
                         <!--- Pickup Data --->
                         <div class="well-row well-row-bg">
@@ -201,31 +201,69 @@
                     {% endif %}
                 </div>
 
+            </div>
+
+            <!--Submit button-->
+            <div class="well-row well-row-bg">
+                {% block submitAlert %}
+                {% endblock submitAlert %}
+
+                <div class="text-center offset-top-33">
+                    <button type="submit" class="btn btn-xl btn-primary" id="booking_submit">
+                        <i class="fa fa-shopping-cart "></i>
+                        {% trans %}Book Now{% endtrans %}
+                        <span class="text-extra-small">*</span>
+                    </button>
                 </div>
 
-                    <!--Submit button-->
-                    <div class="well-row well-row-bg">
-                        {% block submitAlert %}
-                        {% endblock submitAlert %}
+            </div>
 
-                        <div class="text-center offset-top-33">
-                            <button type="submit" class="btn btn-xl btn-primary" id="booking_submit">
-                                <i class="fa fa-shopping-cart "></i>
-                                {% trans %}Book Now{% endtrans %}
-                                <span class="text-extra-small">*</span>
-                            </button>
+                {{ form_widget(booking_form._token)}}
+
+            <input type="hidden" value="{{ experience.serviceType }}" name="{{ booking_form.serviceType.vars.full_name }}">
+            <input type="hidden" value="{{ experience.id }}" name="{{ booking_form.experience.vars.full_name }}">
+
+            </form>
+
+                {% if suggestedPlaces %}
+
+                    <div class="row" style="margin-top: 2em">
+                        <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
+                            {% trans %}Popular experiences you could prefer{% endtrans %}
+                        </p>
+                        <div class="grid13-cards small-foot">
+                            {% for transfer in suggestedPlaces %}
+                                <div class="grid_item grid_card">
+                                    <div class="grid_card_image"> <a href="{{ path("booking_airport", {"_id":transfer.id, "_name": utils.slugify(transfer.getNameLocale) }) }}" class="text-mine-shaft">
+                                            <img data-src="{{ asset(transfer.getWebPath) }}" src="{{ asset(transfer.getWebPath(0)) }}"  alt="{{ transfer.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
+                                            <noscript>
+                                                <img src="{{ asset(transfer.getWebPath) }}" alt="{{ transfer.getNameLocale }}" class="img-responsive center-block">
+                                            </noscript>
+                                        </a>
+                                    </div>
+                                    <div class="grid_card_name">
+                                        <a href="{{ path("booking_airport", {"_id":transfer.id, "_name": utils.slugify(transfer.getNameLocale) }) }}" class="text-mine-shaft">
+                                            {{ transfer.getNameLocale }}
+                                        </a>
+
+                                    </div>
+                                    <div class="grid_card_description">
+                                        {% if transfer.basePrice > 0 %}
+                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i>
+                                                    {% trans %}Price{% endtrans %}: </b>
+                                                {{ transfer.basePrice | number_format(2,'.') }} USD
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
-
                     </div>
 
-                    {{ form_widget(booking_form._token)}}
+                {% endif %}
 
-                <input type="hidden" value="{{ experience.serviceType }}" name="{{ booking_form.serviceType.vars.full_name }}">
-                <input type="hidden" value="{{ experience.id }}" name="{{ booking_form.experience.vars.full_name }}">
-
-                </form>
-            </div>
         </section>
+
 
         <div class="modal fade" id="myModal" style="margin-top: 5em">
             <div class="modal-dialog">

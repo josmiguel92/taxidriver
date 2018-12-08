@@ -124,3 +124,18 @@ img.lazy[data-src]{
     display: block;
 text-align: center;
 }
+.grid13-cards.small-foot{
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: minmax(100px, 15vh);
+    grid-column-gap: 6vw;
+    grid-row-gap: 8vh;
+    margin: 2em 10%;
+    align-content: center;
+
+}
+.small-foot .grid_item.grid_card{
+ grid-template-columns: 1fr 2fr;
+    grid-template-rows: 2fr 0.5fr;
+    grid-template-areas:    "image title"
+    "image description"
+}
