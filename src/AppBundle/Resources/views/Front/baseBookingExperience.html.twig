@@ -234,7 +234,8 @@
                         <div class="grid13-cards small-foot">
                             {% for transfer in suggestedPlaces %}
                                 <div class="grid_item grid_card">
-                                    <div class="grid_card_image"> <a href="{{ path("booking_airport", {"_id":transfer.id, "_name": utils.slugify(transfer.getNameLocale) }) }}" class="text-mine-shaft">
+                                    <div class="grid_card_image">
+                                        <a href="{{ path("show_experience", {"id":transfer.id, "_name": utils.slugify(transfer.getNameLocale) }) }}" class="text-mine-shaft">
                                             <img data-src="{{ asset(transfer.getWebPath) }}" src="{{ asset(transfer.getWebPath(0)) }}"  alt="{{ transfer.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
                                             <noscript>
                                                 <img src="{{ asset(transfer.getWebPath) }}" alt="{{ transfer.getNameLocale }}" class="img-responsive center-block">
