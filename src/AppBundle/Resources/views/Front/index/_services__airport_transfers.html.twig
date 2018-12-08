@@ -20,7 +20,7 @@
     {% for transfer in airport_transfers %}
         <div class="grid_item grid_card">
             <div class="grid_card_image"> <a href="{{ path("booking_airport", {"_id":transfer.id, "_name": utils.slugify(transfer.getNameLocale) }) }}" class="text-mine-shaft">
-                    <img data-src="{{ asset(transfer.getWebPath) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII="  alt="{{ transfer.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
+                    <img data-src="{{ asset(transfer.getWebPath) }}" src="{{ asset(transfer.getWebPath(0)) }}"  alt="{{ transfer.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
                     <noscript>
                         <img src="{{ asset(transfer.getWebPath) }}" alt="{{ transfer.getNameLocale }}" class="img-responsive center-block">
                     </noscript>

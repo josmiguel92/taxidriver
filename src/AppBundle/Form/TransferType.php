@@ -22,11 +22,12 @@ class TransferType extends AbstractType
             ->add('targetPlace', null, ["label"=>"Lugar de destino"])
 
             ->add('origin', null, ["label"=>"Lugar de origen (opcional)"])
+            ->add('distance', null, ["label"=>"Distancia, en km"])
 
             ->add('priceSumary', null, ["label"=>"Precios segun origen"])
             ->add('priceSumaryEn', null, ["label"=>"Precios segun el origen, en ingles"])
 
-            ->add('basePrice', null, ["label"=>"Precio del transfer"])
+            ->add('basePrice', MoneyType::class, ["label"=>"Precio del transfer"])
 
             ->add('description', CKEditorType::class, ["label"=>"Descripcion, en español"])
             ->add('descriptionEn',CKEditorType::class, ["label"=>"Descripcion, en ingles"])

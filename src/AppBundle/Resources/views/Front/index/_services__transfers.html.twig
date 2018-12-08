@@ -22,7 +22,7 @@
     {% for transfer in transfers %}
     <div class="grid_item grid_card">
         <div class="grid_card_image"> <a href="{{ path("booking_place", {"_id":transfer.id, "_name": utils.slugify(transfer.getNameLocale) }) }}" class="text-mine-shaft">
-                <img data-src="{{ asset(transfer.getWebPath) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII="  alt="{{ transfer.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
+                <img data-src="{{ asset(transfer.getWebPath) }}" src="{{ asset(transfer.getWebPath(0)) }}"  alt="{{ transfer.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
                 <noscript>
                     <img src="{{ asset(transfer.getWebPath) }}" alt="{{ transfer.getNameLocale }}" class="img-responsive center-block">
                 </noscript>
@@ -35,6 +35,12 @@
 
         </div>
         <div class="grid_card_description">
+            {% if transfer.distance > 0 %}
+                <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-car"></i>
+                        {% trans %}Distance{% endtrans %}: </b>
+                    {{ transfer.distance }} km
+                </p>
+            {% endif %}
             {% if transfer.basePrice > 0 %}
                 <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i>
                         {% trans %}Price{% endtrans %}: </b>

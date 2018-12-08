@@ -112,5 +112,29 @@ class Transfer extends Service
     public function getServiceType(){
         return 'Transfer';
     }
+
+    /**
+     * @var integer
+     * @ORM\Column(name="distance", type="integer", nullable=true)
+     */
+    private $distance;
+    /**
+     * @return integer
+     */
+    public function getDistance()
+    {
+        return $this->distance;
+    }
+
+    /**
+     * @param integer $distance
+     */
+    public function setDistance($distance)
+    {
+        $this->distance = $distance;
+    }
+
+
+
 }
 

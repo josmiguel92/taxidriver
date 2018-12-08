@@ -69,6 +69,8 @@ abstract class Service extends ImageField
      */
     protected $weight;
 
+
+
     /**
      * Get id
      *
@@ -257,6 +259,8 @@ abstract class Service extends ImageField
     {
         $this->weight = $weight;
     }
+
+
 
     abstract function getServiceType();
 

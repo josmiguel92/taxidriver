@@ -32,6 +32,12 @@ class Experience extends Service
      */
     private $priceSumaryEn;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="durationTime", type="text", nullable=true)
+     */
+    private $durationTime;
 
      /**
      * @var bool
@@ -158,5 +164,23 @@ class Experience extends Service
     public function getServiceType(){
         return 'Experience';
     }
+
+    /**
+     * @return string
+     */
+    public function getDurationTime()
+    {
+        return $this->durationTime;
+    }
+
+    /**
+     * @param string $durationTime
+     */
+    public function setDurationTime($durationTime)
+    {
+        $this->durationTime = $durationTime;
+    }
+
+
 }
 

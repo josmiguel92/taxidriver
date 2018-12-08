@@ -6,14 +6,10 @@
         <section class="section-75 section-md-top-90 section-md-bottom-110">
             <div class="shell">
                 <h2>{% trans %}Reservation form{% endtrans %}</h2>
-
-
                 {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
                                                      'data-form-type':'order',
                                                      'data-form-output':'form-output-global'}}) }}
-
-
-                    <!--- Where are you going --->
+                <!--- Where are you going --->
                     <div class="well-row well-row-bg">
                         <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
                             {{ experience.getNameLocale }}
@@ -28,8 +24,7 @@
                         <hr>
                         {{ experience.getDescriptionLocale | raw }}
                     </div>
-
-                    <!--- Pickup Data --->
+                <!--- Pickup Data --->
                     <div class="well-row well-row-bg">
                         <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
                             {% trans %}Pickup details{% endtrans %}
@@ -37,7 +32,6 @@
                     </div>
 
                     <div class="well-row row">
-
                         <div class="col-md-10 cell-md-10">
                             <!--Pickup place-->
                             <div class="row offset-top-15 well-row-flex">

@@ -24,7 +24,7 @@ class ExperienceType extends AbstractType
             ->add('external', null, ["label"=>"Esta experiencia se gestiona desde otra web"])
             ->add('externalUrl', null, ["label"=>"URL Externa para gestionar la experiencia"])
 
-            ->add('basePrice', null, ["label"=>"Precio de la experiencia"])
+            ->add('basePrice', MoneyType::class, ["label"=>"Precio de la experiencia"])
 
             ->add('description', CKEditorType::class, ["label"=>"Descripcion, en español"])
             ->add('descriptionEn',CKEditorType::class, ["label"=>"Descripcion, en ingles"])
@@ -32,6 +32,8 @@ class ExperienceType extends AbstractType
             ->add('file', null, ['label'=>"Imagen destacada de la Experiencia"])
 
             ->add('targetPlace', null, ["label"=>"Lugar donde se realiza"])
+            ->add('durationTime', null, ["label"=>"Tiempo de duración"])
+            ->add('distance', null, ["label"=>"Distancia, en km"])
             ->add('galleryImage0')->add('galleryImage1')->add('galleryImage2')
             ->add('galleryImage3')->add('galleryImage4')
             ->add('weight', null, ['label'=>'Orden entre los servicios']);

@@ -69,6 +69,42 @@ class ImagesCommand extends ContainerAwareCommand
         }
 
         $output->writeln("Se procesaron ". count($items). ' Posts');
+
+        $items = $em->getRepository("AppBundle:Transfer")->findAll();
+
+        foreach ($items as $item){
+            if(file_exists($item->getAbsolutePath()))
+                $item->updateThumbs();
+            else
+                $output->writeln("Un Transfer (".$item->getName().") contiene una referencia a una imagen que no existe: ". $item->getPath());
+
+        }
+
+        $output->writeln("Se procesaron ". count($items). ' Transfers');
+
+        $items = $em->getRepository("AppBundle:Experience")->findAll();
+
+        foreach ($items as $item){
+            if(file_exists($item->getAbsolutePath()))
+                $item->updateThumbs();
+            else
+                $output->writeln("Una Experience (".$item->getName().") contiene una referencia a una imagen que no existe: ". $item->getPath());
+
+        }
+
+        $output->writeln("Se procesaron ". count($items). ' Experience');
+
+        $items = $em->getRepository("AppBundle:AirportTransfer")->findAll();
+
+        foreach ($items as $item){
+            if(file_exists($item->getAbsolutePath()))
+                $item->updateThumbs();
+            else
+                $output->writeln("Una AirportTransfer (".$item->getName().") contiene una referencia a una imagen que no existe: ". $item->getPath());
+
+        }
+
+        $output->writeln("Se procesaron ". count($items). ' AirportTransfer');
         $output->writeln("Tarea finalizada");
 
 

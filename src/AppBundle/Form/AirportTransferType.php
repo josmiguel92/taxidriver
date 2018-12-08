@@ -25,9 +25,7 @@ class AirportTransferType extends AbstractType
             ->add('description',CKEditorType::class, ["label"=>"Descripción, en español"])
             ->add('descriptionEn', CKEditorType::class, ["label"=>"Descripción, en ingles"])
 
-
             ->add('file', null, ['label'=>"Imagen destacada del transfer"])
-
 
             ->add('targetPlace')
             ->add('weight', null, ['label'=>'Orden entre los servicios']);

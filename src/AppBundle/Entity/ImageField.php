@@ -65,6 +65,8 @@ class ImageField
 
     public function getWebPath($size = "1x1")
     {
+        if($size == "0")
+            return $this->getUploadDir().'/'.$this->path.'-0.jpg';
         if($size == "4x3")
             return $this->getUploadDir().'/'.$this->path.'-4x3.jpg';
         if($size == "16x9")
@@ -198,8 +200,9 @@ class ImageField
         $image = @imagecreatefromjpeg($this->getAbsolutePath());
 
 		//[width, height]
-		$dimensions = [[300,300], [400,300], [1350, 760], [1800, 1800],[1800, 1350],[1800, 1014]];
-		$filenames = [$this->getAbsolutePath().'-1x1.jpg', 
+		$dimensions = [[20,20],[300,300], [400,300], [1350, 760], [1800, 1800],[1800, 1350],[1800, 1014]];
+		$filenames = [$this->getAbsolutePath().'-0.jpg',
+		                $this->getAbsolutePath().'-1x1.jpg',
 						$this->getAbsolutePath().'-4x3.jpg', 
 						$this->getAbsolutePath().'-16x9.jpg', 
 						$this->getAbsolutePath().'-full-1x1.jpg',
@@ -239,7 +242,7 @@ class ImageField
             $new_width, $new_height,
             $width, $height);
 
-			@imagejpeg($thumb, $filenames[$i], 85);
+			@imagejpeg($thumb, $filenames[$i], 90);
 
 		}
     }
