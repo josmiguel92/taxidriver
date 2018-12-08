@@ -24,70 +24,77 @@
                         <hr>
                         {{ experience.getDescriptionLocale | raw }}
                     </div>
-                <!--- Pickup Data --->
-                    <div class="well-row well-row-bg">
-                        <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
-                            {% trans %}Pickup details{% endtrans %}
-                        </p>
-                    </div>
 
-                    <div class="well-row row">
-                        <div class="col-md-10 cell-md-10">
-                            <!--Pickup place-->
-                            <div class="row offset-top-15 well-row-flex">
-                                <div class="col-md-3">
-                                    <label for="{{ booking_form.details.vars.id }}"  class="custom-label text-gray-dark">{% trans %}Place{% endtrans %}</label>
-                                </div>
-                                <div class="col-md-9 form-group">
-                                    <input placeholder="{% trans %}Address{% endtrans %}" type="text" style="padding: 10px 12px;" class="form-control" id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}">
-                                    {{ form_errors(booking_form.details, {'class':'danger'}) }}
-                                </div>
-                            </div>
+                <div class="row">
+                    {% if testimonials | length > 0 %}
+                        <div class="col-md-9">
+                    {% else %}
+                        <div class="col-md-12">
+                    {% endif %}
+                        <!--- Pickup Data --->
+                        <div class="well-row well-row-bg">
+                            <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
+                                {% trans %}Pickup details{% endtrans %}
+                            </p>
+                        </div>
 
-
-
-                            <!--Date Time -->
-                            <div class="row offset-top-15 well-row-flex">
+                        <div class="well-row row">
+                            <div class="col-md-10 cell-md-10">
                                 <!--Pickup place-->
-                                <div class="col-md-3">
-                                    <label class="custom-label text-gray-dark">{% trans %}Date and time{% endtrans %}
-                                    </label>
-                                </div>
-                                <div class="col-md-9 form-group">
-                                    <input data-constraints="@Required" required placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="" type="text" style="text-align: left; padding: 10px 12px;" class="form-control" id="{{ booking_form.pickuptime.vars.id }}" name="{{ booking_form.pickuptime.vars.full_name }}">
-                                    <span class="form-validation"></span>
-                                    {{ form_errors(booking_form.pickuptime, {'class':'danger'}) }}
-                                </div>
-                            </div>
-
-
-
-                            <!--Persons-->
-                            <div class="row offset-top-15 well-row-flex">
-                                <!--Pickup place-->
-                                <div class="col-md-3">
-                                    <label class="custom-label text-gray-dark">{% trans %}No. of persons{% endtrans %}</label>
-                                </div>
-                                <div class="col-md-3 form-group">
-                                    <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.numpeople.vars.id }}" name="{{ booking_form.numpeople.vars.full_name }}">
+                                <div class="row offset-top-15 well-row-flex">
+                                    <div class="col-md-3">
+                                        <label for="{{ booking_form.details.vars.id }}"  class="custom-label text-gray-dark">{% trans %}Place{% endtrans %}</label>
+                                    </div>
+                                    <div class="col-md-9 form-group">
+                                        <input placeholder="{% trans %}Address{% endtrans %}" type="text" style="padding: 10px 12px;" class="form-control" id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}">
+                                        {{ form_errors(booking_form.details, {'class':'danger'}) }}
+                                    </div>
                                 </div>
 
-                                <div class="col-md-6">
-                                    <p><strong>{% trans %}Price{% endtrans %}</strong></p>
-                                    <ul>
-                                        <li id="labelPrice">{{ experience.basePrice | number_format(2,'.') }} USD </li>
-                                    </ul>
 
+
+                                <!--Date Time -->
+                                <div class="row offset-top-15 well-row-flex">
+                                    <!--Pickup place-->
+                                    <div class="col-md-3">
+                                        <label class="custom-label text-gray-dark">{% trans %}Date and time{% endtrans %}
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9 form-group">
+                                        <input data-constraints="@Required" required placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="" type="text" style="text-align: left; padding: 10px 12px;" class="form-control" id="{{ booking_form.pickuptime.vars.id }}" name="{{ booking_form.pickuptime.vars.full_name }}">
+                                        <span class="form-validation"></span>
+                                        {{ form_errors(booking_form.pickuptime, {'class':'danger'}) }}
+                                    </div>
+                                </div>
+
+
+
+                                <!--Persons-->
+                                <div class="row offset-top-15 well-row-flex">
+                                    <!--Pickup place-->
+                                    <div class="col-md-3">
+                                        <label class="custom-label text-gray-dark">{% trans %}No. of persons{% endtrans %}</label>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <input type="number" data-zeros="true" value="1" min="1" max="20" class="form-control" id="{{ booking_form.numpeople.vars.id }}" name="{{ booking_form.numpeople.vars.full_name }}">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <p><strong>{% trans %}Price{% endtrans %}</strong></p>
+                                        <ul>
+                                            <li id="labelPrice">{{ experience.basePrice | number_format(2,'.') }} USD </li>
+                                        </ul>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!---Personal Data--->
-                    <div class="well-row well-row-bg">
-                        <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">{% trans %}Personal Data{% endtrans %}</p>
-                    </div>
-                    <div class="well-row row">
+                        <!---Personal Data--->
+                        <div class="well-row well-row-bg">
+                            <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">{% trans %}Personal Data{% endtrans %}</p>
+                        </div>
+                        <div class="well-row row">
 
                             <!---Name-->
                             <div class="col-md-10 offset-top-15 well-row-flex">
@@ -132,14 +139,69 @@
 
                             </div>
 
-                    </div>
+                        </div>
 
 
-                    <div class="well-row">
-                        <div class="range range-xs-center">
-                            <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_public_key }}"></div>
+                        <div class="well-row">
+                            <div class="range range-xs-center">
+                                <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_public_key }}"></div>
+                            </div>
                         </div>
                     </div>
+                    {% if testimonials %}
+                    <div class="col-md-3 testimonial-grid">
+                        <div class="testimonials-header">
+                            <a target="_blank" href="https://www.tripadvisor.es/">
+                                <img src="{{ asset('images/tripadvisor-logo.png') }}" alt="TripAdvisor"/>
+                            </a>
+                        </div>
+                        {% for testimony in testimonials %}
+                            <div class="owl-item" style="margin: 1em; text-align: center; ">
+                                <!-- Blockquote-->
+                                <blockquote class="quote">
+
+                                    {% set alt = locale=='en'? "TripAdvisor Testimony by" : "Testimonio de TripAdvisor por" %}
+                                    <a href="{{ testimony.link }}">
+                                        <img alt="{{ alt }} {{ testimony.getName }}" data-src="{{ asset(testimony.getFullImageWebPath) }}" width="120" height="120" class="img-circle img-responsive center-block lazy">
+                                        <div class="offset-top-10 offset-md-top-25">
+                                            <cite class="font-accent text-bold text-spacing-inverse-25 text-primary">
+                                                <span class="text-mine-shaft">{{ testimony.getName }}</span>
+                                            </cite>
+                                        </div>
+                                    </a>
+
+                                    {% if testimony.points %}
+                                        <span class="badge">
+                                            {% for i in 1 .. testimony.points %}
+                                                <i class="fa fa-star" style="color: gold; font-size: .5em"></i>
+                                            {% endfor %}
+                                        </span>
+                                    {% endif %}
+                                    <div class="offset-top-15 offset-md-top-30">
+                                        <p style="font-size: 0.7em;">
+                                            {{ testimony.getTextLocale|striptags|slice(0, 200) }}
+                                            {% if testimony.getTextLocale|striptags|length > 200 %}
+                                                ...
+                                            {% endif %}
+                                        </p>
+
+                                    </div>
+
+                                    {% if not loop.last %}
+                                    <div class="offset-top-10">
+                                        <h5 class="text-spacing-20 text-silver-chalice">....</h5>
+                                    </div>
+                                    {% endif %}
+                                </blockquote>
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+                    {% endif %}
+                </div>
+
+                </div>
 
                     <!--Submit button-->
                     <div class="well-row well-row-bg">

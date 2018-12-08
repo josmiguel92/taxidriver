@@ -44,7 +44,7 @@ class DefaultController extends Controller
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
             $places = $em->getRepository('AppBundle:Place')->findAll(); //TODO: eliminar esta consulta y no pasar los places
             $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
-            $testimonials = $em->getRepository('AppBundle:Testimony')->findAll();
+            $testimonials = $em->getRepository('AppBundle:Testimony')->getRandomTestimony();
 
             $experiences = $em->getRepository('AppBundle:Experience')->findAllSorted();
             $transfers = $em->getRepository('AppBundle:Transfer')->findAllSorted();

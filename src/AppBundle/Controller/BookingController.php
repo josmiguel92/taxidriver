@@ -8,6 +8,7 @@ use AppBundle\Entity\AirportTransfer;
 use AppBundle\Entity\Experience;
 use AppBundle\Entity\Place;
 use AppBundle\Entity\Service;
+use AppBundle\Entity\Testimony;
 use AppBundle\Entity\Transfer;
 use AppBundle\Utils\Utils;
 use Couchbase\Exception;
@@ -140,6 +141,8 @@ class BookingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $places = $em->getRepository('AppBundle:Place')->findAll();
         $transfer = $em->getRepository('AppBundle:Transfer')->find($_id);
+        $testimonials = $em->getRepository('AppBundle:Testimony')
+                            ->findRandomByTransferOrPlace($transfer->getId(),$transfer->getTargetPlace()->getId());
 
         $nameLocale = Utils::slugify($transfer->getNameLocale());
         $nameRequest = $_name;
@@ -197,7 +200,8 @@ class BookingController extends Controller
                     'transfer'=>$transfer,
                     'place'=>$place,
                     'places'=>$places,
-                    'config'=>$config
+                    'config'=>$config,
+                    'testimonials'=>$testimonials
                     ]);
         }
         else

@@ -157,7 +157,7 @@ class ExperienceController extends Controller
                 $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
                 $places = $em->getRepository('AppBundle:Place')->findAll();
                 $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
-                $testimonials = $em->getRepository('AppBundle:Testimony')->findAll();
+                $testimonials = $em->getRepository('AppBundle:Testimony')->findRandomByExperience($experience->getId(),2);
 
                 $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
                 $config = [];

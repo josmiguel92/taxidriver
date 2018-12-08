@@ -8,7 +8,7 @@
                     <ul id="UgXRuE" class="TA_links 5A9w779">
                         <li id="bGmGQTDg5" class="uHSLrEnrO">
                             <a target="_blank" href="https://www.tripadvisor.es/">
-                                <img src="https://www.tripadvisor.es/img/cdsi/img2/branding/150_logo-11900-2.png" alt="TripAdvisor"/>
+                                <img src="{{ asset('images/tripadvisor-logo.png') }}" alt="TripAdvisor"/>
                             </a>
                         </li>
                     </ul>
@@ -31,6 +31,13 @@
                                             ...
                                         {% endif %}
                                     </p>
+                                    {% if testimony.points %}
+                                        <span class="badge">
+                                            {% for i in 1 .. testimony.points %}
+                                                <i class="fa fa-star" style="color: gold; font-size: .8em"></i>
+                                            {% endfor %}
+                                        </span>
+                                                            {% endif %}
                                 </div>
                                 <div class="offset-top-10 offset-md-top-25">
                                     <p>

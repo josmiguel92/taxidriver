@@ -46,6 +46,22 @@ class Testimony extends ImageField
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="link", type="string", length=500, nullable=true)
+     */
+    private $link;
+
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="points", type="integer", nullable=true)
+     */
+    private $points;
+
+
+    /**
      * @var Place
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Place")
@@ -196,6 +212,41 @@ class Testimony extends ImageField
     {
         $this->transfer = $transfer;
     }
+
+    /**
+     * @return string
+     */
+    public function getLink()
+    {
+        return $this->link;
+    }
+
+    /**
+     * @param string $link
+     */
+    public function setLink($link)
+    {
+        $this->link = $link;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPoints()
+    {
+        return $this->points;
+    }
+
+    /**
+     * @param int $points
+     */
+    public function setPoints($points)
+    {
+        $points = $points > 5 ? 5 : $points;
+        $points = $points < 1 ? 1 : $points;
+        $this->points = $points;
+    }
+
 
 
 }
