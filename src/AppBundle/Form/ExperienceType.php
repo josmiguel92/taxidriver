@@ -7,6 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+
 class ExperienceType extends AbstractType
 {
     /**
@@ -24,7 +26,7 @@ class ExperienceType extends AbstractType
             ->add('external', null, ["label"=>"Esta experiencia se gestiona desde otra web"])
             ->add('externalUrl', null, ["label"=>"URL Externa para gestionar la experiencia"])
 
-            ->add('basePrice', MoneyType::class, ["label"=>"Precio de la experiencia"])
+            ->add('basePrice', MoneyType::class, ["label"=>"Precio de la experiencia",'currency'=>"USD"])
 
             ->add('description', CKEditorType::class, ["label"=>"Descripcion, en español"])
             ->add('descriptionEn',CKEditorType::class, ["label"=>"Descripcion, en ingles"])

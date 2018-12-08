@@ -4,6 +4,8 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -20,7 +22,7 @@ class AirportTransferType extends AbstractType
             ->add('name', null, ["label"=>"Nombre del Transfer, en ingles"])
             ->add('targetAirport', null, ['label'=> "Aeropuerto de origen/destino"])
 
-            ->add('basePrice', null, ["label"=>"Precio base del recorrido"])
+            ->add('basePrice', MoneyType::class, ["label"=>"Precio base del recorrido",'currency'=>"USD"])
 
             ->add('description',CKEditorType::class, ["label"=>"Descripción, en español"])
             ->add('descriptionEn', CKEditorType::class, ["label"=>"Descripción, en ingles"])
