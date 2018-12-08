@@ -34,11 +34,11 @@ class ExperienceType extends AbstractType
             ->add('file', null, ['label'=>"Imagen destacada de la Experiencia"])
 
             ->add('targetPlace', null, ["label"=>"Lugar donde se realiza"])
-            ->add('durationTime', null, ["label"=>"Tiempo de duración"])
+            ->add('durationTime', null, ["label"=>"Tiempo de duración, ej: ´8h´, ´12h´"])
             ->add('distance', null, ["label"=>"Distancia, en km"])
             ->add('galleryImage0')->add('galleryImage1')->add('galleryImage2')
             ->add('galleryImage3')->add('galleryImage4')
-            ->add('weight', null, ['label'=>'Orden entre los servicios']);
+            ->add('weight', null, ['label'=>'Orden entre los servicios, mayores tienen prioridad']);
     }/**
      * {@inheritdoc}
      */

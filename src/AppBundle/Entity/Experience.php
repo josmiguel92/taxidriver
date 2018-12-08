@@ -35,7 +35,7 @@ class Experience extends Service
     /**
      * @var string
      *
-     * @ORM\Column(name="durationTime", type="text", nullable=true)
+     * @ORM\Column(name="durationTime", type="string", nullable=true)
      */
     private $durationTime;
 
@@ -53,7 +53,26 @@ class Experience extends Service
      */
      private $externalUrl;
 
+    /**
+     * @var integer
+     * @ORM\Column(name="distance", type="integer", nullable=true)
+     */
+    private $distance;
+    /**
+     * @return integer
+     */
+    public function getDistance()
+    {
+        return $this->distance;
+    }
 
+    /**
+     * @param integer $distance
+     */
+    public function setDistance($distance)
+    {
+        $this->distance = $distance;
+    }
 
     /**
      * Set priceSumary

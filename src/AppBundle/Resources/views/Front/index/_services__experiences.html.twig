@@ -44,6 +44,9 @@
                             {% if experience.basePrice > 0 %}
                                 <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ experience.basePrice | number_format(2,'.') }} USD<br/></p>
                             {% endif %}
+                            {% if experience.durationTime %}
+                                <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ experience.durationTime }}<br/></p>
+                            {% endif %}
                             <div class="offset-top-40">
                                 <a href="{{ link }}" class="btn btn-calypso btn-icon btn-icon-left">
                                     <span class="icon icon-xs fa fa-info-circle"></span>

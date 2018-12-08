@@ -35,7 +35,7 @@ class TransferType extends AbstractType
             ->add('descriptionEn',CKEditorType::class, ["label"=>"Descripcion, en ingles"])
 
             ->add('file', null, ['label'=>"Imagen destacada del transfer"])
-            ->add('weight', null, ['label'=>'Orden entre los servicios'])
+            ->add('weight', null, ['label'=>'Orden entre los servicios, mayores tienen prioridad'])
         ;
 
 
