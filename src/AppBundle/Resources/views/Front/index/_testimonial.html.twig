@@ -16,41 +16,12 @@
             </div>
 
             <div class="cell-sm-10 cell-md-8 col-md-offset-1">
-                <div data-items="1" data-md-items="3" data-xs-stage-padding="5" data-loop="true" data-margin="30" data-mouse-drag="false" data-nav="true" data-dots="true" class="owl-carousel owl-nav-absolute owl-nav-primary owl-nav-top">
+                <div data-items="1" data-md-items="3" data-xs-stage-padding="5" data-loop="true" data-margin="30"
+                     data-mouse-drag="false" data-nav="true" data-dots="true"
+                     class="owl-carousel owl-nav-absolute owl-nav-primary owl-nav-top">
 
                     {% for testimony in testimonials %}
-                        <div class="owl-item">
-                            <!-- Blockquote-->
-                            <blockquote class="quote">
-                                {% set alt = locale=='en'? "TripAdvisor Testimony by" : "Testimonio de TripAdvisor por" %}
-                                <img alt="{{ alt }} {{ testimony.getName }}" data-src="{{ asset(testimony.getFullImageWebPath) }}" width="169" height="169" class="img-circle img-responsive center-block lazy">
-                                <div class="offset-top-15 offset-md-top-30">
-                                    <p >
-                                        {{ testimony.getTextLocale|striptags|slice(0, 190) }}
-                                        {% if testimony.getTextLocale|striptags|length > 190 %}
-                                            ...
-                                        {% endif %}
-                                    </p>
-                                    {% if testimony.points %}
-                                        <span class="badge">
-                                            {% for i in 1 .. testimony.points %}
-                                                <i class="fa fa-star" style="color: gold; font-size: .8em"></i>
-                                            {% endfor %}
-                                        </span>
-                                                            {% endif %}
-                                </div>
-                                <div class="offset-top-10 offset-md-top-25">
-                                    <p>
-                                        <cite class="font-accent text-bold text-spacing-inverse-25 text-primary">
-                                            <span class="text-mine-shaft">{{ testimony.getName }}</span>
-                                        </cite>
-                                    </p>
-                                </div>
-                                <div class="offset-top-10">
-                                    <h5 class="text-spacing-20 text-silver-chalice">...</h5>
-                                </div>
-                            </blockquote>
-                        </div>
+                        {{ include('@App/Front/index/_testimonial__partial.html.twig') }}
                     {% endfor %}
                 </div>
             </div>

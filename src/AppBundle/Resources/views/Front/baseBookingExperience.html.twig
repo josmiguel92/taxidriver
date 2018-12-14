@@ -178,7 +178,9 @@
                                         </span>
                                     {% endif %}
                                     <div class="offset-top-15 offset-md-top-30">
+                                        <b  style="font-size: 0.7em;">{{ testimony.getTitleLocale }}</b>
                                         <p style="font-size: 0.7em;">
+
                                             {{ testimony.getTextLocale|striptags|slice(0, 200) }}
                                             {% if testimony.getTextLocale|striptags|length > 200 %}
                                                 ...

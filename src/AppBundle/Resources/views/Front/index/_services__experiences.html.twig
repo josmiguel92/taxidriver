@@ -26,7 +26,7 @@
                 <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
                     <div class="unit-left">
                         <a href="{{ link }}" class="text-mine-shaft">
-                            <img data-src="{{ asset(experience.getWebPath) }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=" width="270" alt="{{ experience.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
+                            <img data-src="{{ asset(experience.getWebPath) }}" src="{{ asset(experience.getWebPath(0)) }}" width="270" alt="{{ experience.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
                             <noscript>
                                 <img src="{{ asset(experience.getWebPath) }}" width="270" alt="{{ experience.getNameLocale }}" class="img-responsive center-block">
                             </noscript>

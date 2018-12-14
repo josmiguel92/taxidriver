@@ -45,6 +45,26 @@ class Testimony extends ImageField
      */
     private $name;
 
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     */
+    private $title;
+
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titleen", type="string", length=255, nullable=true)
+     */
+    private $titleen;
+
+
+
     /**
      * @var string
      *
@@ -236,6 +256,46 @@ class Testimony extends ImageField
     {
         return $this->points;
     }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitleen()
+    {
+        return $this->titleen;
+    }
+
+    /**
+     * @param string $titleen
+     */
+    public function setTitleen($titleen)
+    {
+        $this->titleen = $titleen;
+    }
+
+
+    function getTitleLocale(){
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->title;
+        return $this->titleen;
+    }
+
 
     /**
      * @param int $points

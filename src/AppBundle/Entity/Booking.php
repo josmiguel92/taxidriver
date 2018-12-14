@@ -286,7 +286,7 @@ class Booking
 
 
     /**
-     * @return string
+     * @return Airport
      */
     public function getAirportName()
     {

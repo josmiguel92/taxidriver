@@ -40,8 +40,9 @@
     {# Color chrome tab #}
     <meta name="theme-color" content="#18acfb">
 
-    <link rel="preload" href="{{ asset("css/styles.min.css?v2") }}" as="style">
-    <link rel="stylesheet"  type="text/css" href="{{ asset("css/styles.min.css?v20181208") }}">
+    {% set asset_style_version = 'v20181214' %}
+    <link rel="preload" href="{{ asset("css/styles.min.css?" ~ asset_style_version) }}" as="style">
+    <link rel="stylesheet"  type="text/css" href="{{ asset("css/styles.min.css?" ~ asset_style_version) }}">
 
     {% if app.Environment == "dev" %}
         {#

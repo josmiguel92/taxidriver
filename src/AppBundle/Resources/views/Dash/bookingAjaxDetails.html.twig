@@ -28,7 +28,10 @@
 </p>
 
 {% if booking.isAnAirport %}
-    <p>Recogida al aereopuerto, {{ booking.airportName.nameLocale }}<br/>
+    <p>
+        {% if booking.airportName %}
+        Recogida al aereopuerto, {{ booking.airportName.nameLocale }}<br/>
+        {% endif %}
         numero de vuelo: <strong>{{ booking.flynumber }}</strong>
     </p>
 {% elseif booking.aCruise %}
@@ -96,4 +99,57 @@
     <a href="{{ path('dash_booking_delete', {'id': booking.id}) }}" class="btn btn-default">Eliminar</a>
 
 </div>
+
+<hr>
+<b>Resumen de la reserva</b>
+
+<pre>
+    Aceptado: {% if booking.accepted %}SI{% else %}NO{% endif %}
+
+    {% if booking.airport %}Se marcó la recogida en Aereopuerto{% endif %}
+
+    Nombre del aeropuerto: {{ booking.airportName }}
+
+    {% if booking.airportTransfer %}Es un transfer a/desde Aeropuerto{% endif %}
+
+    Comentario:    {{ booking.comment }}
+
+    **************************
+    {% if booking.confirmed %}Confirmado por la Administración{% else %}Aún no confirmado por el administradoor{% endif %}
+
+    Detalles: {{ booking.details }}
+    **************************
+    Correo: {{ booking.email }}
+    {% if booking.experience %}Es una experiencia{% endif %}
+    {{ booking.experience }}
+    {% if booking.experienceTaxi %}Necesita taxi par esta experiencia{% endif %}
+    {{ booking.experienceTaxi }}
+    Tiempo para la experiencia:  {{ booking.experienceTime }} horas
+    ***************************
+    Número del vuelo: {{ booking.flynumber }}
+    Nombre del cliente: {{ booking.fullname }}
+
+    Telefono: {{ booking.telephone }}
+    Cantidad de personas: {{ booking.numpeople }}
+
+    Fecha/Hora de recogida: {{ booking.pickuptime | date("l d/m/Y H:i")}}
+    Lugar de recogida: {{ booking.place }}
+    Precio: {{ booking.price }}
+    ****************************
+    {% if booking.returnpickup %}Contrató tambien regreso:
+
+    Lugar de recogida: {{ booking.returnpickupplacce }}
+    Fecha/Hora: {{ booking.returnpickuptime | date("l d/m/Y H:i")}}
+    {% endif %}
+
+    Tipo de Servicio: {{ booking.serviceType }}
+    Lugar de destino: {{ booking.targetPlace }}
+    Ida al aeropuerto: {{ booking.toAirport }}
+    Tour: {{ booking.tour }}
+    Transfer: {{ booking.transfer }}
+
+    Paypal: {{ booking.idpaypal }}
+</pre>
+
 </form>
+<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

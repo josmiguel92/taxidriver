@@ -118,7 +118,7 @@ img.lazy
 {filter:none}
 img.lazy[data-src]{
     filter: blur(5px);
-    transition: all linear ease 500ms;
+    transition: all cubic 500ms;
 }
 .testimonials-header{
     display: block;
@@ -138,4 +138,8 @@ text-align: center;
     grid-template-rows: 2fr 0.5fr;
     grid-template-areas:    "image title"
     "image description"
+}
+.grid-testimony{
+display: grid;
+    grid-template-rows: 8em 10em 3em 1em;
 }
