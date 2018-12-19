@@ -143,7 +143,7 @@ class BookingController extends Controller
         $transfer = $em->getRepository('AppBundle:Transfer')->find($_id);
       
       if(!$transfer) {
-            return $this->createNotFoundException("This product not exist");
+            throw  $this->createNotFoundException("This product not exist");
         }
         
       if ($nameRequest != $nameLocale){
