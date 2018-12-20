@@ -32,4 +32,16 @@ class TransferRepository extends \Doctrine\ORM\EntityRepository
             ->getResult()
             ;
     }
+
+    public function findRandomByImportantAll($amount = 3)
+    {
+        return $this->createQueryBuilder('a')
+            ->addSelect('RAND() as HIDDEN rand')
+            ->where('a.important = true')
+            ->orderBy('rand')
+            ->setMaxResults($amount)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

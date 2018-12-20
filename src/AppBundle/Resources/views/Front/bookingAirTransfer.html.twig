@@ -152,6 +152,13 @@
                     </div>
                 {% endif %}
 
+
+            <div class="row">
+            {% if testimonials | length > 0 %}
+            <div class="col-md-9">
+            {% else %}
+            <div class="col-md-12">
+                {% endif %}
                 <!-- airport or cruise data -->
                 <div class="well-row well-row-bg">
                     <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
@@ -342,6 +349,61 @@
                     </div>
                 </div>
 
+            </div>
+                {% if testimonials %}
+                    <div class="col-md-3 testimonial-grid">
+                        <div class="testimonials-header">
+                            <a target="_blank" href="https://www.tripadvisor.es/">
+                                <img src="{{ asset('images/tripadvisor-logo.png') }}" alt="TripAdvisor"/>
+                            </a>
+                        </div>
+                        {% for testimony in testimonials %}
+                            <div class="owl-item" style="margin: 1em; text-align: center; ">
+                                <!-- Blockquote-->
+                                <blockquote class="quote">
+
+                                    {% set alt = locale=='en'? "TripAdvisor Testimony by" : "Testimonio de TripAdvisor por" %}
+                                    <a href="{{ testimony.link }}">
+                                        <img alt="{{ alt }} {{ testimony.getName }}" data-src="{{ asset(testimony.getFullImageWebPath) }}" width="120" height="120" class="img-circle img-responsive center-block lazy">
+                                        <div class="offset-top-10 offset-md-top-25">
+                                            <cite class="font-accent text-bold text-spacing-inverse-25 text-primary">
+                                                <span class="text-mine-shaft">{{ testimony.getName }}</span>
+                                            </cite>
+                                        </div>
+                                    </a>
+
+                                    {% if testimony.points %}
+                                        <span class="badge">
+                                            {% for i in 1 .. testimony.points %}
+                                                <i class="fa fa-star" style="color: gold; font-size: .5em"></i>
+                                            {% endfor %}
+                                        </span>
+                                    {% endif %}
+                                    <div class="offset-top-15 offset-md-top-30">
+                                        <b  style="font-size: 0.7em;">{{ testimony.getTitleLocale }}</b>
+                                        <p style="font-size: 0.7em;">
+
+                                            {{ testimony.getTextLocale|striptags|slice(0, 200) }}
+                                            {% if testimony.getTextLocale|striptags|length > 200 %}
+                                                ...
+                                            {% endif %}
+                                        </p>
+
+                                    </div>
+
+                                    {% if not loop.last %}
+                                        <div class="offset-top-10">
+                                            <h5 class="text-spacing-20 text-silver-chalice">....</h5>
+                                        </div>
+                                    {% endif %}
+                                </blockquote>
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+                {% endif %}
+            </div>
                 <!--Submit button-->
                 <div class="well-row well-row-bg">
                     {% block submitAlert %}
@@ -377,6 +439,46 @@
                 {% endif %}
                 </form>
             </div>
+
+
+                {% if suggestedPlaces %}
+
+                    <div class="row" style="margin-top: 2em">
+                        <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
+                            {% trans %}Popular transfers you could prefer{% endtrans %}
+                        </p>
+                        <div class="grid13-cards small-foot">
+                            {% for transfer in suggestedPlaces %}
+                                <div class="grid_item grid_card">
+                                    <div class="grid_card_image">
+                                        <a href="{{ path("booking_place", {"_id":transfer.id, "_name": utils.slugify(transfer.getNameLocale) }) }}" class="text-mine-shaft">
+                                            <img data-src="{{ asset(transfer.getWebPath) }}" src="{{ asset(transfer.getWebPath(0)) }}"  alt="{{ transfer.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
+                                            <noscript>
+                                                <img src="{{ asset(transfer.getWebPath) }}" alt="{{ transfer.getNameLocale }}" class="img-responsive center-block">
+                                            </noscript>
+                                        </a>
+                                    </div>
+                                    <div class="grid_card_name">
+                                        <a href="{{ path("booking_place", {"_id":transfer.id, "_name": utils.slugify(transfer.getNameLocale) }) }}" class="text-mine-shaft">
+                                            {{ transfer.getNameLocale }}
+                                        </a>
+
+                                    </div>
+                                    <div class="grid_card_description">
+                                        {% if transfer.basePrice > 0 %}
+                                            <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i>
+                                                    {% trans %}Price{% endtrans %}: </b>
+                                                {{ transfer.basePrice | number_format(2,'.') }} USD
+                                            </p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                {% endif %}
+
         </section>
 
     </main>

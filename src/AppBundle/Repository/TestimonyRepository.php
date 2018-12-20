@@ -12,7 +12,6 @@ class TestimonyRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getRandomTestimony($amount = 6)
     {
-
         return $this->createQueryBuilder('a')
             ->addSelect('RAND() as HIDDEN rand')
             ->orderBy('rand')

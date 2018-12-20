@@ -234,6 +234,11 @@ class BookingController extends Controller
             ), 301);
         }
 
+        $testimonials = $em->getRepository('AppBundle:Testimony')
+            ->getRandomTestimony(3);
+
+        $suggestedPlaces = $em->getRepository('AppBundle:Transfer')->findRandomByImportantAll();
+
         $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
         $config = [];;
         foreach ($_config as $item){
@@ -291,7 +296,9 @@ class BookingController extends Controller
                 'transfer'=>$airportTransfer,
                 'airport'=>$airport,
                 'places'=>$places,
-                'config'=>$config
+                'config'=>$config,
+                'testimonials' => $testimonials,
+                'suggestedPlaces'=>$suggestedPlaces
             ]);
         }
         else
