@@ -15786,6 +15786,14 @@ img.lazy[data-src] {
     margin: 2em 10%;
     align-content: center;
 }
+@media screen and (max-width:480px) {
+  .grid13-cards.small-foot {
+      grid-template-columns: 1fr;
+      grid-auto-rows: minmax(100px, 10vh);
+      grid-column-gap: 3vw;
+      grid-row-gap: 2vh;
+    }
+}  
 .small-foot .grid_item.grid_card {
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 2fr .5fr;
