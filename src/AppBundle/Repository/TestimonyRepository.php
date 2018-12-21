@@ -10,4 +10,42 @@ namespace AppBundle\Repository;
  */
 class TestimonyRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getRandomTestimony($amount = 6)
+    {
+        return $this->createQueryBuilder('a')
+            ->addSelect('RAND() as HIDDEN rand')
+            ->orderBy('rand')
+            ->setMaxResults($amount)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findRandomByExperience($expId, $amount = 2)
+    {
+        return $this->createQueryBuilder('a')
+            ->addSelect('RAND() as HIDDEN rand')
+            ->where('a.experience = :id')
+            ->orderBy('rand')
+            ->setMaxResults($amount)
+            ->setParameter('id',$expId)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findRandomByTransferOrPlace($transferId, $placeId, $amount = 3)
+    {
+        return $this->createQueryBuilder('a')
+            ->addSelect('RAND() as HIDDEN rand')
+            ->where('a.transfer = :transfer')
+            ->orWhere('a.targetPlace = :place')
+            ->orderBy('rand')
+            ->setMaxResults($amount)
+            ->setParameter('transfer',$transferId)
+            ->setParameter('place',$placeId)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

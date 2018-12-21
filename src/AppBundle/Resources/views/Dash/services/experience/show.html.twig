@@ -1,0 +1,54 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+
+{% set pagename = 'services' %}
+
+{% block content %}
+    <h1>Experience</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ experience.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ experience.name }}</td>
+            </tr>
+            <tr>
+                <th>Place</th>
+                <td>{{ experience.place }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ experience.price }}</td>
+            </tr>
+            <tr>
+                <th>Pricesumary</th>
+                <td>{{ experience.priceSumary }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ experience.description }}</td>
+            </tr>
+            <tr>
+                <th>Path</th>
+                <td>{{ experience.path }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('dash_experience_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('dash_experience_edit', { 'id': experience.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

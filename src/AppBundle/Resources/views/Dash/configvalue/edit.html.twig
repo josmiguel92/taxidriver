@@ -4,8 +4,15 @@
 {% block content %}
     <h1>Editar Configuraci&oacute;n</h1>
  <h2>{{ configValue.name }} <small>{{ configValue.description }}</small></h2>
+    {% if configValue.name  == 'paypal.url' %}
+        <p>Para desactivar los pagos por PayPal, escriba <b>null</b></p>
+        <p>El valor por defecto es <b>https://www.paypal.com/cgi-bin/webscr</b></p>
+        <p>Para realizar pruebas de transacci&oacute;n, emplee <b>https://www.sandbox.paypal.com/cgi-bin/webscr</b></p>
+    {% endif %}
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Guardar" class="btn btn-default"/>
+
+
+    <input type="submit" value="Guardar" class="btn btn-default"/>
     {{ form_end(edit_form) }}
 {% endblock %}

@@ -184,8 +184,8 @@
 
 
 <trans-unit id="pickup.from.airport.or.cruise">
-	<source>Pickup from airport or cruise?</source>
-	<target>¿Recogida en el aeropuerto o crucero?</target>
+	<source>Pick you up from airport or cruise?</source>
+	<target>¿Le recogemos en el aeropuerto o crucero?</target>
 </trans-unit>
 
 
@@ -503,7 +503,14 @@
 	<source>at the exit of the Jose Marti international terminal with his name written on a paper</source>
 	<target>en la salida de la terminal del aeropuerto internacional José Martí, con su nombre escrito en un papel</target>
 </trans-unit>
-
+<trans-unit id="at.the.exit.of">
+    <source>at the exit of the</source>
+    <target>en la salida de</target>
+</trans-unit>
+<trans-unit id="with.his.name.written.on.a.paper">
+	<source>with his name written on a paper</source>
+	<target>, con su nombre escrito en un papel</target>
+</trans-unit>
 
 <trans-unit id="in">
 	<source>in</source>
@@ -612,11 +619,16 @@
 	<target>Lo recogeremos para el regreso</target>
 </trans-unit>
 
+<trans-unit id="with.his.name.written.on.a.paper,.looking.for.the.flight.with.number">
+	<source>with his name written on a paper, looking for the flight with number</source>
+	<target>con su nombre escrito en un papel, buscando el vuelo con número</target>
+</trans-unit>
 
 <trans-unit id="at.the.exit.of.the.jose.marti.international.terminal.with.his.name.written.on.a.paper,.looking.for.the.flight.with.number">
 	<source>at the exit of the Jose Marti international terminal with his name written on a paper, looking for the flight with number</source>
 	<target>a la salida de la terminal internacional José Martí con su nombre escrito en un papel, buscando el vuelo con número</target>
 </trans-unit>
+
 
 
 <trans-unit id="the.departure.of.the.cruisers.in.the.plaza.de.san.francisco.looking.for.the.cruise.with.name">
@@ -776,7 +788,18 @@
 	<source>See our offers</source>
 	<target>Mira nuestras ofertas</target>
 </trans-unit>
-
+<trans-unit id="Exact.destination">
+	<source>Exact address of your destination</source>
+	<target>Dirección exacta de su lugar de destino</target>
+</trans-unit>
+<trans-unit id="others.places">
+	<source>Popular transfers you could prefer</source>
+	<target>Otros lugares populares que podrian interesarle</target>
+</trans-unit>
+<trans-unit id="others.experiences">
+	<source>Popular experiences you could prefer</source>
+	<target>Otras experiencias que podrian interesarle</target>
+</trans-unit>
 
         </body>
     </file>

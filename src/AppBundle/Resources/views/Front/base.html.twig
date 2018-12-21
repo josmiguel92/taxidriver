@@ -40,7 +40,9 @@
     {# Color chrome tab #}
     <meta name="theme-color" content="#18acfb">
 
-    <link rel="preload" href="{{ asset("css/styles.min.css") }}" as="style">
+    {% set asset_style_version = 'v20181214' %}
+    <link rel="preload" href="{{ asset("css/styles.min.css?" ~ asset_style_version) }}" as="style">
+    <link rel="stylesheet"  type="text/css" href="{{ asset("css/styles.min.css?" ~ asset_style_version) }}">
 
     {% if app.Environment == "dev" %}
         {#
@@ -53,7 +55,6 @@
         <link rel="stylesheet" type="text/css" href="{{ asset("css/font-awesome.css") }}">
         <link rel="stylesheet" type="text/css" href="{{ asset("css/flickity.min.css") }}">
     {% else %}
-        <link rel="stylesheet" type="text/css" href="{{ asset("css/styles.min.css") }}">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700|Source+Sans+Pro" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous" />
         <link rel="stylesheet" type="text/css" href="{{ asset("css/flickity.min.css") }}">
@@ -289,19 +290,19 @@
                     </div>
                 </div>
 
-                <div class="cell-xs-12 cell-sm-6 cell-md-3 offset-top-44 offset-md-top-0">
+                <div class="cell-xs-12 cell-sm-6 cell-md-5 offset-top-44 offset-md-top-0">
                     <!-- Taxi -->
                     <div>
                         <p class="text-uppercase text-bold font-accent text-spacing-25 text-white">
                             {% trans %}Taxi{% endtrans %}
                         </p>
                     </div>
-                    <div class="reveal-inline-block offset-top-15 offset-md-top-30">
+                    <div class="reveal-inline-block offset-top-15 offset-md-top-30" style="margin-right: 2em;">
                         <ul class="list-marked p text-left">
                             {% for place in places %}
-                                {% if not place.istour %}
-                                    <li class="offset-top-5">
-                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="color-sky">
+                                {% if loop.index is odd %}
+                                   <li class="offset-top-5">
+                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":utils.slugify(place.getNameLocale)}) }}" class="color-sky">
                                             {{ place.getNameLocale }}
                                         </a>
                                     </li>
@@ -309,40 +310,25 @@
                             {% endfor %}
                         </ul>
                     </div>
-                </div>
 
-                <div class="cell-xs-12 cell-sm-6 cell-md-3 offset-top-44 offset-md-top-0">
-                    <!-- Taxi-Tours -->
-                    <div>
-                        <p class="text-uppercase text-bold font-accent text-spacing-25 text-white">
-                            {% trans %}Taxi-Tours{% endtrans %}
-                        </p>
-                    </div>
+
                     <div class="reveal-inline-block offset-top-15 offset-md-top-30">
                         <ul class="list-marked p text-left">
                             {% for place in places %}
-                                {% if place.istour %}
-                                    <li class="offset-top-5">
-                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":place.getNameLocale}) }}" class="color-sky">
-                                            {{ place.getNameLocale }}
-                                        </a>
-                                    </li>
+                                {% if loop.index is even %}
+                                <li class="offset-top-5">
+                                    <a href="{{ path("booking_place", {"_id":place.id, "_name":utils.slugify(place.getNameLocale)}) }}" class="color-sky">
+                                        {{ place.getNameLocale }}
+                                    </a>
+                                </li>
                                 {% endif %}
                             {% endfor %}
                         </ul>
                     </div>
+
                 </div>
 
-                <div class="col-md-12">
-                    <ul class="offset-top-25">
-                        <li class="text-center">
-                            <a href="{{ path("bookingOwnTour") }}" class="h3 color-sky" style="font-size: 1.15em;">
-                                <i class="fa fa-heart"></i>
-                                {% trans %}Make your own way!{% endtrans %}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+
 
             </div>
 
@@ -409,6 +395,9 @@
         </script>
 
    <script src="{{ asset("js/flickity.pkgd.min.js") }}"></script>
+       <!--  Notifications Plugin    -->
+    <script src="{{ asset("/js/bootstrap-notify.js")}}"></script>
+
 
     <script >
     $('.main-carousel').flickity({
@@ -420,6 +409,25 @@
       wrapAround: true
     });
     </script>
+
+      {% if app.session.flashbag.get('notice') %}
+        <script>
+            $('document').ready(function(){
+
+                {% for flash_message in app.session.flashbag.get('notice') %}
+                    {% set thisflash = utils.formatFlashBagNotification(flash_message) %}
+                $.notify({
+                    icon: '{{ thisflash[2] }}',
+                    message: "{{ thisflash[0] }}"
+
+                },{
+                    type: '{{ thisflash[1] }}',
+                    timer: 4000
+                });
+                {% endfor %}
+            });
+        </script>
+        {% endif %}
     {% endblock %}
 </body>
 </html>

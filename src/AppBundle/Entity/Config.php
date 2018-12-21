@@ -71,7 +71,6 @@ class Config
     private $aboutinfographtext;
 
     /**
-     * //TODO: ManyToMany -> InfographItem
      *
      * @ORM\Column(name="aboutinfographitems", type="string", length=255)
      */
@@ -134,7 +133,6 @@ class Config
     private $servicesmakeroutetext;
 
     /**
-     * TODO: OneToMany -> InfographItem
      *
      * @ORM\Column(name="servicesotherinfographitems", type="string", length=255)
      */

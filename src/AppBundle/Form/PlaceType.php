@@ -8,6 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+
 
 class PlaceType extends AbstractType
 {
@@ -18,22 +20,13 @@ class PlaceType extends AbstractType
     {
         $builder
 
-        ->add('origin', null, ["label"=>"Origen, si no se establece, se mostrará La Habana"])
-            ->add('originEn', null, ["label"=>"Origen, en ingles, opcional"])
-            ->add('name', null, ["label"=>"Destino"])
+          ->add('name', null, ["label"=>"Destino"])
             ->add('nameEn', null, ["label"=>"Destino, en ingles"])
-            ->add('distance', null, ["label"=>"Distancia, en km."])
-
-            ->add('time', null, ["label"=> "Tiempo de recorrido, (horas:minutos)"])
-            ->add('price', MoneyType::class, ["label"=>"Precio minimo del Tour",'currency'=>"CUC"])
-            ->add('trasferprice', MoneyType::class, ["label"=>"Precio minimo del Transfer",'currency'=>"CUC"])
-            ->add('istour', null, ['label'=>"¿Es un Tour?"])
-            ->add('placedesc', null, ['label'=>"Describa el Tour"])
-            ->add('placedescen', null, ['label'=>"Describa el Tour, en ingles"])
+            ->add('placedesc', CKEditorType::class, ['label'=>"Describa el lugar"])
+            ->add('placedescen', CKEditorType::class, ['label'=>"Describa el lugar, en ingles"])
 
             //->add('services')
-            ->add('latlong',HiddenType::class)
-            ->add('googlename',HiddenType::class)
+             ->add('googlename',HiddenType::class)
 
             ->add('file', null, ['label'=>"Imágen representativa"])
 
@@ -42,8 +35,6 @@ class PlaceType extends AbstractType
             ->add('galleryImage2',null,['label'=>"Agregar una imagen"])
             ->add('galleryImage3',null,['label'=>"Agregar una imagen"])
             ->add('galleryImage4',null,['label'=>"Agregar una imagen"])
-
-            ->add('weight',null,['label'=>"Peso del Servicio, mayores numeros apareceran primero"])
 
         ;
     }/**

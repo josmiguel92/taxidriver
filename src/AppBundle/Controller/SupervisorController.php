@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
+use AppBundle\Entity\Place;
+use AppBundle\Entity\Transfer;
 use AppBundle\Utils\Utils;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -45,6 +47,18 @@ class SupervisorController extends Controller
             'ownroute'=>$ownroute,
             'booking'=>$booking,
         ]);
+    }
+
+    /**
+     * @Route("/dash/migration/")
+     */
+    public function migrationAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $em->flush();
+
+        return new Response('ok');
     }
 
 }

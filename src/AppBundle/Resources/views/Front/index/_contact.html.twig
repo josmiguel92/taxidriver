@@ -1,0 +1,64 @@
+<!--Contact-->
+<section id="contact" style="padding-top: 1%;"  class="section-md-bottom-40">
+    <div class="shell offset-top-100">
+        <h1>{% trans %}Contact{% endtrans %}</h1>
+
+        <div class="range range-xs-center offset-top-50">
+
+            <div class="cell-sm-6 cell-lg-4">
+
+                {{ form_start(messageForm, {'attr':{'class':'text-left',
+                    'data-form-type':'contact',
+                    'data-form-output':'form-output-global'}}) }}
+                <div class="form-group">
+                    <label for="{{ messageForm.name.vars.id }}" class="custom-label text-gray-dark">{% trans %}Name{% endtrans %}</label>
+                    <input id="{{ messageForm.name.vars.id }}" type="text" name="{{ messageForm.name.vars.full_name }}" data-constraints="@Required" class="form-control">
+                </div>
+                <div class="form-group offse-top-5">
+                    <label for="{{ messageForm.message.vars.id }}" class="custom-label text-gray-dark">{% trans %}Message{% endtrans %}</label>
+                    <textarea id="{{ messageForm.message.vars.id }}" name="{{ messageForm.message.vars.full_name }}" data-constraints="@Required" style="height: 140px;" class="form-control"></textarea>
+
+                </div>
+                <div class="form-group offse-top-5">
+                    <label for="{{ messageForm.email.vars.id }}" class="custom-label text-gray-dark">{% trans %}Email{% endtrans %}</label>
+                    <input id="{{ messageForm.email.vars.id }}" type="email" name="{{ messageForm.email.vars.full_name }}" data-constraints="@Email @Required" class="form-control">
+                </div>
+                <div class="text-center text-sm-right offse-top-5">
+
+                        <button type="submit" style="min-width: 210px;" class="btn btn-primary">
+                            <i class="fa fa-send"></i>
+                            {% trans %}Send a message{% endtrans %}
+                        </button>
+
+                </div>
+                {{ form_widget(messageForm._token)}}
+                </form>
+            </div>
+
+            <div class="cell-sm-6 cell-lg-4 offset-sm-top-0 text-left">
+                <!-- Contact Info-->
+                <address class="contact-info">
+                    <dl>
+                        <dt class="font-accent text-bold text-uppercase text-mine-shaft">{% trans %}Address{% endtrans %}</dt>
+                        <dd class="offset-top-4">{{ content.getContactaddressLocale }}</dd>
+                    </dl>
+                    <dl class="offset-top-25">
+                        <dt class="font-accent text-bold text-uppercase text-mine-shaft">{% trans %}Opening hours{% endtrans %}</dt>
+                        <dd>8.00-18.00 Mon-Sat</dd>
+                    </dl>
+                    <dl class="offset-top-30">
+                        <dt class="font-accent text-bold text-uppercase text-mine-shaft">{% trans %}Phone{% endtrans %}</dt>
+                        <dd><a href="tel://{{ content.getContacttelephone }}" class="text-silver-chalice">{{ content.getContacttelephone }}</a>
+                        </dd>
+                    </dl>
+                    <dl class="offset-top-30">
+                        <dt class="font-accent text-bold text-uppercase text-mine-shaft">{% trans %}Email{% endtrans %}</dt>
+                        <dd class="offset-top-5">
+                            <a href="mailto:{{ content.getContactemail() }}" class="font-accent text-bold text-primary">{{ content.getContactemail() }}</a></dd>
+                    </dl>
+                </address>
+            </div>
+        </div>
+
+    </div>
+</section>

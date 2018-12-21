@@ -1,0 +1,73 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+{% block pagetitle %}Servicios de Taxi | Nueva experiencia{% endblock pagetitle %}
+{% set pagename = 'services' %}
+
+{% block content %}
+    <div class="row">
+        {{ form_start(edit_form) }}
+
+        {{ form_row(edit_form.nameEs) }}
+        {{ form_row(edit_form.name) }}
+
+        {{ form_row(edit_form.targetPlace) }}
+
+        {{ form_row(edit_form.basePrice) }}
+
+        {{ form_row(edit_form.priceSumary) }}
+        {{ form_row(edit_form.priceSumaryEn) }}
+
+        {{ form_row(edit_form.description) }}
+        {{ form_row(edit_form.descriptionEn) }}
+
+        {{ form_row(edit_form.external) }}
+        {{ form_row(edit_form.externalUrl) }}
+
+        {{ form_row(edit_form.file) }}
+        {% if experience.path is not null %}
+            <img src="{{ asset(experience.getwebpath) }}" style="height: 10em;">
+        {% endif %}
+
+
+    </div>
+    <div class="row">
+        <h2>Imagenes de la Galeria</h2>
+        <p>Debe presionar el bot&oacute;n de Guardar para mostrar los cambios</p>
+        <div class="col-md-6">
+            {{ form_widget(edit_form.galleryImage0) }}
+            {% if experience.galleryImage0 %}
+                <img src="{{ asset(edit_form.galleryImage0.vars.data.getwebpath) }}" style="height: 5em;">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(edit_form.galleryImage1) }}
+            {% if experience.galleryImage1 %}
+                <img src="{{ asset(edit_form.galleryImage1.vars.data.getwebpath) }}" style="height: 5em;">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(edit_form.galleryImage2) }}
+            {% if experience.galleryImage2 %}
+                <img src="{{ asset(edit_form.galleryImage2.vars.data.getwebpath) }}" style="height: 5em;">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(edit_form.galleryImage3) }}
+            {% if experience.galleryImage3 %}
+                <img src="{{ asset(edit_form.galleryImage3.vars.data.getwebpath) }}" style="height: 5em;">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            {{ form_widget(edit_form.galleryImage4) }}
+            {% if experience.galleryImage4 %}
+                <img src="{{ asset(edit_form.galleryImage4.vars.data.getwebpath) }}" style="height: 5em;">
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row margin-top">
+        {{ form_widget(edit_form) }}
+        <input type="submit" value="Guardar" class="form-inline btn btn-primary" />
+        {{ form_end(edit_form) }}
+
+    </div>
+{% endblock %}

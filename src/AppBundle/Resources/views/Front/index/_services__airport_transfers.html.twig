@@ -1,0 +1,54 @@
+<!-- Experiences subsection -->
+<div class="offset-top-25">
+    <img src="{{ asset("images/custom-icons/taxi-sign.svg") }}">
+    <h2 class="text-spacing-25">
+        {{ content.getAirportTransferTitleLocale }}
+    </h2>
+</div>
+
+<div class="range range-xs-center offset-top-20">
+    <div class="cell-sm-10 cell-lg-8">
+        <p class="text-spacing-0">
+            {{ content.getAirportTransferTextLocale |raw }}
+        </p>
+    </div>
+</div>
+
+<!--- list of taxis services -->
+
+<div class="grid13-cards">
+    {% for transfer in airport_transfers %}
+        <div class="grid_item grid_card">
+            <div class="grid_card_image"> <a href="{{ path("booking_airport", {"_id":transfer.id, "_name": utils.slugify(transfer.getNameLocale) }) }}" class="text-mine-shaft">
+                    <img data-src="{{ asset(transfer.getWebPath) }}" src="{{ asset(transfer.getWebPath(0)) }}"  alt="{{ transfer.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
+                    <noscript>
+                        <img src="{{ asset(transfer.getWebPath) }}" alt="{{ transfer.getNameLocale }}" class="img-responsive center-block">
+                    </noscript>
+                </a>
+            </div>
+            <div class="grid_card_name">
+                <a href="{{ path("booking_airport", {"_id":transfer.id, "_name": utils.slugify(transfer.getNameLocale) }) }}" class="text-mine-shaft">
+                    {{ transfer.getNameLocale }}
+                </a>
+
+            </div>
+            <div class="grid_card_description">
+                {% if transfer.basePrice > 0 %}
+                    <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i>
+                            {% trans %}Price{% endtrans %}: </b>
+                        {{ transfer.basePrice | number_format(2,'.') }} USD
+                    </p>
+                {% endif %}
+            </div>
+            <div class="grid_card_btn place-description">
+                <a href="{{ path("booking_airport", {"_id":transfer.id, "_name": utils.slugify(transfer.getNameLocale) }) }}" class="btn btn-icon btn-icon-left btn-white btn-border btn-xs">
+                    <span class="icon icon-xs fa fa-info-circle"></span>
+                    {% trans %}See details{% endtrans %}
+                </a>
+            </div>
+
+        </div>
+    {% endfor %}
+</div>
+
+

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
+{% spaceless %}
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -210,24 +210,28 @@
 															{% trans %}in front of the departure of the cruisers in the Plaza de San Francisco, which is located as soon as you cross the street by the pedestrian stationary step standing at the fountain of the lions with his name written on a paper{% endtrans %}
 															({{ booking.fullname }}).
 														{% elseif booking.isAnAirport %}
-															{% trans %}at the exit of the Jose Marti international terminal with his name written on a paper{% endtrans %} ({{ booking.fullname }}).
+															{% trans %}at the exit of the{% endtrans %}  {{ booking.airportName.nameLocale }} {% trans %}with his name written on a paper{% endtrans %} ({{ booking.fullname }}).
 														{% else %}
 															{% trans %}in{% endtrans %} {{ booking.details }}.
 														{% endif %}
-
+                            </p>
+                            {% if booking.price %}
+                              <p>
                                                         {% trans %}	The price of your{% endtrans %}
                                                         {% if booking.isTour %}
                                                             Taxi-Tour
                                                         {% else %}
                                                             Taxi
                                                         {% endif %}
-                                                        {% trans %}is{% endtrans %} <strong>{{ booking.price }} CUC</strong> ({% trans %}or{% endtrans %} <strong>{{ (booking.price / config['tasa.usd']) | number_format(2,'.') }} USD</strong> )
+                                                        {% trans %}is{% endtrans %} <strong>{{ booking.price }} USD</strong> 
                                                         {% trans %}for{% endtrans %} {{ booking.numpeople }}
                                                         {% if booking.numpeople == 1 %}
                                                             {% trans %}people{% endtrans %}
                                                         {% else %}
                                                             {% trans %}peoples{% endtrans %}
                                                         {% endif %}
+                                </p>
+                            {% endif %}
 
                                                         {% trans %}for visiting{% endtrans %}:
 
@@ -406,3 +410,4 @@
 		<!-- End of wrapper table -->
 	</body>
 	</html>
+{% endspaceless %}

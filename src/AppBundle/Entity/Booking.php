@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Utils\Utils;
 use AppBundle\Entity\Place;
 use AppBundle\Entity\Experience;
+use AppBundle\Entity\Transfer;
+use AppBundle\Entity\AirportTransfer;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -35,17 +37,51 @@ class Booking
     private $airport;
 
     /**
+     * @var Airport
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Airport")
+     * @ORM\JoinColumn(name="airportname", referencedColumnName="id", nullable=true)
+     */
+    private $airportName;
+
+    /**
+     * @var Place
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Place")
+     * @ORM\JoinColumn(name="targetPlace", referencedColumnName="id", nullable=true)
+     */
+    private $targetPlace;
+
+    /**
      * @var integer
      * @ORM\Column(name="place", type="integer", nullable=true)
      */
     private $place;
 
     /**
-     * @var integer
-     * @ORM\ManyToOne(targetEntity="Experience")
+     * @var AirportTransfer
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\AirportTransfer")
+     * @ORM\JoinColumn(name="airportTransfer", referencedColumnName="id", nullable=true)
+     */
+    private $airportTransfer;
+
+
+    /**
+     * @var Experience
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Experience")
      * @ORM\JoinColumn(name="experience", referencedColumnName="id", nullable=true)
      */
     private $experience;
+
+
+
+    /**
+     * @var Transfer
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Transfer")
+     * @ORM\JoinColumn(name="transfer", referencedColumnName="id", nullable=true)
+     */
+    private $transfer;
 
     /**
      * @var array
@@ -116,6 +152,29 @@ class Booking
     private $experienceTime;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="toAirport", type="boolean", nullable=true)
+     */
+    private $toAirport;
+
+    /**
+     * @return bool
+     */
+    public function isToAirport()
+    {
+        return $this->toAirport;
+    }
+
+    /**
+     * @param bool $toAirport
+     */
+    public function setToAirport($toAirport)
+    {
+        $this->toAirport = $toAirport;
+    }
+
+    /**
      * @return bool
      */
     public function isReturnpickup()
@@ -174,8 +233,6 @@ class Booking
      */
     private $accepted;
 
-    //TODO: por ahora, nunca se conffirman las reservaciones por parte de los clientes
-
     /**
      * @var boolean
      * @ORM\Column(name="confirmed", type="boolean", nullable=true)
@@ -202,6 +259,17 @@ class Booking
      */
     private $drivermsg;
 
+    /**
+     * @var int
+     * @ORM\Column(name="telephone", type="string", length=30, nullable=true)
+     */
+    private $telephone;
+
+    /**
+     * @var string
+     * @ORM\Column(name="serviceType", type="string", length=30)
+     */
+    private $serviceType;
 
     public function getBookingLocale()
     {
@@ -215,6 +283,24 @@ class Booking
         $this->setAccepted(0);
         $this->setConfirmed(0);
     }
+
+
+    /**
+     * @return Airport
+     */
+    public function getAirportName()
+    {
+        return $this->airportName;
+    }
+
+    /**
+     * @param string $airportName
+     */
+    public function setAirportName($airportName)
+    {
+        $this->airportName = $airportName;
+    }
+
 
 
     /**
@@ -406,6 +492,23 @@ class Booking
     {
         return $this->email;
     }
+
+    /**
+     * @return \AppBundle\Entity\Place
+     */
+    public function getTargetPlace()
+    {
+        return $this->targetPlace;
+    }
+
+    /**
+     * @param \AppBundle\Entity\Place $targetPlace
+     */
+    public function setTargetPlace($targetPlace)
+    {
+        $this->targetPlace = $targetPlace;
+    }
+
 
     /**
      * Set flynumber
@@ -659,12 +762,45 @@ class Booking
     }
 
     /**
-     * @param int $experience
+     * @param Experience $experience
      */
-    public function setExperience($experience)
+    public function setExperience(Experience $experience)
     {
         $this->experience = $experience;
     }
+
+    /**
+     * @return int
+     */
+    public function getTransfer()
+    {
+        return $this->transfer;
+    }
+
+    /**
+     * @param Transfer $transfer
+     */
+    public function setTransfer(Transfer $transfer)
+    {
+        $this->transfer = $transfer;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAirportTransfer()
+    {
+        return $this->airportTransfer;
+    }
+
+    /**
+     * @param AirportTransfer $airportTransfer
+     */
+    public function setAirportTransfer(AirportTransfer $airportTransfer)
+    {
+        $this->airportTransfer = $airportTransfer;
+    }
+
 
     /**
      * @return bool
@@ -706,6 +842,72 @@ class Booking
         return false;
     }
 
+    /**
+     * @return int
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * @param int $telephone
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getServiceType()
+    {
+        return $this->serviceType;
+    }
+
+    /**
+     * @param string $serviceType
+     */
+    public function setServiceType($serviceType)
+    {
+        $this->serviceType = $serviceType;
+    }
+
+
+    public function calculateSimplePrice($increment = 10)
+    {
+
+        $basePrice = 0;
+
+        if($this->transfer)
+        {
+            $basePrice = $this->transfer->getBasePrice();
+        }
+        if($this->experience)
+        {
+            $basePrice = $this->experience->getBasePrice();
+        }
+        if($this->airportTransfer)
+        {
+            if($this->targetPlace)
+            {
+
+                $airportIdentifier = $this->airportName->machineName();
+                $airportIdentifier = str_replace('_airportname_','_airportprice_',$airportIdentifier);
+
+                $basePrice =$this->targetPlace->__get($airportIdentifier);
+            }
+            else
+                $basePrice = $this->airportTransfer->getBasePrice();
+        }
+        if(!$basePrice)
+            return false;
+
+        $plusPrice = $this->numpeople <= 3 ? 0 : ($this->numpeople-3)*$increment;
+        $price = $basePrice + $plusPrice;
+        return $price;
+    }
 
 }
 

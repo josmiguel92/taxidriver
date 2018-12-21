@@ -15,10 +15,17 @@ class TestimonyType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')
+        $builder->add('name', null, ['label'=>'Nombre del usuario'])
             ->add('file', null,['label'=>"Imagen del perfil"] )
+            ->add('title', null, ['label'=>'Titulo del comentario, español'])
+            ->add('titleen', null, ['label'=>'Titulo del comentario, español, ingles'])
             ->add('text', TextareaType::class, ['label'=>'Comentario'])
-            ->add('texten', TextareaType::class, ['label'=>'Comentario, en ingles']);
+            ->add('texten', TextareaType::class, ['label'=>'Comentario, en ingles'])
+            ->add('link', null, ['label'=>'Enlace a la pag. web del comentario'])
+            ->add('points', null, ['label'=>'Puntuacion [1-5]'])
+        ->add('targetPlace',null, ['label'=>'Lugar sobre el que habla'] )
+        ->add('experience',null, ['label'=>'Experiencia sobre la que habla'])
+        ->add('transfer',null, ['label'=>'Transfer sobre el que habla']);
     }/**
      * {@inheritdoc}
      */

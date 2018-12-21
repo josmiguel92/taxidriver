@@ -1,0 +1,42 @@
+<!-- Testimonials-->
+<section class="section-75 section-md-top-40 section-md-bottom-20">
+    <div class="shell">
+        <h2>{% trans %}Testimonials{% endtrans %}</h2>
+        <div class="range range-xs-center offset-top-20">
+            <div class="cell-sm-10 cell-md-2">
+                <div id="TA_selfserveprop245" class="TA_selfserveprop">
+                    <ul id="UgXRuE" class="TA_links 5A9w779">
+                        <li id="bGmGQTDg5" class="uHSLrEnrO">
+                            <a target="_blank" href="https://www.tripadvisor.es/">
+                                <img src="{{ asset('images/tripadvisor-logo.png') }}" alt="TripAdvisor"/>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cell-sm-10 cell-md-8 col-md-offset-1">
+                <div data-items="1" data-md-items="3" data-xs-stage-padding="5" data-loop="true" data-margin="30"
+                     data-mouse-drag="false" data-nav="true" data-dots="true"
+                     class="owl-carousel owl-nav-absolute owl-nav-primary owl-nav-top">
+
+                    {% for testimony in testimonials %}
+                        {{ include('@App/Front/index/_testimonial__partial.html.twig') }}
+                    {% endfor %}
+                </div>
+            </div>
+
+
+        </div>
+
+        {% for socialNetwork in socialNetworks %}
+            {% if socialNetwork.getName=="tripadvisor" %}
+                <div style="max-width:560px;" class="btn-both-lines btn-both-lines-gray-lighter offset-top-30 center-block">
+                    <a href="{{ socialNetwork.getProfilelink }}" target="_blank" style="min-width:260px;" class="btn btn-calypso">more testimonials from
+                        <i class="fa fa-tripadvisor"></i>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</section>

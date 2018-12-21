@@ -5,23 +5,44 @@
     {% for testimony in testimonies %}
     <div class="media card">
         <div class="col-md-2">
-            <a class="pull-left" href="#">
+            <a class="pull-left" href="{{ testimony.link }}">
                 <img class="img-responsive" style="height: 100%" src="{{ asset(testimony.getFullImageWebPath) }}" alt="{{ testimony.name }}">
             </a>
         </div>
 
 
-        <div class="col-md-8">
-            <h4 class="media-heading">{{ testimony.name }}</h4>
+        <div class="col-md-7">
+            <h4 class="media-heading">{{ testimony.name }}
+                {% if testimony.points %}
+                <span class="badge">
+                    {% for i in 1 .. testimony.points %}
+                        <i class="fa fa-star" style="color: greenyellow"></i>
+                    {% endfor %}
+                </span>
+                {% endif %}
+            </h4>
             {{ testimony.text }}
         </div>
 
-        <div class="col-md-2">
+        <div class="col-md-3">
             <ul style="list-style: none" class="btn-list">
                 <li>
                     <a href="{{ path('dash_testimonies_edit', { 'id': testimony.id }) }}"><i class="ti-pencil-alt"></i> Editar</a>
                 </li>
             </ul>
+
+            {% if testimony.transfer %}
+                <span><i class="fa fa-cab"></i> <abbr title="Transfer a {{ testimony.transfer }}"> {{ testimony.transfer }}</abbr> </span>
+            {% endif %}
+            <br>
+            {% if testimony.targetPlace %}
+                <span><i class="fa fa-map-marker"></i> <abbr title="Lugar> {{ testimony.targetPlace }}"> {{ testimony.targetPlace }}</abbr> </span>
+            {% endif %}
+            <br>
+            {% if testimony.experience %}
+                <span><i class="fa fa-picture-o"></i> <abbr title="Experiencia: {{ testimony.experience }}"> {{ testimony.experience }}</abbr> </span>
+            {% endif %}
+
         </div>
 
     </div>

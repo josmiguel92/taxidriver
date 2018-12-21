@@ -29,7 +29,7 @@ class ExperienceController extends Controller
 
         $experiences = $em->getRepository('AppBundle:Experience')->findAll();
 
-        return $this->render('AppBundle:Dash:experience/index.html.twig', array(
+        return $this->render('@App/Dash/services/experience/index.html.twig', array(
             'experiences' => $experiences,
         ));
     }
@@ -54,7 +54,7 @@ class ExperienceController extends Controller
             return $this->redirectToRoute('dash_experience_index');
         }
 
-        return $this->render('AppBundle:Dash:experience/new.html.twig', array(
+        return $this->render('@App/Dash/services/experience/new.html.twig', array(
             'experience' => $experience,
             'edit_form' => $form->createView(),
         ));
@@ -70,7 +70,7 @@ class ExperienceController extends Controller
     {
         $deleteForm = $this->createDeleteForm($experience);
 
-        return $this->render('AppBundle:Dash:experience/show.html.twig', array(
+        return $this->render('@App/Dash/services/experience/show.html.twig', array(
             'experience' => $experience,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -94,7 +94,7 @@ class ExperienceController extends Controller
             return $this->redirectToRoute('dash_experience_edit', array('id' => $experience->getId()));
         }
 
-        return $this->render('AppBundle:Dash:experience/edit.html.twig', array(
+        return $this->render('@App/Dash/services/experience/edit.html.twig', array(
             'experience' => $experience,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -155,10 +155,11 @@ class ExperienceController extends Controller
             if ($content) {
                 $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
                 $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
-                $places = $em->getRepository('AppBundle:Place')->findAllSorted();
+                $places = $em->getRepository('AppBundle:Place')->findAll();
                 $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
-                $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries(0, 2);
-                $testimonials = $em->getRepository('AppBundle:Testimony')->findAll();
+                $testimonials = $em->getRepository('AppBundle:Testimony')->findRandomByExperience($experience->getId(),2);
+
+                $suggestedPlaces = $em->getRepository('AppBundle:Experience')->findRandomByImportant($experience->getId());
 
                 $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
                 $config = [];
@@ -168,8 +169,10 @@ class ExperienceController extends Controller
                 }
 
                 $booking = new Booking();
+                $booking->setServiceType('Experience');
                 $form = $this->createForm('AppBundle\Form\BookingType', $booking,
                     ['action' => $this->generateUrl('add_booking')]);
+
 
 
                 return $this->render('AppBundle:Front:bookingExperience.html.twig', array(
@@ -183,6 +186,7 @@ class ExperienceController extends Controller
                     'infographys'=>$infographys,
                     'testimonials'=>$testimonials,
                     'config' => $config,
+                    'suggestedPlaces'=>$suggestedPlaces
                 ));
             }
         }

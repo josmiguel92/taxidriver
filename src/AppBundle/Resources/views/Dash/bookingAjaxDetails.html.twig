@@ -1,19 +1,37 @@
 {{ form_start(form) }}
  <h4 class="modal-title">Reservaci&oacute;n de {{ booking.fullname}}</h4>
-  {%  if place %}
-    <h5>{{ place.name }}</h5>
-      {% else %}
-          <h5>Ruta personalizada</h5>
+  {%  if booking.transfer %}
+    <h5>{{ booking.transfer.nameLocale }}</h5>
+  {% elseif booking.experience %}
+           <h5>{{ booking.experience.nameLocale }}, en {{ booking.experience.targetPlace.nameLocale }}</h5>
+   {% else %}
+          <h5>
+
+              {% if booking.toAirport %}a{% else %}desde{% endif %}
+              {% if booking.airportTransfer is not null %}
+                {{ booking.airportTransfer.targetAirport }}
+              {% endif %}
+              (Aeropuerto o terminal de cruceros)
+          </h5>
 
     {%  endif %}
-
+   <h5>
+       {% if booking.targetPlace %}
+           para ir a
+           {{ booking.targetPlace.NameLocale }}
+       {% endif %}
+   </h5>
 
   <p>Nombre: {{ booking.fullname }} <small>( {{ booking.numpeople }} personas)</small></p>
-<p>Su correo: <a href="mailto:{{ booking.email }}">{{ booking.email }}</a>
+<p>Su correo: <a href="mailto:{{ booking.email }}">{{ booking.email }}</a></p>
+<p>Telefono: <a href="tel://{{ booking.telephone }}">{{ booking.telephone }}</a>
 </p>
 
 {% if booking.isAnAirport %}
-    <p>Recogida al aereopuerto,<br/>
+    <p>
+        {% if booking.airportName %}
+        Recogida al aereopuerto, {{ booking.airportName.nameLocale }}<br/>
+        {% endif %}
         numero de vuelo: <strong>{{ booking.flynumber }}</strong>
     </p>
 {% elseif booking.aCruise %}
@@ -35,10 +53,6 @@
         {{ booking.returnpickuptime | date("l d/m/Y H:i") }}</p>
     <p>Detalles de recogida:<br>
         {{ booking.returnpickupplacce}}
-    </p>
-{% endif %}
-{% if booking.experience %}
-    <p>Desea permanecer {{ booking.experienceTime }} horas en el lugar.
     </p>
 {% endif %}
 <h4>Mensaje del cliente</h4>
@@ -85,4 +99,57 @@
     <a href="{{ path('dash_booking_delete', {'id': booking.id}) }}" class="btn btn-default">Eliminar</a>
 
 </div>
+
+<hr>
+<b>Resumen de la reserva</b>
+
+<pre>
+    Aceptado: {% if booking.accepted %}SI{% else %}NO{% endif %}
+
+    {% if booking.airport %}Se marcó la recogida en Aereopuerto{% endif %}
+
+    Nombre del aeropuerto: {{ booking.airportName }}
+
+    {% if booking.airportTransfer %}Es un transfer a/desde Aeropuerto{% endif %}
+
+    Comentario:    {{ booking.comment }}
+
+    **************************
+    {% if booking.confirmed %}Confirmado por la Administración{% else %}Aún no confirmado por el administradoor{% endif %}
+
+    Detalles: {{ booking.details }}
+    **************************
+    Correo: {{ booking.email }}
+    {% if booking.experience %}Es una experiencia{% endif %}
+    {{ booking.experience }}
+    {% if booking.experienceTaxi %}Necesita taxi par esta experiencia{% endif %}
+    {{ booking.experienceTaxi }}
+    Tiempo para la experiencia:  {{ booking.experienceTime }} horas
+    ***************************
+    Número del vuelo: {{ booking.flynumber }}
+    Nombre del cliente: {{ booking.fullname }}
+
+    Telefono: {{ booking.telephone }}
+    Cantidad de personas: {{ booking.numpeople }}
+
+    Fecha/Hora de recogida: {{ booking.pickuptime | date("l d/m/Y H:i")}}
+    Lugar de recogida: {{ booking.place }}
+    Precio: {{ booking.price }}
+    ****************************
+    {% if booking.returnpickup %}Contrató tambien regreso:
+
+    Lugar de recogida: {{ booking.returnpickupplacce }}
+    Fecha/Hora: {{ booking.returnpickuptime | date("l d/m/Y H:i")}}
+    {% endif %}
+
+    Tipo de Servicio: {{ booking.serviceType }}
+    Lugar de destino: {{ booking.targetPlace }}
+    Ida al aeropuerto: {{ booking.toAirport }}
+    Tour: {{ booking.tour }}
+    Transfer: {{ booking.transfer }}
+
+    Paypal: {{ booking.idpaypal }}
+</pre>
+
 </form>
+<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

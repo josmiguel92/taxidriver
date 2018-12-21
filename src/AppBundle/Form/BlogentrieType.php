@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class BlogentrieType extends AbstractType
 {
@@ -16,10 +17,10 @@ class BlogentrieType extends AbstractType
     {
         $builder->add('title', null, ['label'=>"Título",'attr'=>['reflang'=>'es']])
             ->add('titleen', null, ['label'=>"Título, en ingles",'attr'=>['reflang'=>'en']])
-            ->add('teaser', null, ['label'=>"Primera parte del texto",'attr'=>['reflang'=>'es']])
-            ->add('teaseren', null, ['label'=>"Primera parte del texto, en ingles",'attr'=>['reflang'=>'en']])
-            ->add('posttext',null, ['label'=>'Segunda parte del texto','attr'=>['reflang'=>'es']])
-            ->add('posttexten',null, ['label'=>'Segunda parte del texto','attr'=>['reflang'=>'en']])
+            ->add('teaser', CKEditorType::class, ['label'=>"Primera parte del texto",'attr'=>['reflang'=>'es']])
+            ->add('teaseren', CKEditorType::class, ['label'=>"Primera parte del texto, en ingles",'attr'=>['reflang'=>'en']])
+            ->add('posttext',CKEditorType::class, ['label'=>'Segunda parte del texto','attr'=>['reflang'=>'es']])
+            ->add('posttexten',CKEditorType::class, ['label'=>'Segunda parte del texto','attr'=>['reflang'=>'en']])
             ->add('publisheddate', null, ['label'=>"Fecha de Publicación"] )
             ->add('file', null,['label'=>"Imagen destacada"] )
             ->add('secondaryPicture',null,['label'=>"Imagen secundaria, de la galería"])

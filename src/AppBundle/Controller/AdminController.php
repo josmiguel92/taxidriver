@@ -12,8 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Tests\Fixtures\Entity;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use AppBundle\Entity\Image;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 
@@ -363,6 +362,11 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $place = new \AppBundle\Entity\Place();
         $placeForm = $this->createForm('AppBundle\Form\PlaceType', $place);
+
+        $airports = $em->getRepository('AppBundle:Airport')->findAll();
+
+        $this->fillAirportPricesFields($placeForm, $airports);
+
         $placeForm->handleRequest($request);
 
 
@@ -389,10 +393,10 @@ class AdminController extends Controller
 
         $places = $em->getRepository('AppBundle:Place')->findAll();
 
-        return $this->render('AppBundle:Dash:services.html.twig',
+        return $this->render('@App/Dash/services/services.html.twig',
             ['pagename'=>'services',
                 'places'=>$places,
-                'placeForm'=>$placeForm->createView()
+                'route_form'=>$placeForm->createView()
             ]);
 
     }
@@ -410,16 +414,23 @@ class AdminController extends Controller
         $deleteForm = $this->createServicePlaceDeleteForm($place);
         $editForm = $this->createForm('AppBundle\Form\PlaceType', $place,
             ['action' => $this->generateUrl('dash_services_place_edit', array('id' => $id))]);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $airports = $em->getRepository('AppBundle:Airport')->findAll();
+
+        $this->fillAirportPricesFields($editForm, $airports);
+
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+
             $em->persist($place);
             $em->flush();
 
             $this->addFlash(
                 'notice',
-                'Los cambios en la ruta fueron salvados! >> info >> ti-save'
+                'Los cambios en '.$place->getName().' fueron salvados! >> info >> ti-save'
             );
 
             return $this->redirectToRoute('dash_services_edit');
@@ -459,37 +470,16 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $booking = $em->getRepository("AppBundle:Booking")
-        ->createQueryBuilder("b")
+            ->createQueryBuilder("b")
             ->where("b.pickuptime > :yesterday")
             ->setParameter("yesterday", new \DateTime('yesterday'))
-            ->orderBy("b.pickuptime", "DESC")
+            ->orderBy("b.id", "DESC")
             ->getQuery()->getResult();
+
         $_places = $em->getRepository("AppBundle:Place")->findByNonePlaceNames();
         $places = [];
 
-        $next_week = $em->getRepository("AppBundle:Booking")
-            ->createQueryBuilder("b")->orderBy("b.id", "DESC")
-            ->where("b.pickuptime > :today AND b.pickuptime < :nextweek  AND b.confirmed = true")
-            ->setParameter("today", new \DateTime('today'))
-            ->setParameter("nextweek", new \DateTime('today + 1 week'))
-            ->getQuery()->getResult();
-
-        $pendientes_month = $em->createQuery(
-                            'SELECT b.id
-                FROM AppBundle:Booking b
-                WHERE b.pickuptime > :today AND b.pickuptime < :nextmonth  AND b.confirmed = true'
-                        )
-            ->setParameter("today", new \DateTime('today'))
-            ->setParameter("nextmonth", new \DateTime('next month'))
-            ->getResult();
-
-        $booking_pend = $em->getRepository("AppBundle:Booking")
-            ->createQueryBuilder("b")
-
-            ->where("b.accepted = false AND b.pickuptime >= :today  AND b.confirmed = true")
-
-            ->setParameter("today", new \DateTime('today'))
-            ->getQuery()->getResult();
+        $all_books = $em->getRepository("AppBundle:Booking")->findAll();//ByTour(true);
 
         foreach ($_places as $value) {
             $places[$value['id']]=$value['name'];
@@ -498,20 +488,9 @@ class AdminController extends Controller
         return $this->render('AppBundle:Dash:booking.html.twig', [
             'pagename' => 'booking',
             'booking' => $booking,
-            'places'=>$places,
-            'pendientes'=>$booking_pend,
-            'nextweek'=>$next_week,
-            'nextmonth'=>$pendientes_month]);
-    }
+            'all_books'=>$all_books,
 
-    /**
-     * @Route("/paygateway", name="dash_paygateway")
-     * @Method({"GET", "POST"})
-     */
-    public function paygatewayAction(){
-        return $this->render('AppBundle:Dash:paygateway.html.twig', [
-            'pagename' => 'paygateway',
-        ]);
+            'places'=>$places]);
     }
 
     /**
@@ -812,7 +791,6 @@ class AdminController extends Controller
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
-            //TODO: get email from parameters
             ->setFrom("taxidriverscuba-noreply@taxidriverscuba.com")
             ->setReplyTo($senderEmail)
             ->setTo($booking->getEmail())
@@ -833,5 +811,18 @@ class AdminController extends Controller
         $this->get('mailer')->send($message);
 
     }
+
+    private function fillAirportPricesFields(&$placeForm, $airports)
+    {
+        foreach ($airports as $airport)
+        {
+            $placeForm->add('_airportprice_'.Utils::slugify($airport->getNombre()),
+                MoneyType::class,['label'=>"Precio desde ".$airport->getNombre(),
+                    'currency'=>"USD"]);
+        }
+
+    }
+
+
 
 }

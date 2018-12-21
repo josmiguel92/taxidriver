@@ -1,0 +1,16 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+
+{% set pagename = 'airport' %}
+{% block content %}
+    <h1>Agregar Aereopuerto</h1>
+
+    <div class="row">
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Guardar" class="btn-primary btn" id="" />
+
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}

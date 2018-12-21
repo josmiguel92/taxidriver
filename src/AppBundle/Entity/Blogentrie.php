@@ -544,5 +544,9 @@ class Blogentrie  extends ImageField
         return $this->quoteen;
 
     }
+
+
+
+
 }
 

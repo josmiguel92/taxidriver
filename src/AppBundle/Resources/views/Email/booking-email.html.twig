@@ -164,23 +164,25 @@
                                     <td width="400" align="center" style="padding-bottom:5px;">
                                         <div class="contentEditableContainer contentTextEditable">
                                             <div class="contentEditable" >
-                                                <p >Reservaci&oacute;n para ir a
-                                                    {% if place %}
-                                                        <b>{{place.Name}}</b>
-                                                    {% elseif booking.isExperience %}
-                                                        <b>{{ experience.name }}</b> en {{ experience.place }}, durante {{ booking.experienceTime }} horas.
+                                                <p >Reservaci&oacute;n para
+                                                    {% if booking.experience %}
+                                                        <b>{{ booking.experience.name }}</b> en {{ experience.targetPlace }}.
+                                                    {% elseif booking.transfer %}
+                                                       transfer a {{ booking.transfer.targetPlace.nameLocale }} horas.
+                                                    {% elseif booking.airportTransfer %}
+                                                        Transporte
+                                                        {% if booking.toAirport %} hacia {% else %} desde {% endif %}
+                                                        el aeropuerto
                                                     {% endif %}
-                                                    {% if booking.ownroute %}
-                                                        <ul>
-                                                            {% for _place in booking.ownrouteFormated %}
-                                                                <li>{{_place}}</li>
-                                                            {% endfor %}
-                                                        </ul>
-                                                {% endif %}
+                                                    {% if booking.targetPlace %}
+                                                        para ir a
+                                                        {{ booking.targetPlace.NameLocale }}
+                                                    {% endif %}
                                                 </p>
 
                                                 <p>Los detalles son los siguientes:</p>
                                                 <p>Nombre: <b>{{ booking.fullname }}</b></p>
+                                                <p>Telefono: <b>{{ booking.telephone }}</b></p>
                                                 <p>Cantidad de personas: {{ booking.numpeople }}</p>
                                                 <p>Email: <a href="mailto:{{ booking.email }}">{{ booking.email }}</a></p>
                                                 {% set language = 'Ingles' %}
@@ -192,7 +194,7 @@
                                                 <p>Hora y fecha: {{ booking.pickuptime | date("l d/m/Y H:i") }}</p>
                                                 <p>
                                                     {% if booking.isAnAirport %}
-                                                        Debe recogerlo en el aereopuerto,<br/>
+                                                        Debe recogerlo en el aereopuerto <b>{{ booking.airportName.nameLocale }}</b><br/>
                                                         su numero de vuelo es: <b>{{booking.flynumber}}</b>
                                                     {% elseif booking.aCruise %}
                                                         Debe recogerlo en la terminal de crucero<br/>
@@ -226,7 +228,7 @@
                                                 {% else %}
                                                     <p>No se ha realizado el pago a&uacute;n.
                                                         {% if booking.price %}
-                                                            El precio es <b>{{ booking.price }} CUC</b>.
+                                                            El precio es <b>{{ booking.price }} USD</b>.
                                                         {% else %}
                                                             <b>Deber&aacute;s definir el precio en la administraci&oacute;n</b>
                                                         {% endif %}

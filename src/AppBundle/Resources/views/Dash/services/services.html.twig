@@ -1,0 +1,271 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+{% block pagetitle %}Servicios de Taxi{% endblock pagetitle %}
+{% block content %}
+
+
+    <div class="row">
+        <div class="col-lg-4 col-sm-4">
+            <div class="card">
+                <a href="{{ path('dash_experience_index') }}">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="icon-big icon-success text-center">
+                                    <i class="fa fa-picture-o"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-7">
+                                <div class="numbers">
+                                    <p>Experiencias</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-4">
+            <div class="card">
+                <a href="{{ path('dash_transfer_index') }}">
+                    <div class="content">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="icon-big icon-warning text-center">
+                                <i class="fa fa-cab"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="numbers">
+                                <p>Transfers</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-4">
+            <div class="card">
+                <a href="{{ path('dash_airporttransfers_index') }}">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="icon-big icon-danger text-center">
+                                    <i class="fa fa-plane"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-7">
+                                <div class="numbers">
+                                    <p>Transfer Aeropuerto</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+<div class="row">
+
+    {{ render(controller(
+        'AppBundle:Airport:index'
+    ))   }}
+</div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Destinos disponibles</h4>
+                </div>
+                <div class="content">
+                    <div class="row">
+                        <div class="col-md-12 places">
+                            <ul>
+                                {% for place in places %}
+                                    <li class="col-sm-6">
+                                        <a href="#"  title="Editar" data-placeid="{{ place.id }}">
+                                            {{ place.name }}
+                                        </a>
+
+                                    </li>
+                                {% else %}
+                                    No hay lugares a&uacute;n
+                                {% endfor %}
+
+                            </ul>
+
+                        </div>
+
+
+                    </div>
+                    <div class="clearfix"></div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6">
+            <div class="card" id="placeForm">
+                <div class="row">
+                    <div class="header">
+                        <h4 class="title"  data-toggle="collapse" data-target="#addPlace">Agregar un destino<small><i class="fa-spin fa fa-spinner hidden formLoader" style="float: right"></i></small></h4>
+                    </div>
+                    <div class="content">
+
+                        {{ form_start(route_form) }}
+
+                        <div class="col-md-12">
+                            <label>Seleccione el Destino</label>
+                            <div class="form-group">
+                                <input class="end-point placepicker form-control" data-map-container-id="collapseEndPlaceMap"/>
+                            </div>
+                            <div id="collapseEndPlaceMap" class="collapse">
+                                <div class="placepicker-map thumbnail"></div>
+                            </div>
+                            {{ form_row(route_form.name) }}
+                            {{ form_row(route_form.nameEn) }}
+                        </div>
+
+                        <div class="col-md-12">
+                            <hr>
+                            <h5 data-toggle="collapse" data-target="#galleryCollapse">Imagenes de la Galeria <i class="fa fa-angle-double-down"></i></h5>
+                            <div class="row collapse" id="galleryCollapse">
+                                <p>Debe presionar el bot&oacute;n de Guardar para mostrar los cambios</p>
+                                <div class="col-md-12">
+                                    {{ form_row(route_form.file) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_widget(route_form.galleryImage0) }}
+                                    {% if route_form.galleryImage0.vars.data %}
+                                        <img src="{{ asset(route_form.galleryImage0.vars.data.getwebpath) }}" style="height: 5em;">
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_widget(route_form.galleryImage1) }}
+                                    {% if route_form.galleryImage1.vars.data %}
+                                        <img src="{{ asset(route_form.galleryImage1.vars.data.getwebpath) }}" style="height: 5em;">
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_widget(route_form.galleryImage2) }}
+                                    {% if route_form.galleryImage2.vars.data %}
+                                        <img src="{{ asset(route_form.galleryImage2.vars.data.getwebpath) }}" style="height: 5em;">
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_widget(route_form.galleryImage3) }}
+                                    {% if route_form.galleryImage3.vars.data %}
+                                        <img src="{{ asset(route_form.galleryImage3.vars.data.getwebpath) }}" style="height: 5em;">
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_widget(route_form.galleryImage4) }}
+                                    {% if route_form.galleryImage4.vars.data %}
+                                        <img src="{{ asset(route_form.galleryImage4.vars.data.getwebpath) }}" style="height: 5em;">
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-12">
+                            <hr>
+                            {{ form_row(route_form.placedesc) }}
+                            {{ form_row(route_form.placedescen) }}
+
+                        </div>
+
+                        <div class="col-md-12">
+
+                            {{ form_widget(route_form) }}
+                            <div class="text-center"  id="">
+                                <button type="submit" class="btn btn-info btn-fill btn-wd btn-save">Guardar</button>
+                            </div>
+
+                            {{ form_end(route_form) }}
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("js/jquery.placepicker.js") }}"></script>
+
+    <script>
+        $('document').ready(function(){
+
+            $('div.places a').click(function(e){
+                e.preventDefault();
+                $(".fa-spinner.formLoader")[0].classList.remove('hidden');
+                var edit_path = "{{ path('dash_services_place_edit', {'id':'placeidplaceholder'}) }}"
+
+                console.log(edit_path)
+                place_id = this.dataset['placeid']
+                current_edit_path = edit_path.replace('placeidplaceholder',place_id)
+                console.log(current_edit_path)
+                $('#placeForm').load(current_edit_path, function () {
+                    $(".fa-spinner.formLoader")[0].classList.add('hidden');
+                    $('input.end-point').focus();
+                })
+
+            });
+
+            try {
+                var startPointCoord = new google.maps.LatLng(23.143056, -82.38055600000001);
+                var endPointCoord = null;
+            }
+           catch (e) {
+               console.log("google no esta definido")
+           }
+
+
+
+            $(".end-point").placepicker({
+                mapIconClass: "ti-map-alt",
+                placeChanged: function(place) {
+                    $("#appbundle_place_name")[0].value = place.name;
+                    $("#appbundle_place_latlong")[0].value = this.getLocation().latitude + ', '+this.getLocation().longitude;
+                    $("#appbundle_place_googlename")[0].value = place.formatted_address;
+                    endPointCoord = new google.maps.LatLng(this.getLocation().latitude, this.getLocation().longitude);
+
+                    serviceDistance.getDistanceMatrix(
+                        {
+                            origins: [startPointCoord],
+                            destinations: [endPointCoord],
+                            travelMode: 'DRIVING',
+                            avoidHighways: false,
+                            avoidTolls: false,
+                        }, callbackDistance);
+
+                },
+                mapOptions: {
+                    zoom: 15,
+                    center: {lat: 23.143056, lng: -82.38055600000001}
+                }
+            }).data('placepicker');
+
+            var rad = function(x) {
+                return x * Math.PI / 180;
+            };
+
+
+
+        });
+
+
+    </script>
+{% endblock %}
+

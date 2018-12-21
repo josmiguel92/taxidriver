@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\ImageField;
 use AppBundle\Utils\Utils;
+use AppBundle\Entity\Service;
 
 /**
  * Experience
@@ -12,59 +13,10 @@ use AppBundle\Utils\Utils;
  * @ORM\Table(name="experience")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ExperienceRepository")
  */
-class Experience extends ImageField
+class Experience extends Service
 {
     use GalleryFields;
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Name", type="string", length=255)
-     */
-    private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="NameEn", type="string", length=255)
-     */
-    private $nameEn;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Place", type="string", length=255)
-     */
-    private $place;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="PlaceEn", type="string", length=255)
-     */
-    private $placeEn;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="Price", type="text")
-     */
-    private $price;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="PriceEn", type="text")
-     */
-    private $priceEn;
 
     /**
      * @var string
@@ -83,120 +35,51 @@ class Experience extends ImageField
     /**
      * @var string
      *
-     * @ORM\Column(name="Description", type="text", nullable=true)
+     * @ORM\Column(name="durationTime", type="string", nullable=true)
      */
-    private $description;
+    private $durationTime;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="DescriptionEn", type="text", nullable=true)
-     */
-    private $descriptionEn;
-  
      /**
      * @var bool
      *
      * @ORM\Column(name="external", type="boolean")
      */
-    private $external;
+     private $external;
   
     /**
      * @var string
      *
      * @ORM\Column(name="externalUrl", type="string", length=500, nullable=true)
      */
-    private $externalUrl;
+     private $externalUrl;
 
-     /**
+    /**
+     * @var integer
+     * @ORM\Column(name="distance", type="integer", nullable=true)
+     */
+    private $distance;
+
+    /**
      * @var bool
      *
-     * @ORM\Column(name="needtaxi", type="boolean")
+     * @ORM\Column(name="important", type="boolean")
      */
-    private $needTaxi;
-
-
+    private $important;
 
     /**
-     * Get id
-     *
-     * @return int
+     * @return integer
      */
-    public function getId()
+    public function getDistance()
     {
-        return $this->id;
+        return $this->distance;
     }
 
     /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Experience
+     * @param integer $distance
      */
-    public function setName($name)
+    public function setDistance($distance)
     {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set place
-     *
-     * @param string $place
-     *
-     * @return Experience
-     */
-    public function setPlace($place)
-    {
-        $this->place = $place;
-
-        return $this;
-    }
-
-    /**
-     * Get place
-     *
-     * @return string
-     */
-    public function getPlace()
-    {
-        return $this->place;
-    }
-
-    /**
-     * Set price
-     *
-     * @param string $price
-     *
-     * @return Experience
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
-     * Get price
-     *
-     * @return string
-     */
-    public function getPrice()
-    {
-        return $this->price;
+        $this->distance = $distance;
     }
 
     /**
@@ -224,78 +107,6 @@ class Experience extends ImageField
     }
 
     /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Experience
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNameEn()
-    {
-        return $this->nameEn;
-    }
-
-    /**
-     * @param string $nameEn
-     */
-    public function setNameEn($nameEn)
-    {
-        $this->nameEn = $nameEn;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPlaceEn()
-    {
-        return $this->placeEn;
-    }
-
-    /**
-     * @param string $placeEn
-     */
-    public function setPlaceEn($placeEn)
-    {
-        $this->placeEn = $placeEn;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPriceEn()
-    {
-        return $this->priceEn;
-    }
-
-    /**
-     * @param string $priceEn
-     */
-    public function setPriceEn($priceEn)
-    {
-        $this->priceEn = $priceEn;
-    }
-
-    /**
      * @return string
      */
     public function getPriceSumaryEn()
@@ -311,72 +122,6 @@ class Experience extends ImageField
         $this->priceSumaryEn = $priceSumaryEn;
     }
 
-    /**
-     * @return string
-     */
-    public function getDescriptionEn()
-    {
-        return $this->descriptionEn;
-    }
-
-    /**
-     * @param string $descriptionEn
-     */
-    public function setDescriptionEn($descriptionEn)
-    {
-        $this->descriptionEn = $descriptionEn;
-    }
-
-
-    /**
-     * Get nameLocale
-     *
-     * @return string
-     */
-    public function getNameLocale()
-    {
-        if(Utils::getRequestLocaleLang()=="es")
-            return $this->name;
-        return $this->nameEn;
-    }
-
-
-    /**
-     * Get descriptionLocale
-     *
-     * @return string
-     */
-    public function getDescriptionLocale()
-    {
-        if(Utils::getRequestLocaleLang()=="es")
-            return $this->description;
-        return $this->descriptionEn;
-    }
-
-
-    /**
-     * Get placeLocale
-     *
-     * @return string
-     */
-    public function getPlaceLocale()
-    {
-        if(Utils::getRequestLocaleLang()=="es")
-            return $this->place;
-        return $this->placeEn;
-    }
-
-    /**
-     * Get priceLocale
-     *
-     * @return string
-     */
-    public function getPriceLocale()
-    {
-        if(Utils::getRequestLocaleLang()=="es")
-            return $this->price;
-        return $this->priceEn;
-    }
 
     /**
      * Get priceSummaryLocale
@@ -437,34 +182,48 @@ class Experience extends ImageField
     {
         return $this->externalUrl;
     }
-  
-  /**
-     * Set NeedTaxi
-     *
-     * @param bool needtaxi
-     *
-     * @return Experience
-     */
-    public function setNeedTaxi($needtaxi)
-    {
-        $this->needTaxi = $needtaxi;
-
-        return $this;
-    }
-
-    /**
-     * Get NeedTaxi
-     *
-     * @return string
-     */
-    public function getNeedTaxi()
-    {
-        return $this->needTaxi;
-    }
 
     public function __toString()
     {
         return $this->getName();
     }
+
+    public function getServiceType(){
+        return 'Experience';
+    }
+
+    /**
+     * @return string
+     */
+    public function getDurationTime()
+    {
+        return $this->durationTime;
+    }
+
+    /**
+     * @param string $durationTime
+     */
+    public function setDurationTime($durationTime)
+    {
+        $this->durationTime = $durationTime;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isImportant()
+    {
+        return $this->important;
+    }
+
+    /**
+     * @param bool $important
+     */
+    public function setImportant($important)
+    {
+        $this->important = $important;
+    }
+
+
 }
 
