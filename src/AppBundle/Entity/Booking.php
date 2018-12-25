@@ -30,6 +30,14 @@ class Booking
     private $id;
 
     /**
+     * @var \DateTime
+     * @Assert\DateTime()
+     * @Assert\NotBlank()
+     * @ORM\Column(name="bookingTime", type="datetime")
+     */
+    private $bookingTime;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="airport", type="string", length=255, nullable=true)
@@ -159,6 +167,26 @@ class Booking
     private $toAirport;
 
     /**
+     * @return \DateTime
+     */
+    public function getBookingTime()
+    {
+        return $this->bookingTime;
+    }
+
+    /**
+     * @param \DateTime $bookingTime
+     * @return Booking
+     */
+    public function setBookingTime($bookingTime)
+    {
+        $this->bookingTime = $bookingTime;
+        return $this;
+    }
+
+
+
+    /**
      * @return bool
      */
     public function isToAirport()
@@ -282,6 +310,7 @@ class Booking
         $this->ownroute = new ArrayCollection();
         $this->setAccepted(0);
         $this->setConfirmed(0);
+        $this->setBookingTime(new \DateTime('now'));
     }
 
 

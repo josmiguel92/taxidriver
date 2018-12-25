@@ -18,6 +18,16 @@ class PlaceRepository extends \Doctrine\ORM\EntityRepository
             )
             ->getResult();
     }
+
+    public function findOneByWord($word){
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT p FROM AppBundle:Place p WHERE p.name LIKE :word'
+            )
+            ->setParameter('word', '%'.$word.'%')
+            ->setMaxResults(1)
+            ->getResult();
+    }
 //
 //    public function findAllSorted(){
 //        return $this->getEntityManager()

@@ -279,5 +279,6 @@ class Place extends ImageField
     {
         $this->airports_prices = new ArrayCollection();
     }
+
 }
 

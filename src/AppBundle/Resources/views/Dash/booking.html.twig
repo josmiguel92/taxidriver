@@ -86,7 +86,15 @@
                         <tbody>
                         {% for item in booking %}
                         <tr>
-                            <td><a href="{{ path('booking_details', {'booking': item.id}) }}">{{ item.id }}</a></td>
+                            <td><a href="{{ path('booking_details', {'booking': item.id}) }}">{{ item.id }}</a>
+                                {% if item.bookingTime | date('Y') > 2000 %}
+                                    <br>
+                                    <abbr title="{{ item.bookingTime | date('d/M/Y H:i') }}">
+                                        {{ item.bookingTime | date('d/M/Y') }}
+                                    </abbr>
+                                {% endif %}
+
+                            </td>
                             <td>{{ item.fullname }}</td>
                             <td>{% if item.experience %}
                                     {{ item.getExperience.getName }} ({{ item.getExperience.targetPlace }})

@@ -142,18 +142,11 @@ class BookingController extends Controller
         $places = $em->getRepository('AppBundle:Place')->findAll();
         $transfer = $em->getRepository('AppBundle:Transfer')->find($_id);
       
-      if(!$transfer) {
-            throw  $this->createNotFoundException("This product not exist");
+        if(!$transfer) {
+           return $this->redirectToRoute('redirection_routing', ['name'=>$_name]);
+
         }
-        
-      if ($nameRequest != $nameLocale){
-            return $this->redirectToRoute('booking_place',array(
-                '_locale'=>$_locale,
-                '_id'=> $_id,
-                '_name' => $nameLocale
-            ), 301);
-        }
-      
+
         $testimonials = $em->getRepository('AppBundle:Testimony')
                             ->findRandomByTransferOrPlace($transfer->getId(),$transfer->getTargetPlace()->getId());
 
@@ -161,6 +154,14 @@ class BookingController extends Controller
         $nameLocale = Utils::slugify($transfer->getNameLocale());
         $nameRequest = $_name;
 
+
+        if ($nameRequest != $nameLocale){
+            return $this->redirectToRoute('booking_place',array(
+                '_locale'=>$_locale,
+                '_id'=> $_id,
+                '_name' => $nameLocale
+            ), 301);
+        }
         
 
         $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
