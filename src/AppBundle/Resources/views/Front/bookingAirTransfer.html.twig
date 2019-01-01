@@ -203,7 +203,7 @@
                                 <label for="targetPlaceAutocompletion" class="text-extra-small custom-label text-gray-dark">{% trans %}Destination place{% endtrans %}</label>
                                 <br>
                                 <input type="text" class="tt-autocomplete form-control form-control-has-validation form-control-last-child" id="targetPlaceAutocompletion">
-                                {{ form_widget(booking_form.targetPlace, { 'attr': {'class': 'autocomplete hidden' } }) }}
+                                {{ form_widget(booking_form.targetPlace, { 'attr': {'class': 'autocomplete hidden' }, 'JOSUE' : 'ASD' }) }}
                             </div>
                         </div>
                     </div>
@@ -717,6 +717,18 @@ $('#targetPlaceAutocompletion').typeahead({
         }
 
         $("#document").ready(function (){
+
+            initAutocompletion =function(){
+                var HavanaID = $('[data-targetplace="La Habana"]')[0].value
+                console.log('Havana ID:' + HavanaID);
+                if(HavanaID > 0)
+                    $('#appbundle_booking_targetPlace')[0].value = HavanaID;
+
+                $('#targetPlaceAutocompletion').typeahead('val', "La Habana");
+
+            };
+
+            initAutocompletion();
             updatePrice();
 
             $("#activeTour").change(function() {

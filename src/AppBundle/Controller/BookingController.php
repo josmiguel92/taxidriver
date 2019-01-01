@@ -104,7 +104,7 @@ class BookingController extends Controller
 
 
                 //validacion para enviar correo a lester o no.
-                if(!$booking->isExperience() && $booking->getNumpeople()<=5)
+                if($booking->getNumpeople()<=5)
                     if($_price = $booking->calculateSimplePrice($config['price.increment']))
                     {
                         $booking->setPrice($_price);
@@ -360,6 +360,7 @@ class BookingController extends Controller
             else $place = null;
             $places = $em->getRepository('AppBundle:Place')->findAll();
 
+            //todo: duplicado
             $experience = null;
             if($purchase->isExperience())
                 $experience = $em->getRepository("AppBundle:Experience")

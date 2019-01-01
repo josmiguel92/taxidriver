@@ -1,0 +1,107 @@
+{% extends 'AppBundle:Dash/booking:base.html.twig' %}
+{% set pagename = 'booking'  %}
+{% block content %}
+    <h1>Bookings list</h1>
+
+    <table id="booking-table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Bookingtime</th>
+                <th>Airport</th>
+                <th>Place</th>
+                <th>Ownroute</th>
+                <th>Tour</th>
+                <th>Fullname</th>
+                <th>Email</th>
+                <th>Flynumber</th>
+                <th>Details</th>
+                <th>Pickuptime</th>
+                <th>Returnpickup</th>
+                <th>Experiencetaxi</th>
+                <th>Experiencetime</th>
+                <th>Toairport</th>
+                <th>Timelinetravel</th>
+                <th>Children</th>
+                <th>Bookinglanguage</th>
+                <th>Paymentdetails</th>
+                <th>Drivername</th>
+                <th>Drivertelephone</th>
+                <th>Returnpickuptime</th>
+                <th>Returnpickupplacce</th>
+                <th>Numpeople</th>
+                <th>Price</th>
+                <th>Comment</th>
+                <th>Accepted</th>
+                <th>Confirmed</th>
+                <th>Idpaypal</th>
+                <th>Token</th>
+                <th>Drivermsg</th>
+                <th>Telephone</th>
+                <th>Servicetype</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.id }}</td>
+                <td>{% if booking.bookingTime %}{{ booking.bookingTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ booking.airport }}</td>
+                <td>{{ booking.place }}</td>
+                <td>{{ booking.ownroute }}</td>
+                <td>{% if booking.tour %}Yes{% else %}No{% endif %}</td>
+                <td>{{ booking.fullname }}</td>
+                <td>{{ booking.email }}</td>
+                <td>{{ booking.flynumber }}</td>
+                <td>{{ booking.details }}</td>
+                <td>{% if booking.pickuptime %}{{ booking.pickuptime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if booking.returnpickup %}Yes{% else %}No{% endif %}</td>
+                <td>{% if booking.experienceTaxi %}Yes{% else %}No{% endif %}</td>
+                <td>{{ booking.experienceTime }}</td>
+                <td>{% if booking.toAirport %}Yes{% else %}No{% endif %}</td>
+                <td>{{ booking.timelinetravel }}</td>
+                <td>{% if booking.children %}Yes{% else %}No{% endif %}</td>
+                <td>{{ booking.bookingLanguage }}</td>
+                <td>{{ booking.paymentDetails }}</td>
+                <td>{{ booking.drivername }}</td>
+                <td>{{ booking.drivertelephone }}</td>
+                <td>{% if booking.returnpickuptime %}{{ booking.returnpickuptime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ booking.returnpickupplacce }}</td>
+                <td>{{ booking.numpeople }}</td>
+                <td>{{ booking.price }}</td>
+                <td>{{ booking.comment }}</td>
+                <td>{% if booking.accepted %}Yes{% else %}No{% endif %}</td>
+                <td>{% if booking.confirmed %}Yes{% else %}No{% endif %}</td>
+                <td>{{ booking.idpaypal }}</td>
+                <td>{{ booking.token }}</td>
+                <td>{{ booking.drivermsg }}</td>
+                <td>{{ booking.telephone }}</td>
+                <td>{{ booking.serviceType }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('dash_bookings_show', { 'id': booking.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('dash_bookings_edit', { 'id': booking.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('dash_bookings_new') }}">Create a new booking</a>
+        </li>
+    </ul>
+
+    <link href="{{ asset('css/tabulator.min.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="{{ asset('js/tabulator.min.js') }}"></script>
+    <script>
+        var table = new Tabulator("#booking-table", {});
+    </script>
+{% endblock %}

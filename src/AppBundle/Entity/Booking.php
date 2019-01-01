@@ -53,7 +53,7 @@ class Booking
     private $airportName;
 
     /**
-     * @var Place
+     * @var Pl
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Place")
      * @ORM\JoinColumn(name="targetPlace", referencedColumnName="id", nullable=true)
@@ -165,6 +165,152 @@ class Booking
      * @ORM\Column(name="toAirport", type="boolean", nullable=true)
      */
     private $toAirport;
+
+    /**
+     * @var string
+     * @ORM\Column(name="timelinetravel", type="text", nullable=true)
+     */
+    private $timelinetravel;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="children", type="boolean", nullable=true)
+     */
+    private $children;
+
+    /**
+     * @var string
+     * @ORM\Column(name="bookingLanguage", type="string", nullable=true)
+     */
+    private $bookingLanguage;
+
+    /**
+     * @var string
+     * @ORM\Column(name="paymentDetails", type="text", nullable=true)
+     */
+    private $paymentDetails;
+
+    /**
+     * @var string
+     * @ORM\Column(name="drivername", type="string", nullable=true)
+     */
+    private $drivername;
+    /**
+     * @var string
+     * @ORM\Column(name="drivertelephone", type="string", nullable=true)
+     */
+    private $drivertelephone;
+
+    /**
+     * @return string
+     */
+    public function getTimelinetravel()
+    {
+        return $this->timelinetravel;
+    }
+
+    /**
+     * @param string $timelinetravel
+     * @return Booking
+     */
+    public function setTimelinetravel($timelinetravel)
+    {
+        $this->timelinetravel = $timelinetravel;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * @param bool $children
+     * @return Booking
+     */
+    public function setChildren($children)
+    {
+        $this->children = $children;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBookingLanguage()
+    {
+        return $this->bookingLanguage;
+    }
+
+    /**
+     * @param string $bookingLanguage
+     * @return Booking
+     */
+    public function setBookingLanguage($bookingLanguage)
+    {
+        $this->bookingLanguage = $bookingLanguage;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPaymentDetails()
+    {
+        return $this->paymentDetails;
+    }
+
+    /**
+     * @param string $paymentDetails
+     * @return Booking
+     */
+    public function setPaymentDetails($paymentDetails)
+    {
+        $this->paymentDetails = $paymentDetails;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDrivername()
+    {
+        return $this->drivername;
+    }
+
+    /**
+     * @param string $drivername
+     * @return Booking
+     */
+    public function setDrivername($drivername)
+    {
+        $this->drivername = $drivername;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDrivertelephone()
+    {
+        return $this->drivertelephone;
+    }
+
+    /**
+     * @param string $drivertelephone
+     * @return Booking
+     */
+    public function setDrivertelephone($drivertelephone)
+    {
+        $this->drivertelephone = $drivertelephone;
+        return $this;
+    }
+
+
 
     /**
      * @return \DateTime
@@ -308,8 +454,8 @@ class Booking
     {
         $this->token = Utils::getRequestLocaleLang().uniqid("bk".date("Ymd"));
         $this->ownroute = new ArrayCollection();
-        $this->setAccepted(0);
-        $this->setConfirmed(0);
+        $this->setAccepted(false);
+        $this->setConfirmed(false);
         $this->setBookingTime(new \DateTime('now'));
     }
 
@@ -676,6 +822,8 @@ class Booking
      */
     public function isAccepted()
     {
+        if($this->accepted == null)
+            $this->accepted = false;
         return $this->accepted;
     }
 

@@ -15653,6 +15653,7 @@ li.flags img {
     grid-auto-columns: minmax(100px, 90vw);
     grid-auto-rows: minmax(100px, 80vh);
     justify-content: center;
+    grid-template-columns: repeat(3,auto);
 }
 @media (min-width:768px) {
     .grid13-cards {

@@ -129,7 +129,7 @@
 
                         <div class="well-row">
                             <p class="text-bold text-spacing-25 font-accent text-gray-dark">
-                                {% trans %}At{% endtrans %}: {{ purchase.getPickuptime|date("l, d F Y - H:i")  }}
+                                {{ purchase.getPickuptime|date("l, d F Y - H:i")  }}
                             </p>
                         </div>
 
