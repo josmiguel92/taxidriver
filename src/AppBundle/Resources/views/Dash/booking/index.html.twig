@@ -1,7 +1,7 @@
 {% extends 'AppBundle:Dash/booking:base.html.twig' %}
 {% set pagename = 'booking'  %}
 {% block content %}
-    <h1>Todas las reservas</h1>
+    <h2 >Todas las reservas</h2>
 
     <a href="{{ path('dash_bookings_new') }}" class="btn btn-primary">Agregar Reservaci&oacute;n</a>
     {% if prev_page > 0 %}
@@ -10,27 +10,28 @@
     <a href="{{ path('dash_bookings_index', {'page': next_page}) }}" class="btn">P&aacute;gina siguiente</a>
 
 <hr>
-    <table id="booking-table">
+    <table id="booking-table"  tabulator-tooltips="true">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Fecha de reserva</th>
                 <th>Servicio</th>
+                <th>Destino</th>
                 <th>Airport/Crucero</th>
                 <th>Lugar</th>
-                <th>Tour</th>
+                <th tabulator-formatter="tickCross">Tour</th>
                 <th>Nombre</th>
                 <th>Email</th>
                 <th>Telephone</th>
                 <th>Flynumber</th>
                 <th>Detalles del Lugar</th>
                 <th>Fecha/Hora de Recogida</th>
-                <th>Recogida</th>
-                <th>Taxi/Experiencia</th>
+                <th tabulator-formatter="tick">Recogida</th>
+                <th tabulator-formatter="tick">Taxi/Experiencia</th>
                 <th>Tiempo en la Experiencia</th>
-                <th>Ida al Aeropuerto</th>
+                <th tabulator-formatter="tick">Ida al Aeropuerto</th>
                 <th>Viajes intermedios</th>
-                <th>Ni&ntilde;os</th>
+                <th tabulator-formatter="tick">Ni&ntilde;os</th>
                 <th>Idioma</th>
                 <th>Detalles/Pago</th>
                 <th>Chofer</th>
@@ -38,34 +39,36 @@
                 <th>Fecha/Hora de Retorno</th>
                 <th>Lugar de Recogida/ Retorno</th>
                 <th>Cantidad de personas</th>
-                <th>Precio</th>
+                <th tabulator-formatter="money">Precio</th>
                 <th>Comentario</th>
-                <th>Aceptada</th>
-                <th>Confirmada</th>
-                <th>Actions</th>
+                <th tabulator-formatter="tickCross">Aceptada</th>
+                <th tabulator-formatter="tickCross">Confirmada</th>
+                <th tabulator-formatter="html">Mostrar</th>
+                <th tabulator-formatter="html">Editar</th>
             </tr>
         </thead>
         <tbody>
         {% for booking in bookings %}
             <tr>
                 <td>{{ booking.id }}</td>
-                <td>{% if booking.bookingTime and booking.bookingTime | date('Y') > 2000 %}{{ booking.bookingTime|date('Y-M-d H:i:s') }}{% endif %}</td>
+                <td>{% if booking.bookingTime and booking.bookingTime | date('Y') > 2000 %}{{ booking.bookingTime|date('Y-M-d') }}{% endif %}</td>
                 <td>{{ booking.serviceType }}</td>
+                <td>{{ booking.targetPlace }}</td>
                 <td>{{ booking.airport }}</td>
                 <td>{{ booking.place }}</td>
-                <td>{% if booking.tour %}Yes{% else %}No{% endif %}</td>
+                <td>{{ booking.tour }}</td>
                 <td>{{ booking.fullname }}</td>
                 <td>{{ booking.email }}</td>
                 <td>{{ booking.telephone }}</td>
                 <td>{{ booking.flynumber }}</td>
                 <td>{{ booking.details }}</td>
                 <td>{% if booking.pickuptime %}{{ booking.pickuptime|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if booking.returnpickup %}Yes{% else %}No{% endif %}</td>
-                <td>{% if booking.experienceTaxi %}Yes{% else %}No{% endif %}</td>
+                <td>{{ booking.returnpickup }}</td>
+                <td>{{ booking.experienceTaxi }}</td>
                 <td>{{ booking.experienceTime }}</td>
-                <td>{% if booking.toAirport %}Yes{% else %}No{% endif %}</td>
+                <td>{{ booking.toAirport }}</td>
                 <td>{{ booking.timelinetravel }}</td>
-                <td>{% if booking.children %}Yes{% else %}No{% endif %}</td>
+                <td>{{ booking.children }}</td>
                 <td>{{ booking.bookingLanguage }}</td>
                 <td>{{ booking.paymentDetails }}</td>
                 <td>{{ booking.drivername }}</td>
@@ -75,18 +78,10 @@
                 <td>{{ booking.numpeople }}</td>
                 <td>{{ booking.price }}</td>
                 <td>{{ booking.comment }}</td>
-                <td>{% if booking.accepted %}Yes{% else %}No{% endif %}</td>
-                <td>{% if booking.confirmed %}Yes{% else %}No{% endif %}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('dash_bookings_show', { 'id': booking.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('dash_bookings_edit', { 'id': booking.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
+                <td>{{ booking.accepted }}</td>
+                <td>{{ booking.confirmed }}</td>
+                <td><a href="{{ path('dash_bookings_show', { 'id': booking.id }) }}">Mostrar</a> </td>
+                <td><a href="{{ path('dash_bookings_edit', { 'id': booking.id }) }}">Editar</a> </td>
             </tr>
         {% endfor %}
         </tbody>
@@ -100,8 +95,111 @@
     <a href="{{ path('dash_bookings_index', {'page': next_page}) }}" class="btn">P&aacute;gina siguiente</a>
 
     <link href="{{ asset('css/tabulator.min.css') }}" rel="stylesheet">
+    <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/tabulator.min.js') }}"></script>
     <script>
-        var table = new Tabulator("#booking-table", {});
+
+        //custom max min header filter
+        var minMaxFilterEditor = function(cell, onRendered, success, cancel, editorParams){
+
+            var end;
+
+            var container = document.createElement("span");
+
+            //create and style inputs
+            var start = document.createElement("input");
+            start.setAttribute("type", "number");
+            start.setAttribute("placeholder", "Min");
+            start.setAttribute("min", 0);
+            start.setAttribute("max", 100);
+            start.style.padding = "4px";
+            start.style.width = "50%";
+            start.style.boxSizing = "border-box";
+
+            start.value = cell.getValue();
+
+            function buildValues(){
+                success({
+                    start:start.value,
+                    end:end.value,
+                });
+            }
+
+            function keypress(e){
+                if(e.keyCode == 13){
+                    buildValues();
+                }
+
+                if(e.keyCode == 27){
+                    cancel();
+                }
+            }
+
+            end = start.cloneNode();
+
+            start.addEventListener("change", buildValues);
+            start.addEventListener("blur", buildValues);
+            start.addEventListener("keydown", keypress);
+
+            end.addEventListener("change", buildValues);
+            end.addEventListener("blur", buildValues);
+            end.addEventListener("keydown", keypress);
+
+
+            container.appendChild(start);
+            container.appendChild(end);
+
+            return container;
+        }
+
+        //custom max min filter function
+        function minMaxFilterFunction(headerValue, rowValue, rowData, filterParams){
+            //headerValue - the value of the header filter element
+            //rowValue - the value of the column in this row
+            //rowData - the data for the row being filtered
+            //filterParams - params object passed to the headerFilterFuncParams property
+
+            if(rowValue){
+                if(headerValue.start != ""){
+                    if(headerValue.end != ""){
+                        return rowValue >= headerValue.start && rowValue <= headerValue.end;
+                    }else{
+                        return rowValue >= headerValue.start;
+                    }
+                }else{
+                    if(headerValue.end != ""){
+                        return rowValue <= headerValue.end;
+                    }
+                }
+            }
+
+            return false; //must return a boolean, true if it passes the filter.
+        }
+
+
+
+        var table = new Tabulator("#booking-table", {
+            layout:"fitDataFill",
+            responsiveLayout:"collapse",
+            columns:[
+                {title:"Id", field:"id", headerFilter:"input"},
+                {title:"Fecha de reserva", field:"Fecha de reserva", align:"center", sorter:"date",  headerFilter:"input"},
+                {title:"Servicio", field:"Servicio", width:120, headerFilter:"input"},
+                {title:"Destino", field:"Destino", width:140, headerFilter:"input"},
+
+            ],
+        });
+
+        /*
+        *
+        *  {title:"Progress", field:"progress", width:150, formatter:"progress", sorter:"number", headerFilter:minMaxFilterEditor, headerFilterFunc:minMaxFilterFunction},
+                {title:"Gender", field:"gender", editor:"select", editorParams:{values:{"male":"Male", "female":"Female"}}, headerFilter:true, headerFilterParams:{values:{"male":"Male", "female":"Female", "":""}}},
+                {title:"Rating", field:"rating", editor:"star", align:"center", width:100, headerFilter:"number", headerFilterPlaceholder:"at least...", headerFilterFunc:">="},
+                {title:"Favourite Color", field:"col", headerFilter:"input"},
+                {title:"Date Of Birth", field:"dob", align:"center", sorter:"date",  headerFilter:"input"},
+                {title:"Driver", field:"car", align:"center", formatter:"tickCross",  headerFilter:"tickCross",  headerFilterParams:{"tristate":true},headerFilterEmptyCheck:function(value){return value === null}},
+
+
+        * */
     </script>
 {% endblock %}

@@ -1,21 +1,17 @@
 {% extends 'AppBundle:Dash/booking:base.html.twig' %}
 {% set pagename = 'booking'  %}
 {% block content %}
-    <h1>Editar Reservaci&oacute;n</h1>
+    <h2>Editar Reservaci&oacute;n</h2>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        <input type="submit" value="Guardar" class="btn btn-primary" />
     {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('dash_bookings_index') }}">Back to the list</a>
-        </li>
-        <li>
+    <hr>
+    <a class="btn" href="{{ path('dash_bookings_index') }}">Regresar a la lista</a>
+       
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" value="Delete" class="btn-danger btn" style="float:right;">
             {{ form_end(delete_form) }}
-        </li>
-    </ul>
+      
 {% endblock %}

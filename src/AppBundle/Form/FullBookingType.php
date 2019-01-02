@@ -34,7 +34,7 @@ class FullBookingType extends AbstractType
             ->add('telephone', null, ['label'=>'Telefono del Cliente'])
             ->add('flynumber',null, ['label'=>'# Vuelo'])
             ->add('details',null, ['label'=>'Lugar de Recogida'])
-            ->add('pickuptime', TextType::class, ['label'=>'Fecha/Hora Recogida'])
+            ->add('pickuptime', DateTimeType::class, ['label'=>'Fecha/Hora Recogida'])
             ->add('returnpickup', null, ['label'=>'Recogida'])
             ->add('experienceTaxi',null, ['label'=>'Taxi para Experiencia'])
             ->add('experienceTime', null, ['label'=>'Tiempo en la Experiencia'])

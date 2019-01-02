@@ -17,7 +17,7 @@ class FullBookingController extends Controller
     /**
      * Lists all booking entities.
      *
-     * @Route("/{page}", name="dash_bookings_index", requirements={"page":"\d+"})
+     * @Route("/page/{page}", name="dash_bookings_index", requirements={"page":"\d+"})
      * @Method("GET")
      */
     public function indexAction($page = 1)
