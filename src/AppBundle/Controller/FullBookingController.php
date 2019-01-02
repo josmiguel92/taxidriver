@@ -17,17 +17,19 @@ class FullBookingController extends Controller
     /**
      * Lists all booking entities.
      *
-     * @Route("/", name="dash_bookings_index")
+     * @Route("/{page}", name="dash_bookings_index", requirements={"page":"\d+"})
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction($page = 1)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $bookings = $em->getRepository('AppBundle:Booking')->findAll();
+        $bookings = $em->getRepository('AppBundle:Booking')->listBookings($page);
 
         return $this->render('@App/Dash/booking/index.html.twig', array(
             'bookings' => $bookings,
+            'prev_page' => $page-1,
+            'next_page' => $page+1
         ));
     }
 

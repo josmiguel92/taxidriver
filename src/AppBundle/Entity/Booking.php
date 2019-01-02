@@ -53,7 +53,7 @@ class Booking
     private $airportName;
 
     /**
-     * @var Pl
+     * @var Place
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Place")
      * @ORM\JoinColumn(name="targetPlace", referencedColumnName="id", nullable=true)

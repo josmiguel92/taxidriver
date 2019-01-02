@@ -1,44 +1,47 @@
 {% extends 'AppBundle:Dash/booking:base.html.twig' %}
 {% set pagename = 'booking'  %}
 {% block content %}
-    <h1>Bookings list</h1>
+    <h1>Todas las reservas</h1>
 
+    <a href="{{ path('dash_bookings_new') }}" class="btn btn-primary">Agregar Reservaci&oacute;n</a>
+    {% if prev_page > 0 %}
+    <a href="{{ path('dash_bookings_index', {'page': prev_page}) }}" class="btn">P&aacute;gina anterior</a>
+    {% endif %}
+    <a href="{{ path('dash_bookings_index', {'page': next_page}) }}" class="btn">P&aacute;gina siguiente</a>
+
+<hr>
     <table id="booking-table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Bookingtime</th>
-                <th>Airport</th>
-                <th>Place</th>
-                <th>Ownroute</th>
+                <th>Fecha de reserva</th>
+                <th>Servicio</th>
+                <th>Airport/Crucero</th>
+                <th>Lugar</th>
                 <th>Tour</th>
-                <th>Fullname</th>
+                <th>Nombre</th>
                 <th>Email</th>
-                <th>Flynumber</th>
-                <th>Details</th>
-                <th>Pickuptime</th>
-                <th>Returnpickup</th>
-                <th>Experiencetaxi</th>
-                <th>Experiencetime</th>
-                <th>Toairport</th>
-                <th>Timelinetravel</th>
-                <th>Children</th>
-                <th>Bookinglanguage</th>
-                <th>Paymentdetails</th>
-                <th>Drivername</th>
-                <th>Drivertelephone</th>
-                <th>Returnpickuptime</th>
-                <th>Returnpickupplacce</th>
-                <th>Numpeople</th>
-                <th>Price</th>
-                <th>Comment</th>
-                <th>Accepted</th>
-                <th>Confirmed</th>
-                <th>Idpaypal</th>
-                <th>Token</th>
-                <th>Drivermsg</th>
                 <th>Telephone</th>
-                <th>Servicetype</th>
+                <th>Flynumber</th>
+                <th>Detalles del Lugar</th>
+                <th>Fecha/Hora de Recogida</th>
+                <th>Recogida</th>
+                <th>Taxi/Experiencia</th>
+                <th>Tiempo en la Experiencia</th>
+                <th>Ida al Aeropuerto</th>
+                <th>Viajes intermedios</th>
+                <th>Ni&ntilde;os</th>
+                <th>Idioma</th>
+                <th>Detalles/Pago</th>
+                <th>Chofer</th>
+                <th>Telefono/Chofer</th>
+                <th>Fecha/Hora de Retorno</th>
+                <th>Lugar de Recogida/ Retorno</th>
+                <th>Cantidad de personas</th>
+                <th>Precio</th>
+                <th>Comentario</th>
+                <th>Aceptada</th>
+                <th>Confirmada</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -46,13 +49,14 @@
         {% for booking in bookings %}
             <tr>
                 <td>{{ booking.id }}</td>
-                <td>{% if booking.bookingTime %}{{ booking.bookingTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if booking.bookingTime and booking.bookingTime | date('Y') > 2000 %}{{ booking.bookingTime|date('Y-M-d H:i:s') }}{% endif %}</td>
+                <td>{{ booking.serviceType }}</td>
                 <td>{{ booking.airport }}</td>
                 <td>{{ booking.place }}</td>
-                <td>{{ booking.ownroute }}</td>
                 <td>{% if booking.tour %}Yes{% else %}No{% endif %}</td>
                 <td>{{ booking.fullname }}</td>
                 <td>{{ booking.email }}</td>
+                <td>{{ booking.telephone }}</td>
                 <td>{{ booking.flynumber }}</td>
                 <td>{{ booking.details }}</td>
                 <td>{% if booking.pickuptime %}{{ booking.pickuptime|date('Y-m-d H:i:s') }}{% endif %}</td>
@@ -73,11 +77,6 @@
                 <td>{{ booking.comment }}</td>
                 <td>{% if booking.accepted %}Yes{% else %}No{% endif %}</td>
                 <td>{% if booking.confirmed %}Yes{% else %}No{% endif %}</td>
-                <td>{{ booking.idpaypal }}</td>
-                <td>{{ booking.token }}</td>
-                <td>{{ booking.drivermsg }}</td>
-                <td>{{ booking.telephone }}</td>
-                <td>{{ booking.serviceType }}</td>
                 <td>
                     <ul>
                         <li>
@@ -93,11 +92,12 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('dash_bookings_new') }}">Create a new booking</a>
-        </li>
-    </ul>
+    <hr>
+    <a href="{{ path('dash_bookings_new') }}" class="btn btn-primary">Agregar Reservaci&oacute;n</a>
+    {% if prev_page > 0 %}
+        <a href="{{ path('dash_bookings_index', {'page': prev_page}) }}" class="btn">P&aacute;gina anterior</a>
+    {% endif %}
+    <a href="{{ path('dash_bookings_index', {'page': next_page}) }}" class="btn">P&aacute;gina siguiente</a>
 
     <link href="{{ asset('css/tabulator.min.css') }}" rel="stylesheet">
     <script type="text/javascript" src="{{ asset('js/tabulator.min.js') }}"></script>
