@@ -4,8 +4,76 @@
     <h2>Editar Reservaci&oacute;n</h2>
 
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Guardar" class="btn btn-primary" />
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2>
+                Datos generales
+            </h2>
+            <div class="col-md-12 card">
+                {{ form_row(edit_form.serviceType) }}
+                {{ form_row(edit_form.pickuptime) }}
+                {{ form_row(edit_form.airport) }}
+                {{ form_row(edit_form.details) }}
+                {{ form_row(edit_form.airportName) }}
+                {{ form_row(edit_form.flynumber) }}
+            </div>
+            <div class="col-md-12 card">
+                {{ form_row(edit_form.targetPlace) }}
+                {{ form_row(edit_form.returnpickup) }}
+                {{ form_row(edit_form.returnpickuptime) }}
+                {{ form_row(edit_form.returnpickupplacce) }}
+                {{ form_row(edit_form.timelinetravel) }}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h2>
+                Datos del cliente
+            </h2>
+            <div class="col-md-12 card">
+                {{ form_row(edit_form.fullname) }}
+                {{ form_row(edit_form.email) }}
+                {{ form_row(edit_form.telephone) }}
+                {{ form_row(edit_form.bookingLanguage) }}
+                {{ form_row(edit_form.numpeople) }}
+                {{ form_row(edit_form.children) }}
+                {{ form_row(edit_form.comment) }}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h2>
+                Sobre la Experiencia
+            </h2>
+            <div class="col-md-12 card">
+                {{ form_row(edit_form.experience) }}
+                {{ form_row(edit_form.experienceTaxi) }}
+                {{ form_row(edit_form.experienceTime) }}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h2>
+                Gestión Interna
+            </h2>
+            <div class="col-md-12 card">
+                {{ form_row(edit_form.bookingSource) }}
+                {{ form_row(edit_form.price) }}
+                {{ form_row(edit_form.paymentDetails) }}
+                {{ form_row(edit_form.drivermsg) }}
+                {{ form_row(edit_form.drivername) }}
+                {{ form_row(edit_form.drivername) }}
+                <hr>
+                {{ form_row(edit_form.accepted) }}
+                {{ form_row(edit_form.confirmed) }}
+
+            </div>
+        </div>
+    </div>
+    {{ form_widget(edit_form) }}
+
+    <input type="submit" value="Guardar" class="btn btn-primary"/>
     {{ form_end(edit_form) }}
     <hr>
     <a class="btn" href="{{ path('dash_bookings_index') }}">Regresar a la lista</a>

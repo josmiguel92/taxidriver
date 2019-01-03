@@ -105,47 +105,19 @@
 </body>
     {% block javascripts %}
     <!--   Core JS Files   -->
-    <script src="{{ asset("/js/jquery-1.10.2.js")}}" type="text/javascript"></script>
-	<script src="{{ asset("/js/bootstrap.min.js")}}" type="text/javascript"></script>
+    <script src="{{ asset("/js/jquery-1.10.2.js")}}"></script>
 
 	<!--  Checkbox, Radio & Switch Plugins -->
 	<script src="{{ asset("/js/bootstrap-checkbox-radio.js")}}"></script>
 
-	<!--  Charts Plugin -->
-	<script src="{{ asset("/js/chartist.min.js")}}"></script>
-
-    <!--  Notifications Plugin    -->
-    <script src="{{ asset("/js/bootstrap-notify.js")}}"></script>
-
-    <!--  Google Maps Plugin    -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&libraries=places,geometry"></script>
-
-    <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
-	<script src="{{ asset("/js/paper-dashboard.js")}}"></script>
-
-	<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-	<script src="{{ asset("/js/demo.js")}}"></script>
-
-        {% set flashbag = app.session.flashbag.get('notice') %}
-        {% if flashbag %}
-        <script>
-            $('document').ready(function(){
-//flash
-                {% for flash_message in flashbag %}
-                    {% set thisflash = utils.formatFlashBagNotification(flash_message) %}
-                $.notify({
-                    icon: '{{ thisflash[2] }}',
-                    message: "{{ thisflash[0] }}"
-
-                },{
-                    type: '{{ thisflash[1] }}',
-                    timer: 4000
-                });
-                {% endfor %}
-            });
-        </script>
-        {% endif %}
-
+    <script>
+       $('document').ready(function () {
+           $('input[type="submit"]').click(function(){
+               console.log('click')
+               $('form')[0].submit();
+           })
+       })
+    </script>
     {% endblock javascripts %}
 
 

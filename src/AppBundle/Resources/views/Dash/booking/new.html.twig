@@ -15,11 +15,19 @@
                 Datos generales
             </h2>
             <div class="col-md-12 card">
+                {{ form_row(form.serviceType) }}
                 {{ form_row(form.pickuptime) }}
                 {{ form_row(form.airport) }}
                 {{ form_row(form.details) }}
-                {{ form_row(form.flynumber) }}
                 {{ form_row(form.airportName) }}
+                {{ form_row(form.flynumber) }}
+            </div>
+            <div class="col-md-12 card">
+                {{ form_row(form.targetPlace) }}
+                {{ form_row(form.returnpickup) }}
+                {{ form_row(form.returnpickuptime) }}
+                {{ form_row(form.returnpickupplacce) }}
+                {{ form_row(form.timelinetravel) }}
             </div>
         </div>
 
@@ -37,8 +45,38 @@
                 {{ form_row(form.comment) }}
             </div>
         </div>
+
+        <div class="col-md-6">
+            <h2>
+                Sobre la Experiencia
+            </h2>
+            <div class="col-md-12 card">
+                {{ form_row(form.experience) }}
+                {{ form_row(form.experienceTaxi) }}
+                {{ form_row(form.experienceTime) }}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h2>
+                Gestión Interna
+            </h2>
+            <div class="col-md-12 card">
+                {{ form_row(form.bookingSource) }}
+                {{ form_row(form.price) }}
+                {{ form_row(form.paymentDetails) }}
+                {{ form_row(form.drivermsg) }}
+                {{ form_row(form.drivername) }}
+                {{ form_row(form.drivername) }}
+                <hr>
+                {{ form_row(form.accepted) }}
+                {{ form_row(form.confirmed) }}
+
+            </div>
+        </div>
     </div>
         {{ form_widget(form) }}
+
         <input type="submit" value="Guardar" class="btn btn-primary"/>
     {{ form_end(form) }}
 <hr><a href="{{ path('dash_bookings_index') }}" class="btn">Regresar a la lista</a>

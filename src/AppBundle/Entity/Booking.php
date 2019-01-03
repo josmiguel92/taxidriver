@@ -198,6 +198,12 @@ class Booking
     private $drivername;
 
     /**
+     * @var string
+     * @ORM\Column(name="bookingSource", type="string", length=255, nullable=true)
+     */
+    private $bookingSource;
+
+    /**
      * @return string
      */
     public function getTimelinetravel()
@@ -719,8 +725,10 @@ class Booking
      */
     public function setPickuptime($pickuptime)
     {
-        $this->pickuptime = \DateTime::createFromFormat('l d M Y - H:i',$pickuptime);
-
+        if(gettype($pickuptime)=='string')
+            $this->pickuptime = \DateTime::createFromFormat('l d M Y - H:i',$pickuptime);
+        else
+            $this->pickuptime = $pickuptime;
         return $this;
     }
 
@@ -894,6 +902,24 @@ class Booking
             return true;
         return false;
     }
+
+    /**
+     * @return string
+     */
+    public function getBookingSource()
+    {
+        return $this->bookingSource;
+    }
+
+    /**
+     * @param string $bookingSource
+     */
+    public function setBookingSource($bookingSource = 'webtaxidrivers')
+    {
+        $this->bookingSource = $bookingSource;
+    }
+
+
 
     /**
      * @Assert\IsTrue(message="La reservación debe ser al menos con 12 horas de antelación")
