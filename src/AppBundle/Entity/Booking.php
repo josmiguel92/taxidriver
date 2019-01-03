@@ -193,14 +193,9 @@ class Booking
 
     /**
      * @var string
-     * @ORM\Column(name="drivername", type="string", nullable=true)
+     * @ORM\Column(name="drivername", type="text", nullable=true)
      */
     private $drivername;
-    /**
-     * @var string
-     * @ORM\Column(name="drivertelephone", type="string", nullable=true)
-     */
-    private $drivertelephone;
 
     /**
      * @return string
@@ -289,24 +284,6 @@ class Booking
     public function setDrivername($drivername)
     {
         $this->drivername = $drivername;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getDrivertelephone()
-    {
-        return $this->drivertelephone;
-    }
-
-    /**
-     * @param string $drivertelephone
-     * @return Booking
-     */
-    public function setDrivertelephone($drivertelephone)
-    {
-        $this->drivertelephone = $drivertelephone;
         return $this;
     }
 

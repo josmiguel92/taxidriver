@@ -86,10 +86,6 @@
                 <td>{{ booking.drivername }}</td>
             </tr>
             <tr>
-                <th>Drivertelephone</th>
-                <td>{{ booking.drivertelephone }}</td>
-            </tr>
-            <tr>
                 <th>Returnpickuptime</th>
                 <td>{% if booking.returnpickuptime %}{{ booking.returnpickuptime|date('Y-m-d H:i:s') }}{% endif %}</td>
             </tr>

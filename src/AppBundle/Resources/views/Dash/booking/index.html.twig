@@ -35,7 +35,6 @@
                 <th>Idioma</th>
                 <th>Detalles/Pago</th>
                 <th>Chofer</th>
-                <th>Telefono/Chofer</th>
                 <th>Fecha/Hora de Retorno</th>
                 <th>Lugar de Recogida/ Retorno</th>
                 <th>Cantidad de personas</th>
@@ -72,7 +71,6 @@
                 <td>{{ booking.bookingLanguage }}</td>
                 <td>{{ booking.paymentDetails }}</td>
                 <td>{{ booking.drivername }}</td>
-                <td>{{ booking.drivertelephone }}</td>
                 <td>{% if booking.returnpickuptime %}{{ booking.returnpickuptime|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ booking.returnpickupplacce }}</td>
                 <td>{{ booking.numpeople }}</td>
