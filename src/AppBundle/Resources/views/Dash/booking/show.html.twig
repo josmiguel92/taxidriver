@@ -2,139 +2,74 @@
 {% set pagename = 'booking'  %}
 {% block content %}
     <h2>Reservaci&oacute;n</h2>
+    <p style="float: right">{{ booking.bookingTime | date('d/m/Y h:i') }}</p>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ booking.id }}</td>
-            </tr>
-            <tr>
-                <th>Fecha de Reserva</th>
-                <td>{% if booking.bookingTime %}{{ booking.bookingTime|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Aeropuerto</th>
-                <td>{{ booking.airport }}</td>
-            </tr>
-            <tr>
-                <th>Lugar</th>
-                <td>{{ booking.place }}</td>
-            </tr>
-            <tr>
-                <th>Ownroute</th>
-                <td>{{ booking.ownroute }}</td>
-            </tr>
-            <tr>
-                <th>Tour</th>
-                <td>{% if booking.tour %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Fullname</th>
-                <td>{{ booking.fullname }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ booking.email }}</td>
-            </tr>
-            <tr>
-                <th>Flynumber</th>
-                <td>{{ booking.flynumber }}</td>
-            </tr>
-            <tr>
-                <th>Details</th>
-                <td>{{ booking.details }}</td>
-            </tr>
-            <tr>
-                <th>Pickuptime</th>
-                <td>{% if booking.pickuptime %}{{ booking.pickuptime|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Returnpickup</th>
-                <td>{% if booking.returnpickup %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Experiencetaxi</th>
-                <td>{% if booking.experienceTaxi %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Experiencetime</th>
-                <td>{{ booking.experienceTime }}</td>
-            </tr>
-            <tr>
-                <th>Toairport</th>
-                <td>{% if booking.toAirport %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Timelinetravel</th>
-                <td>{{ booking.timelinetravel }}</td>
-            </tr>
-            <tr>
-                <th>Children</th>
-                <td>{% if booking.children %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Bookinglanguage</th>
-                <td>{{ booking.bookingLanguage }}</td>
-            </tr>
-            <tr>
-                <th>Paymentdetails</th>
-                <td>{{ booking.paymentDetails }}</td>
-            </tr>
-            <tr>
-                <th>Drivername</th>
-                <td>{{ booking.drivername }}</td>
-            </tr>
-            <tr>
-                <th>Returnpickuptime</th>
-                <td>{% if booking.returnpickuptime %}{{ booking.returnpickuptime|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Returnpickupplacce</th>
-                <td>{{ booking.returnpickupplacce }}</td>
-            </tr>
-            <tr>
-                <th>Numpeople</th>
-                <td>{{ booking.numpeople }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ booking.price }}</td>
-            </tr>
-            <tr>
-                <th>Comment</th>
-                <td>{{ booking.comment }}</td>
-            </tr>
-            <tr>
-                <th>Accepted</th>
-                <td>{% if booking.accepted %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Confirmed</th>
-                <td>{% if booking.confirmed %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Idpaypal</th>
-                <td>{{ booking.idpaypal }}</td>
-            </tr>
-            <tr>
-                <th>Token</th>
-                <td>{{ booking.token }}</td>
-            </tr>
-            <tr>
-                <th>Drivermsg</th>
-                <td>{{ booking.drivermsg }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ booking.telephone }}</td>
-            </tr>
-            <tr>
-                <th>Servicetype</th>
-                <td>{{ booking.serviceType }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>
+                Datos generales
+            </h2>
+            <div class="col-md-12 card">
+                {{ booking.serviceType }}
+                {{ booking.pickuptime | date('d/m/Y h:i')}}
+                {{ booking.airport }}
+                {{ booking.details }}
+                {{ booking.airportName }}
+                {{ booking.flynumber }}
+            </div>
+            <div class="col-md-12 card">
+                {{ booking.targetPlace }}
+                {{ booking.returnpickup }}
+                {{ booking.returnpickuptime| date('d/m/Y h:i')}}
+                {{ booking.returnpickupplacce }}
+                {{ booking.timelinetravel }}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h2>
+                Datos del cliente
+            </h2>
+            <div class="col-md-12 card">
+                {{ booking.fullname }}
+                {{ booking.email }}
+                {{ booking.telephone }}
+                {{ booking.bookingLanguage }}
+                {{ booking.numpeople }}
+                {{ booking.children }}
+                {{ booking.comment }}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h2>
+                Sobre la Experiencia
+            </h2>
+            <div class="col-md-12 card">
+                {{ booking.experience }}
+                {{ booking.experienceTaxi }}
+                {{ booking.experienceTime }}
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h2>
+                Gestión Interna
+            </h2>
+            <div class="col-md-12 card">
+                {{ booking.bookingSource }}
+                {{ booking.price }}
+                {{ booking.paymentDetails }}
+                {{ booking.drivermsg }}
+                {{ booking.drivername }}
+                {{ booking.drivername }}
+                <hr>
+                {{ booking.accepted }}
+                {{ booking.confirmed }}
+
+            </div>
+        </div>
+    </div>
 <hr>
             <a class="btn" href="{{ path('dash_bookings_index') }}">Regresar a la lista</a>
            <a class="btn" href="{{ path('dash_bookings_edit', { 'id': booking.id }) }}">Editar</a>

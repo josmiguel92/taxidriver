@@ -34,8 +34,8 @@
 
                 <th tabulator-formatter="money">Precio</th>
                 <th tabulator-formatter="tickCross">Aceptada</th>
-                <th tabulator-formatter="html">Mostrar</th>
-                <th tabulator-formatter="html">Editar</th>
+            {#    <th tabulator-formatter="html">Mostrar</th>
+            #}    <th tabulator-formatter="html">Editar</th>
             </tr>
         </thead>
         <tbody>
@@ -62,8 +62,8 @@
                 <td>{{ booking.drivername }}</td>
                 <td>{{ booking.price }}</td>
                 <td>{{ booking.accepted }}</td>
-                <td><b><a href="{{ path('dash_bookings_show', { 'id': booking.id }) }}">Mostrar detalles</a> </b></td>
-                <td><b><a href="{{ path('dash_bookings_edit', { 'id': booking.id }) }}">Editar</a></b> </td>
+             {#   <td><b><a href="{{ path('dash_bookings_show', { 'id': booking.id }) }}">Mostrar detalles</a> </b></td>
+             #}   <td><b><a href="{{ path('dash_bookings_edit', { 'id': booking.id }) }}">Editar</a></b> </td>
             </tr>
         {% endfor %}
         </tbody>
