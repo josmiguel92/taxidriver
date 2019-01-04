@@ -51,7 +51,7 @@ class FullBookingType extends AbstractType
             ->add('paymentDetails', null, ['label'=>'Detalles de Pago'])
             ->add('drivername', null, ['label'=>'Datos de contacto del Chofer'])
 //            ->add('drivertelephone', null, ['label'=>'Teléfono del Chofer'])
-            ->add('returnpickuptime',TextType::class, ['label'=>'Fecha/Hora de Recogida al regreso', 'required'=>false])
+            ->add('returnpickuptime',DateTimeType::class, ['label'=>'Fecha/Hora de Recogida al regreso', 'required'=>false])
             ->add('returnpickupplacce', null, ['label'=>'Lugar de recogida al Regreso'])
             ->add('numpeople',IntegerType::class, ['label'=>'Cantidad de Personas'])
             ->add('price', null, ['label'=>'Precio'])
