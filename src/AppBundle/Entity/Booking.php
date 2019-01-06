@@ -770,8 +770,10 @@ class Booking
      */
     public function setReturnpickuptime($returnpickuptime)
     {
-        $this->returnpickuptime  = \DateTime::createFromFormat('l d M Y - H:i',$returnpickuptime);
-
+        if(gettype($returnpickuptime)=='string')
+            $this->returnpickuptime = \DateTime::createFromFormat('l d M Y - H:i',$returnpickuptime);
+        else
+            $this->returnpickuptime = $returnpickuptime;
         return $this;
     }
 

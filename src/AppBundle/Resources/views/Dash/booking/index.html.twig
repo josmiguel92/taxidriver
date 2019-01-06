@@ -27,15 +27,15 @@
                 <th tabulator-formatter="tick">Viaje de regreso</th>
 
                 <th>Fecha/Hora de Retorno</th>
-                <th>Varios lugares de destino</th>
+                <th tabulator-formatter="tickCross">Varios lugares de destino</th>
 
                 <th>Idioma</th>
                 <th>Chofer</th>
 
                 <th tabulator-formatter="money">Precio</th>
                 <th tabulator-formatter="tickCross">Aceptada</th>
-            {#    <th tabulator-formatter="html">Mostrar</th>
-            #}    <th tabulator-formatter="html">Editar</th>
+                <th tabulator-formatter="html">Mostrar</th>
+                <th tabulator-formatter="html">Editar</th>
             </tr>
         </thead>
         <tbody>
@@ -57,13 +57,13 @@
                 <td>{{ booking.returnpickup }}</td>
                 <td>{% if booking.returnpickuptime %}{{ booking.returnpickuptime|date('Y-m-d H:i:s') }}{% endif %}</td>
 
-                <td>{{ booking.timelinetravel }}</td>
+                <td>{% if booking.timelinetravel %}1{% else %}0{% endif %}</td>
                 <td>{{ booking.bookingLanguage }}</td>
                 <td>{{ booking.drivername }}</td>
                 <td>{{ booking.price }}</td>
                 <td>{{ booking.accepted }}</td>
-             {#   <td><b><a href="{{ path('dash_bookings_show', { 'id': booking.id }) }}">Mostrar detalles</a> </b></td>
-             #}   <td><b><a href="{{ path('dash_bookings_edit', { 'id': booking.id }) }}">Editar</a></b> </td>
+                <td><b><a href="{{ path('dash_bookings_show', { 'id': booking.id }) }}">Mostrar detalles</a> </b></td>
+                <td><b><a href="{{ path('dash_bookings_edit', { 'id': booking.id }) }}">Editar</a></b> </td>
             </tr>
         {% endfor %}
         </tbody>
@@ -77,6 +77,14 @@
     <a href="{{ path('dash_bookings_index', {'page': next_page}) }}" class="btn">P&aacute;gina siguiente</a>
 
     <link href="{{ asset('css/bootstrap/tabulator_bootstrap.min.css') }}" rel="stylesheet">
+    <style type="text/css">
+    	.tabulator-responsive-collapse table:nth-child(1) > tbody:nth-child(1) > tr:last-child{
+    		background: #bbb
+    	}
+    	.tabulator-row {
+    border-bottom: 3px solid #ddd;
+}
+    </style>
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/tabulator.min.js') }}"></script>
     <script>

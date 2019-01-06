@@ -1,72 +1,172 @@
 {% extends 'AppBundle:Dash/booking:base.html.twig' %}
 {% set pagename = 'booking'  %}
 {% block content %}
-    <h2>Reservaci&oacute;n</h2>
+    <h2>Reservaci&oacute;n <small> {{booking.id}}</small></h2>
     <p style="float: right">{{ booking.bookingTime | date('d/m/Y h:i') }}</p>
 
     <div class="row">
         <div class="col-md-6">
-            <h2>
+            <h3>
                 Datos generales
-            </h2>
+            </h3>
             <div class="col-md-12 card">
-                {{ booking.serviceType }}
-                {{ booking.pickuptime | date('d/m/Y h:i')}}
-                {{ booking.airport }}
-                {{ booking.details }}
-                {{ booking.airportName }}
-                {{ booking.flynumber }}
+                <p>
+                    <b>Tipo de servicio:</b>
+                    {{ booking.serviceType }}
+                </p>
+                <p>
+                    <b>Fecha/Hora Recogida:</b>
+                    {{ booking.pickuptime | date('d/M/Y h:i')}}
+                </p>
+                <p>
+                    <b>Lugar de recogida:</b>
+                    {% if booking.airport == 'airport' %}
+                            {% if booking.airportName %}
+                                {{ booking.airportName }}
+                            {% else %}
+                                Aeropuerto 
+                            {% endif %}
+                            <br>
+                            <b>Vuelo:</b> {{ booking.flynumber }}
+                    {% elseif booking.airport == 'cruise' %}
+                        Crucero
+                    {% endif %}
+                </p>
+
+                <p>
+                    <b>Otros detalles:</b>
+                    {{ booking.details }}
+                </p>
+                
             </div>
             <div class="col-md-12 card">
-                {{ booking.targetPlace }}
-                {{ booking.returnpickup }}
-                {{ booking.returnpickuptime| date('d/m/Y h:i')}}
-                {{ booking.returnpickupplacce }}
-                {{ booking.timelinetravel }}
+                <p>
+                    <b>Destino:</b>{{ booking.targetPlace }}
+                </p>
+                <p>
+                    {% if booking.returnpickup %}
+                    <b>Viajar&aacute; de regreso:</b>
+                    {{ booking.returnpickuptime| date('d/M/Y h:i')}}
+                    <br>
+                    <b>Lugar de recogida:</b>
+                    {{ booking.returnpickupplacce }}
+                    {% endif %}
+                    
+                </p>
+                {% if booking.timelinetravel %}
+                <p>
+                   
+                <b>Varios lugares de destino:</b>
+                {{ booking.timelinetravel }} 
+                </p>
+                {% endif %} 
             </div>
         </div>
 
         <div class="col-md-6">
-            <h2>
+            <h3>
                 Datos del cliente
-            </h2>
+            </h3>
             <div class="col-md-12 card">
-                {{ booking.fullname }}
+                <p>
+                    <b>Nombre:</b>
+                    {{ booking.fullname }}
+                </p>
+                <p><b>Email:</b>
                 {{ booking.email }}
+                </p>
+                <p><b>Telefono:</b>
                 {{ booking.telephone }}
-                {{ booking.bookingLanguage }}
-                {{ booking.numpeople }}
-                {{ booking.children }}
+                </p>
+                <p>
+                    <b>Idioma:</b>
+                    {{ booking.bookingLanguage }}
+                
+                </p>
+                <p><b>Cantidad de personas:</b>
+                {{ booking.numpeople }}.
+                {% if booking.children %}
+                Incluyen ni&ntilde;os
+                {% endif %}
+                
+                </p>
+                <p>
+                    <b>Comentarios del cliente:</b>
+
                 {{ booking.comment }}
+                </p>
             </div>
         </div>
 
+        {% if booking.experience %}
         <div class="col-md-6">
-            <h2>
+            <h3>
                 Sobre la Experiencia
-            </h2>
+            </h3>
             <div class="col-md-12 card">
-                {{ booking.experience }}
-                {{ booking.experienceTaxi }}
-                {{ booking.experienceTime }}
+                <p>
+                    <b>{{ booking.experience }}</b>
+                    
+                    {% if booking.experienceTime %}
+                    <br>
+                    Durante {{ booking.experienceTime }} horas.
+                    {% endif %}
+                </p>
+
+                <p>
+                    {%if booking.experienceTaxi %}
+                    <b>Necesita transporte</b>
+                {% endif %}
+                </p>
+                
             </div>
         </div>
+        {% endif %}
+        
 
         <div class="col-md-6">
-            <h2>
+            <h3>
                 Gestión Interna
-            </h2>
+            </h3>
             <div class="col-md-12 card">
-                {{ booking.bookingSource }}
-                {{ booking.price }}
-                {{ booking.paymentDetails }}
-                {{ booking.drivermsg }}
-                {{ booking.drivername }}
-                {{ booking.drivername }}
-                <hr>
-                {{ booking.accepted }}
-                {{ booking.confirmed }}
+                <p>
+                    <b>Origen de esta reserva:</b>
+                    {{ booking.bookingSource }}
+                </p>
+                <p>
+                    <b>Precio: </b>
+                {% if booking.price %}
+                   {{ booking.price }} USD
+                {% else %}
+                    A&uacute;n no hay un precio
+                </p>
+                {%endif %}
+                
+                {%if booking.paymentDetails %}
+                <p>
+                    <b>Detalles de pago:</b>{{ booking.paymentDetails }}
+                </p>
+                {%endif%}
 
+                {%if booking.drivermsg %}
+                <p>
+                    <b>Mensaje enviado al cliente:</b>{{ booking.drivermsg }}
+                </p>
+                {%endif%}
+                
+
+                {%if booking.drivername %}
+                <p>
+                    <b>Contacto del Chofer:</b>{{ booking.drivername }}
+                </p>
+                {%endif%}
+                
+                <hr>
+                {%if booking.accepted %}
+                <p>
+                    <b>Reservaci&oacute;n aceptada</b>
+                </p>
+                {%endif%}
             </div>
         </div>
     </div>
