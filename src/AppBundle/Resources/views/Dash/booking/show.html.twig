@@ -2,7 +2,10 @@
 {% set pagename = 'booking'  %}
 {% block content %}
     <h2>Reservaci&oacute;n <small> {{booking.id}}</small></h2>
-    <p style="float: right">{{ booking.bookingTime | date('d/m/Y h:i') }}</p>
+
+    <p style="float: right">
+        {{ booking.bookingTime | date('d/m/Y h:i') }}
+        <a class="btn btn-primary" href="{{ path('dash_bookings_pdf_export', {'id': booking.id}) }}" style="margin-left: 2em"><i class="fa fa-print fa-2x"></i> </a></p>
 
     <div class="row">
         <div class="col-md-6">

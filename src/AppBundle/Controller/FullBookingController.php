@@ -6,6 +6,9 @@ use AppBundle\Entity\Booking;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Dompdf\Dompdf;
+include __DIR__."/../Utils/phpqrcode.php";
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Booking controller.
@@ -135,4 +138,66 @@ class FullBookingController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * Generate QR code from a booking entity.
+     *
+     * @Route("/qrcode/{id}", name="dash_bookings_qr")
+     * @Method("GET")
+     */
+    public function qrcodeAction(Booking $booking)
+    {
+        $url = $this->generateUrl('purchase_details',['_token'=>$booking->getToken()], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        \QRcode::png($url);
+        exit();
+    }
+
+    /**
+     * Generate PDF from a booking entity.
+     *
+     * @Route("/export/{id}", name="dash_bookings_pdf_export")
+     * @Method("GET")
+     */
+    public function exportAction(Booking $booking)
+    {
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $dompdf->set_option('dpi', 120);
+
+
+
+        $url = $this->generateUrl('purchase_details',['_token'=>$booking->getToken()], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        //;
+        $dataimage = \QRcode::_png($url);
+
+/*
+        return  $this->render('AppBundle:Dash/booking:pdf_export.html.twig', array(
+            'booking' => $booking,
+            'dataimage'=>$dataimage,
+        ));
+
+*/
+        $dompdf->loadHtml(
+            $this->renderView('AppBundle:Dash/booking:pdf_export.html.twig', array(
+                'booking' => $booking,
+                'dataimage'=>$dataimage,
+            ))
+        );
+
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        $filename = 'booking'.$booking->getId().'_'.$booking->getPickuptimeFormated().'.pdf';
+        // Output the generated PDF to Browser
+        $dompdf->stream($filename);
+
+
+    }
+
 }

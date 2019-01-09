@@ -50,6 +50,7 @@ class BookingController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $booking = new Booking();
+        $booking->setBookingSource();
         $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking, array(
             'action' => $this->generateUrl('add_booking'),
             'method' => 'POST',

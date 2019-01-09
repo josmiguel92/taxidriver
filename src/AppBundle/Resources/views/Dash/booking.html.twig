@@ -141,6 +141,7 @@
                             </td>
 
                             <td>{{ item.details }}<a style="float: right" class="booking-details-modal btn btn-sm btn-{% if item.accepted %}success{% else %}danger{% endif %}" data-id="{{ item.id }}"> <i class="ti-search"></i> </a> </td>
+                            <td><a href="{{ path('dash_bookings_pdf_export', {'id':item.id}) }}" style="float: right" class="booking-details-modal btn btn-sm btn-primary"> <i class="ti-printer"></i> </a> </td>
                         </tr>
                         {% endfor %}
 
