@@ -2,46 +2,14 @@
 {% block pagetitle %}Reservaciones{% endblock pagetitle %}
 {% block content %}
     <div class="row">
-        <div class="col-lg-3 col-sm-6">
+        <div class="col-lg-6 col-sm-6">
             <div class="card">
                 <div class="content">
-                    <div class="row">
-                        <div class="col-xs-5">
-                            <div class="icon-big icon-success text-center">
-                                <i class="ti-book"></i>
-                            </div>
-                        </div>
-                        <div class="col-xs-7">
-                            <div class="numbers">
-                                <p>Tours reservados</p>
-                                {#{ all_books|length }#}
-                            </div>
-                        </div>
-                    </div>
-
+                    <canvas id="bookingChart" style="max-height: 145px;width: 100%;" height="145"></canvas>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card">
-                <div class="content">
-                    <div class="row">
-                        <div class="col-xs-5">
-                            <div class="icon-big icon-warning text-center">
-                                <i class="fa fa-calendar"></i>
-                            </div>
-                        </div>
-                        <div class="col-xs-7">
-                            <div class="numbers">
-                                <p>Experiencias r.</p>
-                                {#{ experiences_books|length }#}
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-            </div>
-        </div>
 
 
         <div class="col-lg-3 col-sm-6">
@@ -60,35 +28,18 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="footer">
+                        <hr />
+                        <a href="{{ path('dash_bookings_index')}}">
+                        <div class="stats">
+                            <i class="ti-pencil-alt"></i> Ver todas las reservas
+                        </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-3 col-sm-6">
-                <div class="card">
-                    <div class="content">
-                        <div class="row">
-                        <a href="{{ path('dash_bookings_index')}}">
-                            <div class="col-xs-5">
-                                <div class="icon-big icon-info text-center">
-                                    <i class="ti-pencil-alt"></i>
-                                </div>
-                            </div>
-                             
-                            <div class="col-xs-7">
-                                <div class="numbers">
-                                    <p>Todas las reservaciones</p>
-                                
-                                </div>
-                            </div>
-
-                        </div>
-                            </a>
-                    </div>
-                </div>
-            
-        </div>
     </div>
     <div class="row">
 
@@ -128,7 +79,6 @@
                                 {% elseif item.airportTransfer %}
                                     {{ item.airportTransfer.targetAirport }}
                                 {% endif %}
-                                -{{ item.targetPlace }}
                             </td>
                             <td>{{ item.pickuptime | date("Y/M/d - H:i")}}</td>
                             <td>
@@ -140,9 +90,21 @@
                                 {% endif %}
                             </td>
 
-                            <td>{{ item.details }}<a style="float: right" class="booking-details-modal btn btn-sm btn-{% if item.accepted %}success{% else %}danger{% endif %}" data-id="{{ item.id }}"> <i class="ti-search"></i> </a> </td>
-                            <td><a href="{{ path('dash_bookings_pdf_export', {'id':item.id}) }}" style="float: right" class="btn btn-sm btn-primary"> <i class="ti-printer"></i> </a> </td>
-                        </tr>
+                            <td>
+                                {{ item.details }}
+                            </td>
+                            <td>
+                                <a style="float: right" class="booking-details-modal btn btn-sm btn-{% if item.accepted %}success{% else %}danger{% endif %}" data-id="{{ item.id }}"> <i class="ti-search"></i> </a>
+
+                            </td>
+                            <td>
+                                <div class="btn-group" role="group" style="min-width: 100px">
+                                    <a  class="btn btn-sm btn-primary" href="{{ path('dash_bookings_edit',{'id':item.id}) }}"> <i class="ti-pencil"></i> </a>
+                                    <a href="{{ path('dash_bookings_pdf_export', {'id':item.id}) }}" class="btn btn-sm btn-primary"> <i class="ti-printer"></i> </a>
+
+                </div>
+
+                             </tr>
                         {% endfor %}
 
                         </tbody>
@@ -176,27 +138,49 @@
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}
-<script>
-    $('document').ready(function() {
-        console.log('ok');
+    <script src="{{ asset('js/Chart.bundle.min.js') }}"></script>
+    <script>
+        $('document').ready(function() {
+            console.log('ok');
 
-      $("a.booking-details-modal").click(function(e) {
-          e.preventDefault();
-          var AjaxDetailsRoute = "{{ path('booking_details', {'booking': '123454321'}) }}"
+          $("a.booking-details-modal").click(function(e) {
+              e.preventDefault();
+              var AjaxDetailsRoute = "{{ path('booking_details', {'booking': '123454321'}) }}"
 
-          $('.modal.fa').show();
-          $('#modalBodyContainer').fadeOut();
-        $("#bookingModal").modal({
-            backdrop: false
+              $('.modal.fa').show();
+              $('#modalBodyContainer').fadeOut();
+            $("#bookingModal").modal({
+                backdrop: false
+            });
+            console.log(this.dataset['id'])
+              _route = AjaxDetailsRoute.replace('123454321',this.dataset['id']);
+            $("#modalBodyContainer").load(_route, function () {
+                $('.modal.fa').hide();
+                $('#modalBodyContainer').fadeIn();
+            })
+          });
+
         });
-        console.log(this.dataset['id'])
-          _route = AjaxDetailsRoute.replace('123454321',this.dataset['id']);
-        $("#modalBodyContainer").load(_route, function () {
-            $('.modal.fa').hide();
-            $('#modalBodyContainer').fadeIn();
+    </script>
+    <script>
+        var ctx = document.getElementById("bookingChart");
+        var bookingChart = new Chart(ctx, {
+            type: 'bar',
+            data: {{ render(path('dash_json_lastweek_booking')) }},
+            options: {
+                scales: {
+                    xAxes: [{
+                        stacked: true
+                    }],
+                    yAxes: [{
+                        stacked: true
+                    }]
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
+                }
+            }
         })
-      });
-
-    });
-</script>
+    </script>
 {% endblock %}

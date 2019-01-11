@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use AppBundle\Entity\Image;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
 
 /**
@@ -824,5 +825,68 @@ class AdminController extends Controller
     }
 
 
+    /**
+     * return a JSON about booking data
+     * @Route("/booking/lastweek/", name="dash_json_lastweek_booking")
+     * @Method("GET")
+     * @Cache(expires="+1 hour", maxage=15)
+     **/
+    public function lastweekBookingJsonAction(){
+
+        $max_days = 15;
+        $bookings = $this->getDoctrine()->getManager()
+                    ->createQuery('SELECT b.bookingTime, b.serviceType FROM AppBundle:Booking b 
+                                WHERE b.bookingTime > :lastweekdate')
+                    ->setParameter('lastweekdate', new \DateTime("-$max_days days"))
+                    ->getArrayResult();
+
+        $days = [];
+        $day = $max_days;
+        $calendar = [];
+        $labels = [];
+        while (count($days)<=$max_days and $day > 0)
+        {
+            $_date = new \DateTime("today - $day days");
+            $calendar[$_date->format('j/M')] = [];
+            $labels[]= $_date->format('j/M');
+            $day--;
+        }
+
+        foreach ($bookings as $item){
+                if (isset($calendar[$item['bookingTime']->format('j/M')][$item['serviceType']]))
+                    $calendar[$item['bookingTime']->format('j/M')][$item['serviceType']]++;
+                else
+                    $calendar[$item['bookingTime']->format('j/M')][$item['serviceType']] = 1;
+        }
+
+        $datasets = [
+       /*0*/[
+                'label'=>'Experience',
+                'backgroundColor'=>'#c66',
+                'data'=>[]
+            ],
+        /*1*/[
+                'label'=>'Transfer',
+                'backgroundColor'=>'#6c6',
+                'data'=>[]
+            ],
+        /*2*/[
+                'label'=>'AirportTransfer',
+                'backgroundColor'=>'#66c',
+                'data'=>[]
+            ],
+        ];
+
+
+        foreach ($calendar as $day){
+            $datasets[0]['data'][] = isset($day['Experience']) ? $day['Experience']: 0;
+            $datasets[1]['data'][] = isset($day['Transfer']) ? $day['Transfer']: 0;
+            $datasets[2]['data'][] = isset($day['AirportTransfer']) ? $day['AirportTransfer']: 0;
+
+        }
+
+
+            return $this->JSON(['labels'=>$labels, 'datasets'=>$datasets]);
+    }
 
 }

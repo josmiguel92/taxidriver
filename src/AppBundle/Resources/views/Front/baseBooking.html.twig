@@ -317,6 +317,7 @@
                     {{ form_widget(booking_form._token)}}
                     <input type="hidden" value="{{ transfer.id }}" name="{{ booking_form.transfer.vars.full_name }}">
                     <input type="hidden" value="{{ transfer.serviceType }}" name="{{ booking_form.serviceType.vars.full_name }}">
+                    <input type="hidden" value="{{ transfer.targetPlace.id }}" name="{{ booking_form.targetPlace.vars.full_name }}">
 
 
 
