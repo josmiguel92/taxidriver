@@ -1,155 +1,25 @@
 {{ form_start(form) }}
- <h4 class="modal-title">Reservaci&oacute;n de {{ booking.fullname}}</h4>
-  {%  if booking.transfer %}
-    <h5>{{ booking.transfer.nameLocale }}</h5>
-  {% elseif booking.experience %}
-           <h5>{{ booking.experience.nameLocale }}, en {{ booking.experience.targetPlace.nameLocale }}</h5>
-   {% else %}
-          <h5>
+ <h4 class="modal-title">
 
-              {% if booking.toAirport %}a{% else %}desde{% endif %}
-              {% if booking.airportTransfer is not null %}
-                {{ booking.airportTransfer.targetAirport }}
-              {% endif %}
-              (Aeropuerto o terminal de cruceros)
-          </h5>
-
-    {%  endif %}
-   <h5>
-       {% if booking.targetPlace %}
-           para ir a
-           {{ booking.targetPlace.NameLocale }}
-       {% endif %}
-   </h5>
-
-  <p>Nombre: {{ booking.fullname }} <small>( {{ booking.numpeople }} personas)</small></p>
-<p>Su correo: <a href="mailto:{{ booking.email }}">{{ booking.email }}</a></p>
-<p>Telefono: <a href="tel://{{ booking.telephone }}">{{ booking.telephone }}</a>
-</p>
-
-{% if booking.isAnAirport %}
-    <p>
-        {% if booking.airportName %}
-        Recogida al aereopuerto, {{ booking.airportName.nameLocale }}<br/>
-        {% endif %}
-        numero de vuelo: <strong>{{ booking.flynumber }}</strong>
-    </p>
-{% elseif booking.aCruise %}
-    <p>Recogida en la terminal de crucero,<br/>
-        nombre del crucero: <strong>{{ booking.flynumber }}</strong></p>
-{% endif %}
-
-<h4>Sobre la recogida</h4>
-<p>Hora y fecha:<br>
-    {{ booking.pickuptime | date("l d/m/Y H:i") }}</p>
-<p>Detalles de recogida:<br>
-    {{ booking.details}}
-</p>
-
-
-{% if booking.returnpickup %}
-    <h4>Sobre el regreso</h4>
-    <p>Hora y fecha:<br>
-        {{ booking.returnpickuptime | date("l d/m/Y H:i") }}</p>
-    <p>Detalles de recogida:<br>
-        {{ booking.returnpickupplacce}}
-    </p>
-{% endif %}
-<h4>Mensaje del cliente</h4>
-<p>{{ booking.comment }}</p>
-
-    {% if not place %}
-        <hr>
-        {% if booking.ownroute %}
-            <h4 class="modal-title">Lugares</h4>
-            <ul>
-                {% for _place in booking.ownrouteFormated %}
-                    <li>{{_place}}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
+     Reservaci&oacute;n {{ booking.id}}
+     {% if not booking.price %}
+     <small><i class="fa fa-warning fa-2x" style="color: rgba(255,154,31,0.73)"></i> </small>
     {% endif %}
-    {% if booking.accepted %}
-        (Ya este precio se acept&oacute; por ambas partes).
-    {% else %}
-        Debe especificar un precio.
-    {% endif %}
-    {% if booking.idpaypal %}
-        <p>
-            Pagado mediante PayPal: <b>{{ booking.price }} USD</b>.<br>
-            ID PAYPAL<b> {{ booking.idpaypal }}</b>
-        </p>
-    {% else %}
-        {{ form_row(form.price)}}
-    {% endif %}
-    {% if not booking.drivermsg and not booking.accepted %}
-        {{ form_row(form.drivermsg) }}
-    {% endif %}
+ </h4>
 
-
- {{ form_widget(form._token)}}
-
-
+{{ include('@App/Dash/booking/_partial_show.html.twig') }}
 
 
 <div class="modal-footer">
-    <button type="submit" class="btn btn-primary">Aceptar</button>
-    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-    <a href="{{ path('dash_booking_delete', {'id': booking.id}) }}" class="btn btn-default">Eliminar</a>
+    <div class="col-md-6">
+        <button type="submit" class="btn btn-primary">Aceptar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    </div>
+    <div class="col-md-6">
+        <a href="{{ path('dash_booking_delete', {'id': booking.id}) }}" class="btn btn-default">Eliminar</a>
+
+    </div>
 
 </div>
 
-<hr>
-<b>Resumen de la reserva</b>
-
-<pre>
-    Aceptado: {% if booking.accepted %}SI{% else %}NO{% endif %}
-
-    {% if booking.airport %}Se marcó la recogida en Aereopuerto{% endif %}
-
-    Nombre del aeropuerto: {{ booking.airportName }}
-
-    {% if booking.airportTransfer %}Es un transfer a/desde Aeropuerto{% endif %}
-
-    Comentario:    {{ booking.comment }}
-
-    **************************
-    {% if booking.confirmed %}Confirmado por la Administración{% else %}Aún no confirmado por el administradoor{% endif %}
-
-    Detalles: {{ booking.details }}
-    **************************
-    Correo: {{ booking.email }}
-    {% if booking.experience %}Es una experiencia{% endif %}
-    {{ booking.experience }}
-    {% if booking.experienceTaxi %}Necesita taxi par esta experiencia{% endif %}
-    {{ booking.experienceTaxi }}
-    Tiempo para la experiencia:  {{ booking.experienceTime }} horas
-    ***************************
-    Número del vuelo: {{ booking.flynumber }}
-    Nombre del cliente: {{ booking.fullname }}
-
-    Telefono: {{ booking.telephone }}
-    Cantidad de personas: {{ booking.numpeople }}
-
-    Fecha/Hora de recogida: {{ booking.pickuptime | date("l d/m/Y H:i")}}
-    Lugar de recogida: {{ booking.place }}
-    Precio: {{ booking.price }}
-    ****************************
-    {% if booking.returnpickup %}Contrató tambien regreso:
-
-    Lugar de recogida: {{ booking.returnpickupplacce }}
-    Fecha/Hora: {{ booking.returnpickuptime | date("l d/m/Y H:i")}}
-    {% endif %}
-
-    Tipo de Servicio: {{ booking.serviceType }}
-    Lugar de destino: {{ booking.targetPlace }}
-    Ida al aeropuerto: {{ booking.toAirport }}
-    Tour: {{ booking.tour }}
-    Transfer: {{ booking.transfer }}
-
-    Paypal: {{ booking.idpaypal }}
-</pre>
-
 </form>
-<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

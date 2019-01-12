@@ -1,15 +1,15 @@
-{% extends 'AppBundle:Dash/booking:base.html.twig' %}
+{% extends 'AppBundle:Dash:base.html.twig' %}
 {% set pagename = 'booking'  %}
 {% block content %}
-    <h2>Editar Reservaci&oacute;n</h2>
+    <h2>Editar Reservaci&oacute;n <small> {{ edit_form.vars.value.id }}</small></h2>
 
     {{ form_start(edit_form) }}
 
     <div class="row">
         <div class="col-md-6">
-            <h2>
+            <h3>
                 Datos generales
-            </h2>
+            </h3>
             <div class="col-md-12 card">
                 {{ form_row(edit_form.serviceType) }}
                 {{ form_row(edit_form.pickuptime) }}
@@ -28,9 +28,9 @@
         </div>
 
         <div class="col-md-6">
-            <h2>
+            <h3>
                 Datos del cliente
-            </h2>
+            </h3>
             <div class="col-md-12 card">
                 {{ form_row(edit_form.fullname) }}
                 {{ form_row(edit_form.email) }}
@@ -43,9 +43,9 @@
         </div>
 
         <div class="col-md-6">
-            <h2>
+            <h3>
                 Sobre la Experiencia
-            </h2>
+            </h3>
             <div class="col-md-12 card">
                 {{ form_row(edit_form.experience) }}
                 {{ form_row(edit_form.experienceTaxi) }}
@@ -54,9 +54,9 @@
         </div>
 
         <div class="col-md-6">
-            <h2>
+            <h3>
                 Gestión Interna
-            </h2>
+            </h3>
             <div class="col-md-12 card">
                 {{ form_row(edit_form.bookingSource, {'disabled':true}) }}
                 {{ form_row(edit_form.price) }}

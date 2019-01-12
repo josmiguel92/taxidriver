@@ -464,16 +464,22 @@ class AdminController extends Controller
 
 
     /**
-     * @Route("/bookinglist", name="dash_booking")
+     * @Route("/bookinglist/{filter}", name="dash_booking")
      * @Method("GET")
      */
-    public function bookingAction(Request $request)
+    public function bookingAction(Request $request, $filter = 'yesterday')
     {
         $em = $this->getDoctrine()->getManager();
         $booking = $em->getRepository("AppBundle:Booking")
             ->createQueryBuilder("b")
-            ->where("b.pickuptime > :yesterday")
-            ->setParameter("yesterday", new \DateTime('yesterday'))
+            ->where("b.pickuptime > :yesterday");
+
+        if($filter == 'week'){
+            $booking->andWhere("b.pickuptime < :nextweek")
+                ->setParameter("nextweek", new \DateTime("today + 1 week"));
+        }
+            $booking = $booking
+        ->setParameter("yesterday", new \DateTime('yesterday'))
             ->orderBy("b.id", "DESC")
             ->getQuery()->getResult();
 
@@ -481,7 +487,9 @@ class AdminController extends Controller
         $places = [];
 
         $all_books = $em->getRepository("AppBundle:Booking")->findAll();//ByTour(true);
+        $nextweek = $em->getRepository("AppBundle:Booking")->nextWeeksCount();//ByTour(true);
 
+        dump($nextweek);
         foreach ($_places as $value) {
             $places[$value['id']]=$value['name'];
         }
@@ -490,7 +498,7 @@ class AdminController extends Controller
             'pagename' => 'booking',
             'booking' => $booking,
             'all_books'=>$all_books,
-
+            'nextweek'=>$nextweek,
             'places'=>$places]);
     }
 
@@ -500,8 +508,6 @@ class AdminController extends Controller
      */
     public function configAction(Request $request){
         $em = $this->getDoctrine()->getManager();
-
-        $configValues = $em->getRepository('AppBundle:ConfigValue')->findAll();
 
         $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
         $config = [];
@@ -833,7 +839,7 @@ class AdminController extends Controller
      **/
     public function lastweekBookingJsonAction(){
 
-        $max_days = 15;
+        $max_days = 20;
         $bookings = $this->getDoctrine()->getManager()
                     ->createQuery('SELECT b.bookingTime, b.serviceType FROM AppBundle:Booking b 
                                 WHERE b.bookingTime > :lastweekdate')

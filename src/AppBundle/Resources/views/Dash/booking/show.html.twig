@@ -1,181 +1,23 @@
-{% extends 'AppBundle:Dash/booking:base.html.twig' %}
+{% extends 'AppBundle:Dash:base.html.twig' %}
 {% set pagename = 'booking'  %}
 {% block content %}
     <h2>Reservaci&oacute;n <small> {{booking.id}}</small></h2>
 
-    <p style="float: right">
-        {{ booking.bookingTime | date('d/m/Y h:i') }}
-        <a class="btn btn-primary" href="{{ path('dash_bookings_pdf_export', {'id': booking.id}) }}" style="margin-left: 2em"><i class="fa fa-print fa-2x"></i> </a></p>
-
-    <div class="row">
-        <div class="col-md-6">
-            <h3>
-                Datos generales
-            </h3>
-            <div class="col-md-12 card">
-                <p>
-                    <b>Tipo de servicio:</b>
-                    {{ booking.serviceType }}
-                </p>
-                <p>
-                    <b>Fecha/Hora Recogida:</b>
-                    {{ booking.pickuptime | date('d/M/Y h:i')}}
-                </p>
-                <p>
-                    <b>Lugar de recogida:</b>
-                    {% if booking.airport == 'airport' %}
-                            {% if booking.airportName %}
-                                {{ booking.airportName }}
-                            {% else %}
-                                Aeropuerto 
-                            {% endif %}
-                            <br>
-                            <b>Vuelo:</b> {{ booking.flynumber }}
-                    {% elseif booking.airport == 'cruise' %}
-                        Crucero
-                    {% endif %}
-                </p>
-                <p>
-                    {{ booking.details }}
-                </p>
-                
-            </div>
-            <div class="col-md-12 card">
-                <p>
-                    <b>Destino:</b>{{ booking.targetPlace }}
-                </p>
-                <p>
-                    {% if booking.returnpickup %}
-                    <b>Viajar&aacute; de regreso:</b>
-                    {{ booking.returnpickuptime| date('d/M/Y h:i')}}
-                    <br>
-                    <b>Lugar de recogida:</b>
-                    {{ booking.returnpickupplacce }}
-                    {% endif %}
-                    
-                </p>
-                {% if booking.timelinetravel %}
-                <p>
-                   
-                <b>Varios lugares de destino:</b>
-                {{ booking.timelinetravel }} 
-                </p>
-                {% endif %} 
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <h3>
-                Datos del cliente
-            </h3>
-            <div class="col-md-12 card">
-                <p>
-                    <b>Nombre:</b>
-                    {{ booking.fullname }}
-                </p>
-                <p><b>Email:</b>
-                {{ booking.email }}
-                </p>
-                <p><b>Telefono:</b>
-                {{ booking.telephone }}
-                </p>
-                <p>
-                    <b>Idioma:</b>
-                    {{ booking.bookingLanguage }}
-                
-                </p>
-                <p><b>Cantidad de personas:</b>
-                {{ booking.numpeople }}.
-                {% if booking.children %}
-                Incluyen ni&ntilde;os
-                {% endif %}
-                
-                </p>
-                <p>
-                    <b>Comentarios del cliente:</b>
-
-                {{ booking.comment }}
-                </p>
-            </div>
-        </div>
-
-        {% if booking.experience %}
-        <div class="col-md-6">
-            <h3>
-                Sobre la Experiencia
-            </h3>
-            <div class="col-md-12 card">
-                <p>
-                    <b>{{ booking.experience }}</b>
-                    
-                    {% if booking.experienceTime %}
-                    <br>
-                    Durante {{ booking.experienceTime }} horas.
-                    {% endif %}
-                </p>
-
-                <p>
-                    {%if booking.experienceTaxi %}
-                    <b>Necesita transporte</b>
-                {% endif %}
-                </p>
-                
-            </div>
-        </div>
-        {% endif %}
-        
-
-        <div class="col-md-6">
-            <h3>
-                Gestión Interna
-            </h3>
-            <div class="col-md-12 card">
-                <p>
-                    <b>Origen de esta reserva:</b>
-                    {{ booking.bookingSource }}
-                </p>
-                <p>
-                    <b>Precio: </b>
-                {% if booking.price %}
-                   {{ booking.price }} USD
-                {% else %}
-                    A&uacute;n no hay un precio
-                </p>
-                {%endif %}
-                
-                {%if booking.paymentDetails %}
-                <p>
-                    <b>Detalles de pago:</b>{{ booking.paymentDetails }}
-                </p>
-                {%endif%}
-
-                {%if booking.drivermsg %}
-                <p>
-                    <b>Mensaje enviado al cliente:</b>{{ booking.drivermsg }}
-                </p>
-                {%endif%}
-                
-
-                {%if booking.drivername %}
-                <p>
-                    <b>Contacto del Chofer:</b>{{ booking.drivername }}
-                </p>
-                {%endif%}
-                
-                <hr>
-                {%if booking.accepted %}
-                <p>
-                    <b>Reservaci&oacute;n aceptada</b>
-                </p>
-                {%endif%}
-            </div>
-        </div>
-    </div>
+    {{ include('@App/Dash/booking/_partial_show.html.twig') }}
+    {% if delete_form is defined %}
 <hr>
-            <a class="btn" href="{{ path('dash_bookings_index') }}">Regresar a la lista</a>
-           <a class="btn" href="{{ path('dash_bookings_edit', { 'id': booking.id }) }}">Editar</a>
-           {{ form_start(delete_form) }}
+        <div class="row">
+            <div class="col-md-6">
+                <a class="btn" href="{{ path('dash_bookings_index') }}" style="float: left">Regresar a la lista</a>
+                <a class="btn" href="{{ path('dash_bookings_edit', { 'id': booking.id }) }}">Editar</a>
+            </div>
+            <div class="col-md-6">
+                {{ form_start(delete_form) }}
                 <input type="submit" value="Eliminar" class="btn btn-danger" style="float: right">
-            {{ form_end(delete_form) }}
+                {{ form_end(delete_form) }}
+            </div>
+        </div>
 
+
+    {% endif %}
 {% endblock %}

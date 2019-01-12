@@ -10,7 +10,35 @@
             </div>
         </div>
 
-
+        <div class="col-lg-3 col-sm-6">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="icon-big icon-info text-center">
+                                <i class="fa-calendar-check-o fa  icon-success"></i>
+                            </div>
+                        </div>
+                        <a href="{{ path('dash_booking', {'filter':'week'})}}">
+                        <div class="col-xs-7">
+                            <div class="numbers">
+                                <p>Esta semana</p>
+                                {{ nextweek }}
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="footer">
+                        <hr />
+                        <a href="{{ path('dash_booking')}}">
+                            <div class="stats">
+                                <i class="ti-list-ol"></i> Ver futuras
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="col-lg-3 col-sm-6">
             <div class="card">
@@ -62,7 +90,7 @@
                         <tbody>
                         {% for item in booking %}
                         <tr>
-                            <td><a href="{{ path('booking_details', {'booking': item.id}) }}">{{ item.id }}</a>
+                            <td><a href="{{ path('dash_bookings_show', {'id': item.id}) }}">{{ item.id }}</a>
                                 {% if item.bookingTime | date('Y') > 2000 %}
                                     <br>
                                     <abbr title="{{ item.bookingTime | date('d/M/Y H:i') }}">
@@ -86,7 +114,7 @@
                                 {{  item.price }}
                                     USD
                                 {% else %}
-                                    N/A
+                                    <i class="fa fa-warning fa-2x" style="color: rgba(255,154,31,0.73)"></i>
                                 {% endif %}
                             </td>
 
@@ -94,15 +122,13 @@
                                 {{ item.details }}
                             </td>
                             <td>
-                                <a style="float: right" class="booking-details-modal btn btn-sm btn-{% if item.accepted %}success{% else %}danger{% endif %}" data-id="{{ item.id }}"> <i class="ti-search"></i> </a>
+                                <div class="btn-group" role="group" style="min-width: 150px">
+                                    <a class="booking-details-modal btn btn-sm btn-{% if item.accepted %}success{% else %}danger{% endif %}" data-id="{{ item.id }}"> <i class="ti-search"></i> </a>
 
-                            </td>
-                            <td>
-                                <div class="btn-group" role="group" style="min-width: 100px">
                                     <a  class="btn btn-sm btn-primary" href="{{ path('dash_bookings_edit',{'id':item.id}) }}"> <i class="ti-pencil"></i> </a>
-                                    <a href="{{ path('dash_bookings_pdf_export', {'id':item.id}) }}" class="btn btn-sm btn-primary"> <i class="ti-printer"></i> </a>
+                                    <a href="{{ path('dash_bookings_pdf_export', {'id':item.id}) }}" class="btn btn-sm btn-primary"> <i class="ti-file"></i> </a>
 
-                </div>
+                                  </div>
 
                              </tr>
                         {% endfor %}

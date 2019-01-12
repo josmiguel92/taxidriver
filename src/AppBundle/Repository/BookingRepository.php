@@ -23,4 +23,18 @@ class BookingRepository extends \Doctrine\ORM\EntityRepository
             ->getResult();
     }
 
+    public function nextWeeksCount($week = 1)
+    {
+
+        return $this->createQueryBuilder("b")
+                ->select("COUNT(b)")
+                ->where("b.pickuptime > :yesterday")
+                ->andWhere("b.pickuptime < :nextweek")
+                ->setParameter("nextweek", new \DateTime("today + $week week"))
+                ->setParameter("yesterday", new \DateTime('yesterday'))
+                ->orderBy("b.id", "DESC")
+                ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 }
