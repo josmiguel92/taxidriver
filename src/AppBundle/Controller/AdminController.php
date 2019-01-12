@@ -488,7 +488,7 @@ class AdminController extends Controller
 
         $all_books = $em->getRepository("AppBundle:Booking")->findAll();//ByTour(true);
         $nextweek = $em->getRepository("AppBundle:Booking")->nextWeeksCount();//ByTour(true);
-        
+
         foreach ($_places as $value) {
             $places[$value['id']]=$value['name'];
         }

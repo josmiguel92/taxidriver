@@ -114,7 +114,7 @@ class TestimonyController extends Controller
             );
         }
 
-        return $this->redirectToRoute('dash_testimonies_index');
+        return $this->redirectToRoute('dash_socialnet_edit');
     }
 
     /**
