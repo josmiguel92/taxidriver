@@ -22,7 +22,7 @@
                         <a href="{{ path('dash_booking', {'filter':'week'})}}">
                         <div class="col-xs-7">
                             <div class="numbers">
-                                <p>Esta semana</p>
+                                <p>Para esta semana</p>
                                 {{ nextweek }}
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                         <hr />
                         <a href="{{ path('dash_booking')}}">
                             <div class="stats">
-                                <i class="ti-list-ol"></i> Ver futuras
+                                <i class="ti-list-ol"></i> Ver reservas futuras
                             </div>
                         </a>
                     </div>
@@ -89,7 +89,9 @@
                         </thead>
                         <tbody>
                         {% for item in booking %}
-                        <tr>
+                        <tr class="{% if item.serviceType == 'Experience' %}service_experience{% endif %}
+                        			{% if item.serviceType == 'Transfer' %}service_transfer{% endif %}
+                        			{% if item.serviceType == 'AirportTransfer' %}service_airporttransfer{% endif %}">
                             <td><a href="{{ path('dash_bookings_show', {'id': item.id}) }}">{{ item.id }}</a>
                                 {% if item.bookingTime | date('Y') > 2000 %}
                                     <br>
@@ -209,4 +211,18 @@
             }
         })
     </script>
+{% endblock %}
+{% block stylesheets %}
+{{ parent()}}
+<style type="text/css">
+	.service_experience{
+		border-left: solid 5px #dd6666;
+	}
+	.service_transfer{
+		border-left: solid 5px #66dd66;
+	}
+	.service_airporttransfer{
+		border-left: solid 5px #6666dd;
+	}
+</style>
 {% endblock %}
