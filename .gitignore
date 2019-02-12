@@ -1,4 +1,6 @@
 app/config/security_dev.yml
+app/config/security.yml
+app/config/config_dev.yml
 public_html/.htaccess
 app/config/parameters.yml
 /.web-server-pid
