@@ -849,7 +849,7 @@ class AdminController extends Controller
         $day = $max_days;
         $calendar = [];
         $labels = [];
-        while (count($days)<=$max_days and $day > 0)
+        while (count($days)<=$max_days and $day >= 0)
         {
             $_date = new \DateTime("today - $day days");
             $calendar[$_date->format('j/M')] = [];
