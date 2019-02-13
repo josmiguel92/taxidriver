@@ -726,7 +726,7 @@ class AdminController extends Controller
     /**
      * Delete a Messages item
      * @Route("/messages/delete/{id}", name="dash_message_delete")
-     * @Method("GET")
+     * @Method("DELETE")
      **/
     public function messageDeleteAction(\AppBundle\Entity\ContactMsgs $item){
         $em =  $this->getDoctrine()->getManager();

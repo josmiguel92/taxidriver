@@ -24,14 +24,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request, $_locale)
     {
-        /*
-         * TODO: Enviar mensaje FLASH de exito
-        $this->addFlash('notice', 'Mensaje enviado. Muchas gracias<br>Message sended, Thanks a lot! >> success >> fa-cab');
-        $this->addFlash(
-            'notice',
-            'La imagen fue eliminada definitivamente! >> success >> ti-trash'
-        );
-*/
+        
         Utils::setRequestLocaleLang($_locale);
         $em = $this->getDoctrine()->getManager();
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
@@ -298,6 +291,7 @@ class DefaultController extends Controller
         }
 
         $this->addFlash('message', 'Mensaje enviado. Muchas gracias<br>Message sended, Thanks a lot!');
+        
         return $this->redirectToRoute('home');
 
     }

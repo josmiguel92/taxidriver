@@ -410,24 +410,7 @@
     });
     </script>
 
-      {% if app.session.flashbag.get('notice') %}
-        <script>
-            $('document').ready(function(){
-
-                {% for flash_message in app.session.flashbag.get('notice') %}
-                    {% set thisflash = utils.formatFlashBagNotification(flash_message) %}
-                $.notify({
-                    icon: '{{ thisflash[2] }}',
-                    message: "{{ thisflash[0] }}"
-
-                },{
-                    type: '{{ thisflash[1] }}',
-                    timer: 4000
-                });
-                {% endfor %}
-            });
-        </script>
-        {% endif %}
+    
     {% endblock %}
 </body>
 </html>

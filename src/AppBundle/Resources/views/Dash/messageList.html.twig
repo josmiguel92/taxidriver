@@ -11,10 +11,13 @@
             {{ item.insertDate | date('Y m d - H:i') }}
         </a>
         <div class="media-body">
-            <h4 class="media-heading">{{ item.Name }} <{{ item.email }}>
-            <a href="{{ path('dash_message_delete', {'id':item.id }) }}" class="btn btn-danger btn-sm" style="float: right;">
-                <i class="ti-trash"></i>
-            </a>
+            <h4 class="media-heading">{{ item.Name }}<small style="margin-left:2em"><a href="mailto:{{ item.email }}">{{ item.email }}</a></small>
+
+            <form method="post" action="{{ path('dash_message_delete', {'id':item.id }) }}" onsubmit="return confirm('Cofirma que desea eliminar este mensaje');">
+                <input type="hidden" name="_method" value="DELETE">
+                <button class="btn btn-danger btn-sm" style="float: right;"><i class="ti-trash"></i></button>
+            </form>
+                      
             </h4>
             {{ item.message }}
         </div>
