@@ -349,6 +349,11 @@
     </div>
 
 
+    {% if config['live.chat'] != 'null' %}
+        <!-- LIVE CHAT HERE -->
+    {% endif %}
+
+
     {% block javascript %}
         <!-- Java script-->
         {% if app.Environment == "dev" %}

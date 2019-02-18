@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\ConfigValue;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Configvalue controller.
@@ -68,6 +70,31 @@ class ConfigValueController extends Controller
             'edit_form' => $editForm->createView(),
         ));
     }
+
+    /**
+     * Toggle the value from null to not-null.
+     *
+     * @Route("/{id}/toggle", name="dash_config_values_toggle")
+     * @Method({"GET"})
+     */
+    public function toggleAction(Request $request, ConfigValue $configValue)
+    {
+
+        if ($configValue->getValue() != 'null'){
+            $configValue->setValue('null');
+
+        }
+
+        else
+            $configValue->setValue('ACTIVE: MUST-SET-VALUE');
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($configValue);
+        $em->flush();
+
+        return $this->redirectToRoute('dash_config_values_edit', ['id'=>$configValue->getId()]);
+    }
+
 
     /**
      * Deletes a configValue entity.

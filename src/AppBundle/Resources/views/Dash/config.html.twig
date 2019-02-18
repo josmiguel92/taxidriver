@@ -30,7 +30,16 @@
                 <div>
                     <ul>
                         {% for config in configValues %}
-                            <li><b><abbr title="{{ config.name }}">{{ config.description }}</abbr></b> = {{ config.value }} (<a href="{{ path('dash_config_values_edit', {'id':config.id}) }}">Editar</a>)</li>
+                            <li style="height: 2.5em;  list-style: none ">
+                                {% if config.value != 'null' %}
+                                    <i class="fa fa-check-square-o">&nbsp;
+                                    </i>
+                               {% else %}
+                                   <i class="fa fa-square-o"></i>
+                               {% endif %}
+                                <b><abbr title="{{ config.description }}">{{ utils.cutText(config.description, 25,true) }}</abbr></b> = <abbr title="{{ config.value }}">{{ utils.cutText(config.value, 15,true) }}</abbr>
+                                <a href="{{ path('dash_config_values_edit', {'id':config.id}) }}" class="btn btn-sm btn-primary" style="float: right"><i class="fa fa-edit"></i> </a>
+                            </li>
                         {% endfor %}
                     </ul>
 

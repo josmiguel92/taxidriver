@@ -517,7 +517,6 @@ class AdminController extends Controller
        if(!isset($config['tasa.usd']))
            $em->persist(new \AppBundle\Entity\ConfigValue("tasa.usd",0.88, "Tasa de conversion USD/CUC"));
 
-
         if(!isset($config['price.increment']))
             $em->persist(new \AppBundle\Entity\ConfigValue("price.increment",10, "Incremento del precio por cada persona en los tours y transfers"));
 
@@ -533,6 +532,11 @@ class AdminController extends Controller
 
         if(!isset($config['credit.card']))
             $em->persist(new \AppBundle\Entity\ConfigValue("credit.card",'1234567890123456', "Credit Card"));
+
+
+        if(!isset($config['live.chat']))
+            $em->persist(new \AppBundle\Entity\ConfigValue("live.chat",'off', "Live Chat"));
+
 
 
         $em->flush();

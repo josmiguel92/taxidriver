@@ -20,12 +20,15 @@ class Utils
     /**
     *   Recorta una cadena respetando las palabras completas.
     */
-    static function cutText($text, $length){
-        if(strlen($text) > $length)
+    static function cutText($text, $length, $truncate = 0){
+        if(strlen($text) > $length and !$truncate)
         {
             $lastspc = strpos($text, " ",$length);
-            $text = substr($text,0,$lastspc)."...";
+
         }
+        else
+            $lastspc = $length;
+        $text = substr($text,0,$lastspc)."...";
         return $text;
     }
 
