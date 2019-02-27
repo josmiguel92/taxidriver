@@ -435,7 +435,7 @@ class Booking
 
     function __construct()
     {
-        $this->token = substr(Utils::getRequestLocaleLang().uniqid("tx".date("m")),0,8);
+        $this->token = substr(uniqid("tx".date("m")),0,12);
         $this->ownroute = new ArrayCollection();
         $this->setAccepted(false);
         $this->setConfirmed(false);
