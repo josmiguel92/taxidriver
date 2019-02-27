@@ -194,6 +194,7 @@
                                                     <h2>{% trans %}Hi!{% endtrans %} {{ booking.fullname }}</h2>
 													<h3>{% trans %}Thanks for chosing us, for discover Cuba!{% endtrans %}</h3>
 
+
 													{% if booking.price > 0 %}
 														<p>You can check the service you have selected by click in the link below. The price is: {{ booking.price }} USD</p>
 
@@ -202,6 +203,7 @@
 
                                                     {% endif %}
 
+													<p>ID: <b>{{ booking.token }}</b></p>
 													<p class="text-gray-dark">{{ experience.nameLocale }} {% trans %}in{% endtrans %} {{ experience.targetPlace.nameLocale }}</p>
 
 													<div class='movableContent'>

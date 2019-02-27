@@ -205,6 +205,8 @@
                                                     <h2>{% trans %}Hi!{% endtrans %} {{ booking.fullname }}</h2>
 													<h3>{% trans %}Thanks for chosing us, for discover Cuba!{% endtrans %}</h3>
 
+													<p>ID: <b>{{ booking.token }}</b></p>
+
 													<p>{% trans %}We will be waiting for you at{% endtrans %} <strong>{{ booking.pickuptime | date("l d/m/Y H:i") }}</strong>,
 														{% if booking.aCruise %}
 															{% trans %}in front of the departure of the cruisers in the Plaza de San Francisco, which is located as soon as you cross the street by the pedestrian stationary step standing at the fountain of the lions with his name written on a paper{% endtrans %}
