@@ -435,7 +435,7 @@ class Booking
 
     function __construct()
     {
-        $this->token = substr(uniqid("tx".date("m")),0,12);
+        $this->token = substr(uniqid("TDC-".date("d/m")."-"),0,15);
         $this->ownroute = new ArrayCollection();
         $this->setAccepted(false);
         $this->setConfirmed(false);
