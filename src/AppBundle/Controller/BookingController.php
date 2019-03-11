@@ -545,7 +545,7 @@ class BookingController extends Controller
         if($booking->getIdpaypal())
             $message->setSubject($subject. " (".$booking->getId().") [PAGADO POR PAYPAL]");
         else
-            $message->setSubject($subject. " (".$booking->getId().")");
+            $message->setSubject($subject. " (".$booking->getToken().")");
 
             $message->setTo($senderEmail)
             ->setFrom("noreply@taxidriverscuba.com")
