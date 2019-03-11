@@ -3,11 +3,16 @@
 {% block content %}
     <h2 >Todas las reservas</h2>
 
+{% if all_booking == 'yes' %}
+    <a href="{{ path('dash_bookings_index', {'all_booking': 'yes'}) }}" class="btn btn-info" style="float: right;"> Mostrar todas</a>
+{% else %}
+    <a href="{{ path('dash_bookings_index', {'all_booking': 'yes'}) }}" class="btn btn-info" style="float: right;"> Mostrar solo futuras</a>
+{% endif %}
     <a href="{{ path('dash_bookings_new') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Agregar Reservaci&oacute;n</a>
     {% if prev_page > 0 %}
-    <a href="{{ path('dash_bookings_index', {'page': prev_page}) }}" class="btn"><i class="fa fa-arrow-left"></i> P&aacute;gina anterior</a>
+    <a href="{{ path('dash_bookings_index', {'page': prev_page, 'all_booking': all_booking}) }}" class="btn"><i class="fa fa-arrow-left"></i> P&aacute;gina anterior</a>
     {% endif %}
-    <a href="{{ path('dash_bookings_index', {'page': next_page}) }}" class="btn">P&aacute;gina siguiente <i class="fa fa-arrow-right"></i></a>
+    <a href="{{ path('dash_bookings_index', {'page': next_page, 'all_booking': all_booking}) }}" class="btn">P&aacute;gina siguiente <i class="fa fa-arrow-right"></i></a>
 
 <hr>
     <table id="booking-table"  tabulator-tooltips="true">

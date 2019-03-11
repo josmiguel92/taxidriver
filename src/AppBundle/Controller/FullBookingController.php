@@ -23,16 +23,22 @@ class FullBookingController extends Controller
      * @Route("/page/{page}", name="dash_bookings_index", requirements={"page":"\d+"})
      * @Method("GET")
      */
-    public function indexAction($page = 1)
+    public function indexAction($page = 1, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $bookings = $em->getRepository('AppBundle:Booking')->listBookings($page);
+        $all_booking = $request->get('all_booking');
+        if($all_booking=='yes')
+            $bookings = $em->getRepository('AppBundle:Booking')->listFutureBookings($page);
+        else
+            $bookings = $em->getRepository('AppBundle:Booking')->listBookings($page);
+            
 
         return $this->render('@App/Dash/booking/index.html.twig', array(
             'bookings' => $bookings,
             'prev_page' => $page-1,
-            'next_page' => $page+1
+            'next_page' => $page+1,
+            'all_booking' => $all_booking
         ));
     }
 

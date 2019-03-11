@@ -10,6 +10,19 @@ namespace AppBundle\Repository;
  */
 class BookingRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function listFutureBookings($page = 1, $count = 20)
+    {
+
+        return $this->createQueryBuilder("b")
+            ->where("b.pickuptime >= :start_day")
+            ->setParameter("start_day", new \DateTime('today'))
+            ->orderBy("b.pickuptime", "ASC")
+            ->setMaxResults($count)
+            ->setFirstResult(($page - 1) * $count)
+
+            ->getQuery()->getResult();
+    }
+    
     public function listBookings($page = 1, $count = 20)
     {
 
@@ -28,10 +41,10 @@ class BookingRepository extends \Doctrine\ORM\EntityRepository
 
         return $this->createQueryBuilder("b")
                 ->select("COUNT(b)")
-                ->where("b.pickuptime > :yesterday")
+                ->where("b.pickuptime >= :start_day")
                 ->andWhere("b.pickuptime < :nextweek")
                 ->setParameter("nextweek", new \DateTime("today + $week week"))
-                ->setParameter("yesterday", new \DateTime('yesterday'))
+                ->setParameter("start_day", new \DateTime('today'))
                 ->orderBy("b.id", "DESC")
                 ->getQuery()
             ->getSingleScalarResult();
