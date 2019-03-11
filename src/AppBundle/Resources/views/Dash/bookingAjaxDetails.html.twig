@@ -1,7 +1,7 @@
 {{ form_start(form) }}
  <h4 class="modal-title">
 
-     Reservaci&oacute;n {{ booking.id}}
+     Reservaci&oacute;n ({{booking.id}}) - {{booking.token}}
      {% if not booking.price %}
      <small><i class="fa fa-warning fa-2x" style="color: rgba(255,154,31,0.73)"></i> </small>
     {% endif %}
