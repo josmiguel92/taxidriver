@@ -14,56 +14,36 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Tipo de Servicio</th>
-                <th>Fecha de creación</th>
-                <th>Fecha/Hora de Reserva</th>
+                
+                <th>Fecha de Reserva</th>
+                <th>Hora de Reserva</th>
                 <th>Destino</th>
+                <th>Tipo de Servicio</th>
 
-                <th>Recogida en Airport/Crucero</th>
-                <th>Nombre del cliente</th>
-                <th>Email</th>
-                <th>Cantidad de personas</th>
-                <th tabulator-formatter="tick">Ni&ntilde;os</th>
-                <th tabulator-formatter="tick">Viaje de regreso</th>
+                <th>Nombre</th>
+                <th># personas</th>
 
-                <th>Fecha/Hora de Retorno</th>
-                <th tabulator-formatter="tickCross">Varios lugares de destino</th>
-
-                <th>Idioma</th>
-                <th>Chofer</th>
 
                 <th tabulator-formatter="money">Precio</th>
-                <th tabulator-formatter="tickCross">Aceptada</th>
                 <th tabulator-formatter="html">Mostrar</th>
-                <th tabulator-formatter="html">Editar</th>
             </tr>
         </thead>
         <tbody>
         {% for booking in bookings %}
             <tr>
-                <td>{{ booking.id }}</td>
-                <td>{{ booking.serviceType }}</td>
-                <td>{% if booking.bookingTime and booking.bookingTime | date('Y') > 2000 %}{{ booking.bookingTime|date('d/M/Y') }}{% endif %}</td>
-                <td>{% if booking.pickuptime %}{{ booking.pickuptime|date('d/M/Y H:i') }}{% endif %}</td>
+                <td>{{ booking.token }}</td>
+                <td>{% if booking.pickuptime %}{{ booking.pickuptime|date('d/M/Y') }}{% endif %}</td>
+                <td>{% if booking.pickuptime %}{{ booking.pickuptime|date('H:i') }}{% endif %}</td>
 
-                <td>{{ booking.targetPlace }}</td>
-                <td>{{ booking.airportName }} -
-                    {{ booking.flynumber }}</td>
+                <td>{{ utils.cutText(booking.targetPlace,20, true) }}</td>
+                <td>{{ utils.cutText(booking.serviceType,5, true) }}</td>
+                
                 <td>{{ booking.fullname }}</td>
-                <td>{{ booking.email }}</td>
 
                 <td>{{ booking.numpeople }}</td>
-                <td>{{ booking.children }}</td>
-                <td>{{ booking.returnpickup }}</td>
-                <td>{% if booking.returnpickuptime %}{{ booking.returnpickuptime|date('Y-m-d H:i:s') }}{% endif %}</td>
-
-                <td>{% if booking.timelinetravel %}1{% else %}0{% endif %}</td>
-                <td>{{ booking.bookingLanguage }}</td>
-                <td>{{ booking.drivername }}</td>
+                
                 <td>{{ booking.price }}</td>
-                <td>{{ booking.accepted }}</td>
                 <td><b><a href="{{ path('dash_bookings_show', { 'id': booking.id }) }}">Mostrar detalles</a> </b></td>
-                <td><b><a href="{{ path('dash_bookings_edit', { 'id': booking.id }) }}">Editar</a></b> </td>
             </tr>
         {% endfor %}
         </tbody>
@@ -171,14 +151,13 @@
 
         var table = new Tabulator("#booking-table", {
             layout:"fitDataFill",
-            responsiveLayout:"collapse",
-            groupBy:"Fecha de creación",
+            groupBy:"Fecha de Reserva",
             columns:[
                 {title:"Id", field:"id", headerFilter:"input"},
-                {title:"Fecha de creación", field:"Fecha de creación", align:"center", sorter:"date",  headerFilter:"input"},
-                {title:"Tipo de Servicio", field:"Servicio", width:120, headerFilter:"input"},
+                {title:"Fecha de Reserva", field:"Fecha de Reserva", headerFilter:"input"},
                 {title:"Destino", field:"Destino", headerFilter:"input"},
-                {title:"Fecha/Hora de Reserva", field:"Fecha/Hora de Reserva", headerFilter:"input"},
+                
+                {title:"Tipo de Servicio", field:"Servicio", width:120, headerFilter:"input"},
 
             ],
         });

@@ -480,7 +480,7 @@ class AdminController extends Controller
         }
             $booking = $booking
         ->setParameter("yesterday", new \DateTime('yesterday'))
-            ->orderBy("b.id", "DESC")
+            ->orderBy("b.pickuptime", "ASC")
             ->getQuery()->getResult();
 
         $_places = $em->getRepository("AppBundle:Place")->findByNonePlaceNames();

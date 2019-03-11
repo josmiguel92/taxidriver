@@ -4,6 +4,7 @@
     <div class="row">
         <div class="col-lg-6 col-sm-6">
             <div class="card">
+                <span style="margin: 10px; text-align: center; display: block;font-weight: 600;">Frecuencia de nuevas reservas</span>
                 <div class="content">
                     <canvas id="bookingChart" style="max-height: 145px;width: 100%;" height="145"></canvas>
                 </div>
@@ -30,11 +31,13 @@
                     </div>
                     <div class="footer">
                         <hr />
-                        <a href="{{ path('dash_booking')}}">
+                        
                             <div class="stats">
+                                <a href="{{ path('dash_booking')}}" class="btn btn-info">
                                 <i class="ti-list-ol"></i> Ver reservas futuras
+                                </a>
                             </div>
-                        </a>
+                        
                     </div>
                 </div>
             </div>
@@ -58,11 +61,13 @@
                     </div>
                     <div class="footer">
                         <hr />
-                        <a href="{{ path('dash_bookings_index')}}">
+                        
                         <div class="stats">
+                            <a href="{{ path('dash_bookings_index')}}" class="btn btn-primary">
                             <i class="ti-pencil-alt"></i> Ver todas las reservas
+                            </a>
                         </div>
-                        </a>
+                        
                     </div>
                 </div>
             </div>
@@ -80,18 +85,20 @@
                 <div class="content table-responsive table-full-width">
                     <table class="table table-striped table-hover">
                         <thead>
+                        <th>Fecha/Hora del Viaje</th>
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Lugar</th>
-                        <th>Fecha/Hora del Viaje</th>
+                        
                         <th>Precio</th>
-                        <th>Recogida</th>
                         </thead>
                         <tbody>
                         {% for item in booking %}
                         <tr class="{% if item.serviceType == 'Experience' %}service_experience{% endif %}
                         			{% if item.serviceType == 'Transfer' %}service_transfer{% endif %}
                         			{% if item.serviceType == 'AirportTransfer' %}service_airporttransfer{% endif %}">
+                            <td>{{ item.pickuptime | date("Y/M/d - H:i")}}</td>
+                            
                             <td><a href="{{ path('dash_bookings_show', {'id': item.id}) }}">{{ item.id }}</a>
                                 {% if item.bookingTime | date('Y') > 2000 %}
                                     <br>
@@ -110,7 +117,6 @@
                                     {{ item.airportTransfer.targetAirport }}
                                 {% endif %}
                             </td>
-                            <td>{{ item.pickuptime | date("Y/M/d - H:i")}}</td>
                             <td>
                                 {% if item.price > 0 %}
                                 {{  item.price }}
@@ -120,9 +126,6 @@
                                 {% endif %}
                             </td>
 
-                            <td>
-                                {{ item.details }}
-                            </td>
                             <td>
                                 <div class="btn-group" role="group" style="min-width: 150px">
                                     <a class="booking-details-modal btn btn-sm btn-{% if item.accepted %}success{% else %}danger{% endif %}" data-id="{{ item.id }}"> <i class="ti-search"></i> </a>
