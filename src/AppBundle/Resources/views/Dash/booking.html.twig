@@ -103,7 +103,7 @@
                                 {% if item.bookingTime | date('Y') > 2000 %}
                                     <br>
                                     <abbr title="{{ item.bookingTime | date('d/M/Y H:i') }}">
-                                        {{ item.bookingTime | date('d/M/Y') }}
+                                        {{ item.token }}
                                     </abbr>
                                 {% endif %}
 

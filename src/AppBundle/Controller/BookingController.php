@@ -315,11 +315,11 @@ class BookingController extends Controller
     }
 
     /**
-     * @Route("/purchase-details/{_token}", requirements={"_token":"[a-z0-9]*"})
+     * @Route("/purchase-details/{_token}", requirements={"_token":"(TDC-)[0-9]{4}(-)[0-9a-z]{6}"})
      * @Route("/{_locale}/purchase-details/{_token}", defaults={"_locale": "en"},
-     * requirements={"_locale": "en|es|fr", "_token":"[a-z0-9]*"},  name="purchase_details")
+     * requirements={"_locale": "en|es|fr", "_token":"(TDC-)[0-9]{4}(-)[0-9a-z]{6}"},  name="purchase_details")
      * @Route("/{_locale}/purchase-details/{_token}/{_paypalCallback}", defaults={"_locale": "en"},
-     * requirements={"_locale": "en|es|fr", "_paypalCallback":"success|cancel|cash", "_token":"[a-z0-9]*"},  name="purchase_details_paypal")
+     * requirements={"_locale": "en|es|fr", "_paypalCallback":"success|cancel|cash", "_token":"(TDC-)[0-9]{4}(-)[0-9a-z]{6}"},  name="purchase_details_paypal")
      */
     public function purchaseDetailsAction(Request $request, $_locale='en', $_token, $_paypalCallback=null)
     {
