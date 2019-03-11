@@ -26,3 +26,4 @@ app/bootstrap.php.cache
 public_html/static/uploads/*
 trans/
 trans/*
+.*
