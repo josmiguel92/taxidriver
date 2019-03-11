@@ -42,7 +42,7 @@ class ExperienceType extends AbstractType
             ->add('weight', null, ['label'=>'Orden entre los servicios, mayores tienen prioridad'])
             ->add('important', null, ['label'=>'Destacado, aparece en las sugerencias'])
 
-            ->add('isExternalBook', CheckboxType::class , ['label'=>'Este servicio se reserva en otra web'])
+            ->add('isExternalBook', CheckboxType::class , ['label'=>'Este servicio se reserva en otra web', 'required'=>false])
             ->add('externalEmb', null, ['label'=>'Código HTML a insertar para reservar, incluye enlace']);
     }/**
      * {@inheritdoc}

@@ -32,7 +32,7 @@ class AirportTransferType extends AbstractType
 
             ->add('targetPlace')
             ->add('weight', null, ['label'=>'Orden entre los servicios'])
-            ->add('isExternalBook', CheckboxType::class , ['label'=>'Este servicio se reserva en otra web'])
+            ->add('isExternalBook', CheckboxType::class , ['label'=>'Este servicio se reserva en otra web', 'required'=>false])
             ->add('externalEmb', null, ['label'=>'Código HTML a insertar para reservar, incluye enlace']);
     }/**
      * {@inheritdoc}
