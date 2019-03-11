@@ -472,14 +472,14 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $booking = $em->getRepository("AppBundle:Booking")
             ->createQueryBuilder("b")
-            ->where("b.pickuptime > :yesterday");
+            ->where("b.pickuptime > :start_day");
 
         if($filter == 'week'){
             $booking->andWhere("b.pickuptime < :nextweek")
                 ->setParameter("nextweek", new \DateTime("today + 1 week"));
         }
             $booking = $booking
-        ->setParameter("yesterday", new \DateTime('yesterday'))
+        ->setParameter("start_day", new \DateTime('today'))
             ->orderBy("b.pickuptime", "ASC")
             ->getQuery()->getResult();
 
