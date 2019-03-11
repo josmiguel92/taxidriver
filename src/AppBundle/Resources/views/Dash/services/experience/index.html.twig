@@ -24,7 +24,7 @@
                 <div class="col-md-8">
                     <h4 class="media-heading">{{ experience.name }} <small>{{ experience.targetPlace }}</small></h4>
                     <h5>{{ experience.basePrice }}</h5>
-                    <p>{{ experience.description | striptags }}</p>
+                    <p>{{ utils.cutText( experience.description | striptags, 400)}}</p>
                     <p>{{ experience.priceSumary }}</p>
                 </div>
 
@@ -37,6 +37,9 @@
                     </ul>
                     {% if experience.important %}
                         <i class="fa fa-star fa-2x" style="color: greenyellow"></i> <span>Destacado</span>
+                    {% endif %}
+                    {% if experience.isExternalBook %}
+                        <i class="fa fa-rocket fa-2x" style="color: #db5012"></i> <span>Reservas externas</span>
                     {% endif %}
                 </div>
 

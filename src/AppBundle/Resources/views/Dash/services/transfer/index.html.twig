@@ -38,6 +38,9 @@
                 {% if transfer.important %}
                 <i class="fa fa-star fa-2x" style="color: greenyellow"></i> <span>Destacado</span>
                 {% endif %}
+                {% if transfer.isExternalBook %}
+                    <i class="fa fa-rocket fa-2x" style="color: #db5012"></i> <span>Reservas externas</span>
+                {% endif %}
             </div>
 
         </div>

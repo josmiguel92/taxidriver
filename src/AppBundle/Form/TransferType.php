@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
@@ -37,6 +38,9 @@ class TransferType extends AbstractType
             ->add('file', null, ['label'=>"Imagen destacada del transfer"])
             ->add('weight', null, ['label'=>'Orden entre los servicios, mayores tienen prioridad'])
             ->add('important', null, ['label'=>'Destacado, aparece en las sugerencias'])
+
+            ->add('isExternalBook', CheckboxType::class , ['label'=>'Este servicio se reserva en otra web'])
+            ->add('externalEmb', null, ['label'=>'Código HTML a insertar para reservar, incluye enlace'])
         ;
 
 

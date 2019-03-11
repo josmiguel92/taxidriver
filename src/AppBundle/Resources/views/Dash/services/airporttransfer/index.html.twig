@@ -32,8 +32,11 @@
                     <li>
                         <a href="{{ path('dash_airporttransfers_edit', { 'id': transfer.id }) }}"><i class="ti-pencil-alt"></i> Editar</a>
                     </li>
-
+                    {% if transfer.isExternalBook %}
+                        <i class="fa fa-rocket fa-2x" style="color: #db5012"></i> <span>Reservas externas</span>
+                    {% endif %}
                 </ul>
+
             </div>
 
         </div>

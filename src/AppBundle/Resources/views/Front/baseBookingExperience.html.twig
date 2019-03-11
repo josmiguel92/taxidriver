@@ -6,9 +6,7 @@
         <section class="section-75 section-md-top-90 section-md-bottom-110">
             <div class="shell">
                 <h2>{% trans %}Reservation form{% endtrans %}</h2>
-                {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
-                                                     'data-form-type':'order',
-                                                     'data-form-output':'form-output-global'}}) }}
+
                 <!--- Where are you going --->
                     <div class="well-row well-row-bg">
                         <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
@@ -25,12 +23,14 @@
                         {{ experience.getDescriptionLocale | raw }}
                     </div>
 
-                <div class="row">
-                    {% if testimonials | length > 0 %}
-                    <div class="col-md-9">
-                {% else %}
-                    <div class="col-md-12">
-                {% endif %}
+                <div class="grid-fullbooking-testimony-places">
+                    {% if experience.isExternalBook %}
+                        {{ experience.externalEmb | raw }}
+                    {% else %}
+                        <div class="booking_form">
+                        {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
+                            'data-form-type':'order',
+                            'data-form-output':'form-output-global'}}) }}
                         <!--- Pickup Data --->
                         <div class="well-row well-row-bg">
                             <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
@@ -147,9 +147,32 @@
                                 <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_public_key }}"></div>
                             </div>
                         </div>
+
+                        <!--Submit button-->
+                        <div class="well-row well-row-bg">
+                            {% block submitAlert %}
+                            {% endblock submitAlert %}
+
+                            <div class="text-center offset-top-33">
+                                <button type="submit" class="btn btn-xl btn-primary" id="booking_submit">
+                                    <i class="fa fa-shopping-cart "></i>
+                                    {% trans %}Book Now{% endtrans %}
+                                    <span class="text-extra-small">*</span>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        {{ form_widget(booking_form._token)}}
+
+                        <input type="hidden" value="{{ experience.serviceType }}" name="{{ booking_form.serviceType.vars.full_name }}">
+                        <input type="hidden" value="{{ experience.id }}" name="{{ booking_form.experience.vars.full_name }}">
+
+                        </form>
                     </div>
+                    {% endif %}
                     {% if testimonials %}
-                    <div class="col-md-3 testimonial-grid">
+                    <div class="testimonial-grid">
                         <div class="testimonials-header">
                             <a target="_blank" href="https://www.tripadvisor.es/">
                                 <img src="{{ asset('images/tripadvisor-logo.png') }}" alt="TripAdvisor"/>
@@ -205,27 +228,7 @@
 
             </div>
 
-            <!--Submit button-->
-            <div class="well-row well-row-bg">
-                {% block submitAlert %}
-                {% endblock submitAlert %}
 
-                <div class="text-center offset-top-33">
-                    <button type="submit" class="btn btn-xl btn-primary" id="booking_submit">
-                        <i class="fa fa-shopping-cart "></i>
-                        {% trans %}Book Now{% endtrans %}
-                        <span class="text-extra-small">*</span>
-                    </button>
-                </div>
-
-            </div>
-
-                {{ form_widget(booking_form._token)}}
-
-            <input type="hidden" value="{{ experience.serviceType }}" name="{{ booking_form.serviceType.vars.full_name }}">
-            <input type="hidden" value="{{ experience.id }}" name="{{ booking_form.experience.vars.full_name }}">
-
-            </form>
 
                 {% if suggestedPlaces %}
 

@@ -69,6 +69,19 @@ abstract class Service extends ImageField
      */
     protected $weight;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="external_emb", type="text", nullable=true)
+     */
+    protected $external_emb;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="is_external_book", type="boolean", nullable=true)
+     */
+    protected $is_external_book;
+
 
 
     /**
@@ -259,6 +272,40 @@ abstract class Service extends ImageField
     {
         $this->weight = $weight;
     }
+
+    /**
+     * @return string
+     */
+    public function getExternalEmb()
+    {
+        return $this->external_emb;
+    }
+
+    /**
+     * @param string $external_emb
+     */
+    public function setExternalEmb($external_emb)
+    {
+        $this->external_emb = $external_emb;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExternalBook()
+    {
+        return $this->is_external_book;
+    }
+
+    /**
+     * @param bool $is_external_book
+     */
+    public function setIsExternalBook($is_external_book)
+    {
+        $this->is_external_book = $is_external_book;
+    }
+
+
 
 
 
