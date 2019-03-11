@@ -97,7 +97,7 @@
                         <tr class="{% if item.serviceType == 'Experience' %}service_experience{% endif %}
                         			{% if item.serviceType == 'Transfer' %}service_transfer{% endif %}
                         			{% if item.serviceType == 'AirportTransfer' %}service_airporttransfer{% endif %}">
-                            <td>{{ item.pickuptime | date("Y/M/d - H:i")}}</td>
+                            <td>{{ item.pickuptime | date("d/M/Y - H:i")}}</td>
                             
                             <td><a href="{{ path('dash_bookings_show', {'id': item.id}) }}">{{ item.id }}</a>
                                 {% if item.bookingTime | date('Y') > 2000 %}
