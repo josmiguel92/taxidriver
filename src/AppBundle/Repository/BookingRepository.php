@@ -15,7 +15,7 @@ class BookingRepository extends \Doctrine\ORM\EntityRepository
 
         return $this->getEntityManager()
             ->createQuery(
-                'SELECT p FROM AppBundle:Booking p ORDER BY p.id DESC'
+                'SELECT p FROM AppBundle:Booking p ORDER BY p.pickuptime ASC'
             )
 
             ->setMaxResults($count)
