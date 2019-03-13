@@ -9,6 +9,7 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ExperienceType extends AbstractType
 {
@@ -43,7 +44,7 @@ class ExperienceType extends AbstractType
             ->add('important', null, ['label'=>'Destacado, aparece en las sugerencias'])
 
             ->add('isExternalBook', CheckboxType::class , ['label'=>'Este servicio se reserva en otra web', 'required'=>false])
-            ->add('externalEmb', null, ['label'=>'Código HTML a insertar para reservar, incluye enlace']);
+            ->add('externalEmb', TextareaType::class, ['label'=>'Código HTML a insertar para reservar, incluye enlace']);
     }/**
      * {@inheritdoc}
      */

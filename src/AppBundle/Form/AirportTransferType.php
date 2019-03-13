@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
@@ -33,7 +34,7 @@ class AirportTransferType extends AbstractType
             ->add('targetPlace')
             ->add('weight', null, ['label'=>'Orden entre los servicios'])
             ->add('isExternalBook', CheckboxType::class , ['label'=>'Este servicio se reserva en otra web', 'required'=>false])
-            ->add('externalEmb', null, ['label'=>'Código HTML a insertar para reservar, incluye enlace']);
+            ->add('externalEmb', TextareaType::class, ['label'=>'Código HTML a insertar para reservar, incluye enlace']);
     }/**
      * {@inheritdoc}
      */
