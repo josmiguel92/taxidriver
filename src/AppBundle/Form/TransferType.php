@@ -41,7 +41,8 @@ class TransferType extends AbstractType
             ->add('important', null, ['label'=>'Destacado, aparece en las sugerencias'])
 
             ->add('isExternalBook', CheckboxType::class , ['label'=>'Este servicio se reserva en otra web', 'required'=>false])
-            ->add('externalEmb', TextareaType::class, ['label'=>'Código HTML a insertar para reservar, incluye enlace'])
+            ->add('externalEmb', TextareaType::class, ['label'=>'Código HTML a insertar para reservar, incluye enlace [Español]'])
+            ->add('externalEmbEn', TextareaType::class, ['label'=>'Código HTML a insertar para reservar, incluye enlace [Ingles]'])
         ;
 
 

@@ -8,26 +8,29 @@
                 <h2>{% trans %}Reservation form{% endtrans %}</h2>
 
                 <!--- Where are you going --->
-                    <div class="well-row well-row-bg">
-                        <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
-                            {{ experience.getNameLocale }}
-                        </p>
-                    </div>
-                    <div class="routes">
-                        {% block destination %}
-                        {% endblock %}
-                    </div>
-                    <div class="routes-description">
-                        {{ experience.targetPlace.getPlaceDescLocale | raw }}
-                        <hr>
-                        {{ experience.getDescriptionLocale | raw }}
-                    </div>
+                <div class="well-row well-row-bg">
+                    <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
+                        {{ experience.getNameLocale }}
+                    </p>
+                </div>
+                <div class="routes">
+                    {% block destination %}
+                    {% endblock %}
+                </div>
+                <div class="routes-description">
+                    {{ experience.targetPlace.getPlaceDescLocale | raw }}
+                    <hr>
+                    {{ experience.getDescriptionLocale | raw }}
+                </div>
 
                 <div class="grid-fullbooking-testimony-places">
                     {% if experience.isExternalBook %}
-                        {{ experience.externalEmb | raw }}
-                    {% else %}
-                        <div class="booking_form">
+                    <div class="external_manage_booking">
+                        {{ experience.externalEmbLocale | raw }}
+                    </div>
+
+                    {% endif %}
+                    <div class="booking_form" {% if experience.isExternalBook %} style="display: none"{% endif %}>
                         {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
                             'data-form-type':'order',
                             'data-form-output':'form-output-global'}}) }}
@@ -170,7 +173,8 @@
 
                         </form>
                     </div>
-                    {% endif %}
+
+
                     {% if testimonials %}
                     <div class="testimonial-grid">
                         <div class="testimonials-header">

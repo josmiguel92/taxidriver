@@ -31,31 +31,23 @@
                 <!--- Where are you going --->
                 <div class="well-row well-row-bg">
                     <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
-                        {% if ownTourPage is defined %}
-                            {% trans %}Add the places you wanna to visit{% endtrans %}
-                        {% else %}
-                            {% trans %}You're going to {% endtrans %} {{ place.getNameLocale }}
-                        {% endif %}
+
+                        {% trans %}You're going to {% endtrans %} {{ place.getNameLocale }}
+
                     </p>
                 </div>
                 <div class="routes">
                     {% block destination %}
                     {% endblock %}
                 </div>
-                {% if ownTourPage is not defined %}
-                    <div class="routes-description">
-                        {{ place.getPlaceDescLocale | raw }}
-                        <hr>
-                        {{ transfer.getDescriptionLocale | raw }}
-                    </div>
-                {% endif %}
+
 
 
                 <div class="grid-fullbooking-testimony-places">
                     {% if transfer.isExternalBook %}
-                    {{ transfer.externalEmb | raw }}
-                    {% else %}
-                    <div class="booking_form">
+                    {{ transfer.externalEmbLocale | raw }}
+                    {% endif %}
+                    <div class="booking_form" {% if transfer.isExternalBook %}style="display: none;"{% endif %}>
                         {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
                             'data-form-type':'order',
                             'data-form-output':'form-output-global'}}) }}
@@ -272,7 +264,7 @@
                         </form>
 
                     </div>
-                    {% endif %}
+
                     {% if testimonials %}
 
                     <div class="col-md-3 testimonial-grid">

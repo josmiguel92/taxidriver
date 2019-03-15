@@ -75,6 +75,12 @@ abstract class Service extends ImageField
      * @ORM\Column(name="external_emb", type="text", nullable=true)
      */
     protected $external_emb;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="external_emb_en", type="text", nullable=true)
+     */
+    protected $external_emb_en;
 
     /**
      * @var boolean
@@ -305,8 +311,37 @@ abstract class Service extends ImageField
         $this->is_external_book = $is_external_book;
     }
 
+    /**
+     * @return string
+     */
+    public function getExternalEmbEn()
+    {
+        return $this->external_emb_en;
+    }
+
+    /**
+     * @param string $external_emb_en
+     */
+    public function setExternalEmbEn($external_emb_en)
+    {
+        $this->external_emb_en = $external_emb_en;
+    }
 
 
+
+
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getExternalEmbLocale()
+    {
+        if(Utils::getRequestLocaleLang()=="es")
+            return $this->external_emb;
+        return $this->external_emb_en;
+    }
 
 
     abstract function getServiceType();

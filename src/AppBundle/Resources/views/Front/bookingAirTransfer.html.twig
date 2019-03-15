@@ -155,9 +155,9 @@
 
             <div class="grid-fullbooking-testimony-places">
                 {% if transfer.isExternalBook %}
-                    {{ transfer.externalEmb | raw }}
-                {% else %}
-                <div class="booking_form">
+                    {{ transfer.externalEmbLocale | raw }}
+                {% endif %}
+                <div class="booking_form"  {% if transfer.isExternalBook %}style="display: none"{% endif %}>
                 {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
                     'data-form-type':'order',
                     'data-form-output':'form-output-global'}}) }}
@@ -388,7 +388,7 @@
                 </form>
 
             </div>
-                {% endif %}
+
 
                 {% if testimonials %}
                     <div class="testimonials testimonial-grid">
