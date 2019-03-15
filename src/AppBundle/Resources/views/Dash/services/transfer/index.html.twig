@@ -34,13 +34,18 @@
                         <a href="{{ path('dash_transfer_edit', { 'id': transfer.id }) }}"><i class="ti-pencil-alt"></i> Editar</a>
                     </li>
 
-                </ul>
+
                 {% if transfer.important %}
-                <i class="fa fa-star fa-2x" style="color: greenyellow"></i> <span>Destacado</span>
+                <li>
+                    <i class="fa fa-star fa-2x" style="color: greenyellow"></i> <span>Destacado</span>
+                </li>
                 {% endif %}
                 {% if transfer.isExternalBook %}
-                    <i class="fa fa-rocket fa-2x" style="color: #db5012"></i> <span>Reservas externas</span>
+                    <li>
+                        <i class="fa fa-rocket fa-2x" style="color: #db5012"></i> <span>Reservas externas</span>
+                    </li>
                 {% endif %}
+                </ul>
             </div>
 
         </div>
