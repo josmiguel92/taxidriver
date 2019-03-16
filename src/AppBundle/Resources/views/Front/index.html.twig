@@ -125,12 +125,12 @@
                                     {% endfor %}
 
                                     <li class="text-center flags">
-                                        <a href="{{ path("home", {"_locale":"en"}) }}">
+                                        <a href="{{ path("home", {"_locale":"en"}) }}"  rel="alternate"  hreflang="en">
                                             <img src="{{ asset('images/flags/uk-flags.svg') }}" alt="{% trans %}change language to english{% endtrans %}">
                                         </a>
                                     </li>
                                     <li class="text-center flags">
-                                        <a href="{{ path("home", {"_locale":"es"}) }}">
+                                        <a href="{{ path("home", {"_locale":"es"}) }}" rel="alternate"  hreflang="es">
                                             <img src="{{ asset('images/flags/spana-flags.svg') }}" alt="{% trans %}change languaje to spanish{% endtrans %}">
                                         </a>
                                     </li>

@@ -23,6 +23,8 @@
     <meta name="keywords" content="{{ content.getSitekeywordsLocale | replace({ '\r\n': ', ', '\n': ', ', '\r': ', ' }) }}">
     <meta name="author" content="Taxi Drivers Cuba">
 
+
+
     {# Facebook Tags #}
     <meta property="og:type"               content="article" />
     <meta property="og:title"              content="{{ title }}" />
@@ -180,12 +182,13 @@
                                             {% endfor %}
 
                                             <li class="text-center flags">
-                                                <a href="{{ english_page }}">
+
+                                                <a href="{{ english_page }}" rel="alternate"  hreflang="en">
                                                     <img src="{{ asset('images/flags/uk-flags.svg') }}" alt="{% trans %}change language to english{% endtrans %}">
                                                 </a>
                                             </li>
                                             <li class="text-center flags">
-                                                <a href="{{ spanish_page }}">
+                                                <a href="{{ spanish_page }}" rel="alternate"  hreflang="es">
                                                     <img src="{{ asset('images/flags/spana-flags.svg') }}" alt="{% trans %}change languaje to spanish{% endtrans %}">
                                                 </a>
                                             </li>
