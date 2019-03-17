@@ -23,13 +23,18 @@
                     {{ experience.getDescriptionLocale | raw }}
                 </div>
 
-                <div class="grid-fullbooking-testimony-places">
-                    {% if experience.isExternalBook %}
+                <div {% if experience.isExternalBook %} class="grid-fullbooking-testimony-places_vertical" {% else %}
+
+                    class="grid-fullbooking-testimony-places"
+                        {% endif %}>
+
+                {% if experience.isExternalBook %}
                     <div class="external_manage_booking">
                         {{ experience.externalEmbLocale | raw }}
                     </div>
 
                     {% endif %}
+
                     <div class="booking_form" {% if experience.isExternalBook %} style="display: none"{% endif %}>
                         {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
                             'data-form-type':'order',
@@ -176,14 +181,17 @@
 
 
                     {% if testimonials %}
-                    <div class="testimonial-grid">
-                        <div class="testimonials-header">
-                            <a target="_blank" href="https://www.tripadvisor.es/">
-                                <img src="{{ asset('images/tripadvisor-logo.png') }}" alt="TripAdvisor"/>
-                            </a>
-                        </div>
-                        {% for testimony in testimonials %}
-                            <div class="owl-item" style="margin: 1em; text-align: center; ">
+                        <div class="testimonials">
+                            <div class="testimonials-header">
+                                <a target="_blank" href="https://www.tripadvisor.es/">
+                                    <img src="{{ asset('images/tripadvisor-logo.png') }}" alt="TripAdvisor"/>
+                                </a>
+                            </div>
+                            <div class=" flex {% if experience.isExternalBook %} flex-horizontal {% else %} flex-vertical {% endif %}">
+
+
+                            {% for testimony in testimonials %}
+                            <div class="owl-item">
                                 <!-- Blockquote-->
                                 <blockquote class="quote">
 
@@ -226,7 +234,8 @@
 
                         {% endfor %}
 
-                    </div>
+                            </div>
+                        </div>
                     {% endif %}
                 </div>
 

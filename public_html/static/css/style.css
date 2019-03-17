@@ -15803,3 +15803,43 @@ img.lazy[data-src] {
     display: grid;
     grid-template-rows: 8em 10em 3em 1em;
 }
+.grid-fullbooking-testimony-places{
+    display: grid;
+    grid-template-areas: "form testimony";
+    grid-template-columns: minmax(345px,3fr) 1fr;
+}
+.grid-fullbooking-testimony-places_vertical{
+    display: grid;
+    grid-template-areas: "form" "testimony";
+    grid-template-rows: minmax(100px,200px) 1fr;
+}
+.flex{
+    display: flex;
+}
+.flex-horizontal{
+    flex-direction: row;
+}
+.testimonials > .flex div.owl-item{
+    flex: 2.5 1 auto !important;
+}
+.flex-vertical{
+    flex-direction: column;
+
+}
+
+.owl-item .quote > a > img{
+    display: block;
+    height: 6em;
+    width: auto;
+    max-width: 6em;
+}
+.flex .owl-item{
+    margin: 1em; text-align: center;
+}
+.flex-horizontal .owl-item{
+    margin: 1em auto;
+
+    text-align: center;
+
+    max-width: 33%;
+}

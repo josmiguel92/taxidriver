@@ -42,13 +42,26 @@
                 </div>
 
 
+                <div class="routes-description">
+                    {{ place.getPlaceDescLocale | raw }}
+                    <hr>
+                    {{ transfer.getDescriptionLocale | raw }}
+                </div>
 
-                <div class="grid-fullbooking-testimony-places">
-                    {% if transfer.isExternalBook %}
-                    {{ transfer.externalEmbLocale | raw }}
+
+                <div {% if transfer.isExternalBook %} class="grid-fullbooking-testimony-places_vertical" {% else %}
+
+                    class="grid-fullbooking-testimony-places"
+                        {% endif %}>
+
+                {% if transfer.isExternalBook %}
+                        <div class="external_manage_booking">
+                            {{ transfer.externalEmbLocale | raw }}
+                        </div>
+
                     {% endif %}
-                    <div class="booking_form" {% if transfer.isExternalBook %}style="display: none;"{% endif %}>
-                        {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
+                    <div class="booking_form"  {% if transfer.isExternalBook %}style="display: none"{% endif %}>
+                    {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
                             'data-form-type':'order',
                             'data-form-output':'form-output-global'}}) }}
 
@@ -266,56 +279,61 @@
                     </div>
 
                     {% if testimonials %}
+                        <div class="testimonials">
+                            <div class="testimonials-header">
+                                <a target="_blank" href="https://www.tripadvisor.es/">
+                                    <img src="{{ asset('images/tripadvisor-logo.png') }}" alt="TripAdvisor"/>
+                                </a>
+                            </div>
+                            <div class=" flex {% if transfer.isExternalBook %} flex-horizontal {% else %} flex-vertical {% endif %}">
 
-                    <div class="testimonial-grid">
-                        <div class="testimonials-header">
-                            <a target="_blank" href="https://www.tripadvisor.es/">
-                                <img src="{{ asset('images/tripadvisor-logo.png') }}" alt="TripAdvisor"/>
-                            </a>
-                        </div>
-                        {% for testimony in testimonials %}
-                            <div class="owl-item" style="margin: 1em; text-align: center; ">
-                                <!-- Blockquote-->
-                                <blockquote class="quote">
+                                {% for testimony in testimonials %}
+                                    <div class="owl-item">
+                                        <!-- Blockquote-->
+                                        <blockquote class="quote">
 
-                                    {% set alt = locale=='en'? "TripAdvisor Testimony by" : "Testimonio de TripAdvisor por" %}
-                                    <a href="{{ testimony.link }}">
-                                        <img alt="{{ alt }} {{ testimony.getName }}" data-src="{{ asset(testimony.getFullImageWebPath) }}" width="120" height="120" class="img-circle img-responsive center-block lazy">
-                                        <div class="offset-top-10 offset-md-top-25">
-                                            <cite class="font-accent text-bold text-spacing-inverse-25 text-primary">
-                                                <span class="text-mine-shaft">{{ testimony.getName }}</span>
-                                            </cite>
-                                        </div>
-                                    </a>
+                                            {% set alt = locale=='en'? "TripAdvisor Testimony by" : "Testimonio de TripAdvisor por" %}
+                                            <a href="{{ testimony.link }}">
+                                                <img alt="{{ alt }} {{ testimony.getName }}" data-src="{{ asset(testimony.getFullImageWebPath) }}" width="120" height="120" class="img-circle img-responsive center-block lazy">
+                                                <div class="offset-top-10 offset-md-top-25">
+                                                    <cite class="font-accent text-bold text-spacing-inverse-25 text-primary">
+                                                        <span class="text-mine-shaft">{{ testimony.getName }}</span>
+                                                    </cite>
+                                                </div>
+                                            </a>
 
-                                    {% if testimony.points %}
-                                        <span class="badge">
+                                            {% if testimony.points %}
+                                                <span class="badge">
                                             {% for i in 1 .. testimony.points %}
                                                 <i class="fa fa-star" style="color: gold; font-size: .5em"></i>
                                             {% endfor %}
                                         </span>
-                                    {% endif %}
-                                    <div class="offset-top-15 offset-md-top-30">
-                                        <p style="font-size: 0.7em;">
-                                            {{ testimony.getTextLocale|striptags|slice(0, 200) }}
-                                            {% if testimony.getTextLocale|striptags|length > 200 %}
-                                                ...
                                             {% endif %}
-                                        </p>
+                                            <div class="offset-top-15 offset-md-top-30">
+                                                <b  style="font-size: 0.7em;">{{ testimony.getTitleLocale }}</b>
+                                                <p style="font-size: 0.7em;">
 
+                                                    {{ testimony.getTextLocale|striptags|slice(0, 200) }}
+                                                    {% if testimony.getTextLocale|striptags|length > 200 %}
+                                                        ...
+                                                    {% endif %}
+                                                </p>
+
+                                            </div>
+
+                                            {% if not loop.last %}
+                                                <div class="offset-top-10">
+                                                    <h5 class="text-spacing-20 text-silver-chalice">....</h5>
+                                                </div>
+                                            {% endif %}
+                                        </blockquote>
                                     </div>
 
-                                    {% if not loop.last %}
-                                        <div class="offset-top-10">
-                                            <h5 class="text-spacing-20 text-silver-chalice">....</h5>
-                                        </div>
-                                    {% endif %}
-                                </blockquote>
+                                {% endfor %}
+
                             </div>
+                        </div>
 
-                        {% endfor %}
-
-                    </div>
                     {% endif %}
                 </div>
 

@@ -53,7 +53,7 @@ class TestimonyController extends Controller
                 'El testimonio fue agregado correctamente! >> success >> ti-disk'
             );
 
-            return $this->redirectToRoute('dash_testimonies_index');
+            return $this->redirectToRoute('dash_socialnet_edit');
         }
 
         return $this->render('AppBundle:Dash:testimony/new.html.twig', array(
