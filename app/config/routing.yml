@@ -11,3 +11,6 @@ remove_trailing_slash:
     requirements:
       url: .*/$
     methods: [GET]
+
+_liip_imagine:
+  resource: "@LiipImagineBundle/Resources/config/routing.xml"

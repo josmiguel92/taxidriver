@@ -18,6 +18,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new FOS\CKEditorBundle\FOSCKEditorBundle(),
             new AppBundle\AppBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
+            new Oneup\FlysystemBundle\OneupFlysystemBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

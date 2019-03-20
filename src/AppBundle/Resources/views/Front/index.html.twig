@@ -1,3 +1,4 @@
+
 {% extends 'AppBundle:Front:base.html.twig' %}
 
 {% if locale=='es' %}
@@ -181,7 +182,7 @@
 
                 {% for poster in posters %}
                     <div class="carousel-cell">
-                        <img src="{{ asset(poster.getWideImageWebPath) }}"/>
+                        <img src="{{ asset(poster.getWideImageWebPath | imagine_filter('min_width_1200'))  }}"/>
                         <div class="carousel-cell__description">
                             <h2>
                                 {{ poster.getTitleLocale }}

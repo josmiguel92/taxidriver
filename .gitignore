@@ -22,7 +22,7 @@ app/config/parameters.yml
 public_html/app_dev.php
 app/bootstrap.php.cache
 /public_html/bundles/
-
+/public_html/static/cache/
 public_html/static/uploads/*
 trans/
 trans/*
@@ -36,3 +36,4 @@ logs
 etc
 ssl
 tmp
+mail
