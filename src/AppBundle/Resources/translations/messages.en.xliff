@@ -95,7 +95,10 @@
             	<source>Remove</source>
             	<target>Remove</target>
             </trans-unit>
-
+            <trans-unit id="external.book.now">
+                  <source>¡Reserve ahora!</source>
+                  <target>Book Now!</target>
+            </trans-unit>
 
         </body>
     </file>

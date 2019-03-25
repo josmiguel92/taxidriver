@@ -800,6 +800,10 @@
 	<source>Popular experiences you could prefer</source>
 	<target>Otras experiencias que podrian interesarle</target>
 </trans-unit>
+<trans-unit id="external.book.now">
+	<source>¡Reserve ahora!</source>
+	<target>¡Reserve ahora!</target>
+</trans-unit>
 
         </body>
     </file>
