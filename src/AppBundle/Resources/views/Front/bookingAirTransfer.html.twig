@@ -157,7 +157,23 @@
                 {% endif %}>
                 {% if transfer.isExternalBook %}
                     <div class="external_manage_booking">
-                        {{ transfer.externalEmbLocale | raw }}
+
+                        <a href="#" id="trekksoft_{{ transfer.trekksoftId }}"><img src="https://taxidriverscuba.trekksoft.com/cache/images/widget-buttons/eyJsYWJlbCI6Ilwvd2lkZ2V0XC9ib29rLWJ1dHRvbi5wbmciLCJjYXB0aW9uIjoiwqFSZXNlcnZlIGFob3JhISIsImZvcmVDb2xvciI6IiNmZmZmZmYiLCJiYWNrQ29sb3IiOiIjMDA4ZmJlIn0=.png"
+                                       alt="{% trans %}¡Reserve ahora!{% endtrans %}" title="{% trans %}¡Reserve ahora!{% endtrans %}" border="0" /></a>
+
+                        <script src="https://taxidriverscuba.trekksoft.com/{{ locale }}/api/public"></script>
+                        <script>
+                            (function() {
+                                var button = new TrekkSoft.Embed.Button();
+                                button
+                                    .setAttrib("target", "fancy")
+                                    .setAttrib("entryPoint", "tour")
+                                    .setAttrib("tourId", "{{ transfer.trekksoftTourId }}")
+                                    .setAttrib("fancywidth", "615px")
+                                    .registerOnClick("#trekksoft_{{ transfer.trekksoftId }}");
+                            })();
+                        </script>
+
                     </div>
 
                 {% endif %}

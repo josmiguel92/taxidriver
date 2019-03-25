@@ -69,24 +69,26 @@ abstract class Service extends ImageField
      */
     protected $weight;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="external_emb", type="text", nullable=true)
-     */
-    protected $external_emb;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="external_emb_en", type="text", nullable=true)
-     */
-    protected $external_emb_en;
 
     /**
      * @var boolean
      * @ORM\Column(name="is_external_book", type="boolean", nullable=true)
      */
     protected $is_external_book;
+
+
+    /**
+     * @var integer
+     * @ORM\Column(name="trekksoft_id", type="integer", nullable=true)
+     */
+    protected $trekksoft_id;
+
+
+    /**
+     * @var integer
+     * @ORM\Column(name="trekksoft_tour_id", type="integer", nullable=true)
+     */
+    protected $trekksoft_tour_id;
 
 
 
@@ -279,21 +281,6 @@ abstract class Service extends ImageField
         $this->weight = $weight;
     }
 
-    /**
-     * @return string
-     */
-    public function getExternalEmb()
-    {
-        return $this->external_emb;
-    }
-
-    /**
-     * @param string $external_emb
-     */
-    public function setExternalEmb($external_emb)
-    {
-        $this->external_emb = $external_emb;
-    }
 
     /**
      * @return bool
@@ -312,36 +299,38 @@ abstract class Service extends ImageField
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getExternalEmbEn()
+    public function getTrekksoftId()
     {
-        return $this->external_emb_en;
+        return $this->trekksoft_id;
     }
 
     /**
-     * @param string $external_emb_en
+     * @param int $trekksoft_id
      */
-    public function setExternalEmbEn($external_emb_en)
+    public function setTrekksoftId($trekksoft_id)
     {
-        $this->external_emb_en = $external_emb_en;
+        $this->trekksoft_id = $trekksoft_id;
     }
-
-
-
-
 
     /**
-     * Get name
-     *
-     * @return string
+     * @return int
      */
-    public function getExternalEmbLocale()
+    public function getTrekksoftTourId()
     {
-        if(Utils::getRequestLocaleLang()=="es")
-            return $this->external_emb;
-        return $this->external_emb_en;
+        return $this->trekksoft_tour_id;
     }
+
+    /**
+     * @param int $trekksoft_tour_id
+     */
+    public function setTrekksoftTourId($trekksoft_tour_id)
+    {
+        $this->trekksoft_tour_id = $trekksoft_tour_id;
+    }
+
+
 
 
     abstract function getServiceType();

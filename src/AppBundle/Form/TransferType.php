@@ -41,8 +41,9 @@ class TransferType extends AbstractType
             ->add('important', null, ['label'=>'Destacado, aparece en las sugerencias'])
 
             ->add('isExternalBook', CheckboxType::class , ['label'=>'Este servicio se reserva en otra web', 'required'=>false])
-            ->add('externalEmb', TextareaType::class, ['label'=>'Código HTML a insertar para reservar, incluye enlace [Español]', 'required'=>false])
-            ->add('externalEmbEn', TextareaType::class, ['label'=>'Código HTML a insertar para reservar, incluye enlace [Ingles]','required'=>false])
+            ->add('trekksoftId', null, ['label'=>'ID en trekksoft. Ejemplo: si ve algo como id="trekksoft_3234", la ID sería 3234', 'required'=>false])
+            ->add('trekksoftTourId', null, ['label'=>'ID de tour en trekksoft. Ejemplo: si ve algo como .setAttrib("tourId", "254469"), la ID del tour sería 254469','required'=>false])
+
         ;
 
 
