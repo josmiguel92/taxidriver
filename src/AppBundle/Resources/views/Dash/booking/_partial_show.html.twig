@@ -1,5 +1,5 @@
     <p style="float: right">
-        {{ booking.bookingTime | date('d/m/Y h:i') }}
+        {{ booking.bookingTime | date('d/m/Y h:i a') }}
         <a class="btn btn-primary" href="{{ path('dash_bookings_pdf_export', {'id': booking.id}) }}" style="margin-left: 2em"><i class="fa fa-print fa-2x"></i> </a></p>
 
     <div class="row">
@@ -14,7 +14,7 @@
                 </p>
                 <p>
                     <b>Fecha/Hora Recogida:</b>
-                    {{ booking.pickuptime | date('d/M/Y h:i')}}
+                    {{ booking.pickuptime | date('d/M/Y h:i a')}}
                 </p>
                 <p>
                     <b>Lugar de recogida:</b>
@@ -42,7 +42,7 @@
                 <p>
                     {% if booking.returnpickup %}
                     <b>Viajar&aacute; de regreso:</b>
-                    {{ booking.returnpickuptime| date('d/M/Y h:i')}}
+                    {{ booking.returnpickuptime| date('d/M/Y h:i a')}}
                     <br>
                     <b>Lugar de recogida:</b>
                     {{ booking.returnpickupplacce }}
