@@ -30,10 +30,16 @@
 
                 {% if experience.isExternalBook %}
                     <div class="external_manage_booking">
-                        <a href="#" id="trekksoft_{{ experience.trekksoftId }}"><img src="https://taxidriverscuba.trekksoft.com/cache/images/widget-buttons/eyJsYWJlbCI6Ilwvd2lkZ2V0XC9ib29rLWJ1dHRvbi5wbmciLCJjYXB0aW9uIjoiwqFSZXNlcnZlIGFob3JhISIsImZvcmVDb2xvciI6IiNmZmZmZmYiLCJiYWNrQ29sb3IiOiIjMDA4ZmJlIn0=.png"
-                                                                                   alt="{% trans %}¡Reserve ahora!{% endtrans %}" title="{% trans %}¡Reserve ahora!{% endtrans %}" border="0" /></a>
+                        <a href="#" id="trekksoft_{{ experience.trekksoftId }}">
+                        <img 
+                            {% if locale == "es" %}
+                            src="https://taxidriverscuba.trekksoft.com/cache/images/widget-buttons/eyJsYWJlbCI6Ilwvd2lkZ2V0XC9ib29rLWJ1dHRvbi5wbmciLCJjYXB0aW9uIjoiwqFSRVNFUlZBUiBBSE9SQSIsImZvcmVDb2xvciI6IiNmZmZmZmYiLCJiYWNrQ29sb3IiOiIjMDA4ZmJlIn0=.png"
+                            {% else %}
+                            src="https://taxidriverscuba.trekksoft.com/cache/images/widget-buttons/eyJsYWJlbCI6Ilwvd2lkZ2V0XC9ib29rLWJ1dHRvbi5wbmciLCJjYXB0aW9uIjoiwqFCT09LIE5PVyEiLCJmb3JlQ29sb3IiOiIjZmZmZmZmIiwiYmFja0NvbG9yIjoiIzAwOGZiZSJ9.png"
+                            {% endif %}
+                            alt="{% trans %}¡Reserve ahora!{% endtrans %}" title="{% trans %}¡Reserve ahora!{% endtrans %}" border="0" /></a>
 
-                        <script src="https://taxidriverscuba.trekksoft.com/{{ locale }}/api/public"></script>
+                            <script src="https://taxidriverscuba.trekksoft.com/{{ locale }}/api/public"></script>
                         <script>
                             (function() {
                                 var button = new TrekkSoft.Embed.Button();
