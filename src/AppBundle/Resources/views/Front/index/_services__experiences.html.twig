@@ -27,10 +27,10 @@
 
                     <div class="unit-left">
                         <a href="{{ link }}" class="text-mine-shaft">
-                            <img data-srcset="{{ asset(experience.getWideImageWebPath | imagine_filter('squared_thumbnail')) }} 253w,
-                                              {{ asset(experience.getWideImageWebPath | imagine_filter('min_width_600')) }} 600w"
+                            <img data-srcset="{{ asset(experience.getFullImageWebPath | imagine_filter('squared_thumbnail')) }} 253w,
+                                              {{ asset(experience.getFullImageWebPath | imagine_filter('min_width_600')) }} 600w"
                                  sizes="(min-width: 1200px) 30vw, 50vw"
-                                 src="{{ asset(experience.getWideImageWebPath | imagine_filter('thumbnail')) }}"
+                                 src="{{ asset(experience.getFullImageWebPath | imagine_filter('thumbnail')) }}"
                                  width="270" alt="{{ experience.getNameLocale }}"
                                  class="img-responsive center-block img-zoom lazy">
                             <noscript>
