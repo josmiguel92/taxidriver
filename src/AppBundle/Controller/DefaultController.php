@@ -31,7 +31,7 @@ class DefaultController extends Controller
 
         if ($content) {
             $posters = $em->getRepository('AppBundle:Image')->findLastPosters(1);
-            $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries(0, 1);
+            $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries(0, 0);
 
             $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
             $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
