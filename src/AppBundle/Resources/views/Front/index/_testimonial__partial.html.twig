@@ -5,7 +5,7 @@
         {% set alt = locale=='en'? "TripAdvisor Testimony by" : "Testimonio de TripAdvisor por" %}
         <img alt="{{ alt }} {{ testimony.getName }}"
              src="{{ asset(testimony.getFullImageWebPath | imagine_filter('thumbnail_testimonio')) }} "
-             width="169" height="169" class="img-circle img-responsive center-block">
+             width="169" height="169" class="p img-circle img-responsive center-block">
         <div class="">
             <b>{{ testimony.titleLocale }}</b>
             <p >
