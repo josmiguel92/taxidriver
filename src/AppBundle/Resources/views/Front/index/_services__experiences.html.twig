@@ -27,8 +27,10 @@
 
                     <div class="unit-left">
                         <a href="{{ link }}" class="text-mine-shaft">
-                            <img data-srcset="{{ asset(experience.getFullImageWebPath | imagine_filter('squared_thumbnail')) }} 253w,
-                                              {{ asset(experience.getFullImageWebPath | imagine_filter('min_width_600')) }} 600w"
+                            <img data-srcset="
+                                              {{ asset(experience.getFullImageWebPath | imagine_filter('min_width_600')) }} 600w,
+                                              {{ asset(experience.getFullImageWebPath | imagine_filter('min_width_400')) }} 400w,
+                                              {{ asset(experience.getFullImageWebPath | imagine_filter('min_width_300')) }} 300w"
                                  sizes="(min-width: 1200px) 30vw, 50vw"
                                  src="{{ asset(experience.getFullImageWebPath | imagine_filter('thumbnail')) }}"
                                  width="270" alt="{{ experience.getNameLocale }}"
