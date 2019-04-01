@@ -3,7 +3,9 @@
     <!-- Blockquote-->
     <blockquote class="quote grid-testimony" style="display: grid">
         {% set alt = locale=='en'? "TripAdvisor Testimony by" : "Testimonio de TripAdvisor por" %}
-        <img alt="{{ alt }} {{ testimony.getName }}" src="{{ asset(testimony.getFullImageWebPath) }}" width="169" height="169" class="img-circle img-responsive center-block">
+        <img alt="{{ alt }} {{ testimony.getName }}"
+             src="{{ asset(testimony.getFullImageWebPath | imagine_filter('thumbnail_testimonio')) }} "
+             width="169" height="169" class="img-circle img-responsive center-block">
         <div class="">
             <b>{{ testimony.titleLocale }}</b>
             <p >
