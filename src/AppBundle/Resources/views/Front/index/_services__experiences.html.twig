@@ -24,14 +24,21 @@
             <div style="max-width: 100%;" class="reveal-inline-block">
                 <!-- Unit-->
                 <div class="unit unit-sm unit-sm-horizontal unit-spacing-sm text-left">
+
                     <div class="unit-left">
                         <a href="{{ link }}" class="text-mine-shaft">
-                            <img data-src="{{ asset(experience.getWebPath) }}" src="{{ asset(experience.getWebPath(0)) }}" width="270" alt="{{ experience.getNameLocale }}" class="img-responsive center-block img-zoom lazy">
+                            <img data-srcset="{{ asset(experience.getFullImageWebPath) | imagine_filter('squared_thumbnail')) }} 253w,
+                                              {{ asset(experience.getFullImageWebPath) | imagine_filter('min_width_600')) }} 600w"
+                                 sizes="(min-width: 1200px) 30vw, 50vw"
+                                 src="{{ asset(experience.getFullImageWebPath) | imagine_filter('thumbnail')) }}"
+                                 width="270" alt="{{ experience.getNameLocale }}"
+                                 class="img-responsive center-block img-zoom lazy">
                             <noscript>
                                 <img src="{{ asset(experience.getWebPath) }}" width="270" alt="{{ experience.getNameLocale }}" class="img-responsive center-block">
                             </noscript>
                         </a>
                     </div>
+
                     <div class="unit-body">
                         <div class="place-description">
                             <h3 class="p h5 text-capitalize text-spacing-inverse-25" style="height: 3em">
