@@ -30,7 +30,8 @@
                             <img data-srcset="
                                               {{ asset(experience.getWebPath | imagine_filter('min_width_600')) }} 600w,
                                               {{ asset(experience.getWebPath | imagine_filter('min_width_400')) }} 400w,
-                                              {{ asset(experience.getWebPath | imagine_filter('min_width_300')) }} 300w"
+                                              {{ asset(experience.getWebPath | imagine_filter('min_width_300')) }} 300w,
+                                              {{ asset(experience.getWebPath | imagine_filter('min_width_200')) }} 200w"
                                  sizes="(min-width: 1200px) 25vw, 50vw"
                                  src="{{ asset(experience.getWebPath | imagine_filter('thumbnail')) }}"
                                  width="270" alt="{{ experience.getNameLocale }}"
