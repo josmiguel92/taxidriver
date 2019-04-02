@@ -192,7 +192,7 @@
                         {##}
                         {#</picture>#}
                         <img data-srcset="
-                                          {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_1200')) }} 1200w,
+                                          {#{{ asset(poster.getWideImageWebPath | imagine_filter('min_width_1200')) }} 1200w,#}
                                           {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_1000')) }} 1000w,
                                           {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_800')) }} 800w,
                                           {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_600')) }} 600w,
@@ -200,7 +200,7 @@
                              sizes="100vw"
                              src="{{ asset(poster.getWideImageWebPath | imagine_filter('thumbnail')) }}"
                              alt="{{ experience.getNameLocale }}"
-                             class="img-responsive center-block img-zoom lazy">
+                             class="img-responsive center-block lazy">
 
                         <div class="carousel-cell__description">
                             <h2>
