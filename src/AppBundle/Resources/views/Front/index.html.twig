@@ -199,7 +199,7 @@
                                           {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_400')) }} 400w"
                              sizes="100vw"
                              src="{{ asset(poster.getWideImageWebPath | imagine_filter('thumbnail')) }}"
-                             alt="{{ experience.getNameLocale }}"
+                             alt="{{ poster.getTitleLocale }}"
                              class="img-responsive center-block lazy">
 
                         <div class="carousel-cell__description">

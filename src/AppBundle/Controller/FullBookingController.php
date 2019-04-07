@@ -68,21 +68,6 @@ class FullBookingController extends Controller
         ));
     }
 
-    /**
-     * Finds and displays a booking entity.
-     *
-     * @Route("/{id}", name="dash_bookings_show")
-     * @Method("GET")
-     */
-    public function showAction(Booking $booking)
-    {
-        $deleteForm = $this->createDeleteForm($booking);
-
-        return $this->render('AppBundle:Dash/booking:show.html.twig', array(
-            'booking' => $booking,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
 
     /**
      * Displays a form to edit an existing booking entity.
@@ -178,13 +163,6 @@ class FullBookingController extends Controller
         //;
         $dataimage = \QRcode::_png($url);
 
-/*
-        return  $this->render('AppBundle:Dash/booking:pdf_export.html.twig', array(
-            'booking' => $booking,
-            'dataimage'=>$dataimage,
-        ));
-
-*/
         $dompdf->loadHtml(
             $this->renderView('AppBundle:Dash/booking:pdf_export.html.twig', array(
                 'booking' => $booking,
@@ -204,6 +182,72 @@ class FullBookingController extends Controller
         $dompdf->stream($filename);
 
 
+    }
+
+    /**
+     * Generate PDF from a booking entity.
+     *
+     * @Route("/multiple_export/{filter}", name="dash_bookings_multiple_pdf_export")
+     * @Method("GET")
+     */
+    public function multipleExportAction($filter = 'week')
+    {
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $dompdf->set_option('dpi', 120);
+
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var Booking $bookings */
+        $bookings = $em->getRepository("AppBundle:Booking")
+            ->createQueryBuilder("b")
+            ->where("b.pickuptime > :start_day");
+
+        if($filter == 'week'){
+            $bookings->andWhere("b.pickuptime < :nextweek")
+                ->setParameter("nextweek", new \DateTime("today + 1 week"));
+        }
+        $bookings = $bookings
+            ->setParameter("start_day", new \DateTime('today'))
+            ->orderBy("b.pickuptime", "ASC")
+            ->getQuery()->getResult();
+
+
+        $dompdf->loadHtml(
+            $this->renderView('AppBundle:Dash/booking:multiple_pdf_export.html.twig', array(
+                'bookings' => $bookings,
+            ))
+        );
+
+        $range_name = date('m.d.Y').'semanal';
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        $filename = 'bookings_'.$range_name.'.pdf';
+        // Output the generated PDF to Browser
+        $dompdf->stream($filename);
+
+
+    }
+
+
+    /**
+     * Finds and displays a booking entity.
+     *
+     * @Route("/{id}", name="dash_bookings_show")
+     * @Method("GET")
+     */
+    public function showAction(Booking $booking)
+    {
+        $deleteForm = $this->createDeleteForm($booking);
+
+        return $this->render('AppBundle:Dash/booking:show.html.twig', array(
+            'booking' => $booking,
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 
 }

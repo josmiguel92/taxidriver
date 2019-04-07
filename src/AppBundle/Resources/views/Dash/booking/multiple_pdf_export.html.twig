@@ -1,5 +1,6 @@
 {% extends 'AppBundle:Dash/booking:pdf_export_base.html.twig' %}
 {% block content %}
+    {% for booking in bookings %}
     <h2 style="width: 80%;">Detalles de Reservaci&oacute;n <small style="font-size: 120%;"> {{booking.id}}</small></h2>
 
     <p style="">{{ booking.bookingTime | date('d/m/Y h:i') }}</p>
@@ -67,7 +68,6 @@
                     Enlace a la reservaci&oacute;n
                 </h3>
                 <div class="card">
-                    <img src="data:image/png;base64,{{ dataimage}}">
                     <p>
                     Para ver los detalles de esta reservaci&oacute;n siga este enlace:
                         <br>
@@ -190,4 +190,8 @@
             </td>
         </tr>
     </table>
+    <hr style="border-top: solid 4px #000000;">
+        {% else %}
+        No hay reservas para esta semana
+    {% endfor %}
 {% endblock %}

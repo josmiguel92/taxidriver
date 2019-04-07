@@ -4,7 +4,7 @@
     <h2 >Todas las reservas</h2>
 
 {% if all_booking == 'yes' %}
-    <a href="{{ path('dash_bookings_index', {'all_booking': 'yes'}) }}" class="btn btn-info" style="float: right;"> Mostrar todas</a>
+    <a href="{{ path('dash_bookings_index') }}" class="btn btn-info" style="float: right;"> Mostrar todas</a>
 {% else %}
     <a href="{{ path('dash_bookings_index', {'all_booking': 'yes'}) }}" class="btn btn-info" style="float: right;"> Mostrar solo futuras</a>
 {% endif %}
