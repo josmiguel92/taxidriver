@@ -50,7 +50,7 @@ class FullBookingType extends AbstractType
             ->add('children',null, ['label'=>'Incluyen niños'])
             ->add('bookingLanguage', null, ['label'=>'Idioma'])
             ->add('payed', null, ['label'=> "El pago fue realizado con exito"])
-            ->add('payedDate',  DateType::class, ['widget'=>'single_text','label'=> "Fecha en que se realiza el pago"])
+            ->add('payedDate',  DateType::class, ['widget'=>'single_text','label'=> "Fecha en que se realiza el pago", 'required'=>false])
 
             ->add('paymentDetails', null, ['label'=>'Detalles de Pago'])
             ->add('drivername', null, ['label'=>'Datos de contacto del Chofer'])

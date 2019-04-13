@@ -143,8 +143,7 @@ class Booking
     /**
      * @var \DateTime
      * @Assert\DateTime()
-     * @Assert\NotBlank()
-     * @ORM\Column(name="payedDate", type="datetime")
+     * @ORM\Column(name="payedDate", type="datetime", nullable=true)
      */
     private $payedDate;
 

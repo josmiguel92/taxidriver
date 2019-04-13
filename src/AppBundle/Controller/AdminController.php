@@ -763,7 +763,7 @@ class AdminController extends Controller
             $em->persist($booking);
             $em->flush();
 
-            if($booking->getPrice() > 0)
+          //  if($booking->getPrice() > 0)
           //      $this->sendUpdateEmail($booking);
             $this->addFlash(
                 'notice',
