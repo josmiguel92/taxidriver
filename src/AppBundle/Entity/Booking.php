@@ -970,7 +970,7 @@ class Booking
     }
 
 
-    
+
     public function isPickuptime(){
         $now = new \DateTime('now');
         $interval = $now->diff($this->pickuptime);
