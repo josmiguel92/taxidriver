@@ -16,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -129,7 +130,7 @@ class BookingController extends Controller
                 'notice',
                 'Error! >> danger >> ti-save'
             );
-            return $this->redirectToRoute('add_booking');
+            return $this->redirect($_SERVER['HTTP_REFERER']);
         }
         else
             throw new Exception("No hay entradas de lugares");
@@ -271,8 +272,8 @@ class BookingController extends Controller
             ), $em);
             $airport = $airportTransfer->getTargetAirport();
 
-            $booking_form->add('airportname', ChoiceType::class,
-                ['choices' => $em->getRepository('AppBundle:Airport')->findAll(),
+            $booking_form->add('airportname', null,
+               /* ['choices' => $em->getRepository('AppBundle:Airport')->findAll(),
                     'choices_as_values' => true,
                     'choice_label' => 'NameLocale',
                     'choice_value' => 'Id',
@@ -281,7 +282,9 @@ class BookingController extends Controller
                     },
                     'choice_name' => 'machineName'
 
-                ]);
+                ]
+               */
+               ['attr'=>['value'=>$airportTransfer->getTargetAirport()->getId(  )]]);
 
             $booking_form->add('targetPlace', ChoiceType::class,
                 ['choices' => $em->getRepository('AppBundle:Place')->findAll(),
