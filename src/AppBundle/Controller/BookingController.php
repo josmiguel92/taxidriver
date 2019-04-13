@@ -125,7 +125,11 @@ class BookingController extends Controller
 
             }
 
-            return $this->redirectToRoute('home');
+            $this->addFlash(
+                'notice',
+                'Error! >> danger >> ti-save'
+            );
+            return $this->redirectToRoute('add_booking');
         }
         else
             throw new Exception("No hay entradas de lugares");
