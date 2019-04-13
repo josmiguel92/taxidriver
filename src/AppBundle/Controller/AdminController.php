@@ -764,7 +764,7 @@ class AdminController extends Controller
             $em->flush();
 
             if($booking->getPrice() > 0)
-                $this->sendUpdateEmail($booking);
+          //      $this->sendUpdateEmail($booking);
             $this->addFlash(
                 'notice',
                 'Los cambios fueron guardados! >> info >> ti-save'

@@ -215,6 +215,7 @@
                             </div>
                         </div>
 
+                        {#
                         <div class="">
                             <div id="flynumber">
                                 <label for="{{ booking_form.airportname.vars.id }}" class="text-extra-small custom-label text-gray-dark">{% trans %}Airport name{% endtrans %}</label>
@@ -227,16 +228,9 @@
                             </div>
                         </div>
 
-                        <div class="" style="margin-bottom:  1em;">
-                            <div class="">
-                                <div class="form-group">
-                                    <label for="targetPlaceAutocompletion" class="text-extra-small custom-label text-gray-dark">{% trans %}Destination place{% endtrans %}</label>
-                                    <br>
-                                    <input type="text" class="tt-autocomplete form-control form-control-has-validation form-control-last-child" id="targetPlaceAutocompletion">
-                                    {{ form_widget(booking_form.targetPlace, { 'attr': {'class': 'autocomplete hidden' }, 'JOSUE' : 'ASD' }) }}
-                                </div>
-                            </div>
-                        </div>
+
+                        #}
+
 
                         <div class="">
                             <div id="flynumber">
@@ -250,6 +244,16 @@
 
 
 
+                        <div class="" style="margin-bottom:  1em;">
+                            <div class="">
+                                <div class="form-group">
+                                    <label for="targetPlaceAutocompletion" class="text-extra-small custom-label text-gray-dark">{% trans %}Destination place{% endtrans %}</label>
+                                    <br>
+                                    <input type="text" class="tt-autocomplete form-control form-control-has-validation form-control-last-child" id="targetPlaceAutocompletion">
+                                    {{ form_widget(booking_form.targetPlace, { 'attr': {'class': 'autocomplete hidden' }, 'JOSUE' : 'ASD' }) }}
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
 

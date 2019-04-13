@@ -112,6 +112,7 @@ class BookingController extends Controller
                         $booking->setAccepted(true);
                     }
 
+                $booking->setBookingSource('webtaxidrivers');
 
                 $em->persist($booking);
                 $em->flush();

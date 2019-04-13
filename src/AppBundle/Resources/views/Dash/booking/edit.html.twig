@@ -60,10 +60,12 @@
             <div class="col-md-12 card">
                 {{ form_row(edit_form.bookingSource, {'disabled':true}) }}
                 {{ form_row(edit_form.price) }}
+                {{ form_row(edit_form.payed) }}
+                {{ form_row(edit_form.payedDate) }}
                 {{ form_row(edit_form.paymentDetails) }}
-                {{ form_row(edit_form.drivermsg) }}
+                {#{ form_row(edit_form.drivermsg) }#}
                 {{ form_row(edit_form.drivername) }}
-                {{ form_row(edit_form.drivername) }}
+
                 <hr>
                 {{ form_row(edit_form.accepted) }}
                 {{ form_row(edit_form.confirmed) }}

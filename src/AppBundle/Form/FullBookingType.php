@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -48,6 +49,9 @@ class FullBookingType extends AbstractType
             ->add('timelinetravel', null, ['label'=>'Varios lugares de destino'])
             ->add('children',null, ['label'=>'Incluyen niños'])
             ->add('bookingLanguage', null, ['label'=>'Idioma'])
+            ->add('payed', null, ['label'=> "El pago fue realizado con exito"])
+            ->add('payedDate',  DateType::class, ['widget'=>'single_text','label'=> "Fecha en que se realiza el pago"])
+
             ->add('paymentDetails', null, ['label'=>'Detalles de Pago'])
             ->add('drivername', null, ['label'=>'Datos de contacto del Chofer'])
 //            ->add('drivertelephone', null, ['label'=>'Teléfono del Chofer'])
@@ -58,7 +62,7 @@ class FullBookingType extends AbstractType
             ->add('comment', null, ['label'=>'Comentarios del Cliente'])
             ->add('accepted',CheckboxType::class, ['label'=>'Aceptada por la Administración', 'required'=>false])
             ->add('confirmed', CheckboxType::class,['label'=>'Confirmada por la Administración', 'required'=>false])
-            ->add('drivermsg', null, ['label'=>'Mensaje enviado al cliente al definir el precio'])
+            //->add('drivermsg', null, ['label'=>'Mensaje enviado al cliente al definir el precio'])
 
             ->add('serviceType', ChoiceType::class, ['label'=>'Tipo de Servicio','choices'=>['Transfer'=>'Transfer','Experience'=>'Experience', 'AirportTransfer'=>'AirportTransfer']])
             ->add('bookingSource', ChoiceType::class, ['label'=>'Origen de la Reserva',

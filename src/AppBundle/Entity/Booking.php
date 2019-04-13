@@ -140,6 +140,13 @@ class Booking
      * @ORM\Column(name="pickuptime", type="datetime")
      */
     private $pickuptime;
+    /**
+     * @var \DateTime
+     * @Assert\DateTime()
+     * @Assert\NotBlank()
+     * @ORM\Column(name="payedDate", type="datetime")
+     */
+    private $payedDate;
 
     /**
      * @var boolean
@@ -190,6 +197,14 @@ class Booking
      * @ORM\Column(name="paymentDetails", type="text", nullable=true)
      */
     private $paymentDetails;
+
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="payed", type="boolean", nullable=false)
+     */
+    private $payed;
 
     /**
      * @var string
@@ -440,6 +455,40 @@ class Booking
         $this->setAccepted(false);
         $this->setConfirmed(false);
         $this->setBookingTime(new \DateTime('now'));
+        $this->payed = false;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getPayedDate()
+    {
+        return $this->payedDate;
+    }
+
+    /**
+     * @param \DateTime $payedDate
+     */
+    public function setPayedDate($payedDate)
+    {
+        $this->payedDate = $payedDate;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isPayed()
+    {
+        return $this->payed;
+    }
+
+    /**
+     * @param bool $payed
+     */
+    public function setPayed($payed)
+    {
+        $this->payed = $payed;
     }
 
 

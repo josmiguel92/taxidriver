@@ -138,18 +138,32 @@
                      A&uacute;n no hay un precio
                 </p>
                 {%endif %}
-                
+
+                {%if booking.isPayed %}
+                    <p>
+                        <b>El pago ya se realiz&oacute;
+                            {%if booking.payedDate %}
+                                {{ booking.payedDate | date('d/M/Y') }}
+                            {%endif%}
+                        </b>
+                    </p>
+                    {% else %}
+                        <p> <b>A&uacute;n no se realiza el pago</b></p>
+
+                {%endif%}
                 {%if booking.paymentDetails %}
                 <p>
                     <b>Detalles de pago:</b>{{ booking.paymentDetails }}
                 </p>
                 {%endif%}
-
+{#
                 {%if booking.drivermsg %}
                 <p>
                     <b>Mensaje enviado al cliente:</b>{{ booking.drivermsg }}
                 </p>
                 {%endif%}
+#}
+
                 
 
                 {%if booking.drivername %}
