@@ -970,10 +970,7 @@ class Booking
     }
 
 
-
-    /**
-     * @Assert\IsTrue(message="La reservación debe ser al menos con 12 horas de antelación")
-     */
+    
     public function isPickuptime(){
         $now = new \DateTime('now');
         $interval = $now->diff($this->pickuptime);
