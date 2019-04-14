@@ -64,10 +64,10 @@
             <div class="col-md-12 card">
                 {{ form_row(form.bookingSource) }}
                 {{ form_row(form.price) }}
-                {{ form_row(form.paymentDetails) }}
-                {{ form_row(form.drivermsg) }}
-                {{ form_row(form.drivername) }}
-                {{ form_row(form.drivername) }}
+                {{ form_row(edit_form.payedDate) }}
+                {{ form_row(edit_form.paymentDetails) }}
+                {#{ form_row(edit_form.drivermsg) }#}
+                {{ form_row(edit_form.drivername) }}
                 <hr>
                 {{ form_row(form.accepted) }}
                 {{ form_row(form.confirmed) }}
