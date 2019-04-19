@@ -212,23 +212,30 @@ class FullBookingController extends Controller
             ->orderBy("b.pickuptime", "ASC")
             ->getQuery()->getResult();
 
+        if($filter == 'week'){
+            $dompdf->loadHtml(
+                $this->renderView('AppBundle:Dash/booking:multiple_pdf_export.html.twig', array(
+                    'bookings' => $bookings,
+                ))
+            );
 
-        $dompdf->loadHtml(
-            $this->renderView('AppBundle:Dash/booking:multiple_pdf_export.html.twig', array(
-                'bookings' => $bookings,
-            ))
-        );
+            $range_name = date('m.d.Y').'semanal';
+            // (Optional) Setup the paper size and orientation
+            $dompdf->setPaper('A4', 'landscape');
 
-        $range_name = date('m.d.Y').'semanal';
-        // (Optional) Setup the paper size and orientation
-        $dompdf->setPaper('A4', 'landscape');
+            // Render the HTML as PDF
+            $dompdf->render();
 
-        // Render the HTML as PDF
-        $dompdf->render();
+            $filename = 'bookings_'.$range_name.'.pdf';
+            // Output the generated PDF to Browser
+            $dompdf->stream($filename);
 
-        $filename = 'bookings_'.$range_name.'.pdf';
-        // Output the generated PDF to Browser
-        $dompdf->stream($filename);
+        }
+        else{
+            return $this->render('AppBundle:Dash/booking:multiple_pdf_export.html.twig', array(
+                    'bookings' => $bookings,
+                ));
+        }
 
 
     }

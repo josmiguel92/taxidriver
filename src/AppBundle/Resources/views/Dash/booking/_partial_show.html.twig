@@ -1,5 +1,5 @@
     <p style="float: right">
-        {{ booking.bookingTime | date('d/m/Y h:i a') }}
+        Agregada el {{ booking.bookingTime | date('d/m/Y h:i a') }}
         <a class="btn btn-primary" href="{{ path('dash_bookings_pdf_export', {'id': booking.id}) }}" style="margin-left: 2em"><i class="fa fa-print fa-2x"></i> </a></p>
 
     <div class="row">
@@ -71,9 +71,11 @@
                 <p><b>Email:</b>
                 {{ booking.email }}
                 </p>
-                <p><b>Telefono:</b>
-                {{ booking.telephone }}
-                </p>
+                {% if booking.telephone %}
+                    <p><b>Telefono:</b>
+                        {{ booking.telephone }}
+                    </p>
+                    {% endif %}
                 <p>
                     <b>Idioma:</b>
                     {{ booking.bookingLanguage }}
@@ -86,11 +88,13 @@
                 {% endif %}
                 
                 </p>
+                {% if booking.comment is not empty %}
                 <p>
                     <b>Comentarios del cliente:</b>
 
                 {{ booking.comment }}
                 </p>
+                {% endif %}
             </div>
         </div>
 

@@ -1,8 +1,8 @@
 {% extends 'AppBundle:Dash/booking:pdf_export_base.html.twig' %}
 {% block content %}
-    <h2 style="width: 80%;">Detalles de Reservaci&oacute;n <small style="font-size: 120%;"> {{booking.id}}</small></h2>
+    <h2 style="width: 80%;">Detalles de Reservaci&oacute;n <small style="font-size: 120%;"> {{booking.id}} ({{booking.token}})</small></h2>
 
-    <p style="">{{ booking.bookingTime | date('d/m/Y h:i') }}</p>
+    <p style="">Agregada el {{ booking.bookingTime | date('d/m/Y h:i') }}</p>
 
     <hr>
     <table style="width: 100%">
@@ -137,9 +137,11 @@
                     <p><b>Email:</b>
                         {{ booking.email }}
                     </p>
+                    {% if booking.telephone %}
                     <p><b>Telefono:</b>
                         {{ booking.telephone }}
                     </p>
+                    {% endif %}
                     <p>
                         <b>Idioma:</b>
                         {{ booking.bookingLanguage }}
@@ -152,11 +154,13 @@
                         {% endif %}
 
                     </p>
-                    <p>
-                        <b>Comentarios del cliente:</b>
+                    {% if booking.comment is not empty %}
+                        <p>
+                            <b>Comentarios del cliente:</b>
 
                         {{ booking.comment }}
-                    </p>
+                        </p>
+                    {% endif %}
                 </div>
             </td>
 
