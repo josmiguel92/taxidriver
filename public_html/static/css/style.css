@@ -15843,3 +15843,45 @@ img.lazy[data-src] {
 
     max-width: 33%;
 }
+
+@media (max-width:767px){
+.routes-description{
+    margin: .5em !important;
+    }
+    .booking_form{
+        max-width: calc(100vw - 2em);
+        margin: 0 !important;
+    }
+    .booking_form .btn-group.source-cuba{
+        margin-left: -.8em;
+    }
+    .booking_form .well-row.well-row-bg{
+        width: 100% !important;
+    }
+    .booking_form .grid4.well-row, .booking_form .row.offset-top-15.well-row-flex{
+        display: flex !important;
+        flex-direction: column;
+        padding: 1em;
+    }
+    .booking_form .btn-group.source-cuba label {
+    font-size: 80%;
+    padding: 15px;
+    margin: 0;
+}
+    
+.grid-fullbooking-testimony-places{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: 1em;
+}
+.testimonials{
+    margin-top: 1em;
+}
+.title-over-image.text-extra-big{
+    font-size: 1.5em;
+}
+#services .grid13-cards{
+        display: flex !important;
+    flex-direction: column;
+}
+}
