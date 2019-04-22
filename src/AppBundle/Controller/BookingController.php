@@ -118,6 +118,7 @@ class BookingController extends Controller
                 $em->persist($booking);
                 $em->flush();
 
+                $this->sendEmailNotifications($booking);
 
                 return $this->redirectToRoute('purchase_details', [
                     '_token'=>$booking->getToken(),
@@ -417,8 +418,6 @@ class BookingController extends Controller
                     ]);
                 }
             }
-
-            $this->sendEmailNotifications($purchase);
 
             return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
                 'locale'=>$_locale,
