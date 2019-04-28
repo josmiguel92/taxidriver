@@ -712,17 +712,30 @@ class AdminController extends Controller
     }
     /**
      * Shows a Messages list
-     * @Route("/messages", name="dash_messages_list")
+     * @Route("/messages/list/{range}", name="dash_messages_list", defaults={"range": "month"}, requirements={
+     * "range": "day|week|month|year|all"
+     * })
      * @Method({"GET", "POST"})
      **/
-    public function messageListAction(){
+    public function messageListAction($range){
         $em =  $this->getDoctrine()->getManager();
+        if($range == 'all')
+        {
+            $messages = $em->getRepository("AppBundle:ContactMsgs")
+                ->createQueryBuilder("c")->orderBy("c.insertDate", "DESC")
+                ->getQuery()->getResult();
+        }
+        else
         $messages = $em->getRepository("AppBundle:ContactMsgs")
-            ->createQueryBuilder("c")->orderBy("c.insertDate", "DESC")
+            ->createQueryBuilder("c")->where("c.insertDate >= :timeMarker")
+            ->setParameter('timeMarker', new \DateTime("today - 1 $range"))
+            ->orderBy("c.insertDate", "DESC")
+
             ->getQuery()->getResult();
 
         return $this->render("AppBundle:Dash:messageList.html.twig", [
-            'messages' => $messages
+            'messages' => $messages,
+            'range' => $range
         ]);
     }
 

@@ -4,11 +4,23 @@
 
 {% block content %}
 <h1>Lista de Mensajes</h1>
+    <div class="row">
+        <div class="col-md-8">
+
+            <a href="{{ path('dash_messages_list', {'range':'day'}) }}" class="btn btn-sm btn-info {% if range == 'day' %}active{% endif %}">Desde ayer</a>
+            <a href="{{ path('dash_messages_list', {'range':'week'}) }}" class="btn btn-sm btn-info {% if range == 'week' %}active{% endif %}">Hace 1 semana</a>
+            <a href="{{ path('dash_messages_list', {'range':'month'}) }}" class="btn btn-sm btn-primary {% if range == 'month' %}active{% endif %}">Hace un mes</a>
+            <a href="{{ path('dash_messages_list', {'range':'year'}) }}" class="btn btn-sm btn-info {% if range == 'year' %}active{% endif %}">Hace 1 a&ntilde;o</a>
+            <a href="{{ path('dash_messages_list', {'range':'all'}) }}" class="btn btn-sm btn-info {% if range == 'all' %}active{% endif %}">Todos los mensajes</a>
+        </div>
+    </div>
 
     {% for item in messages %}
     <div class="media card">
         <a class="pull-left" href="#">
-            {{ item.insertDate | date('Y m d - H:i') }}
+            {{ item.insertDate | date('Y m d') }}
+            <br>
+            {{ item.insertDate | date('H:i') }}
         </a>
         <div class="media-body">
             <h4 class="media-heading">{{ item.Name }}<small style="margin-left:2em"><a href="mailto:{{ item.email }}">{{ item.email }}</a></small>
@@ -22,6 +34,8 @@
             {{ item.message }}
         </div>
     </div>
+    {% else %}
+        <h4><i class="ti-face-sad"></i> No hay mensajes en este periodo</h4>
     {% endfor %}
 {% endblock %}
 
