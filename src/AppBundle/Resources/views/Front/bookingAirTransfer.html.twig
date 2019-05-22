@@ -219,7 +219,7 @@
                             <div id="flynumber">
                                 <label for="{{ booking_form.airportname.vars.id }}" class="text-extra-small custom-label text-gray-dark">{% trans %}Airport name{% endtrans %}</label>
                                 <div class="form-group">
-                                    {{ form_widget(booking_form.airportname, {'attr':{'value',airport.machineName} }) }}
+                                    {{ form_widget(booking_form.airportname, {'attr':{'value':airport.machineName} }) }}
 
                                 </div>
                             </div>
