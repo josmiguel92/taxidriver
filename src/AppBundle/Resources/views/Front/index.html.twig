@@ -205,14 +205,28 @@
 
             }
 
+            @keyframes zoom {
+                0%{
+                    transform: scale(1);
+                }
+                50%{
+                    transform: scale(.8);
+                }
+                100%{
+                    transform: scale(1);
+                }
+
+            }
+
             .tripadvisor_certificate{
                 left: 50%;
                 bottom: -1px;
-                width: 10%;
+                width: 20%;
                 position: absolute;
                 transform: translateX(-50%) translateY(0);
                 animation: show 3s ease-in-out 1;
                 display: flex;
+                justify-content: center;
                 background-color: white;
                 border-top-left-radius: 4px;
                 border-top-right-radius: 4px;
@@ -220,7 +234,10 @@
             }
 
             .tripadvisor_certificate img{
-                margin: 1em;
+                width: 10vw;
+                margin: .5em;
+                animation: zoom 2.5s ease-in-out 10;
+                animation-delay: 2s;
             }
         </style>
 
