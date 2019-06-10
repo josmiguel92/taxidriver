@@ -210,7 +210,7 @@
                     transform: scale(1);
                 }
                 50%{
-                    transform: scale(.8);
+                    transform: scale(.95);
                 }
                 100%{
                     transform: scale(1);
@@ -235,15 +235,20 @@
 
             .tripadvisor_certificate img{
                 width: 10vw;
+                height: 100%;
                 margin: .5em;
-                animation: zoom 2.5s ease-in-out 10;
+                animation: zoom 2.5s ease-in-out 5;
                 animation-delay: 2s;
             }
         </style>
 
         <a target="_blank" href="https://www.tripadvisor.es/Attraction_Review-g2198348-d13554747-Reviews-Taxi_Drivers_Cuba-Ciudad_de_la_Habana_Province_Cuba.html">
             <div class="tripadvisor_certificate">
-                <img src="{{ asset('images/tripadvisor/excelencia_en.png') }}" alt="">
+                {% if locale=='en' %}
+                    <img src="{{ asset('images/tripadvisor/excelencia_en.png') }}" alt="">
+                {% else %}
+                    <img src="{{ asset('images/tripadvisor/excelencia_es.png') }}" alt="">
+                {% endif %}
             </div>
         </a>
 
