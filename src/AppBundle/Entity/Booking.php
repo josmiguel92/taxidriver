@@ -773,10 +773,17 @@ class Booking
      */
     public function setPickuptime($pickuptime)
     {
+
         if(gettype($pickuptime)=='string')
-            $this->pickuptime = \DateTime::createFromFormat('l d M Y - H:i',$pickuptime);
+            $_pickuptime = \DateTime::createFromFormat('l d M Y - H:i',$pickuptime);
         else
-            $this->pickuptime = $pickuptime;
+            $_pickuptime = $pickuptime;
+        
+        //check if the pickupdate is at least 2 days in the future
+        $limit = new \DateTime('today + 2 days');
+        $interval = $limit->diff($_pickuptime);
+        if( $interval->format('%a') >= 0 )
+            $this->pickuptime = $_pickuptime;
         return $this;
     }
 
