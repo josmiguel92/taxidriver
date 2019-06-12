@@ -42,21 +42,21 @@
     {# Color chrome tab #}
     <meta name="theme-color" content="#18acfb">
 
-    {% set asset_style_version = 'v20190317' %}
-    <link rel="stylesheet"  type="text/css" href="{{ asset("css/styles.min.css?" ~ asset_style_version) }}">
+    {% set asset_style_version = 'v20190611' %}
+    <link rel="stylesheet"  type="text/css" href="{{ asset('css/styles.min.css?' ~ asset_style_version) }}">
 
     {% if app.Environment == "dev" %}
         {#
-        <link rel="stylesheet" href="{{ asset("css/myBootstrap.css") }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset("css/style.css") }}">
+        <link rel="stylesheet" href="{{ asset('css/myBootstrap.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
         #}
-        <link rel="stylesheet" type="text/css" href="{{ asset("css/css.css") }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset("css/font-awesome.css") }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset("css/flickity.min.css") }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/css.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/flickity.min.css') }}">
     {% else %}
         <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700|Source+Sans+Pro" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous" />
-        <link rel="stylesheet" type="text/css" href="{{ asset("css/flickity.min.css") }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/flickity.min.css') }}">
     {% endif %}
 
     {% block inline_css %}
@@ -194,11 +194,11 @@
                                 <div class="rd-navbar-nav-wrap reveal-md-inline-block">
                                     <ul class="rd-navbar-nav">
                                         <!-- RD Navbar Nav-->
-                                        <li><a href="{{ path("home") }}#home">{% trans %}home{% endtrans %}</a></li>
-                                        <li><a href="{{ path("home") }}#services">{% trans %}services{% endtrans %}</a></li>
-                                        <li><a href="{{ path("home") }}#about">{% trans %}about us{% endtrans %}</a></li>
-                                        <li><a href="{{ path("home") }}#contact">{% trans %}contacts{% endtrans %}</a></li>
-                                        <li><a href="{{ path("blog") }}">blog</a></li>
+                                        <li><a href="{{ path('home') }}#home">{% trans %}home{% endtrans %}</a></li>
+                                        <li><a href="{{ path('home') }}#services">{% trans %}services{% endtrans %}</a></li>
+                                        <li><a href="{{ path('home') }}#about">{% trans %}about us{% endtrans %}</a></li>
+                                        <li><a href="{{ path('home') }}#contact">{% trans %}contacts{% endtrans %}</a></li>
+                                        <li><a href="{{ path('blog') }}">blog</a></li>
                                     </ul>
                                 </div>
 
@@ -335,7 +335,7 @@
                             {% for place in places %}
                                 {% if loop.index is odd %}
                                    <li class="offset-top-5">
-                                        <a href="{{ path("booking_place", {"_id":place.id, "_name":utils.slugify(place.getNameLocale)}) }}" class="color-sky">
+                                        <a href="{{ path('booking_place', {'_id': place.id, '_name': utils.slugify(place.getNameLocale)}) }}" class="color-sky">
                                             {{ place.getNameLocale }}
                                         </a>
                                     </li>
@@ -350,7 +350,7 @@
                             {% for place in places %}
                                 {% if loop.index is even %}
                                 <li class="offset-top-5">
-                                    <a href="{{ path("booking_place", {"_id":place.id, "_name":utils.slugify(place.getNameLocale)}) }}" class="color-sky">
+                                    <a href="{{ path('booking_place', {'_id':place.id, '_name':utils.slugify(place.getNameLocale)}) }}" class="color-sky">
                                         {{ place.getNameLocale }}
                                     </a>
                                 </li>
@@ -403,8 +403,8 @@
     {% block javascript %}
         <!-- Java script-->
         {% if app.Environment == "dev" %}
-            <script src="{{ asset("js/jquery.min.js") }}"></script>
-            <script src="{{ asset("js/jquery.lazy.min.js") }}"></script>
+            <script src="{{ asset('js/jquery.min.js') }}"></script>
+            <script src="{{ asset('js/jquery.lazy.min.js') }}"></script>
 
             <script>
                  $(function() {
@@ -416,7 +416,7 @@
                 });
             </script>
 
-            <script src="{{ asset("js/bootstrap3.3.6.min.js") }}"></script>
+            <script src="{{ asset('js/bootstrap3.3.6.min.js') }}"></script>
 
         {% else %}
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -433,8 +433,8 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo=" crossorigin="anonymous"></script>
         {% endif %}
 
-        <script defer src="{{ asset("js/core.min.js") }}"></script>
-        <script defer src="{{ asset("js/script.min.js") }}"></script>
+        <script defer src="{{ asset('js/core.min.js?' ~ asset_style_version) }}"></script>
+        <script defer src="{{ asset('js/script.min.js?' ~ asset_style_version) }}"></script>
 
         <script src="https://www.googletagmanager.com/gtag/js?id=UA-120939597-1"></script>
         <script>
@@ -445,9 +445,9 @@
             gtag('config', 'UA-120939597-1');
         </script>
 
-   <script src="{{ asset("js/flickity.pkgd.min.js") }}"></script>
+   <script src="{{ asset('js/flickity.pkgd.min.js') }}"></script>
        <!--  Notifications Plugin    -->
-    <script src="{{ asset("/js/bootstrap-notify.js")}}"></script>
+    <script src="{{ asset('/js/bootstrap-notify.js')}}"></script>
 
 
     <script >
