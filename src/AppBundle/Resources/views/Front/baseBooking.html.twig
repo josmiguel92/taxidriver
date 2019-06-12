@@ -170,7 +170,7 @@
                                         </label>
                                     </div>
                                     <div class="col-md-9 form-group">
-                                        <input data-constraints="@Required" required placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="" type="text" style="text-align: left; padding: 10px 12px;" class="form-control" id="{{ booking_form.pickuptime.vars.id }}" name="{{ booking_form.pickuptime.vars.full_name }}">
+                                        <input data-constraints="@Required" required placeholder="Week Day, Day, Month, Year, Time" dataformatas="yyyy-MM-dd'T'HH:mm:ss" data-time-picker="date" type="text" style="text-align: left; padding: 10px 12px;" class="form-control" id="{{ booking_form.pickuptime.vars.id }}" name="{{ booking_form.pickuptime.vars.full_name }}">
                                         <span class="form-validation"></span>
                                         {{ form_errors(booking_form.pickuptime, {'class':'danger'}) }}
                                     </div>

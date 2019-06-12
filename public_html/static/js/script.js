@@ -487,27 +487,29 @@ $document.ready(function () {
      * Bootstrap Date time picker
      */
     if (plugins.bootstrapDateTimePicker.length) {
-        var i;
-        for (i = 0; i < plugins.bootstrapDateTimePicker.length; i++) {
-            var $dateTimePicker = $(plugins.bootstrapDateTimePicker[i]);
-            var options = {};
+    var i;
+    for (i = 0; i < plugins.bootstrapDateTimePicker.length; i++) {
+      var $dateTimePicker = $(plugins.bootstrapDateTimePicker[i]);
+      var options = {};
 
-            options['format'] = 'dddd DD MMMM YYYY - HH:mm';
-            if ($dateTimePicker.attr("data-time-picker") == "date") {
-                options['format'] = 'dddd DD MMMM YYYY';
-                options['minDate'] = new Date();
-            } else if ($dateTimePicker.attr("data-time-picker") == "time") {
-                options['format'] = 'HH:mm';
-            }
+      options['format'] = 'dddd DD MMMM YYYY - HH:mm';
+      if ($dateTimePicker.attr("data-time-picker") == "date") {
+        options['format'] = 'dddd DD MMMM YYYY';
+        var startDate = new Date();
+        startDate.setDate(startDate.getDate() + 2);
+        options['minDate'] = startDate;
+      } else if ($dateTimePicker.attr("data-time-picker") == "time") {
+        options['format'] = 'HH:mm';
+      }
 
-            options["time"] = ($dateTimePicker.attr("data-time-picker") != "date");
-            options["date"] = ($dateTimePicker.attr("data-time-picker") != "time");
-            options["shortTime"] = true;
-            options['minDate'] = new Date();
+      options["time"] = ($dateTimePicker.attr("data-time-picker") != "date");
+      options["date"] = ($dateTimePicker.attr("data-time-picker") != "time");
+      options["shortTime"] = true;
 
-            $dateTimePicker.bootstrapMaterialDatePicker(options);
-        }
+      $dateTimePicker.bootstrapMaterialDatePicker(options);
     }
+  }
+
 
     
 
