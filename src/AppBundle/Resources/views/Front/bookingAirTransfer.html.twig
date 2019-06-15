@@ -220,6 +220,7 @@
                                 <label for="{{ booking_form.airportname.vars.id }}" class="text-extra-small custom-label text-gray-dark">{% trans %}Airport name{% endtrans %}</label>
                                 <div class="form-group">
                                     {{ form_widget(booking_form.airportname, {'attr':{'value':airport.id} }) }}
+                                    <input type="hidden" id="current_airportname_machiname" value="{{ airport.machineName }}">
                                     {#{{ form_widget(booking_form.airportname, {'attr':{'value':airport.machineName} }) }}#}
 
                                 </div>
@@ -561,7 +562,7 @@ $('#{{ booking_form.airportname.vars.id }}').change(function(){
                 var _value = _optionPlace.value;
                 $('#{{ booking_form.targetPlace.vars.id }}').val(_value);
                 //var _airportname = $('#{{ booking_form.airportname.vars.id }}')[0].selectedOptions[0].dataset['airportname'];
-                var _airportname = $('#{{ booking_form.airportname.vars.id }}')[0].value;
+                var _airportname = $('#current_airportname_machiname')[0].value;
                 _airportname = _airportname.replace('_airportname_','');
                 var _place_airports_price = $('#{{ booking_form.targetPlace.vars.id }}')[0].selectedOptions[0].dataset['airportpricesjson'];
 
