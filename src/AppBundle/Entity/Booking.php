@@ -780,7 +780,7 @@ class Booking
             $_pickuptime = $pickuptime;
         
         //check if the pickupdate is at least 2 days in the future
-        $limit = new \DateTime('today + 2 days');
+        $limit = new \DateTime('now + 12 hours');
         $interval = $limit->diff($_pickuptime);
         if( $interval->format('%a') >= 0 )
             $this->pickuptime = $_pickuptime;
