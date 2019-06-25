@@ -491,8 +491,28 @@ class BookingController extends Controller
 
         $this->get('mailer')->send($message);
 
-        $message->setTo($senderEmail);
-        $message->setBcc(['josmiguel92@gmail.com', '14ndy15@gmail.com']);
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject($subject)
+            ->setReplyTo($senderEmail)
+            ->setTo($senderEmail)
+            ->setBcc(['josmiguel92@gmail.com', '14ndy15@gmail.com'])
+            ->setFrom("noreply@taxidriverscuba.com");
+          
+        $message->setBody(
+                $this->renderView(
+                    'AppBundle:Email:booking-email.html.twig',
+                    [
+                        'subject'=>$subject,
+                        '_locale'=>$booking->getBookingLocale(),
+                        'booking'=>$booking
+                    ]
+                ),
+                'text/html'
+            );
+            
+
+        
 
         $this->get('mailer')->send($message);
     }
