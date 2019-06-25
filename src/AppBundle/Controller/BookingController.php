@@ -32,15 +32,6 @@ class BookingController extends Controller
 {
 
     /**
-     * @Route("/_booking", name="new_booking")
-     */
-    public function _bookingAction(Request $request){
-        echo Service::class;
-        dump([Transfer::class, Experience::class, AirportTransfer::class]);
-        exit();
-        return new Response($service);
-    }
-    /**
      * @Route("/booking", defaults={"_locale": "en"})
      * @Route("/{_locale}/booking", defaults={"_locale": "en"}, requirements={
      * "_locale": "en|es|fr"}, name="add_booking")
@@ -326,9 +317,7 @@ class BookingController extends Controller
     /**
      * @Route("/purchase-details/{_token}", requirements={"_token":"(TDC-)[0-9]{4}(-)[0-9a-z]{6}"})
      * @Route("/{_locale}/purchase-details/{_token}", defaults={"_locale": "en"},
-     * requirements={"_locale": "en|es|fr", "_token":"(TDC-)[0-9]{4}(-)[0-9a-z]{6}"},  name="purchase_details")
-     * @Route("/{_locale}/purchase-details/{_token}/{_paypalCallback}", defaults={"_locale": "en"},
-     * requirements={"_locale": "en|es|fr", "_paypalCallback":"success|cancel|cash", "_token":"(TDC-)[0-9]{4}(-)[0-9a-z]{6}"},  name="purchase_details_paypal")
+     * requirements={"_locale": "en|es|fr", "_token":"(TD(C)?-)[0-9]{4}(-)[0-9a-z]{4,6}"},  name="purchase_details")
      */
     public function purchaseDetailsAction(Request $request, $_locale='en', $_token, $_paypalCallback=null)
     {
@@ -434,8 +423,8 @@ class BookingController extends Controller
                 ]);
         }
         else
-            throw new \HttpRequestException(
-                "No existe esa referencia",400);
+            throw new NotFoundHttpException(
+                "No existe esa referencia");
     }
 
     /**
@@ -476,102 +465,35 @@ class BookingController extends Controller
 
     private function sendEmailNotifications(\AppBundle\Entity\Booking $booking){
 
-        $subject = "Taxidriverscuba Notification";
+        $subject = "TaxiDriversCuba Notification ".$booking->getToken();
         $em = $this->getDoctrine()->getManager();
-        if($booking->getPlace())
-            $place = $em->getRepository("AppBundle:Place")
-                ->find($booking->getPlace());
-        elseif($booking->getAirportTransfer())
-            $place = $booking->getTargetPlace();
-        else $place = null;
-
-
-        $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
-        $config = [];;
-        foreach ($_config as $item){
-            $config[$item->getName()]=$item->getValue();
-        }
-
-        $content = $em->getRepository('AppBundle:SiteContent')->findAll();
-        $senderEmail = $content[0]->getContactemail();
-        $address = $content[0]->getContactaddressLocale();
-        $telephone = $content[0]->getContacttelephone();
+        
+        $senderEmail = 'taxidriverscuba@gmail.com';
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setReplyTo($senderEmail)
             ->setTo($booking->getEmail())
-            ->setFrom("taxidriverscuba-noreply@taxidriverscuba.com");
-
-            if($booking->isExperience()){
-                $experience = $em->getRepository("AppBundle:Experience")
-                    ->find($booking->getExperience());
-                $message->setBody(
-                    $this->renderView(
-                        'AppBundle:Email:clientExperienceNotification.html.twig',
-                        [
-                            'subject'=>$subject,
-                            '_locale'=>$booking->getBookingLocale(),
-                            'address' => $address,
-                            'telephone'=> $telephone,
-                            'experience'=>$experience,
-                            'booking'=>$booking,
-                            'config' => $config,
-                        ]
-                    ),
-                    'text/html'
-                );
-            }
-            else
-                $message->setBody(
-                    $this->renderView(
-                        'AppBundle:Email:clientNotification.html.twig',
-                        [
-                            'subject'=>$subject,
-                            '_locale'=>$booking->getBookingLocale(),
-                            'address' => $address,
-                            'telephone'=> $telephone,
-                            'place'=>$place,
-                            'booking'=>$booking,
-                            'config' => $config,
-                        ]
-                    ),
-                    'text/html'
-                );
-
-
-        $this->get('mailer')->send($message);
-
-        $experience = null;
-        if($booking->isExperience())
-            $experience = $em->getRepository("AppBundle:Experience")
-                ->find($booking->getExperience());
-
-        $message = \Swift_Message::newInstance();
-
-        if($booking->getIdpaypal())
-            $message->setSubject($subject. " (".$booking->getId().") [PAGADO POR PAYPAL]");
-        else
-            $message->setSubject($subject. " (".$booking->getToken().")");
-
-            $message->setTo($senderEmail)
-            ->setFrom("noreply@taxidriverscuba.com")
-            ->setBody(
+            ->setFrom("noreply@taxidriverscuba.com");
+          
+        $message->setBody(
                 $this->renderView(
                     'AppBundle:Email:booking-email.html.twig',
                     [
                         'subject'=>$subject,
                         '_locale'=>$booking->getBookingLocale(),
-                        'address' => $address,
-                        'telephone'=> $telephone,
-                        'place'=>$place,
-                        'experience'=>$experience,
-                        'booking'=>$booking,
-                        'config' => $config,
+                        'booking'=>$booking
                     ]
                 ),
                 'text/html'
             );
+            
+
+        $this->get('mailer')->send($message);
+
+        $message->setTo($senderEmail);
+        $message->setBcc(['josmiguel92@gmail.com', '14ndy15@gmail.com']);
+
         $this->get('mailer')->send($message);
     }
     

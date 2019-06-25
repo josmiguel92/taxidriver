@@ -442,6 +442,32 @@ class Booking
      */
     private $serviceType;
 
+    public function getServiceLocaleName(){
+        if($service = $this->getCurrentService())
+            return $service->getNameLocale();
+    }
+
+    public function getServiceImage($size){
+        if($service = $this->getCurrentService())
+            return $service->getWebPath($size);
+    }
+
+    public function getCurrentService(){
+        $service = null;
+
+        if($this->experience)
+            $service = $this->experience;
+
+        elseif($this->airportTransfer)
+            $service = $this->airportTransfer;
+
+        elseif($this->transfer)
+            $service = $this->transfer;
+
+        if($service)
+        return $service;
+    }
+
     public function getBookingLocale()
     {
         return substr($this->token, 0, 2);
@@ -449,7 +475,7 @@ class Booking
 
     function __construct()
     {
-        $this->token =  "TDC-".date("dm")."-".substr(uniqid("", true),8,6);
+        $this->token =  "TD-".date("dm")."-".substr(uniqid("", true),8,4);
         $this->ownroute = new ArrayCollection();
         $this->setAccepted(false);
         $this->setConfirmed(false);
