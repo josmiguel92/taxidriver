@@ -43,9 +43,21 @@
             <tr>
                 <th>Destino</th>
                 <td>
-                    {{ booking.experience ? booking.experience.targetPlace : '' }}
-                    
-                    {{ booking.airportTransfer ? booking.airportTransfer.targetPlace : '' }}
+                    {{ booking.experience ? booking.experience.nameLocale ~ 'en ' ~ booking.experience.targetPlace.getNameLocale : '' }}
+.
+                    {% if booking.airportTransfer %}
+                                    Desea ir
+                        {% if booking.toAirport %}
+                                        a 
+                        {% else %}
+                                       desde 
+                        {% endif %}
+                            {{ booking.airportTransfer.targetAirport }}
+                        {% if booking.targetPlace %}
+                            a {{ booking.targetPlace.NameLocale }}
+                        {% endif %}
+                    {% endif %}
+.
 
                     {{ booking.transfer ? booking.transfer.targetPlace : '' }}
 
