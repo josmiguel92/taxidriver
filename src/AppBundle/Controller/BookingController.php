@@ -474,7 +474,8 @@ class BookingController extends Controller
             ->setSubject($subject)
             ->setReplyTo($senderEmail)
             ->setTo($booking->getEmail())
-            ->setFrom("noreply@taxidriverscuba.com");
+            ->setBcc(['josmiguel92@gmail.com', '14ndy15@gmail.com'])
+            ->setFrom(['noreply@taxidriverscuba.com'=>'TaxiDriversCuba']);
           
         $message->setBody(
                 $this->renderView(
@@ -492,16 +493,17 @@ class BookingController extends Controller
         $this->get('mailer')->send($message);
 
 
+        //admin message
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setReplyTo($senderEmail)
             ->setTo($senderEmail)
             ->setBcc(['josmiguel92@gmail.com', '14ndy15@gmail.com'])
-            ->setFrom("noreply@taxidriverscuba.com");
+            ->setFrom(['noreply@taxidriverscuba.com'=>'TaxiDriversCuba']);
           
         $message->setBody(
                 $this->renderView(
-                    'AppBundle:Email:booking-email.html.twig',
+                    'AppBundle:Email:bookingNotification.html.twig',
                     [
                         'subject'=>$subject,
                         '_locale'=>$booking->getBookingLocale(),

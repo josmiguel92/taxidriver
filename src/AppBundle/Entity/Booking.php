@@ -928,6 +928,14 @@ class Booking
     }
 
     /**
+     * @return string
+     */
+    public function getOrderNumber()
+    {
+        return $this->token;
+    }
+
+    /**
      * @param string $token
      */
     public function setToken($token)
