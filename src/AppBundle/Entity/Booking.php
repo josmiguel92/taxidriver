@@ -475,7 +475,7 @@ class Booking
 
     function __construct()
     {
-        $this->token =  "TD-".date("dm")."-".substr(uniqid("", true),8,4);
+        $this->token =  "TDC-".date("dm")."-".substr(uniqid("", true),8,4);
         $this->ownroute = new ArrayCollection();
         $this->setAccepted(false);
         $this->setConfirmed(false);
@@ -923,6 +923,14 @@ class Booking
      * @return string
      */
     public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrderNumber()
     {
         return $this->token;
     }

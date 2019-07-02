@@ -277,7 +277,6 @@
                                 <div class="col-md-9 form-group">
                                     <input id="{{ booking_form.details.vars.id }}" name="{{ booking_form.details.vars.full_name }}"  class="form-control form-control-has-validation form-control-last-child" type="text" required>
                                     <span class="form-validation"></span>
-                                    {{ form_errors(booking_form.pickuptime, {'class':'danger'}) }}
                                 </div>
                             </div>
 
@@ -581,6 +580,7 @@ $('#{{ booking_form.airportname.vars.id }}').change(function(){
     };
 
     $(document).ready(function(){
+        updatePrice();
 var substringMatcher = function(strs) {
   return function findMatches(q, cb) {
     var matches, substringRegex;

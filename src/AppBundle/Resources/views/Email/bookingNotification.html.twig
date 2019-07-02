@@ -1,0 +1,107 @@
+ <h1>Nueva reserva en TaxidriversCuba.com</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Número de reserva</th>
+                <td>{{ booking.getOrderNumber }}</td>
+            </tr>
+            <tr>
+                <th>Nombre del cliente</th>
+                <td>{{ booking.getFullname }}</td>
+            </tr>
+            <tr>
+                <th>Email del cliente</th>
+                <td>{{ booking.getEmail }}</td>
+            </tr>
+            <tr>
+                <th>Telefono del cliente</th>
+                <td>{{ booking.telephone }}</td>
+            </tr>            
+            <tr>
+                <th>Lugar</th>
+            <td>
+                <p>
+                 {% if booking.isAnAirport %}
+                        Debe recogerlo en el aereopuerto <b>{{ booking.airportName.nameLocale }}</b><br/>
+                        su numero de vuelo es: <b>{{booking.flynumber}}</b>
+                    {% elseif booking.aCruise %}
+                        Debe recogerlo en la terminal de crucero<br/>
+                        el nombre del crucero es: <b>{{booking.flynumber}}</b>
+                    {% endif %}
+                </p>
+            </td>
+            <tr>
+                <th>Detalles de recogida/destino</th>
+            <td>
+                        {{ booking.details}}
+                
+                </p>
+            </td>
+            </tr>
+            
+            <tr>
+                <th>Destino</th>
+                <td>
+                    {{ booking.experience ? booking.experience.nameLocale ~ 'en ' ~ booking.experience.targetPlace.getNameLocale : '' }}
+.
+                    {% if booking.airportTransfer %}
+                                    Desea ir
+                        {% if booking.toAirport %}
+                                        a 
+                        {% else %}
+                                       desde 
+                        {% endif %}
+                            {{ booking.airportTransfer.targetAirport }}
+                        {% if booking.targetPlace %}
+                            a {{ booking.targetPlace.NameLocale }}
+                        {% endif %}
+                    {% endif %}
+.
+
+                    {{ booking.transfer ? booking.transfer.targetPlace : '' }}
+
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>Cantidad de personas</th>
+                <td>{{ booking.numpeople }}</td>
+            </tr>
+
+            <tr>
+                <th>Precio</th>
+                <td>{{ booking.price }} USD</td>
+            </tr>
+            
+            <tr>
+                <th>Fecha</th>
+                <td>{{ booking.pickuptime ? booking.pickuptime | date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Hora</th>
+                <td>{{ booking.pickuptime  ? booking.pickuptime | date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Mensaje del cliente</th>
+                <td>{{ booking.comment }}</td>
+            </tr>
+            <tr>
+                <th>Idioma</th>
+                <td>{{ booking.getBookingLanguage }}</td>
+            </tr>
+            <tr>
+                <th>Fecha/Hora en que reserva</th>
+                <td>{{ booking.bookingTime ? booking.bookingTime|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+
+            <tr>
+                <th>Campaña</th>
+                <td>taxidrivers-webform</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <a href="{{ absolute_url('dash_booking') }}">Ver todas las reservas</a>
