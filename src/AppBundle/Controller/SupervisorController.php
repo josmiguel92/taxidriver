@@ -54,7 +54,7 @@ class SupervisorController extends Controller
      */
     public function migrationAction()
     {
-        //exit();
+        exit();
 
         $em = $this->getDoctrine()->getManager();
         $value = 0.88;
