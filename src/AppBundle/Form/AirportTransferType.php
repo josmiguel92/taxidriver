@@ -24,7 +24,7 @@ class AirportTransferType extends AbstractType
             ->add('name', null, ["label"=>"Nombre del Transfer, en ingles"])
             ->add('targetAirport', null, ['label'=> "Aeropuerto de origen/destino"])
 
-            ->add('basePrice', MoneyType::class, ["label"=>"Precio base del recorrido",'currency'=>"USD"])
+            ->add('basePrice', MoneyType::class, ["label"=>"Precio base del recorrido",'currency'=>"EUR"])
 
             ->add('description',CKEditorType::class, ["label"=>"Descripción, en español"])
             ->add('descriptionEn', CKEditorType::class, ["label"=>"Descripción, en ingles"])

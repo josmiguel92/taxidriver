@@ -16,7 +16,7 @@ class BookingAdminType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('price', MoneyType::class, ['attr'=>['required'=>'true'], 'currency'=>"USD"])
+            ->add('price', MoneyType::class, ['attr'=>['required'=>'true'], 'currency'=>"EUR"])
             ->add('payed', null, ['label'=> "El pago fue realizado con exito"])
             ->add('payedDate',  DateType::class, ['widget'=>'single_text','label'=> "Fecha en que se realiza el pago"])
            // ->add('drivermsg', TextareaType::class, ['label'=>'Mensaje al cliente','required'=>false]   )

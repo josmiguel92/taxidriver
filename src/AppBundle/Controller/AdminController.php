@@ -514,7 +514,7 @@ class AdminController extends Controller
         }
 
        if(!isset($config['tasa.usd']))
-           $em->persist(new \AppBundle\Entity\ConfigValue("tasa.usd",0.88, "Tasa de conversion USD/CUC"));
+           $em->persist(new \AppBundle\Entity\ConfigValue("tasa.usd",0.88, "Tasa de conversion EUR/USD"));
 
         if(!isset($config['price.increment']))
             $em->persist(new \AppBundle\Entity\ConfigValue("price.increment",10, "Incremento del precio por cada persona en los tours y transfers"));
@@ -840,7 +840,7 @@ class AdminController extends Controller
         {
             $placeForm->add('_airportprice_'.Utils::slugify($airport->getNombre()),
                 MoneyType::class,['label'=>"Precio desde ".$airport->getNombre(),
-                    'currency'=>"USD"]);
+                    'currency'=>"EUR"]);
         }
 
     }

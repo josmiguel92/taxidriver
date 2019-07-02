@@ -31,7 +31,7 @@ class TransferType extends AbstractType
             ->add('priceSumary', null, ["label"=>"Precios segun origen"])
             ->add('priceSumaryEn', null, ["label"=>"Precios segun el origen, en ingles"])
 
-            ->add('basePrice', MoneyType::class, ["label"=>"Precio del transfer",'currency'=>"USD"])
+            ->add('basePrice', MoneyType::class, ["label"=>"Precio del transfer",'currency'=>"EUR"])
 
             ->add('description', CKEditorType::class, ["label"=>"Descripcion, en español"])
             ->add('descriptionEn',CKEditorType::class, ["label"=>"Descripcion, en ingles"])

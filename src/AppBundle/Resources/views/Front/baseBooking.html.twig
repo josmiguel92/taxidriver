@@ -191,7 +191,7 @@
                                     <div class="col-md-6">
                                         <p><strong>{% trans %}Price{% endtrans %}</strong></p>
                                         <ul>
-                                            <li id="labelPrice">{{ transfer.basePrice | number_format(2,'.') }} USD </li>
+                                            <li id="labelPrice">{{ transfer.basePrice | number_format(2,'.') }} EUR </li>
                                         </ul>
 
                                     </div>
@@ -387,7 +387,7 @@
                                         {% if transfer.basePrice > 0 %}
                                             <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i>
                                                     {% trans %}Price{% endtrans %}: </b>
-                                                {{ transfer.basePrice | number_format(2,'.') }} USD
+                                                {{ transfer.basePrice | number_format(2,'.') }} EUR
                                             </p>
                                         {% endif %}
                                     </div>

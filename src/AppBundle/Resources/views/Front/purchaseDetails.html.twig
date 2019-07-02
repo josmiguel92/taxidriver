@@ -139,7 +139,7 @@
                             <div class="well-row">
                                 <p class="text-bold text-spacing-25 font-accent text-gray-dark">
                                     {% trans %}The price of the service is{% endtrans %}:
-                                    {{ purchase.price }} USD
+                                    {{ purchase.price }} EUR
                                 </p>
 
                             </div>
@@ -181,7 +181,7 @@
                                         {% if config['paypal.url'] != 'null' %}
                                         <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-primary">
                                             <i class="fa fa-paypal"></i>
-                                            {% trans %}Pay with PayPal{% endtrans %} <b>{{ purchase.price }} USD </b>
+                                            {% trans %}Pay with PayPal{% endtrans %} <b>{{ purchase.price }} EUR </b>
                                         </a>
                                         {% endif %}
 
@@ -202,7 +202,7 @@
                                     <img src="{{ asset('images/logo.wu.big.svg') }}" alt="wester union logo">
                                 </a>
                                 <br/>
-                                {% trans %}You can pay in advance, making a transfer of{% endtrans %} {{ price_usd }} USD
+                                {% trans %}You can pay in advance, making a transfer of{% endtrans %} {{ price_usd }} EUR
                                 {% trans %}through{% endtrans %} <a href="http://westernunion.com/" target="_blank">Western Union</a> {% trans %}to this bank account{% endtrans %} <strong>1500812414776</strong>.</p>
                         </div>
                         {% endif %#}

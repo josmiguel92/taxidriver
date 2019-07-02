@@ -52,7 +52,7 @@
 
                             <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-map-marker"></i> {% trans %}Place{% endtrans %}: </b> {{ experience.targetPlace }}
                             {% if experience.basePrice > 0 %}
-                                <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ experience.basePrice | number_format(2,'.') }} USD<br/></p>
+                                <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-dollar"></i> {% trans %}Price{% endtrans %}: </b> {% trans %}since{% endtrans %} {{ experience.basePrice | number_format(2,'.') }} EUR<br/></p>
                             {% endif %}
                             {% if experience.durationTime %}
                                 <p style="line-height: 22px;" class="offset-top-15"> <b><i class="fa fa-clock-o"></i> {% trans %}Time{% endtrans %}: </b> {{ experience.durationTime }}<br/></p>

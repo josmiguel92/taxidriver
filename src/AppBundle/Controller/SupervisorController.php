@@ -55,6 +55,30 @@ class SupervisorController extends Controller
     public function migrationAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $value = 0.88;
+
+        foreach (['AppBundle:Experience', 'AppBundle:Experience', 'AppBundle:Experience'] as $type) {
+            $items = $em->getRepository($type)->findAll();
+            foreach ($items as $item){
+                $newPrice = $item->getBasePrice() * $value;
+                dump([$type, $item->getName(), $item->getBasePrice(), $newPrice]);
+                $item->setBasePrice($newPrice);
+                $em->persist($item);
+            }
+        }
+
+        $places = $em->getRepository('AppBundle:Place')->findAll();
+        foreach ($places as $item){
+            foreach ($item->getAirportsPrices() as $_name => $_value){
+                $newPrice = $_value * $value;
+                dump([$_name, $item->getName(), $_value, $newPrice]);
+                $item->__set($_name, $newPrice);
+                $em->persist($item);
+            }
+
+        }
+
+
 
         $em->flush();
 

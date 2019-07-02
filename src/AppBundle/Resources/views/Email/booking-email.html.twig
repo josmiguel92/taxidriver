@@ -793,7 +793,7 @@
                                                         {% else %}
                                                             Taxi
                                                         {% endif %}
-                                                        {% trans %}is{% endtrans %} <strong>{{ booking.price }} USD</strong> 
+                                                        {% trans %}is{% endtrans %} <strong>{{ booking.price }} EUR</strong>
                                                     </p>
                                                     <p><br>
                                                         <a target='_blank' href="{{ absolute_url(path('purchase_details', {'_token': booking.token})) }}" style="text-decoration:none;color:#555">Click here to see details of your booking ({{booking.token}}) in our website</a>
