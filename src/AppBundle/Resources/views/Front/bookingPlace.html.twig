@@ -130,7 +130,7 @@
         function wrapperPrice(price)
         {
             if (typeof(price)=="number" && price > 0)
-                return "<i class=\'fa fa-dollar color-sky\'></i> "+price+".00 EUR";
+                return "<i class=\'fa fa-dollar color-sky\'></i> "+price | number_format(2,'.')+" EUR";
             else
                 return "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
             return price;

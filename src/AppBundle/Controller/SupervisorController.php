@@ -54,6 +54,8 @@ class SupervisorController extends Controller
      */
     public function migrationAction()
     {
+        exit();
+        
         $em = $this->getDoctrine()->getManager();
         $value = 0.88;
 
@@ -61,7 +63,7 @@ class SupervisorController extends Controller
             $items = $em->getRepository($type)->findAll();
             foreach ($items as $item){
                 $newPrice = $item->getBasePrice() * $value;
-                dump([$type, $item->getName(), $item->getBasePrice(), $newPrice]);
+                //dump([$type, $item->getName(), $item->getBasePrice(), $newPrice]);
                 $item->setBasePrice($newPrice);
                 $em->persist($item);
             }
@@ -71,7 +73,7 @@ class SupervisorController extends Controller
         foreach ($places as $item){
             foreach ($item->getAirportsPrices() as $_name => $_value){
                 $newPrice = $_value * $value;
-                dump([$_name, $item->getName(), $_value, $newPrice]);
+                //dump([$_name, $item->getName(), $_value, $newPrice]);
                 $item->__set($_name, $newPrice);
                 $em->persist($item);
             }
