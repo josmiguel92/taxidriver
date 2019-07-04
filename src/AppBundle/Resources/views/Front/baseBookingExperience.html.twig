@@ -109,10 +109,15 @@
 
                                     <div class="col-md-6">
                                         <p><strong>{% trans %}Price{% endtrans %}</strong></p>
-                                        <ul>
-                                            <li id="labelPrice">{{ experience.basePrice | number_format(2,'.') }} EUR </li>
-                                        </ul>
 
+                                        <div class="price-inline">
+                                            <span id="labelPrice">{{ experience.basePrice | number_format(2,'.') }} </span>
+                                            <select name="currency" id="currency">
+                                                <option value="EUR" data-change="1">EUR</option>
+                                                <option value="USD" data-change="1.1">USD</option>
+                                                <option value="CUC" data-change="1.08">CUC</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -392,6 +397,8 @@
         {
             updatePrice();
 
+            document.querySelector('#currency').addEventListener('change', updatePrice);
+
             $('#booking_submit').click(function(e){
 
                 {% block onsubmitBookingForm %}
@@ -431,28 +438,33 @@
                 activeOrDeactiveTaxi();
             });
 
-        function wrapperPrice(price)
-        {
-            if (typeof(price)=="number" && price > 0)
-                return "<i class=\'fa fa-dollar color-sky\'></i> "+price.toFixed(2)+" EUR";
-            else
-                return "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
-            return price;
-        }
+            function wrapperPrice(price)
+            {
+                var currency = document.querySelector('#currency');
+                var currencySelected = currency.options.selectedIndex;
+                var currencyExchange = currency.options[currencySelected].getAttribute('data-change');
 
-        function updatePrice()
-        {      if (numberPeople <= 3)
-                        priceContent = wrapperPrice(transferPrice);
-                    if (numberPeople > 3  && transferPrice > 0)
-                        priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
+                price = currencyExchange*price;
+
+                if (typeof(price)==="number" && price > 0)
+                    return "<i class=\'fa fa-dollar color-sky\'></i> "+price.toFixed(2);
+                else
+                    return "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
+            }
+
+            function updatePrice()
+            {      if (numberPeople <= 3)
+                            priceContent = wrapperPrice(transferPrice);
+                        if (numberPeople > 3  && transferPrice > 0)
+                            priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
 
 
-                if (numberPeople > 5)
-                    priceContent = wrapperPrice("");
+                    if (numberPeople > 5)
+                        priceContent = wrapperPrice("");
 
-                $("#labelPrice")[0].innerHTML = priceContent;
+                    $("#labelPrice")[0].innerHTML = priceContent;
 
-        }
+            }
 
 
             $("#{{ booking_form.numpeople.vars.id }}").change(function() {

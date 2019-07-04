@@ -129,8 +129,15 @@
 
         function wrapperPrice(price)
         {
+
+            var currency = document.querySelector('#currency');
+                var currencySelected = currency.options.selectedIndex;
+                var currencyExchange = currency.options[currencySelected].getAttribute('data-change');
+
+                price = currencyExchange*price;
+
             if (typeof(price)=="number" && price > 0)
-                return "<i class=\'fa fa-dollar color-sky\'></i> "+price.toFixed(2)+" EUR";
+                return "<i class=\'fa fa-dollar color-sky\'></i> "+price.toFixed(2);
             else
                 return "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
             return price;
@@ -164,6 +171,8 @@
 
         $("#document").ready(function (){
             updatePrice();
+
+            document.querySelector('#currency').addEventListener('change', updatePrice);
 
             $("#activeTour").change(function() {
                 updatePrice();

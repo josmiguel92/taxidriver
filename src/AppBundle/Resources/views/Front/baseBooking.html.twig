@@ -148,7 +148,7 @@
 
                         <div class="well-row row">
 
-                            <div class="col-md-10 cell-md-10">
+                            <div class="col-md-12 cell-md-12">
                                 <!--Pickup place-->
                                 <div class="row offset-top-15 well-row-flex">
                                     <div class="col-md-3">
@@ -190,16 +190,19 @@
 
                                     <div class="col-md-6">
                                         <p><strong>{% trans %}Price{% endtrans %}</strong></p>
-                                        <ul>
-                                            <li id="labelPrice">{{ transfer.basePrice | number_format(2,'.') }} EUR </li>
-                                        </ul>
 
+                                        <div class="price-inline">
+                                            <span id="labelPrice">{{ transfer.basePrice | number_format(2,'.') }} </span>
+                                            <select name="currency" id="currency">
+                                                <option value="EUR" data-change="1">EUR</option>
+                                                <option value="USD" data-change="1.1">USD</option>
+                                                <option value="CUC" data-change="1.08">CUC</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
 
                         <!---Personal Data--->
                         <div class="well-row well-row-bg">
@@ -533,9 +536,6 @@
                 catch (e) {
                   console.log("No se conocen los precios")
                 }
-
-
-
 
             });
 

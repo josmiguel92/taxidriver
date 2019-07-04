@@ -79,3 +79,7 @@ body,figure{margin:0}.img-responsive,.img-thumbnail,.table,label{max-width:100%}
     flex-direction: column;
 }
 }
+
+.price-inline span, .price-inline select{
+    display: inline;
+}

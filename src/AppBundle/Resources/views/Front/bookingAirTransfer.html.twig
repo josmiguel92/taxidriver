@@ -310,9 +310,15 @@
 
                                 <div class="col-md-6">
                                     <p><strong>{% trans %}Price{% endtrans %}</strong></p>
-                                    <ul>
-                                        <li id="labelPrice">{{ transfer.basePrice | number_format(2,'.') }} EUR </li>
-                                    </ul>
+
+                                    <div class="price-inline">
+                                        <span id="labelPrice">{{ transfer.basePrice | number_format(2,'.') }} </span>
+                                        <select name="currency" id="currency">
+                                            <option value="EUR" data-change="1">EUR</option>
+                                            <option value="USD" data-change="1.1">USD</option>
+                                            <option value="CUC" data-change="1.08">CUC</option>
+                                        </select>
+                                    </div>
 
                                 </div>
                             </div>
@@ -581,43 +587,44 @@ $('#{{ booking_form.airportname.vars.id }}').change(function(){
 
     $(document).ready(function(){
         updatePrice();
-var substringMatcher = function(strs) {
-  return function findMatches(q, cb) {
-    var matches, substringRegex;
 
-    // an array that will be populated with substring matches
-    matches = [];
+        var substringMatcher = function(strs) {
+          return function findMatches(q, cb) {
+            var matches, substringRegex;
 
-    // regex used to determine if a string contains the substring `q`
-    substrRegex = new RegExp(q, 'i');
+            // an array that will be populated with substring matches
+            matches = [];
 
-    // iterate through the pool of strings and for any string that
-    // contains the substring `q`, add it to the `matches` array
-    $.each(strs, function(i, str) {
-      if (substrRegex.test(str)) {
-        matches.push(str);
-      }
-    });
+            // regex used to determine if a string contains the substring `q`
+            substrRegex = new RegExp(q, 'i');
 
-    cb(matches);
-  };
-};
+            // iterate through the pool of strings and for any string that
+            // contains the substring `q`, add it to the `matches` array
+            $.each(strs, function(i, str) {
+              if (substrRegex.test(str)) {
+                matches.push(str);
+              }
+            });
 
-var _places = [
-    {% for place in places %}'{{ place.name }}',{% endfor %}
-];
+            cb(matches);
+          };
+        };
 
-$('#targetPlaceAutocompletion').typeahead({
-  hint: true,
-  highlight: true,
-  minLength: 1
-},
-{
-  name: '_places',
-  source: substringMatcher(_places)
-});
+        var _places = [
+            {% for place in places %}'{{ place.name }}',{% endfor %}
+        ];
 
-});
+        $('#targetPlaceAutocompletion').typeahead({
+          hint: true,
+          highlight: true,
+          minLength: 1
+        },
+        {
+          name: '_places',
+          source: substringMatcher(_places)
+        });
+
+        });
 
         function hideOrShowReturn(){
             if (buttonTourOn){
@@ -655,149 +662,156 @@ $('#targetPlaceAutocompletion').typeahead({
 
 
     $(document).ready(function()
-        {
+    {
 
-            $('#booking_submit').click(function(e){
+        $('#booking_submit').click(function(e){
 
-                {% block onsubmitBookingForm %}
-                {% endblock %}
-                {% block stringfy %}
-                {% endblock %}
-            });
+            {% block onsubmitBookingForm %}
+            {% endblock %}
+            {% block stringfy %}
+            {% endblock %}
+        });
 
-            //button to pickup from airport or cruise
-            $(".source-cuba").change(function() {
+        //button to pickup from airport or cruise
+        $(".source-cuba").change(function() {
 
-                var source_input = $('#{{ booking_form.flynumber.vars.id }}')[0];
-                var source_label_input = $('label[for="{{ booking_form.flynumber.vars.id }}"]')[0];
+            var source_input = $('#{{ booking_form.flynumber.vars.id }}')[0];
+            var source_label_input = $('label[for="{{ booking_form.flynumber.vars.id }}"]')[0];
 
-                var airport_name = $('#{{ booking_form.airportname.vars.id }}')[0];
+            var airport_name = $('#{{ booking_form.airportname.vars.id }}')[0];
 
-                pickup_from_airport = $("#pickup_airport")[0].classList.contains('active');
-                pickup_from_cruise = $("#pickup_cruise")[0].classList.contains('active');
+            pickup_from_airport = $("#pickup_airport")[0].classList.contains('active');
+            pickup_from_cruise = $("#pickup_cruise")[0].classList.contains('active');
 
-                source_label_input.innerHTML = "{% trans %}Flight number or cruiser name{% endtrans %}";
-                if (pickup_from_airport)
-                    source_label_input.innerHTML = "{% trans %}Flight number{% endtrans %}";
-                if (pickup_from_cruise)
-                    source_label_input.innerHTML = "{% trans %}Cruise name{% endtrans %}";
+            source_label_input.innerHTML = "{% trans %}Flight number or cruiser name{% endtrans %}";
+            if (pickup_from_airport)
+                source_label_input.innerHTML = "{% trans %}Flight number{% endtrans %}";
+            if (pickup_from_cruise)
+                source_label_input.innerHTML = "{% trans %}Cruise name{% endtrans %}";
 
-                var pickup = pickup_from_airport || pickup_from_cruise;
+            var pickup = pickup_from_airport || pickup_from_cruise;
 
-                pickup ? (source_input.removeAttribute('disabled') ||
-                    source_input.setAttribute('data-constraints','@Required')) :
-                    (source_input.setAttribute('disabled','true') ||
-                    source_input.removeAttribute('data-constraints'));
+            pickup ? (source_input.removeAttribute('disabled') ||
+                source_input.setAttribute('data-constraints','@Required')) :
+                (source_input.setAttribute('disabled','true') ||
+                source_input.removeAttribute('data-constraints'));
 
-                {# TODO: modificar los precios al seleccionar un aereopuerto, eliminar el dump(place) #}
-                if(pickup_from_airport){
-                    airport_name.removeAttribute('disabled')
-                }
-                else{
-                    airport_name.setAttribute('disabled','true');
-                }
-
-            });
-
-            //Button of active Tour
-            $("#activeTour").change(function() {
-                buttonTourOn = !$('.toggle')[0].classList.contains('off');
-                hideOrShowReturn();
-            });
-
-            //Button of active return
-
-            $("#activeReturn").change(function() {
-                buttonReturnOn = !$('.toggle')[1].classList.contains('off');
-                activeOrDeactiveReturn();
-            });
-
-
-            $("#{{ booking_form.numpeople.vars.id }}").change(function() {
-                numberPeople = $('#{{ booking_form.numpeople.vars.id }}')[0].value;
-            });
+            {# TODO: modificar los precios al seleccionar un aereopuerto, eliminar el dump(place) #}
+            if(pickup_from_airport){
+                airport_name.removeAttribute('disabled')
+            }
+            else{
+                airport_name.setAttribute('disabled','true');
+            }
 
         });
 
-        increment = {{ config['price.increment'] }};
-        _transferPrice = {{ transfer.basePrice }};
-        transferPrice = _transferPrice;
-        isTour = false;
+        //Button of active Tour
+        $("#activeTour").change(function() {
+            buttonTourOn = !$('.toggle')[0].classList.contains('off');
+            hideOrShowReturn();
+        });
+
+        //Button of active return
+
+        $("#activeReturn").change(function() {
+            buttonReturnOn = !$('.toggle')[1].classList.contains('off');
+            activeOrDeactiveReturn();
+        });
 
 
         $("#{{ booking_form.numpeople.vars.id }}").change(function() {
-                numberPeople = $('#{{ booking_form.numpeople.vars.id }}')[0].value;
-            });
+            numberPeople = $('#{{ booking_form.numpeople.vars.id }}')[0].value;
+        });
 
-        function wrapperPrice(price)
-        {
-            if (typeof(price)=="number" && price > 0)
-                return "<i class=\'fa fa-dollar color-sky\'></i> "+price.toFixed(2)+" EUR";
-            else
-                return "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
-            return price;
-        }
+    });
 
-        function updatePrice()
-        {        if (numberPeople <= 3)
-                        priceContent = wrapperPrice(transferPrice);
-                    if (numberPeople > 3  && transferPrice > 0)
-                        priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
+    increment = {{ config['price.increment'] }};
+    _transferPrice = {{ transfer.basePrice }};
+    transferPrice = _transferPrice;
+    isTour = false;
 
 
-                if (numberPeople > 5)
-                    priceContent = wrapperPrice("");
+    $("#{{ booking_form.numpeople.vars.id }}").change(function() {
+            numberPeople = $('#{{ booking_form.numpeople.vars.id }}')[0].value;
+        });
 
-                $("#labelPrice")[0].innerHTML = priceContent;
-        }
+    function wrapperPrice(price)
+    {
+        var currency = document.querySelector('#currency');
+            var currencySelected = currency.options.selectedIndex;
+            var currencyExchange = currency.options[currencySelected].getAttribute('data-change');
 
-        function ShowReturnAdv(){
-            if (isTour){
-                if (buttonReturnOn){
-                    $("#returnAdv").css('display', 'block');
-                }
-                else{
-                    $("#returnAdv").css('display', 'none');
-                }
+            price = currencyExchange*price;
+
+        if (typeof(price)==="number" && price > 0)
+            return "<i class=\'fa fa-dollar color-sky\'></i> "+price.toFixed(2);
+        else
+            return "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
+        return price;
+    }
+
+    function updatePrice()
+    {        if (numberPeople <= 3)
+                    priceContent = wrapperPrice(transferPrice);
+                if (numberPeople > 3  && transferPrice > 0)
+                    priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
+
+
+            if (numberPeople > 5)
+                priceContent = wrapperPrice("");
+
+            $("#labelPrice")[0].innerHTML = priceContent;
+    }
+
+    function ShowReturnAdv(){
+        if (isTour){
+            if (buttonReturnOn){
+                $("#returnAdv").css('display', 'block');
+            }
+            else{
+                $("#returnAdv").css('display', 'none');
             }
         }
+    }
 
-        $("#document").ready(function (){
+    $("#document").ready(function (){
 
-            initAutocompletion =function(){
-                var HavanaID = $('[data-targetplace="La Habana"]')[0].value
-                console.log('Havana ID:' + HavanaID);
-                if(HavanaID > 0)
-                    $('#appbundle_booking_targetPlace')[0].value = HavanaID;
+        initAutocompletion =function(){
+            var HavanaID = $('[data-targetplace="La Habana"]')[0].value
+            console.log('Havana ID:' + HavanaID);
+            if(HavanaID > 0)
+                $('#appbundle_booking_targetPlace')[0].value = HavanaID;
 
-                $('#targetPlaceAutocompletion').typeahead('val', "La Habana");
+            $('#targetPlaceAutocompletion').typeahead('val', "La Habana");
 
-            };
+        };
 
-            initAutocompletion();
+        initAutocompletion();
+        updatePrice();
+        document.querySelector('#currency').addEventListener('change', updatePrice);
+
+        $("#activeTour").change(function() {
             updatePrice();
-
-            $("#activeTour").change(function() {
-                updatePrice();
-            });
-
-            $("#activeReturn").change(function() {
-                updatePrice();
-                ShowReturnAdv();
-            });
-
-            $("#{{ booking_form.numpeople.vars.id }}").change(function() {
-              updatePrice();
-              console.log('update price')
-            });
-
-          
-           // activeOrDeactiveReturn();
-            $("#returnLine").fadeIn(500);
-            $("#returnToggle").fadeIn(500);
-            $("#returnPlace").fadeIn(500);
-            $("#returnTime").fadeIn(500);
         });
+
+        $("#activeReturn").change(function() {
+            updatePrice();
+            ShowReturnAdv();
+        });
+
+        $("#{{ booking_form.numpeople.vars.id }}").change(function() {
+          updatePrice();
+          console.log('update price')
+        });
+
+
+       // activeOrDeactiveReturn();
+        $("#returnLine").fadeIn(500);
+        $("#returnToggle").fadeIn(500);
+        $("#returnPlace").fadeIn(500);
+        $("#returnTime").fadeIn(500);
+    });
 
     </script>
 
