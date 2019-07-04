@@ -136,7 +136,7 @@
 
                 price = currencyExchange*price;
 
-            if (typeof(price)=="number" && price > 0)
+            if (typeof(price)==="number" && price > 0)
                 return "<i class=\'fa fa-dollar color-sky\'></i> "+price.toFixed(2);
             else
                 return "{% trans %}We need to negotiate {% endtrans %} <span class=\"text-extra-small\">*</span>";
