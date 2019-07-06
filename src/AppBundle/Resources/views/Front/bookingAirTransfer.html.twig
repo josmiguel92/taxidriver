@@ -151,39 +151,10 @@
 
 
 
-            <div {% if transfer.isExternalBook %} class="grid-fullbooking-testimony-places_vertical" {% else %}
+            <div>
 
-                                                  class="grid-fullbooking-testimony-places"
-                {% endif %}>
-                {% if transfer.isExternalBook %}
-                    <div class="external_manage_booking">
-                        <a href="#" id="trekksoft_{{ transfer.trekksoftId }}">
-                            <img 
-                            {% if locale == "es" %}
-                            src="https://taxidriverscuba.trekksoft.com/cache/images/widget-buttons/eyJsYWJlbCI6Ilwvd2lkZ2V0XC9ib29rLWJ1dHRvbi5wbmciLCJjYXB0aW9uIjoiwqFSRVNFUlZBUiBBSE9SQSIsImZvcmVDb2xvciI6IiNmZmZmZmYiLCJiYWNrQ29sb3IiOiIjMDA4ZmJlIn0=.png"
-                            {% else %}
-                            src="https://taxidriverscuba.trekksoft.com/cache/images/widget-buttons/eyJsYWJlbCI6Ilwvd2lkZ2V0XC9ib29rLWJ1dHRvbi5wbmciLCJjYXB0aW9uIjoiwqFCT09LIE5PVyEiLCJmb3JlQ29sb3IiOiIjZmZmZmZmIiwiYmFja0NvbG9yIjoiIzAwOGZiZSJ9.png"
-                            {% endif %}
-                            alt="{% trans %}¡Reserve ahora!{% endtrans %}" title="{% trans %}¡Reserve ahora!{% endtrans %}" border="0" /></a>
 
-                        <script src="https://taxidriverscuba.trekksoft.com/{{ locale }}/api/public"></script>
-                        <script>
-                            (function() {
-                                var button = new TrekkSoft.Embed.Button();
-                                button
-                                    .setAttrib("target", "fancy")
-                                    .setAttrib("entryPoint", "tour")
-                                    .setAttrib("tourId", "{{ transfer.trekksoftTourId }}")
-                                    .setAttrib("fancywidth", "615px")
-                                    .registerOnClick("#trekksoft_{{ transfer.trekksoftId }}");
-                            })();
-                        </script>
-
-                    </div>
-
-                {% endif %}
-
-                <div class="booking_form"  {% if transfer.isExternalBook %}style="display: none"{% endif %}>
+                <div class="booking_form">
                 {{ form_start(booking_form, {'attr':{'class':'booking well text-md-left',
                     'data-form-type':'order',
                     'data-form-output':'form-output-global'}}) }}
@@ -193,7 +164,8 @@
                         <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">
                             {% trans %}Pick you up from airport or cruise?{% endtrans %}<br>
                             <small class="subtitle">
-                                {% trans %}If you arrive to Cuba through some airport or cruise terminal, we can pick you up!{% endtrans %}</small>
+                                {% trans %}If you arrive to Cuba through some airport or cruise terminal, we can pick you up!{% endtrans %}
+                            </small>
                         </p>
                     </div>
 
@@ -249,7 +221,7 @@
                                     <label for="targetPlaceAutocompletion" class="text-extra-small custom-label text-gray-dark">{% trans %}Destination place{% endtrans %}</label>
                                     <br>
                                     <input type="text" class="tt-autocomplete form-control form-control-has-validation form-control-last-child" id="targetPlaceAutocompletion">
-                                    {{ form_widget(booking_form.targetPlace, { 'attr': {'class': 'autocomplete hidden' }, 'JOSUE' : 'ASD' }) }}
+                                    {{ form_widget(booking_form.targetPlace, { 'attr': {'class': 'autocomplete hidden' } }) }}
                                 </div>
                             </div>
                         </div>
@@ -313,11 +285,8 @@
 
                                     <div class="price-inline">
                                         <span id="labelPrice">{{ transfer.basePrice | number_format(2,'.') }} </span>
-                                        <select name="currency" id="currency">
-                                            <option value="EUR" data-change="1">EUR</option>
-                                            <option value="USD" data-change="1.13">USD</option>
-                                            <option value="CUC" data-change="1.13">CUC</option>
-                                        </select>
+                                        {{ form_widget(booking_form.currency, { 'attr' : {'class': 'myclass'} } ) }}
+
                                     </div>
 
                                 </div>
@@ -663,7 +632,6 @@ $('#{{ booking_form.airportname.vars.id }}').change(function(){
 
     $(document).ready(function()
     {
-
         $('#booking_submit').click(function(e){
 
             {% block onsubmitBookingForm %}
@@ -738,11 +706,11 @@ $('#{{ booking_form.airportname.vars.id }}').change(function(){
 
     function wrapperPrice(price)
     {
-        var currency = document.querySelector('#currency');
-            var currencySelected = currency.options.selectedIndex;
-            var currencyExchange = currency.options[currencySelected].getAttribute('data-change');
+        var currency = document.querySelector('#appbundle_booking_currency');
+        var currencySelected = currency.options.selectedIndex;
+        var currencyExchange = currency.options[currencySelected].getAttribute('data-change');
 
-            price = currencyExchange*price;
+        price = currencyExchange*price;
 
         if (typeof(price)==="number" && price > 0)
             return "<i class=\'fa fa-dollar color-sky\'></i> "+price.toFixed(2);
@@ -788,8 +756,13 @@ $('#{{ booking_form.airportname.vars.id }}').change(function(){
         };
 
         initAutocompletion();
+
+        setPriceByPlace();
+
         updatePrice();
-        document.querySelector('#currency').addEventListener('change', updatePrice);
+
+        document.querySelector('#appbundle_booking_currency').addEventListener('change', updatePrice);
+        document.querySelector('#appbundle_booking_currency').classList.remove('form-control');
 
         $("#activeTour").change(function() {
             updatePrice();

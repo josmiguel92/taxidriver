@@ -59,7 +59,14 @@
             </h3>
             <div class="col-md-12 card">
                 {{ form_row(edit_form.bookingSource, {'disabled':true}) }}
-                {{ form_row(edit_form.price) }}
+                <div class="row">
+                    <div class="col-md-8">
+                        {{ form_row(edit_form.price) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(edit_form.currency) }}
+                    </div>
+                </div>
                 {{ form_row(edit_form.payed) }}
                 {{ form_row(edit_form.payedDate) }}
                 {{ form_row(edit_form.paymentDetails) }}

@@ -20,6 +20,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Booking
 {
+    /**tasas de cambio, la base es el euro*/
+    CONST EUR_TO_USD = 1.13;
+    CONST EUR_TO_CUC = 1.13;
+
     /**
      * @var int
      *
@@ -216,6 +220,27 @@ class Booking
      * @ORM\Column(name="bookingSource", type="string", length=255, nullable=true)
      */
     private $bookingSource;
+
+    /**
+     * @Assert\Choice(choices = {"CUC", "USD", "EUR"}, message = "Select currency")
+     * @ORM\Column(type="string", length=5, nullable=true)
+     */
+    private $currency;
+
+    public function getCurrency()
+    {
+        if($this->currency)
+            return $this->currency;
+        else
+            return 'EUR';
+    }
+
+    public function setCurrency($currency = 'EUR')
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -1143,7 +1168,7 @@ class Booking
     }
 
 
-    public function calculateSimplePrice($increment = 10)
+    public function calculateSimplePrice($increment = 8.8)
     {
 
         $basePrice = 0;
@@ -1175,6 +1200,16 @@ class Booking
         $plusPrice = $this->numpeople <= 3 ? 0 : ($this->numpeople-3)*$increment;
         $price = $basePrice + $plusPrice;
         return $price;
+    }
+
+    public function getPriceByCurrency()
+    {
+       if( $this->currency == 'USD' )
+           return round($this->price * self::EUR_TO_USD, 2);
+       if( $this->currency == 'CUC' )
+           return round($this->price * self::EUR_TO_CUC, 2);
+
+       return round($this->price, 2);
     }
 
 }

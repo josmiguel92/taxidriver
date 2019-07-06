@@ -63,7 +63,16 @@
             </h2>
             <div class="col-md-12 card">
                 {{ form_row(form.bookingSource) }}
-                {{ form_row(form.price) }}
+                <div class="row">
+                    <div class="col-md-8">
+                        {{ form_row(form.price) }}
+                    </div>
+                    <div class="col-md-4">
+                        {{ form_row(form.currency) }}
+                    </div>
+                </div>
+
+                {{ form_row(form.payed) }}
                 {{ form_row(form.payedDate) }}
                 {{ form_row(form.paymentDetails) }}
                 {#{ form_row(form.drivermsg) }#}

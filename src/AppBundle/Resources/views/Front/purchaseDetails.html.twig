@@ -45,7 +45,6 @@
 
 {% block content %}
 
-    {% set price_usd = purchase.price %}
 
 
     <!-- Page Content-->
@@ -53,12 +52,6 @@
 
         <section class="section-75 section-md-top-90 section-md-bottom-95">
             <div class="shell">
-
-                {% if paypalCallback == 'success' or paypalCallback == 'cash' %}
-                    <i class="fa fa-check-circle-o fa-5x color-sky"></i>
-                {% elseif paypalCallback == 'cancel' %}
-                    <i class="fa fa-times-circle-o fa-5x color-sky"></i>
-                {% endif %}
 
                 <h2>
                     {% trans %}Hi!{% endtrans %} {{ purchase.fullname }}, {% trans %}these are the details of your reservation{% endtrans %}
@@ -139,7 +132,7 @@
                             <div class="well-row">
                                 <p class="text-bold text-spacing-25 font-accent text-gray-dark">
                                     {% trans %}The price of the service is{% endtrans %}:
-                                    {{ purchase.price }} EUR
+                                    {{ purchase.getPriceByCurrency }} {{ purchase.currency }}
                                 </p>
 
                             </div>
@@ -178,12 +171,6 @@
                                 <!-- simple purchase -->
                                     <div class="cell-md-6 col-md-6 col-md-offset-3">
 
-                                        {% if config['paypal.url'] != 'null' %}
-                                        <a href="{{ path('paypal_redirection', {'_token': purchase.token}) }}" class="btn btn-primary">
-                                            <i class="fa fa-paypal"></i>
-                                            {% trans %}Pay with PayPal{% endtrans %} <b>{{ purchase.price }} EUR </b>
-                                        </a>
-                                        {% endif %}
 
                                         <p class="offset-top-15 text-extra-small">
                                             {% trans %}You can pay in Cuba with cash to your driver.{% endtrans %}
@@ -196,16 +183,6 @@
                     {% endif %}
 
                     <div class="row section-bottom-40">
-                        {#% if purchase.price > 0 %}
-                        <div class="col-md-6 col-md-offset-3">
-                            <p> <a href="http://westernunion.com/" target="_blank">
-                                    <img src="{{ asset('images/logo.wu.big.svg') }}" alt="wester union logo">
-                                </a>
-                                <br/>
-                                {% trans %}You can pay in advance, making a transfer of{% endtrans %} {{ price_usd }} EUR
-                                {% trans %}through{% endtrans %} <a href="http://westernunion.com/" target="_blank">Western Union</a> {% trans %}to this bank account{% endtrans %} <strong>1500812414776</strong>.</p>
-                        </div>
-                        {% endif %#}
 
                         <div class="col-md-12 section-xs-top-40">
                             <p>{% trans %}Please, if you need to cancel your reservation, you must notify us at least 2 days in advance{% endtrans %}.</p>

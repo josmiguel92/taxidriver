@@ -130,7 +130,7 @@
         function wrapperPrice(price)
         {
 
-            var currency = document.querySelector('#currency');
+            var currency = document.querySelector('#appbundle_booking_currency');
                 var currencySelected = currency.options.selectedIndex;
                 var currencyExchange = currency.options[currencySelected].getAttribute('data-change');
 
@@ -172,7 +172,8 @@
         $("#document").ready(function (){
             updatePrice();
 
-            document.querySelector('#currency').addEventListener('change', updatePrice);
+            document.querySelector('#appbundle_booking_currency').addEventListener('change', updatePrice);
+            document.querySelector('#appbundle_booking_currency').classList.remove('form-control');
 
             $("#activeTour").change(function() {
                 updatePrice();

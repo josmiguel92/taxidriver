@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 
+use AppBundle\Entity\Booking;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -59,6 +60,22 @@ class FullBookingType extends AbstractType
             ->add('returnpickupplacce', null, ['label'=>'Lugar de recogida al Regreso'])
             ->add('numpeople',IntegerType::class, ['label'=>'Cantidad de Personas'])
             ->add('price', null, ['label'=>'Precio'])
+            ->add('currency',  ChoiceType::class,
+                [
+                    'choices' =>
+                        [
+                            'EUR' => 'EUR',
+                            'USD' => 'USD',
+                            'CUC' => 'CUC',
+                        ],
+                    'choice_attr' => [
+                        'EUR' => ['data-change' => 1],
+                        'USD' => ['data-change' => Booking::EUR_TO_USD],
+                        'CUC' => ['data-change' => Booking::EUR_TO_CUC],
+                    ],
+                    'attr' => ['class'=>'currency_select'],
+
+                    'label' => 'Moneda'])
             ->add('comment', null, ['label'=>'Comentarios del Cliente'])
             ->add('accepted',CheckboxType::class, ['label'=>'Aceptada por la Administración', 'required'=>false])
             ->add('confirmed', CheckboxType::class,['label'=>'Confirmada por la Administración', 'required'=>false])

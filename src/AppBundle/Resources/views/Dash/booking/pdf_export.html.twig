@@ -89,7 +89,7 @@
                     <p>
                         <b>Precio: </b>
                         {% if booking.price %}
-                        {{ booking.price }} EUR
+                        {{ booking.price }}  {{ booking.currency ? booking.currency : 'EUR' }}
                         {% else %}
                         A&uacute;n no hay un precio
                     </p>

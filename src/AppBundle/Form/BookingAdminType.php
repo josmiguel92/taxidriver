@@ -2,12 +2,15 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Booking;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 class BookingAdminType extends AbstractType
 {
     /**
@@ -17,6 +20,23 @@ class BookingAdminType extends AbstractType
     {
         $builder
             ->add('price', MoneyType::class, ['attr'=>['required'=>'true'], 'currency'=>"EUR"])
+            ->add('currency',  ChoiceType::class,
+                [
+                    'choices' =>
+                        [
+                            'EUR' => 'EUR',
+                            'USD' => 'USD',
+                            'CUC' => 'CUC',
+                        ],
+                    'choice_attr' => [
+                        'EUR' => ['data-change' => 1],
+                        'USD' => ['data-change' => Booking::EUR_TO_USD],
+                        'CUC' => ['data-change' => Booking::EUR_TO_CUC],
+                    ],
+                    'attr' => ['class'=>'currency_select'],
+
+                    'label' => 'Moneda'])
+
             ->add('payed', null, ['label'=> "El pago fue realizado con exito"])
             ->add('payedDate',  DateType::class, ['widget'=>'single_text','label'=> "Fecha en que se realiza el pago"])
            // ->add('drivermsg', TextareaType::class, ['label'=>'Mensaje al cliente','required'=>false]   )

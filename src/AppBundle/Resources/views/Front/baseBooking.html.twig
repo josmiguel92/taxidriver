@@ -193,11 +193,7 @@
 
                                         <div class="price-inline">
                                             <span id="labelPrice">{{ transfer.basePrice | number_format(2,'.') }} </span>
-                                            <select name="currency" id="currency">
-                                                <option value="EUR" data-change="1">EUR</option>
-                                                <option value="USD" data-change="1.13">USD</option>
-                                                <option value="CUC" data-change="1.13">CUC</option>
-                                            </select>
+                                            {{ form_widget(booking_form.currency, { 'attr' : {'class': 'myclass'} } ) }}
                                         </div>
                                     </div>
                                 </div>

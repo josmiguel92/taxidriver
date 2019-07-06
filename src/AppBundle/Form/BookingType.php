@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Booking;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -54,8 +55,23 @@ class BookingType extends AbstractType
             ->add('telephone')
             ->add('serviceType',HiddenType::class)
             ->add('airportTransfer')
-             ->add('transfer')
-             ->add('targetPlace')
+            ->add('transfer')
+            ->add('targetPlace')
+            ->add('currency',  ChoiceType::class,
+                [
+                'choices' =>
+                [
+                    'EUR' => 'EUR',
+                    'USD' => 'USD',
+                    'CUC' => 'CUC',
+                ],
+                'choice_attr' => [
+                    'EUR' => ['data-change' => 1],
+                    'USD' => ['data-change' => Booking::EUR_TO_USD],
+                    'CUC' => ['data-change' => Booking::EUR_TO_CUC],
+                ],
+                    'attr' => ['class'=>'currency_select']
+                ])
             ;
     }/**
      * {@inheritdoc}
