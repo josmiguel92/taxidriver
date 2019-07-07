@@ -1,4 +1,4 @@
-{% extends 'AppBundle:Dash/booking:base.html.twig' %}
+    {% extends 'AppBundle:Dash/booking:base.html.twig' %}
 {% set pagename = 'booking'  %}
 {% block content %}
     <h2 >Todas las reservas</h2>
@@ -13,6 +13,20 @@
     <a href="{{ path('dash_bookings_index', {'page': prev_page, 'all_booking': all_booking}) }}" class="btn"><i class="fa fa-arrow-left"></i> P&aacute;gina anterior</a>
     {% endif %}
     <a href="{{ path('dash_bookings_index', {'page': next_page, 'all_booking': all_booking}) }}" class="btn">P&aacute;gina siguiente <i class="fa fa-arrow-right"></i></a>
+
+<hr>
+    <div class="row">
+        <div class="col-md-12">
+            <form class="inline-form" action="{{ path('dash_bookings_index') }}" onsubmit="if 
+            (!(document.getElementById('minDateInput').valueAsDate < document.getElementById('maxDateInput').valueAsDate)) {alert('Revise el orden de las fechas.'); return false }">
+                <label for="minDate">Mostrar reservas entre el </label>
+                <input type="date" name="minDate" required="true" id="minDateInput" value="{{ app.request.get('minDate') }}">
+                <label for="maxDate">hasta el </label>
+                <input type="date" name="maxDate" required="true" id="maxDateInput" value="{{ app.request.get('maxDate') }}">
+                <input type="submit" name="filterByDateSubmit" value="OK" class="btn btn-sm" required="true">
+            </form>
+        </div>
+    </div>
 
 <hr>
     <table id="booking-table"  tabulator-tooltips="true">
@@ -179,4 +193,6 @@
 
         * */
     </script>
+
+
 {% endblock %}

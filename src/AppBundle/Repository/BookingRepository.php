@@ -50,4 +50,18 @@ class BookingRepository extends \Doctrine\ORM\EntityRepository
             ->getSingleScalarResult();
     }
 
+    public function listBetweenDates($minDate, $maxDate,  $page = 1, $count = 50)
+    {
+
+        return $this->createQueryBuilder("b")
+            ->where("b.pickuptime >= :minDate")
+            ->andWhere("b.pickuptime <= :maxDate")
+            ->setParameter("minDate", new \DateTime($minDate))
+            ->setParameter("maxDate", new \DateTime($maxDate))
+            ->orderBy("b.pickuptime", "ASC")
+            ->setMaxResults($count)
+            ->setFirstResult(($page - 1) * $count)
+
+            ->getQuery()->getResult();
+    }
 }

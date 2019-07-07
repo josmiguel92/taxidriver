@@ -27,12 +27,23 @@ class FullBookingController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+
         $all_booking = $request->get('all_booking');
+        $minDate = $request->get('minDate');
+        $maxDate = $request->get('maxDate');
+
         if($all_booking=='yes')
             $bookings = $em->getRepository('AppBundle:Booking')->listFutureBookings($page);
         else
-            $bookings = $em->getRepository('AppBundle:Booking')->listBookings($page);
-            
+        {
+            if($request->get('filterByDateSubmit'))
+            {
+
+                $bookings = $em->getRepository('AppBundle:Booking')->listBetweenDates($minDate, $maxDate, $page = 1);
+            }
+            else $bookings = $em->getRepository('AppBundle:Booking')->listBookings($page);
+        }
+        
 
         return $this->render('@App/Dash/booking/index.html.twig', array(
             'bookings' => $bookings,
