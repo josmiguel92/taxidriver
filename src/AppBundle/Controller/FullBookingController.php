@@ -289,9 +289,9 @@ class FullBookingController extends Controller
                 $result[] = [
                     'url' => $this->generateUrl('dash_bookings_show', ['id' => $item->getId()]),
                     'title' => $item->getToken(),
-                    'start' => $item->getPickuptimeFormated('Y-m-d'),
+                    'start' => $item->getPickuptimeFormated('Y-m-d H:i'),
                     'color' => $item->getEventColor(),
-                  //  'description' => $item->getInternalDescription()
+                    'description' => $item->getToken()." ". $item->getInternalDescription()
                 ];
             }
             return $this->json($result);
