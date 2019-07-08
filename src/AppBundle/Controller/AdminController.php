@@ -466,7 +466,7 @@ class AdminController extends Controller
      * @Route("/bookinglist/{filter}", name="dash_booking")
      * @Method("GET")
      */
-    public function bookingAction(Request $request, $filter = 'yesterday')
+    public function bookingAction(Request $request, $filter = 'week')
     {
         $em = $this->getDoctrine()->getManager();
         $booking = $em->getRepository("AppBundle:Booking")

@@ -64,4 +64,6 @@ class BookingRepository extends \Doctrine\ORM\EntityRepository
 
             ->getQuery()->getResult();
     }
+
+
 }

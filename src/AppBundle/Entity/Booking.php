@@ -1212,5 +1212,31 @@ class Booking
        return round($this->price, 2);
     }
 
+    public function getEventColor()
+    {
+        if($this->transfer)
+            return "#66dd66";
+        if($this->experience)
+            return "#dd6666";
+        if($this->airportTransfer)
+            return "#6666dd";
+    }
+
+    public function getInternalDescription()
+    {
+        $text = "";
+        if($this->experience)
+            $text .= $this->getExperience()->getName() . "(" . $this->getExperience()->getTargetPlace() . ")";
+
+        elseif($this->transfer)
+            $text .= $this->transfer->getTargetPlace();
+
+        elseif ($this->airportTransfer) {
+            $text .= $this->getAirportName();
+        }
+
+        return $text .= "(".$this->getPriceByCurrency()." ".$this->getCurrency().")";
+      
+    }
 }
 

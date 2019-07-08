@@ -268,4 +268,36 @@ class FullBookingController extends Controller
         ));
     }
 
+
+    /**
+     * Finds and displays events interval
+     *
+     * @Route("/json/calendar_events.json", name="booking_calendar_events")
+     * @Method("GET")
+     */
+    public function calendarEventsAction(Request $request)
+    {
+        $start = $request->get('start');
+        $end = $request->get('end');
+        $em = $this->getDoctrine()->getManager();
+
+        if($startDateTime = new \DateTime($start) and $endDateTime = new \DateTime($end))
+        {
+            $bookings = $em->getRepository('AppBundle:Booking')->listBetweenDates($start, $end, $page = 1, 100);
+            $result = [];
+            foreach ($bookings as $item) {
+                $result[] = [
+                    'url' => $this->generateUrl('dash_bookings_show', ['id' => $item->getId()]),
+                    'title' => $item->getToken(),
+                    'start' => $item->getPickuptimeFormated('Y-m-d'),
+                    'color' => $item->getEventColor(),
+                  //  'description' => $item->getInternalDescription()
+                ];
+            }
+            return $this->json($result);
+        }
+
+        return $this->json([]);
+    }
+
 }
