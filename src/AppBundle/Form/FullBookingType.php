@@ -28,7 +28,7 @@ class FullBookingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $booking = $options['data'];
-        dump($booking);
+        //dump($booking);
 
         $builder
             ->add('pickuptime', DateTimeType::class, ['label'=>'Fecha/Hora Recogida'])

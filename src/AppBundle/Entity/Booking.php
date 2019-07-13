@@ -1296,7 +1296,7 @@ class Booking
     {
 
        $this->price = $this->getBasePriceByCurrency($this->price );
-       dump( [$this->price, $this->currency] );
+      // dump( [$this->price, $this->currency] );
     }
 }
 
