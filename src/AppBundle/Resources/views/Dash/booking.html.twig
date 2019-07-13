@@ -88,7 +88,7 @@
 
 
     {{ include('@App/Dash/booking/_calendar_month_view.html.twig') }}
-    
+
         <div class="col-md-12">
             <div class="card">
                 <div class="header">
@@ -196,7 +196,7 @@
             $("#bookingModal").modal({
                 backdrop: false
             });
-            console.log(this.dataset['id'])
+            //console.log(this.dataset['id'])
               _route = AjaxDetailsRoute.replace('123454321',this.dataset['id']);
             $("#modalBodyContainer").load(_route, function () {
                 $('.modal.fa').hide();

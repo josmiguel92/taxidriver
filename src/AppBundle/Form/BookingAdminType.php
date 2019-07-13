@@ -18,6 +18,7 @@ class BookingAdminType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $booking = $options['data'];
         $builder
             ->add('price', MoneyType::class, ['attr'=>['required'=>'true'], 'currency'=>"EUR"])
             ->add('currency',  ChoiceType::class,
@@ -29,9 +30,9 @@ class BookingAdminType extends AbstractType
                             'CUC' => 'CUC',
                         ],
                     'choice_attr' => [
-                        'EUR' => ['data-change' => 1],
-                        'USD' => ['data-change' => Booking::EUR_TO_USD],
-                        'CUC' => ['data-change' => Booking::EUR_TO_CUC],
+                        'EUR' => ['data-change' => $booking->getChangeRate('EUR')],
+                        'USD' => ['data-change' => $booking->getChangeRate('USD')],
+                        'CUC' => ['data-change' => $booking->getChangeRate('CUC')],
                     ],
                     'attr' => ['class'=>'currency_select'],
 

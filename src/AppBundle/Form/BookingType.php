@@ -33,7 +33,8 @@ class BookingType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options )
     {
-      $builder
+        $booking = $options['data'];
+        $builder
             ->add('place')
             ->add('ownroute')
             ->add('airport')
@@ -66,9 +67,9 @@ class BookingType extends AbstractType
                     'CUC' => 'CUC',
                 ],
                 'choice_attr' => [
-                    'EUR' => ['data-change' => 1],
-                    'USD' => ['data-change' => Booking::EUR_TO_USD],
-                    'CUC' => ['data-change' => Booking::EUR_TO_CUC],
+                    'EUR' => ['data-change' => $booking->getChangeRate('EUR')],
+                    'USD' => ['data-change' => $booking->getChangeRate('USD')],
+                    'CUC' => ['data-change' => $booking->getChangeRate('CUC')],
                 ],
                     'attr' => ['class'=>'currency_select']
                 ])

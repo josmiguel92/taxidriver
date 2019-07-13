@@ -27,6 +27,9 @@ class FullBookingType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $booking = $options['data'];
+        dump($booking);
+
         $builder
             ->add('pickuptime', DateTimeType::class, ['label'=>'Fecha/Hora Recogida'])
 
@@ -59,7 +62,7 @@ class FullBookingType extends AbstractType
             ->add('returnpickuptime',DateTimeType::class, ['label'=>'Fecha/Hora de Recogida al regreso', 'required'=>false])
             ->add('returnpickupplacce', null, ['label'=>'Lugar de recogida al Regreso'])
             ->add('numpeople',IntegerType::class, ['label'=>'Cantidad de Personas'])
-            ->add('price', null, ['label'=>'Precio'])
+            ->add('price', null, ['label'=>'Precio', 'attr' => ['value'=>$booking->getPriceByCurrency()]])
             ->add('currency',  ChoiceType::class,
                 [
                     'choices' =>
@@ -69,9 +72,9 @@ class FullBookingType extends AbstractType
                             'CUC' => 'CUC',
                         ],
                     'choice_attr' => [
-                        'EUR' => ['data-change' => 1],
-                        'USD' => ['data-change' => Booking::EUR_TO_USD],
-                        'CUC' => ['data-change' => Booking::EUR_TO_CUC],
+                        'EUR' => ['data-change' => $booking->getChangeRate('EUR')],
+                        'USD' => ['data-change' => $booking->getChangeRate('USD')],
+                        'CUC' => ['data-change' => $booking->getChangeRate('CUC')],
                     ],
                     'attr' => ['class'=>'currency_select'],
 

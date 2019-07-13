@@ -168,7 +168,7 @@ class ExperienceController extends Controller
                     $config[$item->getName()]=$item->getValue();
                 }
 
-                $booking = new Booking();
+                $booking = new Booking(['USD'=>$config['tasa.usd'], 'CUC'=>$config['tasa.cuc'], 'EUR'=>1]);
                 $booking->setServiceType('Experience');
                 $form = $this->createForm('AppBundle\Form\BookingType', $booking,
                     ['action' => $this->generateUrl('add_booking')]);

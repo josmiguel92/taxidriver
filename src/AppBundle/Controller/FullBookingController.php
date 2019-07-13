@@ -61,12 +61,20 @@ class FullBookingController extends Controller
      */
     public function newAction(Request $request)
     {
-        $booking = new Booking();
+        $em = $this->getDoctrine()->getManager();
+
+        $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+        $config = [];;
+        foreach ($_config as $item){
+            $config[$item->getName()]=$item->getValue();
+        }
+
+
+        $booking = new Booking(['USD'=>$config['tasa.usd'], 'CUC'=>$config['tasa.cuc'], 'EUR'=>1]);
         $form = $this->createForm('AppBundle\Form\FullBookingType', $booking);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($booking);
             $em->flush();
 

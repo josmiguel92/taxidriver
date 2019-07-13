@@ -514,7 +514,9 @@ class AdminController extends Controller
         }
 
        if(!isset($config['tasa.usd']))
-           $em->persist(new \AppBundle\Entity\ConfigValue("tasa.usd",0.88, "Tasa de conversion EUR/USD"));
+           $em->persist(new \AppBundle\Entity\ConfigValue("tasa.usd",1.20, "Tasa de conversion EUR -> USD (ej: 1.20)"));
+       if(!isset($config['tasa.cuc']))
+           $em->persist(new \AppBundle\Entity\ConfigValue("tasa.cuc",1.08, "Tasa de conversion EUR -> CUC (ej: 1.08)"));
 
         if(!isset($config['price.increment']))
             $em->persist(new \AppBundle\Entity\ConfigValue("price.increment",10, "Incremento del precio por cada persona en los tours y transfers"));

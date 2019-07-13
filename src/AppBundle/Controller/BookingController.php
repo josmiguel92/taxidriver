@@ -41,7 +41,14 @@ class BookingController extends Controller
         Utils::setRequestLocaleLang($_locale);
         $em = $this->getDoctrine()->getManager();
 
-        $booking = new Booking();
+        $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+        $config = [];;
+        foreach ($_config as $item){
+            $config[$item->getName()]=$item->getValue();
+        }
+
+
+        $booking = new Booking(['USD'=>$config['tasa.usd'], 'CUC'=>$config['tasa.cuc'], 'EUR'=>1]);
         $booking->setBookingSource();
         $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking, array(
             'action' => $this->generateUrl('add_booking'),
@@ -100,7 +107,7 @@ class BookingController extends Controller
                 if($booking->getNumpeople()<=5)
                     if($_price = $booking->calculateSimplePrice($config['price.increment']))
                     {
-                        $booking->setPrice($_price);
+                        $booking->setPrice($_price, $base_prices=true);
                         $booking->setAccepted(true);
                     }
 
@@ -172,7 +179,7 @@ class BookingController extends Controller
         if ($transfer)
         {
 
-            $booking = new Booking();
+            $booking = new Booking(['USD'=>$config['tasa.usd'], 'CUC'=>$config['tasa.cuc'], 'EUR'=>1]);
             $booking->setServiceType('Transfer');
             $booking->setTransfer($transfer);
             $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking, array(
@@ -255,7 +262,7 @@ class BookingController extends Controller
         if ($airportTransfer)
         {
 
-            $booking = new Booking();
+            $booking = new Booking(['USD'=>$config['tasa.usd'], 'CUC'=>$config['tasa.cuc'], 'EUR'=>1]);
             $booking->setServiceType('AirportTransfer');
             $booking->setAirportTransfer($airportTransfer);
             $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking, array(
@@ -366,47 +373,49 @@ class BookingController extends Controller
                     ->find($purchase->getExperience());
 
 
-            if($_paypalCallback == 'success' OR $purchase->getNumpeople()<=5){
-
-                $purchase->setConfirmed(true);
-
-                if (isset($_GET['tx']))
-                    $purchase->setIdpaypal($_GET['tx']);
-
-                $em->persist($purchase);
-                $em->flush();
-            }
+//            if($_paypalCallback == 'success' OR $purchase->getNumpeople()<=5){
+//
+//                $purchase->setConfirmed(true);
+//
+//                if (isset($_GET['tx']))
+//                    $purchase->setIdpaypal($_GET['tx']);
+//
+//                $em->persist($purchase);
+//                $em->flush();
+//            }
 
 
 
             $paypalSuccessFormHtml = "";
-            if($_paypalCallback == 'success') {
-                if (isset($_GET['tx'])) {
-                    $paypalTransactionID = $_GET['tx'];
-                    /*echo "-->";
-                    echo $_POST['item_number']." ID del producto\n";
-                    echo $paypalTransactionID;
-                    echo $_POST['mc_gross']." Monto recibido Paypal\n";
-                    echo $_POST['mc_currency']."  Moneda recibida de Paypal\n";
-                    //echo $_POST['st']." Estado del producto Paypal\n";
-                    echo "-->";*/
+//            if($_paypalCallback == 'success') {
+//                if (isset($_GET['tx'])) {
+//                    $paypalTransactionID = $_GET['tx'];
+//                    /*echo "-->";
+//                    echo $_POST['item_number']." ID del producto\n";
+//                    echo $paypalTransactionID;
+//                    echo $_POST['mc_gross']." Monto recibido Paypal\n";
+//                    echo $_POST['mc_currency']."  Moneda recibida de Paypal\n";
+//                    //echo $_POST['st']." Estado del producto Paypal\n";
+//                    echo "-->";*/
+//
+//                    //verificacion de que el precio pagado mediante paypal coincida con el calculado
+//                    if($_GET['amt'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
+//                    {
+//                        $purchase->setConfirmed(true);
+//                        $em->persist($purchase);
+//                        $em->flush();
+//
+//                    }
+//
+//                    $paypalSuccessFormHtml = $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
+//                        'paypalTransactionID' => $paypalTransactionID,
+//                        'paypalIdentificationToken' => $config['paypal.token'],
+//                        'paypalUrl' => $config['paypal.url']
+//                    ]);
+//                }
+//            }
 
-                    //verificacion de que el precio pagado mediante paypal coincida con el calculado
-                    if($_GET['amt'] >= round($purchase->getPrice() / $config['tasa.usd'],2,PHP_ROUND_HALF_DOWN))
-                    {
-                        $purchase->setConfirmed(true);
-                        $em->persist($purchase);
-                        $em->flush();
-
-                    }
-
-                    $paypalSuccessFormHtml = $this->render('AppBundle:Front:completePaypalTransfer.html.twig', [
-                        'paypalTransactionID' => $paypalTransactionID,
-                        'paypalIdentificationToken' => $config['paypal.token'],
-                        'paypalUrl' => $config['paypal.url']
-                    ]);
-                }
-            }
+            
 
             return $this->render('AppBundle:Front:purchaseDetails.html.twig', [
                 'locale'=>$_locale,
@@ -431,6 +440,9 @@ class BookingController extends Controller
     * @Route("/pay/{_token}", requirements={"_token":"[a-z0-9]*"}, name="paypal_redirection")
     **/
     public function payPalAction($_token){
+
+        exit();//DISABLED METHOD
+
         $em = $this->getDoctrine()->getManager();
         $purchase = $em->getRepository('AppBundle:Booking')->findOneBy(['token'=>$_token]);
         $_locale = Utils::getRequestLocaleLang();

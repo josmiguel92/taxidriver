@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-
 use AppBundle\Utils\Utils;
 use AppBundle\Entity\Place;
 use AppBundle\Entity\Experience;
@@ -17,12 +16,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="booking")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\BookingRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Booking
 {
     /**tasas de cambio, la base es el euro*/
-    CONST EUR_TO_USD = 1.13;
-    CONST EUR_TO_CUC = 1.13;
+    CONST EUR_TO_USD = 1.20;
+    CONST EUR_TO_CUC = 1.08;
 
     /**
      * @var int
@@ -40,6 +40,11 @@ class Booking
      * @ORM\Column(name="bookingTime", type="datetime")
      */
     private $bookingTime;
+
+    /**
+     * @ORM\Column(name="changeRate", type="array", nullable=true)
+     */
+    private $changeRate;
 
     /**
      * @var string
@@ -498,7 +503,7 @@ class Booking
         return substr($this->token, 0, 2);
     }
 
-    function __construct()
+    function __construct($changeRate = null)
     {
         $this->token =  "TDC-".date("dm")."-".substr(uniqid("", true),8,4);
         $this->ownroute = new ArrayCollection();
@@ -506,6 +511,12 @@ class Booking
         $this->setConfirmed(false);
         $this->setBookingTime(new \DateTime('now'));
         $this->payed = false;
+
+        if($changeRate)
+            $this->changeRate = $changeRate;
+        else
+            $this->changeRate = $this->getInitRates();
+
     }
 
     /**
@@ -979,9 +990,12 @@ class Booking
     /**
      * @param int $price
      */
-    public function setPrice($price)
+    public function setPrice($price, $base_prices=false)
     {
-        $this->price = $price;
+        //if($base_prices)
+            $this->price = $price;
+       // else
+         //   $this->price = $this->getBasePriceByCurrency($price);
     }
 
 
@@ -1202,18 +1216,28 @@ class Booking
         return $price;
     }
 
-    public function getPriceByCurrency()
+    public function getPriceByCurrency($price = null)
     {
-       if( $this->currency == 'USD' )
-           return round($this->price * self::EUR_TO_USD, 2);
-       if( $this->currency == 'CUC' )
-           return round($this->price * self::EUR_TO_CUC, 2);
+        $rates = $this->getChangeRate();
+        if(!$price)
+            $price = $this->price;
 
-       return round($this->price, 2);
+        if( $this->currency )
+           return round($price * $rates[$this->currency], 2);
+        return round($price, 2);
     }
 
+    public function getBasePriceByCurrency($price)
+    {
+        $rates = $this->getChangeRate();
+        
+        if( $this->currency )
+           return round($price / $rates[$this->currency], 2);
+        return round($price, 2);
+    }
     public function getEventColor()
     {
+        //for use in dashboard calendar API
         if($this->transfer)
             return "#66dd66";
         if($this->experience)
@@ -1237,6 +1261,42 @@ class Booking
 
         return $text .= "(".$this->getPriceByCurrency()." ".$this->getCurrency().")";
       
+    }
+
+    /**
+     * @return string
+     */
+    public function getChangeRate($currency = null)
+    {
+        $rates = $this->changeRate ? $this->changeRate : $this->getInitRates();
+
+        if($currency)
+            return $rates[$currency];
+        return $rates;
+    }
+
+    /**
+     * @param string $serviceType
+     */
+    public function setChangeRate($changeRate)
+    {
+        $this->changeRate = $changeRate;
+    }
+
+    public function getInitRates()
+    {
+        return ['USD' => self::EUR_TO_USD, 'CUC' => self::EUR_TO_CUC, 'EUR'=> 1];
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function UpdatePriceByCurrency()
+    {
+
+       $this->price = $this->getBasePriceByCurrency($this->price );
+       dump( [$this->price, $this->currency] );
     }
 }
 
