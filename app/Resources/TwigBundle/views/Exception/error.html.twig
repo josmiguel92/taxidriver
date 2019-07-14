@@ -97,30 +97,37 @@
                             <div class="offset-top-25">
                                 <p>{% trans %}The page requested couldn't be found - this could be due to a spelling error in the URL or a removed page.{% endtrans %}</p>
                             </div>
-                            <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
+                            
                         {% elseif status_code == 500 %}
                             <div class="offset-top-25">
                                 <p>{% trans %}Server error{% endtrans %}</p>
                             </div>
-                            <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
+                            
                         {% elseif status_code == 403 %}
                             <div class="offset-top-25">
                                 <p>{% trans %}Forbiden{% endtrans %}</p>
                             </div>
-                            <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
+                            
                         {% elseif status_code == 503 %}
                             <div class="offset-top-25">
                                 <p>{% trans %}Maintance{% endtrans %}</p>
                             </div>
-                            <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
+                            
                         {% else %}
                             <div class="offset-top-25">
                                 <p>{% trans %}Unknowk{% endtrans %}</p>
                             </div>
-                            <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
+                            
                         {% endif %}
 
+                        <div class="offset-top-30"><a href="{{ path("home") }}" style="min-width: 210px;" class="btn btn-primary">back to homepage</a></div>
+
                         <div class="offset-top-20"><svg width="135" height="2" viewBox="0 0 134 2"><line x1="0" y1="2" x2="134" y2="2" style="stroke: #8d8d8d; stroke-width: 4;"/></svg></div>
+
+                         <div class="offset-top-25">
+                                <p>{% trans %}We’re having trouble whit the website. You can tell us about the service you need using the email: <a href="mailto:taxidriverscuba@gmail.com">taxidriverscuba@gmail.com</a> or our phone, at Havana, <a href="tel://+5355864523">+53 5 5864523</a>{% endtrans %}</p>
+                        </div>
+                        <div class="offset-top-30"><a href="mailto:taxidriverscuba@gmail.com?subject=Contact using the website" style="min-width: 210px;" class="btn btn-primary">Contact by email</a></div>
                     </div>
                 </section>
         </main>
