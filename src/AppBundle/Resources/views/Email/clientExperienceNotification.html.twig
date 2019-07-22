@@ -196,7 +196,7 @@
 
 
 													{% if booking.price > 0 %}
-														<p>You can check the service you have selected by click in the link below. The price is: {{ booking.price }} EUR</p>
+														<p>You can check the service you have selected by click in the link below. The price is: {{ booking.getPriceByCurrency }} {{ booking.currency }}</p>
 
                                                     {% else %}
 														<p>{% trans %}We have received your reservation. As soon as possible, we will contact you, to let you know the details.{% endtrans %}</p>

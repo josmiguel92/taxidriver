@@ -225,7 +225,7 @@
                                                         {% else %}
                                                             Taxi
                                                         {% endif %}
-                                                        {% trans %}is{% endtrans %} <strong>{{ booking.price }} EUR</strong>
+                                                        {% trans %}is{% endtrans %} <strong>{{ booking.getPriceByCurrency }} {{ booking.currency }}</strong>
                                                         {% trans %}for{% endtrans %} {{ booking.numpeople }}
                                                         {% if booking.numpeople == 1 %}
                                                             {% trans %}people{% endtrans %}

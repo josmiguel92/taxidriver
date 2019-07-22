@@ -1222,6 +1222,7 @@ class Booking
         if(!$price)
             $price = $this->price;
 
+       // dump(['price'=>$this->price, 'rates'=>$rates, 'currency'=>$this->currency]);
         if( $this->currency )
            return round($price * $rates[$this->currency], 2);
         return round($price, 2);
@@ -1288,10 +1289,6 @@ class Booking
         return ['USD' => self::EUR_TO_USD, 'CUC' => self::EUR_TO_CUC, 'EUR'=> 1];
     }
 
-    /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
     public function UpdatePriceByCurrency()
     {
 
