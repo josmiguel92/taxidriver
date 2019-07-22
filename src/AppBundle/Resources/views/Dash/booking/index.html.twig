@@ -62,7 +62,7 @@
 
                 <td>{{ booking.numpeople }}</td>
                 
-                <td>{{ booking.price }}  {{ booking.currency ? booking.currency : 'EUR' }}</td>
+                <td>{{ booking.getPriceByCurrency }} {{ booking.currency ? booking.currency : 'EUR' }}</td>
                 <td><b><a href="{{ path('dash_bookings_show', { 'id': booking.id }) }}">Mostrar detalles</a> </b></td>
             </tr>
         {% endfor %}
