@@ -1222,7 +1222,7 @@ class Booking
         if(!$price)
             $price = $this->price;
 
-       // dump(['price'=>$this->price, 'rates'=>$rates, 'currency'=>$this->currency]);
+        //dump(['price'=>$this->price, 'rates'=>$rates, 'currency'=>$this->currency]);
         if( $this->currency )
            return round($price * $rates[$this->currency], 2);
         return round($price, 2);

@@ -75,6 +75,7 @@ class FullBookingController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $booking->UpdatePriceByCurrency();
             $em->persist($booking);
             $em->flush();
 
@@ -99,8 +100,10 @@ class FullBookingController extends Controller
         $deleteForm = $this->createDeleteForm($booking);
         $editForm = $this->createForm('AppBundle\Form\FullBookingType', $booking);
         $editForm->handleRequest($request);
+        $booking->UpdatePriceByCurrency();
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('dash_bookings_edit', array('id' => $booking->getId()));

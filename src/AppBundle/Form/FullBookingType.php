@@ -62,7 +62,9 @@ class FullBookingType extends AbstractType
             ->add('returnpickuptime',DateTimeType::class, ['label'=>'Fecha/Hora de Recogida al regreso', 'required'=>false])
             ->add('returnpickupplacce', null, ['label'=>'Lugar de recogida al Regreso'])
             ->add('numpeople',IntegerType::class, ['label'=>'Cantidad de Personas'])
-            ->add('price', null, ['label'=>'Precio', 'attr' => ['value'=>$booking->getPriceByCurrency()]])
+            ->add('price', null, [
+                'label'=>'Precio (Anterior: '.$booking->getPriceByCurrency().' '. $booking->getCurrency().')',
+                'attr' => ['value'=>$booking->getPriceByCurrency()]])
             ->add('currency',  ChoiceType::class,
                 [
                     'choices' =>
@@ -77,6 +79,7 @@ class FullBookingType extends AbstractType
                         'CUC' => ['data-change' => $booking->getChangeRate('CUC')],
                     ],
                     'attr' => ['class'=>'currency_select'],
+                    'data'=> $booking->getCurrency(),
 
                     'label' => 'Moneda'])
             ->add('comment', null, ['label'=>'Comentarios del Cliente'])
