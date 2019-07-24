@@ -16,7 +16,7 @@
             </tr>
             <tr>
                 <th>Telefono del cliente</th>
-                <td>{{ booking.telephone }}</td>
+                <td>{{ booking.telephone }} {% if countryByPhone %} ({{ countryByPhone }}) {% endif %}</td>
             </tr>            
             <tr>
                 <th>Lugar</th>

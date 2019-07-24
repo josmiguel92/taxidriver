@@ -1,0 +1,41 @@
+<!---Telephone--->
+<link rel="stylesheet" href="{{ asset('css/intlTelInput.min.css') }}">
+<style>
+    .iti__flag {background-image: url("{{ asset('images/flags/flags.png') }}");}
+    .iti--allow-dropdown{ width: 100%;  }
+
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .iti__flag {background-image: url("{{ asset('images/flags/flags@2x.png') }}");}
+    }
+</style>
+<script src="{{ asset('js/intlTelInput.min.js') }}"></script>
+<script>
+
+    function defer(method) {
+        if (window.jQuery) {//wait till page is loaded
+            //console.log("IntTl is now loaded");
+            var input = document.querySelector("#{{ booking_form.telephone.vars.id }}");
+            window.intlTelInput(input, {
+                hiddenInput: "{{ booking_form.telephone.vars.full_name }}",
+                preferredCountries: ["cu", "us", "gb"],
+                utilsScript: "{{ asset('js/IntlTelInputLib-utils.js') }}" // just for formatting/placeholders etc
+            });
+        } else {
+            //console.log("IntTl not yet");
+            setTimeout(function() {
+                defer(method);
+
+            }, 50);
+        }
+    }
+    defer();
+</script>
+
+<div class="col-md-10 offset-top-15 well-row-flex">
+    <div class="col-md-3">
+        <label for="{{ booking_form.telephone.vars.id }}" class="custom-label text-gray-dark">Telephone</label>
+    </div>
+    <div class="col-md-9 form-group">
+        <input id="{{ booking_form.telephone.vars.id }}" class="form-control form-control-has-validation form-control-last-child" type="tel">
+    </div>
+</div>

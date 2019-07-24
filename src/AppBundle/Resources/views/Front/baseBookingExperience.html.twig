@@ -119,14 +119,7 @@
 
 
                             <!---Telephone--->
-                            <div class="col-md-10 offset-top-15 well-row-flex">
-                                <div class="col-md-3">
-                                    <label for="{{ booking_form.telephone.vars.id }}" class="custom-label text-gray-dark">Telephone</label>
-                                </div>
-                                <div class="col-md-9 form-group">
-                                    <input name="{{ booking_form.telephone.vars.full_name }}" id="{{ booking_form.telephone.vars.id }}" class="form-control form-control-has-validation form-control-last-child" type="text">
-                                </div>
-                            </div>
+                            {% include '@App/Front/booking_form/__booking_field_telephone.html.twig' %}
 
                             <!-- Comment -->
                             <div class="col-md-10 well-row-flex offset-top-15">

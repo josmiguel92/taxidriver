@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse as RedirectResponse;
 use AppBundle\Entity\Booking;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use AppBundle\Utils\TelephoneNumber;
 
 /**
  * Booking controller.
@@ -50,6 +51,7 @@ class BookingController extends Controller
 
         $booking = new Booking(['USD'=>$config['tasa.usd'], 'CUC'=>$config['tasa.cuc'], 'EUR'=>1]);
         $booking->setBookingSource();
+        $booking->setBookingLanguage($_locale);
         $booking_form = $this->createForm('AppBundle\Form\BookingType',$booking, array(
             'action' => $this->generateUrl('add_booking'),
             'method' => 'POST',
@@ -110,8 +112,6 @@ class BookingController extends Controller
                         $booking->setPrice($_price, $base_prices=true);
                         $booking->setAccepted(true);
                     }
-
-                $booking->setBookingSource('webtaxidrivers');
 
                 $em->persist($booking);
                 $em->flush();
@@ -512,14 +512,16 @@ class BookingController extends Controller
             ->setTo($senderEmail)
             ->setBcc(['josmiguel92@gmail.com', '14ndy15@gmail.com'])
             ->setFrom(['noreply@taxidriverscuba.com'=>'TaxiDriversCuba']);
-          
+
+        $phone = new TelephoneNumber($booking->getTelephone());
         $message->setBody(
                 $this->renderView(
                     'AppBundle:Email:bookingNotification.html.twig',
                     [
                         'subject'=>$subject,
                         '_locale'=>$booking->getBookingLocale(),
-                        'booking'=>$booking
+                        'booking'=>$booking,
+                        'countryByPhone' => $phone->getCountry()
                     ]
                 ),
                 'text/html'
@@ -530,5 +532,6 @@ class BookingController extends Controller
 
         $this->get('mailer')->send($message);
     }
-    
+
+
 }
