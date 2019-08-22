@@ -39,7 +39,9 @@ class BookingAdminType extends AbstractType
                     'label' => 'Moneda'])
 
             ->add('payed', null, ['label'=> "El pago fue realizado con exito"])
+            
             ->add('payedDate',  DateType::class, ['widget'=>'single_text','label'=> "Fecha en que se realiza el pago"])
+            ->add('stared', null, ['label'=> "Destacar reserva en las listas por su importancia"])
            // ->add('drivermsg', TextareaType::class, ['label'=>'Mensaje al cliente','required'=>false]   )
 
             ;

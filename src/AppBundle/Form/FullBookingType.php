@@ -83,8 +83,9 @@ class FullBookingType extends AbstractType
 
                     'label' => 'Moneda'])
             ->add('comment', null, ['label'=>'Comentarios del Cliente'])
-            ->add('accepted',CheckboxType::class, ['label'=>'Aceptada por la Administración', 'required'=>false])
-            ->add('confirmed', CheckboxType::class,['label'=>'Confirmada por la Administración', 'required'=>false])
+            ->add('accepted',CheckboxType::class, ['label'=>'✔ Aceptada por la Administración', 'required'=>false])
+            ->add('confirmed', CheckboxType::class,['label'=>'✔ Confirmada por la Administración', 'required'=>false])
+            ->add('stared', null, ['label'=> "⚠ Destacar reserva en las listas por su importancia"])
             //->add('drivermsg', null, ['label'=>'Mensaje enviado al cliente al definir el precio'])
 
             ->add('serviceType', ChoiceType::class, ['label'=>'Tipo de Servicio','choices'=>['Transfer'=>'Transfer','Experience'=>'Experience', 'AirportTransfer'=>'AirportTransfer']])

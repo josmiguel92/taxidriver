@@ -232,6 +232,13 @@ class Booking
      */
     private $currency;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="stared", type="boolean", nullable=true)
+     */
+    private $stared;
+
     public function getCurrency()
     {
         if($this->currency)
@@ -1294,6 +1301,22 @@ class Booking
 
        $this->price = $this->getBasePriceByCurrency($this->price );
       // dump( [$this->price, $this->currency] );
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStared()
+    {
+        return $this->stared;
+    }
+
+    /**
+     * @param bool $stared
+     */
+    public function setStared($stared)
+    {
+        $this->stared = $stared;
     }
 }
 

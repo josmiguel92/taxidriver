@@ -1,7 +1,11 @@
 {% extends 'AppBundle:Dash:base.html.twig' %}
 {% set pagename = 'booking'  %}
 {% block content %}
-    <h2>Reservaci&oacute;n <small> ({{booking.id}}) - {{booking.token}}</small></h2>
+    <h2>
+{% if booking.isStared %}
+<i class="fa fa-warning text-warning"></i> &nbsp;
+{% endif %}
+        Reservaci&oacute;n <small> ({{booking.id}}) - {{booking.token}}</small></h2>
 
     {{ include('@App/Dash/booking/_partial_show.html.twig') }}
     {% if delete_form is defined %}

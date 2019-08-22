@@ -35,7 +35,7 @@
             <tr>
                 <th>Id</th>
                 
-                <th>Fecha de Reserva</th>
+                <th tabulator-formatter="html">Fecha de Reserva</th>
                 <th>Hora de Reserva</th>
                 <th>Destino</th>
                 <th>Tipo de Servicio</th>
@@ -52,7 +52,10 @@
         {% for booking in bookings %}
             <tr>
                 <td>{{ booking.token }}</td>
-                <td>{% if booking.pickuptime %}{{ booking.pickuptime|date('d/M/Y') }}{% endif %}</td>
+                <td>{% if booking.isStared %}
+<i class="fa fa-warning text-warning"></i> &nbsp;
+{% endif %}
+{% if booking.pickuptime %}{{ booking.pickuptime|date('d/M/Y') }}{% endif %}</td>
                 <td>{% if booking.pickuptime %}{{ booking.pickuptime|date('H:i') }}{% endif %}</td>
 
                 <td>{{ utils.cutText(booking.targetPlace,20, true) }}</td>

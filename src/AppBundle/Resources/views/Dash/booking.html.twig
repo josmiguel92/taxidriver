@@ -109,8 +109,13 @@
                         {% for item in booking %}
                         <tr class="{% if item.serviceType == 'Experience' %}service_experience{% endif %}
                         			{% if item.serviceType == 'Transfer' %}service_transfer{% endif %}
-                        			{% if item.serviceType == 'AirportTransfer' %}service_airporttransfer{% endif %}">
-                            <td>{{ item.pickuptime | date("d/M/Y - H:i")}}</td>
+                        			{% if item.serviceType == 'AirportTransfer' %}service_airporttransfer{% endif %}
+                                    {% if item.isStared %}stared{% endif %}">
+                            <td>
+                                    {% if item.isStared %}
+                                        <i class="fa fa-warning text-warning"></i> &nbsp;
+                                    {% endif %}
+                            {{ item.pickuptime | date("d/M/Y - H:i")}}</td>
                             
                             <td><a href="{{ path('dash_bookings_show', {'id': item.id}) }}">{{ item.id }}</a>
                                 {% if item.bookingTime | date('Y') > 2000 %}
@@ -240,5 +245,8 @@
 	.service_airporttransfer{
 		border-left: solid 5px #6666dd;
 	}
+    tr.stared{
+        background-color: bisque !important;
+    }
 </style>
 {% endblock %}
