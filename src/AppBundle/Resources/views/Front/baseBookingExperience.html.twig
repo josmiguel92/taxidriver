@@ -23,9 +23,19 @@
                     {{ experience.getDescriptionLocale | raw }}
                 </div>
 
-                <div   class="grid-fullbooking-testimony-places" >
+                <div >
 
-                    <div class="booking_form">
+                    {% if experience.isExternalBook %}
+
+                    {{ include('@App/Front/booking_form/__trekksof_integration.html.twig', 
+                        {
+                            'trekksoftId': experience.trekksoftId,
+                            'trekksoftTourId': experience.trekksoftTourId,
+                            'locale': locale
+                        }
+                    ) }}
+                    {% endif %}
+                    <div class="booking_form"  {% if experience.isExternalBook %}style="display: none"{% endif %}>
                         {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
                             'data-form-type':'order',
                             'data-form-output':'form-output-global'}}) }}
