@@ -49,12 +49,12 @@
                 </div>
 
 
-                <div {% if transfer.isExternalBook %} class="grid-fullbooking-testimony-places_vertical" {% else %}
+                <div {#% if transfer.isExternalBook %} class="grid-fullbooking-testimony-places_vertical" {% else %}
 
                     class="grid-fullbooking-testimony-places"
-                        {% endif %}>
+                        {% endif %#}>
 
-                {% if transfer.isExternalBook %}
+                {#% if transfer.isExternalBook %}
 
                     {{ include('@App/Front/booking_form/__trekksof_integration.html.twig', 
                         {
@@ -65,8 +65,8 @@
                     ) }}
                         
 
-                {% endif %}
-                    <div class="booking_form"  {% if transfer.isExternalBook %}style="display: none"{% endif %}>
+                {% endif %#}
+                    <div class="booking_form"  {#% if transfer.isExternalBook %}style="display: none"{% endif %#}>
                     {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
                             'data-form-type':'order',
                             'data-form-output':'form-output-global'}}) }}
@@ -284,7 +284,7 @@
                                     <img src="{{ asset('images/tripadvisor-logo.png') }}" alt="TripAdvisor"/>
                                 </a>
                             </div>
-                            <div class=" flex {% if transfer.isExternalBook %} flex-horizontal {% else %} flex-vertical {% endif %}">
+                            <div class=" flex {#% if transfer.isExternalBook %} flex-horizontal {% else %} flex-vertical {% endif %#}">
 
                                 {% for testimony in testimonials %}
                                     <div class="owl-item">
