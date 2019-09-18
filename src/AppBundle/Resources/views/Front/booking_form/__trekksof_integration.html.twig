@@ -1,6 +1,10 @@
 <div class="external_manage_booking" style="margin: 2em;">
     <a href="#" id="trekksoft_{{ trekksoftId }}" class="btn btn-primary">
-    {% trans %}¡Reserve ahora!{% endtrans %}
+        {% if complete_booking is defined %}
+            {% trans %}Complete booking!{% endtrans %}
+        {% else %}
+            {% trans %}¡Reserve ahora!{% endtrans %}
+        {% endif %}
 </a>
 
 <!-- TODO: url del api de trekksoft del intermediario -->

@@ -804,6 +804,18 @@
 	<source>¡Reserve ahora!</source>
 	<target>¡Reserve ahora!</target>
 </trans-unit>
+<trans-unit id="external.pay.text.calltoaction">
+	<source>To confirm your reservation and have everything ready, you will have to pay a small amount of money as a security deposit.</source>
+	<target>Para confirmar su reserva y tener todo listo, tendrá que pagar una pequeña cantidad de dinero como depósito de seguridad.</target>
+</trans-unit>
+<trans-unit id="external.pay.text.calltoaction.btn">
+	<source>Complete booking!</source>
+	<target>Completar reserva!</target>
+</trans-unit>
+<trans-unit id="purchase.details.youcanpaylater">
+	<source>You can pay in Cuba with cash to your driver.</source>
+	<target>Usted puede completar luego el pago en efectivo a su conductor en Cuba.</target>
+</trans-unit>
 
         </body>
     </file>
