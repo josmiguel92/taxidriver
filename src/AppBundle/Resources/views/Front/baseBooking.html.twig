@@ -55,27 +55,16 @@
                         {% endif %}>
 
                 {% if transfer.isExternalBook %}
-                        <div class="external_manage_booking">
-                            <a href="#" id="trekksoft_{{ transfer.trekksoftId }}" class="btn btn-primary">
-                            {% trans %}¡Reserve ahora!{% endtrans %}
-                        </a>
+{#                    'trekksoftTourId': transfer.trekksoftTourId,#}
+                    {{ include('@App/Front/booking_form/__trekksof_integration.html.twig', 
+                        {
+                            'trekksoftId': transfer.trekksoftId,
+                            'locale': locale
+                        }
+                    ) }}
+                        
 
-                        <!-- TODO: url del api de trekksoft del intermediario -->
-                            <script src="https://cubyke.trekksoft.com/{{ locale }}/api/public"></script>
-                            <script>
-                                (function() {
-                                    var button = new TrekkSoft.Embed.Button();
-                                    button
-                                        .setAttrib("target", "fancy")
-                                        .setAttrib("entryPoint", "tour")
-                                        {#.setAttrib("tourId", "{{ transfer.trekksoftTourId }}")#}
-                                        .setAttrib("fancywidth", "615px")
-                                        .registerOnClick("#trekksoft_{{ transfer.trekksoftId }}");
-                                })();
-                            </script>
-                        </div>
-
-                    {% endif %}
+                {% endif %}
                     <div class="booking_form"  {% if transfer.isExternalBook %}style="display: none"{% endif %}>
                     {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
                             'data-form-type':'order',
@@ -294,7 +283,7 @@
                                     <img src="{{ asset('images/tripadvisor-logo.png') }}" alt="TripAdvisor"/>
                                 </a>
                             </div>
-                            <div class=" flex {% if transfer.isExternalBook %} flex-horizontal {% else %} flex-vertical {% endif %}">
+                            <div class=" flex {#% if transfer.isExternalBook %} flex-horizontal {% else %} flex-vertical {% endif %#}">
 
                                 {% for testimony in testimonials %}
                                     <div class="owl-item">
