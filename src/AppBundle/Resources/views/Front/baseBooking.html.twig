@@ -52,10 +52,10 @@
                         class="grid-fullbooking-testimony-places"
                      {% endif %}>
                 {% if transfer.isExternalBook %}
-{#                    'trekksoftTourId': transfer.trekksoftTourId,#}
                     {{ include('@App/Front/booking_form/__trekksof_integration.html.twig', 
                         {
                             'trekksoftId': transfer.trekksoftId,
+                            'trekksoftTourId': transfer.trekksoftTourId,
                             'locale': locale
                         }
                     ) }}
