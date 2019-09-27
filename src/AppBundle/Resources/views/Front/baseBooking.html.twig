@@ -48,12 +48,10 @@
                     {{ transfer.getDescriptionLocale | raw }}
                 </div>
 
-
                 <div {% if transfer.isExternalBook %} class="grid-fullbooking-testimony-places_vertical" {% else %}
-
-                    class="grid-fullbooking-testimony-places"
-                        {% endif %}>
-
+                        class="grid-fullbooking-testimony-places"
+                     {% endif %}>
+                    <h1>{{ transfer.isExternalBook }}</h1>
                 {% if transfer.isExternalBook %}
 {#                    'trekksoftTourId': transfer.trekksoftTourId,#}
                     {{ include('@App/Front/booking_form/__trekksof_integration.html.twig', 
