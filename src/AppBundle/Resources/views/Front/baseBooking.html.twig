@@ -48,14 +48,10 @@
                     {{ transfer.getDescriptionLocale | raw }}
                 </div>
 
-
-                <div {#% if transfer.isExternalBook %} class="grid-fullbooking-testimony-places_vertical" {% else %}
-
-                    class="grid-fullbooking-testimony-places"
-                        {% endif %#}>
-
-                {#% if transfer.isExternalBook %}
-
+                <div {% if transfer.isExternalBook %} class="grid-fullbooking-testimony-places_vertical" {% else %}
+                        class="grid-fullbooking-testimony-places"
+                     {% endif %}>
+                {% if transfer.isExternalBook %}
                     {{ include('@App/Front/booking_form/__trekksof_integration.html.twig', 
                         {
                             'trekksoftId': transfer.trekksoftId,
@@ -65,8 +61,8 @@
                     ) }}
                         
 
-                {% endif %#}
-                    <div class="booking_form"  {#% if transfer.isExternalBook %}style="display: none"{% endif %#}>
+                {% endif %}
+                    <div class="booking_form"  {% if transfer.isExternalBook %}style="display: none"{% endif %}>
                     {{ form_start(booking_form, {'attr':{'class':'booking offset-top-44 well text-md-left',
                             'data-form-type':'order',
                             'data-form-output':'form-output-global'}}) }}
