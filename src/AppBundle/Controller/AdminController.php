@@ -32,7 +32,16 @@ class AdminController extends Controller
      */
     public function indexAction(Request $request, $_locale)
     {
-        return $this->redirectToRoute('dash_booking');
+
+        $em = $this->getDoctrine()->getManager();
+        $all_books = $em->getRepository("AppBundle:Booking")->findAll();//
+
+        $nextweek = $em->getRepository("AppBundle:Booking")->nextWeeksCount();
+
+        return $this->render('AppBundle:Dash:dash_home.html.twig', [
+            'pagename' => 'dash_home',
+            'all_books'=>$all_books,
+            'nextweek' => $nextweek]);
     }
 
     /**

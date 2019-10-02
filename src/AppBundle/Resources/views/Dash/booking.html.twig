@@ -3,12 +3,7 @@
 {% block content %}
     <div class="row">
         <div class="col-lg-6 col-sm-6">
-            <div class="card">
-                <span style="margin: 10px; text-align: center; display: block;font-weight: 600;">Frecuencia de nuevas reservas</span>
-                <div class="content">
-                    <canvas id="bookingChart" style="max-height: 145px;width: 100%;" height="145"></canvas>
-                </div>
-            </div>
+            {{ include('@App/Dash/home/_booking_frecuency.html.twig') }}
         </div>
 
         <div class="col-lg-3 col-sm-6">
@@ -187,10 +182,10 @@
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}
-    <script src="{{ asset('js/Chart.bundle.min.js') }}"></script>
+    
     <script>
         $('document').ready(function() {
-            console.log('ok');
+            
 
           $("a.booking-details-modal").click(function(e) {
               e.preventDefault();
@@ -211,42 +206,5 @@
 
         });
     </script>
-    <script>
-        var ctx = document.getElementById("bookingChart");
-        var bookingChart = new Chart(ctx, {
-            type: 'bar',
-            data: {{ render(path('dash_json_lastweek_booking')) }},
-            options: {
-                scales: {
-                    xAxes: [{
-                        stacked: true
-                    }],
-                    yAxes: [{
-                        stacked: true
-                    }]
-                },
-                tooltips: {
-                    mode: 'index',
-                    intersect: false
-                }
-            }
-        })
-    </script>
-{% endblock %}
-{% block stylesheets %}
-{{ parent()}}
-<style type="text/css">
-	.service_experience{
-		border-left: solid 5px #dd6666;
-	}
-	.service_transfer{
-		border-left: solid 5px #66dd66;
-	}
-	.service_airporttransfer{
-		border-left: solid 5px #6666dd;
-	}
-    tr.stared{
-        background-color: bisque !important;
-    }
-</style>
+    
 {% endblock %}

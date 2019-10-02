@@ -1,0 +1,145 @@
+{% extends 'AppBundle:Dash:base.html.twig' %}
+{% block pagetitle %}Inicio{% endblock pagetitle %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6 col-sm-6">
+            <div class="col-lg-12 col-sm-12">
+                {{ include('@App/Dash/home/_booking_frecuency.html.twig') }}
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-sm-6">
+                <!-- MOTOMO widget Visitors over time, week view-->
+               <div id="widgetIframe"><iframe width="100%" height="250" src="https://habana.tech/matomo/index.php?module=Widgetize&action=iframe&forceView=1&viewDataTable=graphEvolution&disableLink=0&widget=1&moduleToWidgetize=VisitsSummary&actionToWidgetize=getEvolutionGraph&idSite=1&period=week&date=2019-10-01&disableLink=1&widget=1" scrolling="yes" frameborder="0" marginheight="0" marginwidth="0"></iframe></div>
+            
+        </div>
+
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="icon-big icon-info text-center">
+                                <i class="fa-calendar-check-o fa  icon-success"></i>
+                            </div>
+                        </div>
+                        <a href="{{ path('dash_booking', {'filter':'week'})}}">
+                        <div class="col-xs-7">
+                            <div class="numbers">
+                                <p>Esta semana</p>
+                                {{ nextweek }}
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                    <div class="footer">
+                        <hr />
+                        
+                            <div class="stats">
+                                <a href="{{ path('dash_bookings_multiple_pdf_export')}}" class="">
+                                    <i class="ti-printer"></i> Resumen de semana
+                                </a>
+
+
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-6">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="icon-big icon-info text-center">
+                                <i class="ti-dropbox-alt"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="numbers">
+                                <p>Total Reserv.</p>
+                                +{{ all_books|length }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer">
+                        <hr />
+                        
+                        <div class="stats">
+                            <a href="{{ path('dash_bookings_index')}}" class="">
+                            <i class="ti-pencil-alt"></i> Ver todas las reservas
+                            </a>
+                            
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </div>
+    <div class="row">
+
+
+    {{ include('@App/Dash/booking/_calendar_month_view.html.twig') }}
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title"></h4>
+
+                </div>
+                <div class="content table-responsive table-full-width">
+                    
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+<!-- Modal -->
+<div class="modal fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Detalles de reservaci&oacute;n <i class="modal fa fa-spinner fa-spin" style="position: relative"></i></h4>
+      </div>
+      <div class="modal-body" id="modalBodyContainer">
+
+      </div>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+    
+{% endblock %}
+{% block stylesheets %}
+{{ parent()}}
+<style type="text/css">
+	.service_experience{
+		border-left: solid 5px #dd6666;
+	}
+	.service_transfer{
+		border-left: solid 5px #66dd66;
+	}
+	.service_airporttransfer{
+		border-left: solid 5px #6666dd;
+	}
+    tr.stared{
+        background-color: bisque !important;
+    }
+</style>
+{% endblock %}
