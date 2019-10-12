@@ -816,6 +816,14 @@
 	<source>You can pay in Cuba with cash to your driver.</source>
 	<target>Usted puede completar luego el pago en efectivo a su conductor en Cuba.</target>
 </trans-unit>
+<trans-unit id="purchase.details.youwillrecive">
+	<source>You will receive an email confirming your chekout.</source>
+	<target>Usted recibirá un email confirmando su pago.</target>
+</trans-unit>
+<trans-unit id="purchase.details.youwanttogooto">
+	<source>You want to go to</source>
+	<target>Usted desea viajar a</target>
+</trans-unit>
 
         </body>
     </file>

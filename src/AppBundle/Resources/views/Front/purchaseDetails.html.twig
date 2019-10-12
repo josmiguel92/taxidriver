@@ -14,6 +14,10 @@
     {% set title = "Your transaction was " %}
 {% endif %}
 
+{% if config['trekksoft.pays.id'] != 'null' %}
+    {% set title = "Your booking is almost ready" %}
+{% endif %}
+
 {% if paypalCallback == 'success' or paypalCallback == 'cash' %}
     {% set title = title~"success" %}
 {% elseif paypalCallback == 'cancel' %}
@@ -51,11 +55,72 @@
     <main class="page-content">
 
         <section class="section-75 section-md-top-90 section-md-bottom-95">
+
+            <div class="row">
+
+
+                {% if config['trekksoft.pays.id'] != 'null' %}
+                <!-- esta activo el pago x trekksoft -->
+
+                    <div class="cell-md-6 col-md-6 col-md-offset-3">
+                        {{ include('@App/Front/booking_form/pre_pay.svg.twig') }}
+
+                        <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">
+                            {% trans %}To confirm your reservation and have everything ready, you will have to pay a small amount of money as a security deposit.{% endtrans %}
+                        </p>
+
+                        <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">
+                            {% trans %}You will receive an email confirming your chekout.{% endtrans %}
+                        </p>
+                        {{ include('@App/Front/booking_form/__trekksof_integration.html.twig',
+                            {
+                                'trekksoftId': config['trekksoft.pays.id'],
+                                'trekksoftTourId': config['trekksoft.Tour.id'],
+                                'locale': locale,
+                                'complete_booking': true
+                            }
+                        )
+                        }}
+
+            </div>
+                {% else %}
+
+
+
+                    <div class="cell-md-6 col-md-6 col-md-offset-3">
+
+                    {% if purchase.CurrentService.isExternalBook and not purchase.idpaypal %}
+
+                        {{ include('@App/Front/booking_form/pre_pay.svg.twig') }}
+
+                        <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">
+                            {% trans %}To confirm your reservation and have everything ready, you will have to pay a small amount of money as a security deposit.{% endtrans %}
+                        </p>
+                        {{ include('@App/Front/booking_form/__trekksof_integration.html.twig',
+                            {
+                                'trekksoftId': purchase.CurrentService.trekksoftId,
+                                'trekksoftTourId': purchase.CurrentService.trekksoftTourId,
+                                'locale': locale,
+                                'complete_booking': true
+                            }
+                        )
+                        }}
+                    {% endif %}
+
+                </div>
+
+                {% endif %}
+
+                <div class="cell-md-10 col-md-10 col-md-offset-1">
+                    <h2>
+                        {% trans %}Hi!{% endtrans %} {{ purchase.fullname }}, {% trans %}these are the details of your reservation{% endtrans %}
+                    </h2>
+                </div>
+            </div>
+
+
             <div class="shell">
 
-                <h2>
-                    {% trans %}Hi!{% endtrans %} {{ purchase.fullname }}, {% trans %}these are the details of your reservation{% endtrans %}
-                </h2>
 
                 <div class="offset-top-50">
 
@@ -157,64 +222,17 @@
 
                     </div>
 
+                    {% if not purchase.accepted and config['trekksoft.pays.id'] == 'null'  %}
+                        <div class="cell-md-6 col-md-6 col-md-offset-3">
+                            <i class="fa fa-clock-o fa-5x color-sky"></i>
+                            <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">
+                                {% trans %}We are processing your reservation. As soon we have all resources confirm, we will get in touch with you, usually this take less than a day.{% endtrans %}
+                            </p>
+                        </div>
+                    {% endif %}
+
                     {% if paypalCallback is empty and purchase.idpaypal == null%}
                         <div class="row section-bottom-40">
-
-                            {% if config['trekksoft.pays.id'] != 'null' %}
-                                <!-- esta activo el pago x trekksoft -->
-
-                                    {{ include('@App/Front/booking_form/pre_pay.svg.twig') }}
-
-                                    <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">
-                                        {% trans %}To confirm your reservation and have everything ready, you will have to pay a small amount of money as a security deposit.{% endtrans %}
-                                    </p>
-
-                                    <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">
-                                        {% trans %}You will receive an email confirming your chekout.{% endtrans %}
-                                    </p>
-                                    {{ include('@App/Front/booking_form/__trekksof_integration.html.twig',
-                                        {
-                                            'trekksoftId': config['trekksoft.pays.id'],
-                                            'trekksoftTourId': config['trekksoft.Tour.id'],
-                                            'locale': locale,
-                                            'complete_booking': true
-                                        }
-                                    )
-                                    }}
-
-                            {% else %}
-
-                                {% if not purchase.accepted %}
-                                    <div class="cell-md-6 col-md-6 col-md-offset-3">
-                                        <i class="fa fa-clock-o fa-5x color-sky"></i>
-                                        <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">
-                                            {% trans %}We are processing your reservation. As soon we have all resources confirm, we will get in touch with you, usually this take less than a day.{% endtrans %}
-                                        </p>
-                                    </div>
-                                {% endif %}
-
-                                <div class="cell-md-6 col-md-6 col-md-offset-3">
-
-                                    {% if purchase.CurrentService.isExternalBook and not purchase.idpaypal %}
-
-                                        {{ include('@App/Front/booking_form/pre_pay.svg.twig') }}
-
-                                        <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">
-                                            {% trans %}To confirm your reservation and have everything ready, you will have to pay a small amount of money as a security deposit.{% endtrans %}
-                                        </p>
-                                        {{ include('@App/Front/booking_form/__trekksof_integration.html.twig',
-                                            {
-                                                'trekksoftId': purchase.CurrentService.trekksoftId,
-                                                'trekksoftTourId': purchase.CurrentService.trekksoftTourId,
-                                                'locale': locale,
-                                                'complete_booking': true
-                                            }
-                                        )
-                                        }}
-                                    {% endif %}
-
-                                </div>
-                            {% endif %}
 
                             <hr style="margin-bottom: 1em;">
                                 <!-- simple purchase -->
