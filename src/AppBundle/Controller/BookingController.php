@@ -482,6 +482,7 @@ class BookingController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $senderEmail = 'taxidriverscuba@gmail.com';
+        $senderEmail_conf = 'reservation.taxidriverscuba@gmail.com';
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
@@ -509,8 +510,8 @@ class BookingController extends Controller
         //admin message
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
-            ->setReplyTo($senderEmail)
-            ->setTo($senderEmail)
+//            ->setReplyTo($senderEmail_conf)
+            ->setTo($senderEmail_conf)
             ->setBcc(['josmiguel92@gmail.com', '14ndy15@gmail.com'])
             ->setFrom(['noreply@taxidriverscuba.com'=>'TaxiDriversCuba']);
 
