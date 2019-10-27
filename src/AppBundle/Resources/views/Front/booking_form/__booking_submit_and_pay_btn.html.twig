@@ -1,0 +1,20 @@
+<!--Submit button-->
+<div class="well-row well-row-bg">
+    {% block submitAlert %}
+    {% endblock submitAlert %}
+
+    <div class="text-center offset-top-33">
+        <button type="submit" class="btn btn-xl btn-primary" id="booking_submit">
+            <i class="fa fa-shopping-cart "></i>
+            {% trans %}Book Now{% endtrans %}
+            <span class="text-extra-small">*</span>
+        </button>
+    </div>
+
+    <div>
+        <p class="text-extra-small offset-top-30 text-justify">*
+            {% trans %}The price can vary in function of the amount of passengers and distance of the place
+            {% endtrans %}.
+        </p>
+    </div>
+</div>
