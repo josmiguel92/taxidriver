@@ -81,7 +81,7 @@ class BookingController extends Controller
 
                 $captcha = '';
 
-                //Si se ejecuta env. PROD, validar catpcha... y si no es success, ir a home!
+                //Si se ejecuta env. PROD, validar catpcha... y si no es success, regresar!
                 if(substr_count($_SERVER['SERVER_NAME'],'taxidriverscuba.com')) {
                     if (isset($_POST['g-recaptcha-response'])) {
                         $captcha = $_POST['g-recaptcha-response'];
@@ -92,9 +92,7 @@ class BookingController extends Controller
                                             "&remoteip=".$_SERVER['REMOTE_ADDR']),
                                         true);
                         if($response['success'] != true)
-                            return $this->redirectToRoute('home', [
-                                '_locale'=>$_locale
-                            ]);
+                            return $this->redirect($_SERVER['HTTP_REFERER']);
 
                 }
 
@@ -110,7 +108,10 @@ class BookingController extends Controller
                     if($_price = $booking->calculateSimplePrice($config['price.increment']))
                     {
                         $booking->setPrice($_price, $base_prices=true);
-                        $booking->setAccepted(true);
+
+                        //en caso de que no se pague via trekkesoft todas lass reservas
+                        if($config['price.increment'] == 'null')
+                            $booking->setAccepted(true);
                     }
 
                 $em->persist($booking);
@@ -481,6 +482,7 @@ class BookingController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $senderEmail = 'taxidriverscuba@gmail.com';
+        $senderEmail_conf = 'reservation.taxidriverscuba@gmail.com';
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
@@ -508,8 +510,8 @@ class BookingController extends Controller
         //admin message
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
-            ->setReplyTo($senderEmail)
-            ->setTo($senderEmail)
+//            ->setReplyTo($senderEmail_conf)
+            ->setTo($senderEmail_conf)
             ->setBcc(['josmiguel92@gmail.com', '14ndy15@gmail.com'])
             ->setFrom(['noreply@taxidriverscuba.com'=>'TaxiDriversCuba']);
 

@@ -361,8 +361,22 @@
                             <div class="g-recaptcha" data-sitekey="{{ google_recaptcha_public_key }}"></div>
                         </div>
                     </div>
+                <!--Submit button-->
+                <div class="well-row well-row-bg">
+                    {% block submitAlert %}
+                    {% endblock submitAlert %}
 
-                {% include "@App/Front/booking_form/__booking_submit_and_pay_btn.html.twig" %}
+                    <!-- Submit or Pay btn -->
+                    {% include '@App/Front/booking_form/__booking_submit_btn.html.twig' %}
+
+
+                    <div>
+                        <p class="text-extra-small offset-top-30 text-justify">*
+                            {% trans %}The price can vary in function of the amount of passengers and distance of the place
+                            {% endtrans %}.
+                        </p>
+                    </div>
+                </div>
 
                 {{ form_widget(booking_form._token)}}
                 <input type="hidden" value="{{ transfer.id }}" name="{{ booking_form.airportTransfer.vars.full_name }}">

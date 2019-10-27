@@ -549,6 +549,14 @@ class AdminController extends Controller
 
 
 
+        if(!isset($config['trekksoft.pays.id']))
+            $em->persist(new \AppBundle\Entity\ConfigValue("trekksoft.pays.id",'', "ID de pagos global Trekksoft"));
+
+
+        if(!isset($config['trekksoft.Tour.id']))
+            $em->persist(new \AppBundle\Entity\ConfigValue("trekksoft.Tour.id",'', "ID de Tour global Trekksoft"));
+
+
         $em->flush();
             $configValues = $em->getRepository('AppBundle:ConfigValue')->findAll();
 

@@ -156,13 +156,9 @@
                             {% block submitAlert %}
                             {% endblock submitAlert %}
 
-                            <div class="text-center offset-top-33">
-                                <button type="submit" class="btn btn-xl btn-primary" id="booking_submit">
-                                    <i class="fa fa-shopping-cart "></i>
-                                    {% trans %}Book Now{% endtrans %}
-                                    <span class="text-extra-small">*</span>
-                                </button>
-                            </div>
+                            <!-- Submit or Pay btn -->
+                            {% include '@App/Front/booking_form/__booking_submit_btn.html.twig' %}
+
 
                         </div>
 
