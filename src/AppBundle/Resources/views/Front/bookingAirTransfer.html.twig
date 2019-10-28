@@ -151,21 +151,21 @@
 
 
 
-            <div>
+                <div>
 
-                {#
+
 					{% if transfer.isExternalBook %}
 
-                    {{ include('@App/Front/booking_form/__trekksof_integration.html.twig', 
+                    {{ include('@App/Front/booking_form/__trekksof_integration.html.twig',
                         {
                             'trekksoftId': transfer.trekksoftId,
                             'trekksoftTourId': transfer.trekksoftTourId,
                             'locale': locale
                         }
                     ) }}
-                        
+
                     {% endif %}
-                #}
+
 
                 <div class="booking_form"  {#% if transfer.isExternalBook %}style="display: none"{% endif %#}>
                 {{ form_start(booking_form, {'attr':{'class':'booking well text-md-left',

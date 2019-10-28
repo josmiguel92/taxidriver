@@ -1,12 +1,35 @@
 
 {% if testimonials %}
+    <style>
+        .grid-testimonies-booking {
+            grid-template-columns: 1fr 1fr 1fr;
+            /*grid-auto-rows: minmax(100px,15vh);*/
+            grid-column-gap: 6vw;
+            grid-row-gap: 8vh;
+            margin: 2em 10%;
+            align-content: center;
+            display:grid;
+            position: relative;
+        }
+        .grid-testimonies-booking.owl-item .quote{
+            display: flex;
+            flex-direction: column;
+        }
+        @media screen and (max-width:480px){
+            .grid-testimonies-booking{
+                grid-template-columns: 1fr;
+                /*grid-auto-rows: minmax(100px,10vh);*/
+                grid-column-gap: 3vw;
+                grid-row-gap: 2vh;
+        }}
+    </style>
     <div class="testimonials">
-        <div class="testimonials-header">
+        <div class="testimonials-header" style="margin-top: 1em;">
             <a target="_blank" href="https://www.tripadvisor.es/">
                 <img src="{{ asset('images/tripadvisor-logo.png') }}" alt="TripAdvisor"/>
             </a>
         </div>
-        <div class=" flex {% if isExternalBooking %} flex-horizontal {% else %} flex-vertical {% endif %}">
+        <div class="grid-testimonies-booking">
 
             {% for testimony in testimonials %}
                 <div class="owl-item" >

@@ -842,7 +842,7 @@
 </trans-unit>
 <trans-unit id="You.need.to.proceed.with.the.pay">
 	<source>You need to proceed with the pay of this product in advance, in order to confirm this booking.</source>
-	<target>Es necesario que realice el pago de este producto por adelantado para cconfirmar la reservación</target>
+	<target>Es necesario que realice el pago de este producto por adelantado para confirmar la reservación</target>
 </trans-unit>
 <trans-unit id="Pay.now">
 	<source>Pay now!</source>
