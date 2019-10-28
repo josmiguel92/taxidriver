@@ -1,7 +1,64 @@
+{# if the config to Globally pay the deposit or the current service external pay is set #}
+{% set globalDepositPay = false %}
+
+{% if transfer.isExternalBook %}
+    {% set trekksoftId = transfer.trekksoftId %}
+    {% set trekksoftTourId = transfer.trekksoftTourId %}
+{% elseif config['trekksoft.pays.id'] != 'null' %}
+    {% set trekksoftId = config['trekksoft.pays.id'] %}
+    {% set trekksoftTourId = config['trekksoft.Tour.id'] %}
+    {% set globalDepositPay = true %}
+{% endif %}
+
+{% if trekksoftId is defined %}
+    <div class="well-row well-row-bg">
+        <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">{% trans %}First... the payment{% endtrans %}</p>
+
+    </div>
+    <div class="wel-row row">
+
+
+
+            <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">
+
+                {{ include('@App/Front/booking_form/pre_pay.svg.twig') }}
+            </p>
+
+            <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">
+
+                {% if globalDepositPay %}
+                    {% trans %}To confirm your reservation and have everything ready, you will have to pay a small amount of money as a security deposit.{% endtrans %}
+                {% else %}
+                    {% trans %}You need to proceed with the pay of this product in advance, in order to confirm this booking.{% endtrans %}
+                {% endif %}
+
+            </p>
+            {{ include('@App/Front/booking_form/__trekksof_integration.html.twig',
+                {
+                    'trekksoftId': trekksoftId,
+                    'trekksoftTourId': trekksoftTourId,
+                    'locale': locale,
+                    'globalDepositPay': globalDepositPay
+                }
+            )
+            }}
+
+
+    </div>
+{% endif %}
 <!--Submit button-->
+
 <div class="well-row well-row-bg">
+    <p class="text-uppercase text-bold text-spacing-25 font-accent text-gray-dark">{% trans %}Send request{% endtrans %}</p>
+
     {% block submitAlert %}
     {% endblock submitAlert %}
+
+    {% if trekksoftId is defined %}
+    <p class="text-spacing-25 offset-top-15 font-accent text-gray-dark text-center">
+        {% trans %}Once the payment is made, you can send your request details{% endtrans %}
+    </p>
+    {% endif %}
 
     <div class="text-center offset-top-33">
         <button type="submit" class="btn btn-xl btn-primary" id="booking_submit">

@@ -233,25 +233,13 @@
                             </div>
                         </div>
 
-                        <!--Submit button-->
-                        <div class="well-row well-row-bg">
-                            {% block submitAlert %}
-                            {% endblock submitAlert %}
 
-                            <!-- Submit or Pay btn -->
-                            {% include '@App/Front/booking_form/__booking_submit_btn.html.twig' %}
+                        <!-- Submit or Pay btn -->
+                        {% include '@App/Front/booking_form/__booking_submit_and_pay_btn.html.twig' %}
 
 
 
-                            <div>
-                                <p class="text-extra-small offset-top-30 text-justify">*
-                                    {% trans %}The price can vary in function of the amount of passengers and distance of the place
-                                    {% endtrans %}.
-                                </p>
-                            </div>
 
-
-                        </div>
 
                         {{ form_widget(booking_form._token)}}
                         <input type="hidden" value="{{ transfer.id }}" name="{{ booking_form.transfer.vars.full_name }}">
@@ -270,63 +258,8 @@
 
                     </div>
 
-                    {% if testimonials %}
-                        <div class="testimonials">
-                            <div class="testimonials-header">
-                                <a target="_blank" href="https://www.tripadvisor.es/">
-                                    <img src="{{ asset('images/tripadvisor-logo.png') }}" alt="TripAdvisor"/>
-                                </a>
-                            </div>
-                            <div class=" flex {#% if transfer.isExternalBook %} flex-horizontal {% else %} flex-vertical {% endif %#}">
+                    {{ include('@App/Front/booking_form/__booking_testimonials.html.twig', {'isExternalBooking' : transfer.externalBook }) }}
 
-                                {% for testimony in testimonials %}
-                                    <div class="owl-item">
-                                        <!-- Blockquote-->
-                                        <blockquote class="quote">
-
-                                            {% set alt = locale=='en'? "TripAdvisor Testimony by" : "Testimonio de TripAdvisor por" %}
-                                            <a href="{{ testimony.link }}">
-                                                <img alt="{{ alt }} {{ testimony.getName }}" data-src="{{ asset(testimony.getFullImageWebPath) }}" width="120" height="120" class="img-circle img-responsive center-block lazy">
-                                                <div class="offset-top-10 offset-md-top-25">
-                                                    <cite class="font-accent text-bold text-spacing-inverse-25 text-primary">
-                                                        <span class="text-mine-shaft">{{ testimony.getName }}</span>
-                                                    </cite>
-                                                </div>
-                                            </a>
-
-                                            {% if testimony.points %}
-                                                <span class="badge">
-                                            {% for i in 1 .. testimony.points %}
-                                                <i class="fa fa-star" style="color: gold; font-size: .5em"></i>
-                                            {% endfor %}
-                                        </span>
-                                            {% endif %}
-                                            <div class="offset-top-15 offset-md-top-30">
-                                                <b  style="font-size: 0.7em;">{{ testimony.getTitleLocale }}</b>
-                                                <p style="font-size: 0.7em;">
-
-                                                    {{ testimony.getTextLocale|striptags|slice(0, 200) }}
-                                                    {% if testimony.getTextLocale|striptags|length > 200 %}
-                                                        ...
-                                                    {% endif %}
-                                                </p>
-
-                                            </div>
-
-                                            {% if not loop.last %}
-                                                <div class="offset-top-10">
-                                                    <h5 class="text-spacing-20 text-silver-chalice">....</h5>
-                                                </div>
-                                            {% endif %}
-                                        </blockquote>
-                                    </div>
-
-                                {% endfor %}
-
-                            </div>
-                        </div>
-
-                    {% endif %}
                 </div>
 
 

@@ -824,6 +824,56 @@
 	<source>You want to go to</source>
 	<target>Usted desea viajar a</target>
 </trans-unit>
+<trans-unit id="Airport.name">
+	<source>Airport name</source>
+	<target>Nombre del Aeropuerto</target>
+</trans-unit>
+<trans-unit id="Destination.place">
+	<source>Destination place</source>
+	<target>Lugar de destino</target>
+</trans-unit>
+<trans-unit id="Anything.that.you.need.to.tell.us">
+	<source>Anything that you need to tell us?</source>
+	<target>Algo que desee comentarnos</target>
+</trans-unit>
+<trans-unit id="First...the.payment">
+	<source>First... the payment</source>
+	<target>Primer paso, el pago</target>
+</trans-unit>
+<trans-unit id="You.need.to.proceed.with.the.pay">
+	<source>You need to proceed with the pay of this product in advance, in order to confirm this booking.</source>
+	<target>Es necesario que realice el pago de este producto por adelantado para cconfirmar la reservación</target>
+</trans-unit>
+<trans-unit id="Pay.now">
+	<source>Pay now!</source>
+	<target>Realizar Pago</target>
+</trans-unit>
+
+<trans-unit id="Send.request">
+	<source>Send request</source>
+	<target>Enviar reserva</target>
+</trans-unit>
+<trans-unit id="Once.the.payment.is.made">
+	<source>Once the payment is made, you can send your request details</source>
+	<target>Luego de realizar el pago, puede enviar los detalles de su reservación</target>
+</trans-unit>
+<trans-unit id="details">
+	<source>details</source>
+	<target>detalles</target>
+</trans-unit>
+<trans-unit id="Yo.want.a.transfer">
+	<source>Yo want a transfer</source>
+	<target>Desea un transfer</target>
+</trans-unit>
+<trans-unit id="from">
+	<source>from</source>
+	<target>desde</target>
+</trans-unit>
+<trans-unit id="to">
+	<source>to</source>
+	<target>a</target>
+</trans-unit>
+
 
         </body>
     </file>
