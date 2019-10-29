@@ -92,16 +92,12 @@ class DefaultController extends Controller
      * "code":"\d+"
      * }, name="deposit")
      */
-    public function deposit(Request $request, $code, $_locale)
+    public function deposit(Request $request, $_locale, $code = 40)
     {
 
-        $ActivityId = null;
+        $ActivityId = 282391;
         #40
-        if ($code == 40){
-            $ActivityId = 282391;
-        }
-        #75
-        elseif ($code == 75){
+        if ($code == 75){
             $ActivityId = 283942;
         }
         elseif ($code == 150)
