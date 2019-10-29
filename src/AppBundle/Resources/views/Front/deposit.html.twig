@@ -74,20 +74,40 @@
             margin-bottom: 2em;
         }
 
-        .text{
-            width: 60%;
+        .deposit{
+            padding: 3em 0;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            width: 80%;
             margin: auto;
+        }
+
+        .deposit__text{
+            width: 60%;
+
+        }
+
+        .deposit__action{
+            width: 30%;
         }
 
         .payment-btn{
             margin: 3em auto;
             padding: .75em 1em;
             color: white;
-            background-color: #18acfb;
+            background-color: rgba(24, 172, 251, 0.86);
             border: 1px white solid;
             border-radius: 2px;
             font-weight: 700;
         }
+
+        .payment-btn:hover{
+            background-color: #18acfb;
+            color: white;
+        }
+
     </style>
 
     <!-- Page Content-->
@@ -112,16 +132,21 @@
             {% endfor %}
         </div>
 
-        <div class="text">
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet animi, architecto aspernatur consequatur consequuntur corporis cum dignissimos eius eligendi esse laborum magni maxime pariatur quasi quibusdam, quos, sit voluptatibus!
-            </p>
+        <div class="deposit">
+            <div class="deposit__text">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet animi, architecto aspernatur consequatur consequuntur corporis cum dignissimos eius eligendi esse laborum magni maxime pariatur quasi quibusdam, quos, sit voluptatibus!
+                </p>
+            </div>
+
+            <div class="deposit__action">
+                <a href="#" class="payment-btn" id="trekksoft_9974">
+                    Make deposit
+                </a>
+            </div>
+
         </div>
 
-
-        <a href="#" class="payment-btn" id="trekksoft_9974">
-            Make deposit
-        </a>
 
 
     </main>
