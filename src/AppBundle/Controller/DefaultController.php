@@ -87,6 +87,72 @@ class DefaultController extends Controller
 
 
     /**
+     * @Route("/{_locale}/deposit", defaults={"_locale": "en"}, requirements={
+     * "_locale": "en|es|fr"
+     * }, name="deposit")
+     */
+    public function deposit(Request $request, $_locale)
+    {
+        Utils::setRequestLocaleLang($_locale);
+        $em = $this->getDoctrine()->getManager();
+        $content = $em->getRepository('AppBundle:SiteContent')->findAll();
+        if ($content) {
+            $posters = $em->getRepository('AppBundle:Image')->findLastPosters(1);
+            $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries(0, 0);
+
+            $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
+            $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
+            $places = $em->getRepository('AppBundle:Place')->findAll(); //TODO: eliminar esta consulta y no pasar los places
+            $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
+            $testimonials = $em->getRepository('AppBundle:Testimony')->getRandomTestimony();
+
+            $experiences = $em->getRepository('AppBundle:Experience')->findAllSorted();
+            $transfers = $em->getRepository('AppBundle:Transfer')->findAllSorted();
+            $airport_transfers = $em->getRepository('AppBundle:AirportTransfer')->findAllSorted();
+
+            $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+            $config = [];
+
+            foreach ($_config as $item){
+                $config[$item->getName()]=$item->getValue();
+            }
+
+            $featureImage = '';
+            if(count($posters)>0)
+                $featureImage = $posters[0]->getWebPath();
+
+            $messageForm = $this->createForm('AppBundle\Form\ContactMsgsType',
+                new ContactMsgs(),
+                array(
+                    'action' => $this->generateUrl('sendMessage'),
+                    'method' => 'POST'
+                )
+            );
+
+            return $this->render('AppBundle:Front:deposit.html.twig',
+                ['locale'=>$_locale,
+                    'content'=>$content[0],
+                    'featureImage'=>$featureImage,
+                    'posters'=>$posters,
+                    'blogEntries'=>$blogEntries,
+                    'socialNetworks'=>$socialNetworks,
+                    'hashtags'=>$hashtags,
+
+                    'transfers'=>$transfers,
+                    'places'=>$places,
+                    'experiences'=>$experiences,
+                    'airport_transfers' => $airport_transfers,
+                    'infographys'=>$infographys,
+                    'testimonials'=>$testimonials,
+                    'config' => $config,
+                    'messageForm' => $messageForm->createView(),
+
+                ]);
+        }
+    }
+
+
+    /**
      * @Route("/blog")
      * @Route("/{_locale}/blog/{_page}", defaults={"_locale": "en", "_page":1}, requirements={
      * "_locale": "en|es|fr",
