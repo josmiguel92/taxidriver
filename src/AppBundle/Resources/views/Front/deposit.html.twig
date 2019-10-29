@@ -66,13 +66,45 @@
 {% endblock %}
 
 {% block content %}
+    <style>
+        .payment-btn{
+            padding: 1em;
+            background-color: #18acfb;
+            border: 1px white solid;
+            border-radius: 2px;
+            font-weight: 700;
+        }
+    </style>
 
     <!-- Page Content-->
     <main class="page-content">
 
-        <a href="#" id="trekksoft_9974">
+        {% for poster in posters | first %}
+        <div class="carousel-cell">
+            <img data-srcset="
+                                      {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_1200')) }} 1200w,
+                                      {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_1000')) }} 1000w,
+                                      {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_800')) }} 800w,
+                                      {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_600')) }} 600w,
+                                      {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_400')) }} 400w"
+                 sizes="100vw"
+                 src="{{ asset(poster.getWideImageWebPath | imagine_filter('thumbnail')) }}"
+                 alt="{{ poster.getTitleLocale }}"
+                 class="img-responsive center-block lazy"
+                 height="80vh"
+                 width="100vw">
+        </div>
+        {% endfor %}
+
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet animi, architecto aspernatur consequatur consequuntur corporis cum dignissimos eius eligendi esse laborum magni maxime pariatur quasi quibusdam, quos, sit voluptatibus!
+        </p>
+        
+        <a href="#" class="payment-btn" id="trekksoft_9974">
             Make deposit
         </a>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam autem, delectus distinctio dolore earum ipsa ipsum labore, laboriosam maxime molestiae necessitatibus nesciunt obcaecati officiis quaerat saepe totam ut velit vitae!</p>
 
 
     </main>
