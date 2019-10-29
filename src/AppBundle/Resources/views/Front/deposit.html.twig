@@ -68,7 +68,9 @@
 {% block content %}
     <style>
         .payment-btn{
-            padding: 1em;
+            margin: 3em auto;
+            padding: .75em 1em;
+            color: white;
             background-color: #18acfb;
             border: 1px white solid;
             border-radius: 2px;
@@ -79,7 +81,7 @@
     <!-- Page Content-->
     <main class="page-content">
 
-        {% for poster in posters | first %}
+        {% for poster in posters %}
             <div class="carousel-cell">
                 <img data-srcset="
                                           {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_1200')) }} 1200w,
