@@ -71,26 +71,43 @@
         .poster{
             height: 80vh;
             overflow: hidden;
-            margin-bottom: 2em;
+            margin-bottom: 1em;
         }
+        .poster img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
 
         .deposit{
             padding: 3em 0;
             position: relative;
             display: flex;
-            justify-content: space-between;
             flex-wrap: wrap;
+            justify-content: space-between;
+
             width: 80%;
             margin: auto;
         }
 
         .deposit__text{
-            width: 60%;
-
+            width: 100%;
         }
 
         .deposit__action{
-            width: 30%;
+            width: 100%;
+            padding: 2em;
+        }
+
+        @media (min-width: 768px) {
+            .deposit__action {
+                width: 30%;
+            }
+
+            .deposit__text{
+                width: 60%;
+            }
         }
 
         .payment-btn{
@@ -103,7 +120,7 @@
             font-weight: 700;
         }
 
-        .payment-btn:hover{
+        .payment-btn:hover, .payment-btn:active{
             background-color: #18acfb;
             color: white;
         }
@@ -115,7 +132,6 @@
 
         <div class="poster">
             {% for poster in posters %}
-                <div class="carousel-cell">
                     <img data-srcset="
                                               {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_1200')) }} 1200w,
                                               {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_1000')) }} 1000w,
@@ -128,14 +144,15 @@
                          class="img-responsive center-block lazy"
                          height="80vh"
                          width="100vw">
-                </div>
             {% endfor %}
         </div>
 
         <div class="deposit">
             <div class="deposit__text">
+                <h1>Your are here!</h1>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet animi, architecto aspernatur consequatur consequuntur corporis cum dignissimos eius eligendi esse laborum magni maxime pariatur quasi quibusdam, quos, sit voluptatibus!
+                    On this page you can make a deposit for the services you want.
+                    This amount will be deducted from the total payment of the requested service.
                 </p>
             </div>
 
