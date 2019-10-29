@@ -88,7 +88,8 @@ class DefaultController extends Controller
 
     /**
      * @Route("/{_locale}/deposit/{code}", defaults={"_locale": "en"}, requirements={
-     * "_locale": "en|es|fr"
+     * "_locale": "en|es|fr",
+     * "code":"\d+"
      * }, name="deposit")
      */
     public function deposit(Request $request, $code, $_locale)
@@ -96,14 +97,14 @@ class DefaultController extends Controller
 
         $ActivityId = null;
         #40
-        if ($code == '40'){
+        if ($code == 40){
             $ActivityId = 282391;
         }
         #75
-        elseif ($code == '75'){
+        elseif ($code == 75){
             $ActivityId = 283942;
         }
-        elseif ($code == '150')
+        elseif ($code == 150)
             $ActivityId = 283945;
 
         Utils::setRequestLocaleLang($_locale);
