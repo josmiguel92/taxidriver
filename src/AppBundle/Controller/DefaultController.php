@@ -87,12 +87,25 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/{_locale}/deposit", defaults={"_locale": "en"}, requirements={
+     * @Route("/{_locale}/deposit/{code}", defaults={"_locale": "en"}, requirements={
      * "_locale": "en|es|fr"
      * }, name="deposit")
      */
-    public function deposit(Request $request, $_locale)
+    public function deposit(Request $request, $code, $_locale)
     {
+
+        $ActivityId = null;
+        #40
+        if ($code == 40){
+            $ActivityId = 282391;
+        }
+        #75
+        elseif ($code == 75){
+            $ActivityId = 283942;
+        }
+        elseif ($code == 150)
+            $ActivityId = 283945;
+
         Utils::setRequestLocaleLang($_locale);
         $em = $this->getDoctrine()->getManager();
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
@@ -146,7 +159,7 @@ class DefaultController extends Controller
                     'testimonials'=>$testimonials,
                     'config' => $config,
                     'messageForm' => $messageForm->createView(),
-
+                    'activityId'=>$ActivityId
                 ]);
         }
     }
