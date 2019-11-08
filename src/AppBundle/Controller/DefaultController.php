@@ -341,6 +341,13 @@ class DefaultController extends Controller
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
 
         if ($messageForm->isSubmitted() && $messageForm->isValid()) {
+            //avoid links ni messages, probably spammers
+            if(preg_match('/http|www/i',$message->getMessage())) {
+                $this->addFlash('message', 'We do not allow a url in the comment.<br />');
+        
+                return $this->redirectToRoute('home');
+            }
+            
         $em->persist($message);
         $em->flush();
         $sended_email = true;
