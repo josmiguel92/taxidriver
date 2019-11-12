@@ -87,6 +87,82 @@ class DefaultController extends Controller
 
 
     /**
+     * @Route("/{_locale}/deposit/{code}", defaults={"_locale": "en"}, requirements={
+     * "_locale": "en|es|fr",
+     * "code":"\d+"
+     * }, name="deposit")
+     */
+    public function deposit(Request $request, $_locale, $code = 40)
+    {
+
+        $ActivityId = 282391;
+        #40
+        if ($code == 75){
+            $ActivityId = 283942;
+        }
+        elseif ($code == 150)
+            $ActivityId = 283945;
+
+        Utils::setRequestLocaleLang($_locale);
+        $em = $this->getDoctrine()->getManager();
+        $content = $em->getRepository('AppBundle:SiteContent')->findAll();
+        if ($content) {
+            $posters = $em->getRepository('AppBundle:Image')->findLastPosters(1);
+            $blogEntries = $em->getRepository('AppBundle:Blogentrie')->findBlogEntries(0, 0);
+
+            $socialNetworks = $em->getRepository('AppBundle:Socialnetwork')->findAll();
+            $hashtags = $em->getRepository('AppBundle:Hashtag')->findAll();
+            $places = $em->getRepository('AppBundle:Place')->findAll(); //TODO: eliminar esta consulta y no pasar los places
+            $infographys = $em->getRepository('AppBundle:InfographItem')->findAll();
+            $testimonials = $em->getRepository('AppBundle:Testimony')->getRandomTestimony();
+
+            $experiences = $em->getRepository('AppBundle:Experience')->findAllSorted();
+            $transfers = $em->getRepository('AppBundle:Transfer')->findAllSorted();
+            $airport_transfers = $em->getRepository('AppBundle:AirportTransfer')->findAllSorted();
+
+            $_config = $em->getRepository('AppBundle:ConfigValue')->findAll();
+            $config = [];
+
+            foreach ($_config as $item){
+                $config[$item->getName()]=$item->getValue();
+            }
+
+            $featureImage = '';
+            if(count($posters)>0)
+                $featureImage = $posters[0]->getWebPath();
+
+            $messageForm = $this->createForm('AppBundle\Form\ContactMsgsType',
+                new ContactMsgs(),
+                array(
+                    'action' => $this->generateUrl('sendMessage'),
+                    'method' => 'POST'
+                )
+            );
+
+            return $this->render('AppBundle:Front:deposit.html.twig',
+                ['locale'=>$_locale,
+                    'content'=>$content[0],
+                    'featureImage'=>$featureImage,
+                    'posters'=>$posters,
+                    'blogEntries'=>$blogEntries,
+                    'socialNetworks'=>$socialNetworks,
+                    'hashtags'=>$hashtags,
+
+                    'transfers'=>$transfers,
+                    'places'=>$places,
+                    'experiences'=>$experiences,
+                    'airport_transfers' => $airport_transfers,
+                    'infographys'=>$infographys,
+                    'testimonials'=>$testimonials,
+                    'config' => $config,
+                    'messageForm' => $messageForm->createView(),
+                    'activityId'=>$ActivityId
+                ]);
+        }
+    }
+
+
+    /**
      * @Route("/blog")
      * @Route("/{_locale}/blog/{_page}", defaults={"_locale": "en", "_page":1}, requirements={
      * "_locale": "en|es|fr",
@@ -265,6 +341,13 @@ class DefaultController extends Controller
         $content = $em->getRepository('AppBundle:SiteContent')->findAll();
 
         if ($messageForm->isSubmitted() && $messageForm->isValid()) {
+            //avoid links ni messages, probably spammers
+            if(preg_match('/http|www/i',$message->getMessage())) {
+                $this->addFlash('message', 'We do not allow a url in the comment.<br />');
+        
+                return $this->redirectToRoute('home');
+            }
+            
         $em->persist($message);
         $em->flush();
         $sended_email = true;

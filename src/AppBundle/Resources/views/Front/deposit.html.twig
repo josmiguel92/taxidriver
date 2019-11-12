@@ -1,0 +1,194 @@
+
+{% extends 'AppBundle:Front:base.html.twig' %}
+
+{% if locale=='es' %}
+    {% set title = 'Taxi y Tours para Viñales, Varadero o cualquier otro lugar de Cuba' %}
+{% else %}
+    {% set title = 'Taxi and Tours to Vinales, Varadero or any other place in Cuba' %}
+{% endif %}
+{% set description = content.getSiteDescriptionLocale %}
+
+{% block hreflang %}
+    <link rel="alternate" hreflang="en" href="{{ absolute_url(path("home", {"_locale":"en"})) }}" />
+    <link rel="alternate" hreflang="es" href="{{ absolute_url(path("home", {"_locale":"es"})) }}" />
+    <link rel="alternate" hreflang="x-default" href="{{ absolute_url(path("home", {"_locale":"en"})) }}" />
+{% endblock %}
+
+
+{% block structure_data %}
+    {#breadcrumbs#}
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "{{ absolute_url(path("home")) }}",
+          "name": "Home",
+          "image": "{{ asset("/images/favicon.png") }}"
+        }
+      }]
+    }
+    </script>
+
+    {#Logo and customer Service Number#}
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "name": "TaxiDriversCuba",
+      "url": "https://www.taxidriverscuba.com",
+      "logo": "https://www.taxidriverscuba.com/images/logo.png",
+      "contactPoint": [
+        { "@type": "ContactPoint",
+          "telephone": "{{ content.getContacttelephone }}",
+          "contactType": "customer service",
+          "availableLanguage": [
+          "English",
+          "Spanish"
+           ]
+        }
+      ],
+      "sameAs": [
+        "http://www.facebook.com/taxidriverscuba",
+        "http://instagram.com/taxidriverscuba",
+        "http://plus.google.com/taxidriverscuba"
+      ]
+    }
+    </script>
+
+{% endblock %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block content %}
+    <style>
+
+        .poster{
+            height: 50vh;
+            overflow: hidden;
+            margin-bottom: 1em;
+        }
+        .poster img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+
+        .deposit{
+            padding: 3em 0;
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            width: 80%;
+            margin: auto;
+        }
+
+        .deposit__text{
+            width: 100%;
+        }
+
+        .deposit__action{
+            width: 100%;
+            padding: 2em;
+        }
+
+        @media (min-width: 768px) {
+            .deposit__action {
+                width: 30%;
+            }
+
+            .deposit__text{
+                width: 60%;
+            }
+
+            .poster{
+                height: 75vh;
+            }
+        }
+
+        .payment-btn{
+            margin: 3em auto;
+            padding: .75em 1em;
+            color: white;
+            background-color: rgba(24, 172, 251, 0.86);
+            border: 1px white solid;
+            border-radius: 2px;
+            font-weight: 700;
+        }
+
+        .payment-btn:hover, .payment-btn:active{
+            background-color: #18acfb;
+            color: white;
+        }
+
+    </style>
+
+    <!-- Page Content-->
+    <main class="page-content">
+
+        <div class="poster">
+            {% for poster in posters %}
+                    <img data-srcset="
+                                              {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_1200')) }} 1200w,
+                                              {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_1000')) }} 1000w,
+                                              {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_800')) }} 800w,
+                                              {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_600')) }} 600w,
+                                              {{ asset(poster.getWideImageWebPath | imagine_filter('min_width_400')) }} 400w"
+                         sizes="100vw"
+                         src="{{ asset(poster.getWideImageWebPath | imagine_filter('thumbnail')) }}"
+                         alt="{{ poster.getTitleLocale }}"
+                         class="img-responsive center-block lazy"
+                         height="80vh"
+                         width="100vw">
+            {% endfor %}
+        </div>
+
+        <div class="deposit">
+            <div class="deposit__text">
+                <h1>Your are here!</h1>
+                <p>
+                    On this page you can make a deposit for the services you want.
+                    This amount will be deducted from the total payment of the requested service.
+                </p>
+            </div>
+
+            <div class="deposit__action">
+                <a href="#" class="payment-btn" id="trekksoft_9974">
+                    Make deposit
+                </a>
+            </div>
+
+        </div>
+
+
+
+    </main>
+
+{% endblock %}
+
+
+{% block javascript %}
+    {{ parent() }}
+
+    <script src="https://cubyke.trekksoft.com/en_GB/api/public"></script>
+    <script>
+        (function() {
+            var button = new TrekkSoft.Embed.Button();
+            button
+                .setAttrib("target", "fancy")
+                .setAttrib("entryPoint", "tour_details")
+                .setAttrib("tourId", "{{ activityId }}")
+                .setAttrib("fancywidth", "615px")
+                .registerOnClick("#trekksoft_9974");
+        })();
+    </script>
+
+{% endblock %}
