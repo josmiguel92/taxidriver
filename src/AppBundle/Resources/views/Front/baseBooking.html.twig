@@ -48,9 +48,7 @@
                     {{ transfer.getDescriptionLocale | raw }}
                 </div>
 
-                <div {% if transfer.isExternalBook %} class="grid-fullbooking-testimony-places_vertical" {% else %}
-                        class="grid-fullbooking-testimony-places"
-                     {% endif %}>
+                <div >
                 {% if transfer.isExternalBook %}
                     {{ include('@App/Front/booking_form/__trekksof_integration.html.twig', 
                         {

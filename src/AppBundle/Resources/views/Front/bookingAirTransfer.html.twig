@@ -626,7 +626,8 @@ $('#{{ booking_form.airportname.vars.id }}').change(function(){
 
     });
 
-    increment = {{ config['price.increment'] }};
+    increment = {% if transfer.getPersonalPriceIncrement %}{{ transfer.getPersonalPriceIncrement }}{% else %}{{ config['price.increment'] }}{% endif %};
+
     _transferPrice = {{ transfer.basePrice }};
     transferPrice = _transferPrice;
     isTour = false;
@@ -652,16 +653,19 @@ $('#{{ booking_form.airportname.vars.id }}').change(function(){
     }
 
     function updatePrice()
-    {        if (numberPeople <= 3)
-                    priceContent = wrapperPrice(transferPrice);
-                if (numberPeople > 3  && transferPrice > 0)
-                    priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
+    {      let min_invariable_numberPeople = {% if transfer.isIsPersonalPrice %}1{% else %}3{% endif %};
+
+        if (numberPeople <= min_invariable_numberPeople)
+            priceContent = wrapperPrice(transferPrice);
+        if (numberPeople > min_invariable_numberPeople  && transferPrice > 0)
+            priceContent = wrapperPrice(transferPrice+increment*(numberPeople-min_invariable_numberPeople));
 
 
-            if (numberPeople > 5)
-                priceContent = wrapperPrice("");
+        if (numberPeople > 5)
+            priceContent = wrapperPrice("");
 
-            $("#labelPrice")[0].innerHTML = priceContent;
+        $("#labelPrice")[0].innerHTML = priceContent;
+
     }
 
     function ShowReturnAdv(){
