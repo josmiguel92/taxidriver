@@ -1193,6 +1193,8 @@ class Booking
     {
 
         $basePrice = 0;
+        if($service_increment = $this->getCurrentService()->getPersonalPriceIncrement())
+            $increment = $service_increment;
 
         if($this->transfer)
         {
@@ -1217,8 +1219,9 @@ class Booking
         }
         if(!$basePrice)
             return false;
+        $min_invariable_numberPeople = $this->getCurrentService()->isIsPersonalPrice() ? 1 : 3;
 
-        $plusPrice = $this->numpeople <= 3 ? 0 : ($this->numpeople-3)*$increment;
+        $plusPrice = $this->numpeople <= $min_invariable_numberPeople ? 0 : ($this->numpeople-$min_invariable_numberPeople)*$increment;
         $price = $basePrice + $plusPrice;
         return $price;
     }

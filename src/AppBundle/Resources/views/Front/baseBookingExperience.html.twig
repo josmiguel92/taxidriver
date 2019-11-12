@@ -257,7 +257,8 @@
         pickup_from_cruise = false;
         pickup_place = $('#{{ booking_form.details.vars.id }}')[0];
         transferPrice = {% if experience.basePrice %}{{ experience.basePrice }}{% else %}0{% endif %};
-        increment = {{ config['price.increment'] }};
+        increment = {% if experience.getPersonalPriceIncrement %}{{ experience.getPersonalPriceIncrement }}{% else %}{{ config['price.increment'] }}{% endif %};
+
 
         function activeOrDeactivePickupPlace(){
 
@@ -357,10 +358,12 @@
             }
 
             function updatePrice()
-            {      if (numberPeople <= 3)
+            {      let min_invariable_numberPeople = {% if experience.isIsPersonalPrice %}1{% else %}3{% endif %};
+
+                if (numberPeople <= min_invariable_numberPeople)
                             priceContent = wrapperPrice(transferPrice);
-                        if (numberPeople > 3  && transferPrice > 0)
-                            priceContent = wrapperPrice(transferPrice+increment*(numberPeople-3));
+                        if (numberPeople > min_invariable_numberPeople  && transferPrice > 0)
+                            priceContent = wrapperPrice(transferPrice+increment*(numberPeople-min_invariable_numberPeople));
 
 
                     if (numberPeople > 5)

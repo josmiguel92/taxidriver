@@ -91,6 +91,21 @@ abstract class Service extends ImageField
     protected $trekksoft_tour_id;
 
 
+    /**
+     * @var boolean
+     * @ORM\Column(name="is_personal_price", type="boolean", nullable=true)
+     */
+    protected $is_personal_price;
+
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="personal_price_increment", type="float", nullable=true)
+     */
+    protected $personal_price_increment;
+
+
 
     /**
      * Get id
@@ -329,6 +344,39 @@ abstract class Service extends ImageField
     {
         $this->trekksoft_tour_id = $trekksoft_tour_id;
     }
+
+    /**
+     * @return boolean
+     */
+    public function isIsPersonalPrice()
+    {
+        return $this->is_personal_price;
+    }
+
+    /**
+     * @param boolean $is_personal_price
+     */
+    public function setIsPersonalPrice($is_personal_price)
+    {
+        $this->is_personal_price = $is_personal_price;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPersonalPriceIncrement()
+    {
+        return $this->personal_price_increment;
+    }
+
+    /**
+     * @param float $personal_price_increment
+     */
+    public function setPersonalPriceIncrement($personal_price_increment)
+    {
+        $this->personal_price_increment = $personal_price_increment;
+    }
+
 
 
 

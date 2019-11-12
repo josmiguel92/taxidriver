@@ -32,6 +32,9 @@ class TransferType extends AbstractType
             ->add('priceSumaryEn', null, ["label"=>"Precios segun el origen, en ingles"])
 
             ->add('basePrice', MoneyType::class, ["label"=>"Precio del transfer",'currency'=>"EUR"])
+            ->add('is_personal_price', null, ["label"=>"El precio del servicio se cuenta por persona de forma independiente"])
+            ->add('personal_price_increment', MoneyType::class, ["label"=>"Incremento del precio por cada persona, independiente de la configuración general",'currency'=>"EUR"])
+
 
             ->add('description', CKEditorType::class, ["label"=>"Descripcion, en español"])
             ->add('descriptionEn',CKEditorType::class, ["label"=>"Descripcion, en ingles"])

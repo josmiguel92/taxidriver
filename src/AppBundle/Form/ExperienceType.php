@@ -29,6 +29,8 @@ class ExperienceType extends AbstractType
             ->add('externalUrl', null, ["label"=>"URL Externa para gestionar la experiencia"])
 
             ->add('basePrice', MoneyType::class, ["label"=>"Precio de la experiencia",'currency'=>"EUR"])
+            ->add('is_personal_price', null, ["label"=>"El precio del servicio se cuenta por persona de forma independiente"])
+            ->add('personal_price_increment', MoneyType::class, ["label"=>"Incremento del precio por cada persona, independiente de la configuración general",'currency'=>"EUR"])
 
             ->add('description', CKEditorType::class, ["label"=>"Descripcion, en español"])
             ->add('descriptionEn',CKEditorType::class, ["label"=>"Descripcion, en ingles"])
