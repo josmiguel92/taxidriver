@@ -332,6 +332,9 @@
 {% block javascript %}
     {{ parent() }}
 
+    <script >
+        (function(t,r,i,p){i=t.createElement(r);i.src="https://www.tripadvisor.com/WidgetEmbed-selfserveprop?border=true&popIdx=true&iswide=false&locationId=13554747&display_version=2&uniq=25&rating=true&lang=en_US&nreviews=4&writereviewlink=true";i.async=true;p=t.getElementsByTagName(r)[0];p.parentNode.insertBefore(i,p)})(document,"script");
+    </script>
     {#
     <script>
         var google;
