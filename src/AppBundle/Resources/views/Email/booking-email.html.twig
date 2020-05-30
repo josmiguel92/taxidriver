@@ -786,15 +786,19 @@
                                                         {% endif %}</p>
                                                         <p style="color: #696969; font-size: 16px;">The amount of passenger is: {{ booking.numpeople }}<br></p>
 
-                                                        <p style="color: #696969; font-size: 16px;">
-                                                        {% trans %} The price of your{% endtrans %}
-                                                        {% if booking.isTour %}
-                                                            Taxi-Tour
+                                                        {% if booking.getPriceByCurrency > 0 %}
+                                                            <p style="color: #696969; font-size: 16px;">
+                                                                {% trans %} The price of your{% endtrans %}
+                                                                {% if booking.isTour %}
+                                                                    Taxi-Tour
+                                                                {% else %}
+                                                                    Taxi
+                                                                {% endif %}
+                                                                {% trans %}is{% endtrans %} <strong>{{ booking.getPriceByCurrency }} {{ booking.currency }}</strong>
+                                                            </p>
                                                         {% else %}
-                                                            Taxi
+                                                            {% trans %}We'll send you an offer email with the price.{% endtrans %}
                                                         {% endif %}
-                                                        {% trans %}is{% endtrans %} <strong>{{ booking.getPriceByCurrency }} {{ booking.currency }}</strong>
-                                                    </p>
                                                     <p><br>
                                                         <a target='_blank' href="{{ absolute_url(path('purchase_details', {'_token': booking.token})) }}" style="text-decoration:none;color:#555">Click here to see details of your booking ({{booking.token}}) in our website</a>
                                                     </p>
