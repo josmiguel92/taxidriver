@@ -763,11 +763,14 @@ class AdminController extends Controller
      * @Route("/messages/delete/{id}", name="dash_message_delete")
      * @Method("DELETE")
      **/
-    public function messageDeleteAction(\AppBundle\Entity\ContactMsgs $item){
+    public function messageDeleteAction(\AppBundle\Entity\ContactMsgs $item, Request $request){
         $em =  $this->getDoctrine()->getManager();
         $em->remove($item);
         $em->flush();
 
+        if($url = $request->headers->get('referer')) {
+            return $this->redirect($url);
+        }
         return $this->redirectToRoute('dash_messages_list');
     }
 
