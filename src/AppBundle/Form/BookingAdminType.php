@@ -27,12 +27,12 @@ class BookingAdminType extends AbstractType
                         [
                             'EUR' => 'EUR',
                             'USD' => 'USD',
-                            'CUC' => 'CUC',
+                //            'CUC' => 'CUC',
                         ],
                     'choice_attr' => [
                         'EUR' => ['data-change' => $booking->getChangeRate('EUR')],
                         'USD' => ['data-change' => $booking->getChangeRate('USD')],
-                        'CUC' => ['data-change' => $booking->getChangeRate('CUC')],
+                 //       'CUC' => ['data-change' => $booking->getChangeRate('CUC')],
                     ],
                     'attr' => ['class'=>'currency_select'],
 
