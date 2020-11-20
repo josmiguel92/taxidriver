@@ -489,7 +489,7 @@ class BookingController extends Controller
             ->setReplyTo($senderEmail)
             ->setTo($booking->getEmail())
             ->setBcc(['josmiguel92@gmail.com', '14ndy15@gmail.com'])
-            ->setFrom(['noreply2@taxidriverscuba.com'=>'TaxiDriversCuba']);
+            ->setFrom(['taxidriverscuba-noreply@taxidriverscuba.com'=>'TaxiDriversCuba']);
           
         $message->setBody(
                 $this->renderView(
@@ -513,7 +513,7 @@ class BookingController extends Controller
 //            ->setReplyTo($senderEmail_conf)
             ->setTo($senderEmail_conf)
             ->setBcc(['josmiguel92@gmail.com', '14ndy15@gmail.com'])
-            ->setFrom(['noreply2@taxidriverscuba.com'=>'TaxiDriversCuba']);
+            ->setFrom(['taxidriverscuba-noreply@taxidriverscuba.com'=>'TaxiDriversCuba']);
 
         $phone = new TelephoneNumber($booking->getTelephone());
         $message->setBody(
